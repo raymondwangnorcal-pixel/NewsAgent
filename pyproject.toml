@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "morning-news-agent"
+version = "0.1.0"
+description = "Scheduled AI news briefing agent that sends six high-signal morning summaries."
+requires-python = ">=3.11"
+dependencies = [
+  "certifi>=2024.0.0",
+]
+
+[project.optional-dependencies]
+providers = [
+  "openai>=2.0.0",
+  "twilio>=9.0.0",
+]
+dev = [
+  "pytest>=8.0.0",
+]
+
+[project.scripts]
+news-briefing = "news_agent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

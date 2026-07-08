@@ -1,0 +1,148 @@
+[settings]
+lookback_hours = 30
+max_articles = 240
+
+[[feeds]]
+name = "BBC World"
+url = "https://feeds.bbci.co.uk/news/world/rss.xml"
+reputation = 0.95
+categories = ["global"]
+
+[[feeds]]
+name = "NPR News"
+url = "https://feeds.npr.org/1001/rss.xml"
+reputation = 0.9
+categories = []
+
+[[feeds]]
+name = "CNBC Top News"
+url = "https://www.cnbc.com/id/100003114/device/rss/rss.html"
+reputation = 0.9
+categories = []
+
+[[feeds]]
+name = "MarketWatch Top Stories"
+url = "https://feeds.content.dowjones.io/public/rss/mw_topstories"
+reputation = 0.85
+categories = ["finance"]
+
+[[feeds]]
+name = "TechCrunch"
+url = "https://techcrunch.com/feed/"
+reputation = 0.85
+categories = ["business_tech"]
+
+[[feeds]]
+name = "The Verge"
+url = "https://www.theverge.com/rss/index.xml"
+reputation = 0.8
+categories = ["business_tech", "culture"]
+
+[[feeds]]
+name = "Axios"
+url = "https://api.axios.com/feed/"
+reputation = 0.85
+categories = []
+
+[[feeds]]
+name = "ESPN Top Headlines"
+url = "https://www.espn.com/espn/rss/news"
+reputation = 0.7
+categories = ["culture"]
+
+[[feeds]]
+name = "Variety"
+url = "https://variety.com/feed/"
+reputation = 0.75
+categories = ["culture"]
+
+[[feeds]]
+name = "Google News Business Tech"
+url = "https://news.google.com/rss/search?q=(AI%20OR%20startup%20OR%20technology%20OR%20antitrust%20OR%20layoffs)%20when:1d&hl=en-US&gl=US&ceid=US:en"
+reputation = 0.75
+categories = ["business_tech"]
+
+[[feeds]]
+name = "Google News Domestic"
+url = "https://news.google.com/rss/search?q=(Congress%20OR%20Supreme%20Court%20OR%20election%20OR%20policy%20OR%20healthcare)%20when:1d&hl=en-US&gl=US&ceid=US:en"
+reputation = 0.75
+categories = ["domestic"]
+
+[[feeds]]
+name = "Google News Global"
+url = "https://news.google.com/rss/search?q=(war%20OR%20conflict%20OR%20election%20OR%20sanctions%20OR%20trade%20OR%20humanitarian)%20when:1d&hl=en-US&gl=US&ceid=US:en"
+reputation = 0.75
+categories = ["global"]
+
+[[feeds]]
+name = "Google News Culture"
+url = "https://news.google.com/rss/search?q=(viral%20OR%20entertainment%20OR%20sports%20OR%20creator%20OR%20streaming)%20when:1d&hl=en-US&gl=US&ceid=US:en"
+reputation = 0.7
+categories = ["culture"]
+
+[[feeds]]
+name = "Google News Finance"
+url = "https://news.google.com/rss/search?q=(stocks%20OR%20Fed%20OR%20inflation%20OR%20earnings%20OR%20IPO%20OR%20crypto)%20when:1d&hl=en-US&gl=US&ceid=US:en"
+reputation = 0.75
+categories = ["finance"]
+
+[categories.business_tech]
+label = "Business and technology"
+keywords = [
+  "ai", "artificial intelligence", "openai", "anthropic", "google", "microsoft",
+  "apple", "nvidia", "meta", "startup", "funding", "venture", "ipo", "product",
+  "launch", "layoffs", "antitrust", "regulator", "security", "cloud", "chips",
+  "semiconductor", "founder", "acquisition", "merger"
+]
+impact_terms = [
+  "billion", "million", "regulator", "lawsuit", "antitrust", "layoffs", "shutdown",
+  "funding", "ipo", "launches", "acquires", "merger", "security breach"
+]
+
+[categories.domestic]
+label = "Domestic U.S. news"
+keywords = [
+  "u.s.", "us ", "united states", "white house", "congress", "senate", "house",
+  "supreme court", "federal", "state", "election", "policy", "healthcare",
+  "education", "infrastructure", "public safety", "immigration", "weather"
+]
+impact_terms = [
+  "supreme court", "congress", "federal", "ban", "rule", "emergency", "dead",
+  "evacuation", "election", "policy", "healthcare", "strike"
+]
+
+[categories.global]
+label = "Global news"
+keywords = [
+  "war", "conflict", "ceasefire", "china", "russia", "ukraine", "israel", "gaza",
+  "iran", "europe", "election", "trade", "tariff", "sanction", "nato", "un ",
+  "humanitarian", "refugee", "central bank"
+]
+impact_terms = [
+  "war", "missile", "ceasefire", "sanction", "tariff", "election", "central bank",
+  "border", "humanitarian", "trade", "oil", "gas"
+]
+
+[categories.culture]
+label = "Culture, social, and media trends"
+keywords = [
+  "viral", "tiktok", "youtube", "creator", "streaming", "netflix", "disney",
+  "music", "film", "box office", "sports", "nfl", "nba", "mlb", "olympics",
+  "media", "podcast", "influencer", "social media"
+]
+impact_terms = [
+  "record", "viral", "final", "championship", "strike", "boycott", "lawsuit",
+  "streaming", "box office", "ratings"
+]
+
+[categories.finance]
+label = "Financial news"
+keywords = [
+  "stocks", "shares", "market", "s&p", "nasdaq", "dow", "fed", "federal reserve",
+  "inflation", "interest rate", "yield", "earnings", "ipo", "m&a", "merger",
+  "acquisition", "crypto", "bitcoin", "ethereum", "oil", "dollar"
+]
+impact_terms = [
+  "fed", "inflation", "rate", "earnings", "guidance", "plunges", "surges",
+  "ipo", "merger", "acquisition", "bitcoin", "recession", "jobs report"
+]
