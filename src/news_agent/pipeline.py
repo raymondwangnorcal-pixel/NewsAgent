@@ -1,15 +1,22 @@
 from __future__ import annotations
 
 import asyncio
+from typing import Literal
 
 from news_agent.cluster import cluster_articles
 from news_agent.config import load_config
 from news_agent.fetch import fetch_all_feeds
 from news_agent.models import AgentConfig, BriefingText, StoryCluster
 from news_agent.scoring import score_clusters, top_for_category, top_overall
-from news_agent.summarize import generate_briefings_with_openai, generate_fallback_briefings
+from news_agent.summarize import (
+    generate_briefings_with_openai,
+    generate_fallback_briefings,
+    generate_polished_briefings_with_openai,
+)
 from news_agent.stocks import build_stock_snapshot
 
+
+OpenAIMode = Literal["full", "polish", "off"]
 
 CATEGORY_LIMITS = {
     "business_tech": 6,
@@ -38,13 +45,38 @@ async def collect_context(config: AgentConfig | None = None):
     return category_clusters, stock_snapshot
 
 
-async def build_briefings(use_openai: bool = True, config: AgentConfig | None = None) -> list[BriefingText]:
+def resolve_openai_mode(use_openai: bool | None = None, openai_mode: OpenAIMode | None = None) -> OpenAIMode:
+    if openai_mode is not None:
+        return openai_mode
+    if use_openai is False:
+        return "off"
+    return "full"
+
+
+async def build_briefings(
+    use_openai: bool | None = None,
+    config: AgentConfig | None = None,
+    openai_mode: OpenAIMode | None = None,
+) -> list[BriefingText]:
     config = config or load_config()
+    mode = resolve_openai_mode(use_openai=use_openai, openai_mode=openai_mode)
     category_clusters, stock_snapshot = await collect_context(config)
-    if use_openai:
+
+    if mode == "full":
         return generate_briefings_with_openai(category_clusters, config, stock_snapshot)
-    return generate_fallback_briefings(category_clusters, config, stock_snapshot)
+
+    draft_briefings = generate_fallback_briefings(category_clusters, config, stock_snapshot)
+    if mode == "polish":
+        return generate_polished_briefings_with_openai(draft_briefings)
+    if mode == "off":
+        return draft_briefings
+
+    raise ValueError(f"Unsupported OpenAI mode: {mode}")
 
 
-def build_briefings_sync(use_openai: bool = True, config: AgentConfig | None = None) -> list[BriefingText]:
-    return asyncio.run(build_briefings(use_openai=use_openai, config=config))
+def build_briefings_sync(
+    use_openai: bool | None = None,
+    config: AgentConfig | None = None,
+    openai_mode: OpenAIMode | None = None,
+) -> list[BriefingText]:
+    return asyncio.run(build_briefings(use_openai=use_openai, config=config, openai_mode=openai_mode))

@@ -33,20 +33,21 @@ def test_cli_test_telegram_skips_news_pipeline(monkeypatch: pytest.MonkeyPatch, 
         lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("pipeline should not run")),
     )
 
-    def fake_test_message() -> None:
+    def fake_test_message() -> int:
         called["telegram"] = True
+        return 2
 
     monkeypatch.setattr(cli, "send_telegram_test_message", fake_test_message)
 
     cli.main(["--test-telegram"])
 
     assert called["telegram"] is True
-    assert "Telegram test message sent." in capsys.readouterr().out
+    assert "Telegram test message sent to 2 recipient(s)." in capsys.readouterr().out
 
 
 def test_cli_dry_run_prints_messages(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:
     monkeypatch.chdir(tmp_path)
-    monkeypatch.setattr(cli, "build_briefings_sync", lambda use_openai, config: sample_briefings())
+    monkeypatch.setattr(cli, "build_briefings_sync", lambda openai_mode, config: sample_briefings())
 
     cli.main(["--dry-run", "--no-openai"])
 
@@ -59,8 +60,8 @@ def test_cli_send_no_openai_uses_configured_sender(monkeypatch: pytest.MonkeyPat
     monkeypatch.chdir(tmp_path)
     calls: dict[str, object] = {}
 
-    def fake_build(use_openai: bool, config: object) -> list[BriefingText]:
-        calls["use_openai"] = use_openai
+    def fake_build(openai_mode: str, config: object) -> list[BriefingText]:
+        calls["openai_mode"] = openai_mode
         return sample_briefings()
 
     def fake_send(messages: list[str], channel: str | None = None) -> int:
@@ -73,6 +74,22 @@ def test_cli_send_no_openai_uses_configured_sender(monkeypatch: pytest.MonkeyPat
 
     cli.main(["--send", "--no-openai", "--channel", "telegram"])
 
-    assert calls["use_openai"] is False
+    assert calls["openai_mode"] == "off"
     assert calls["channel"] == "telegram"
     assert "Sent 2 message(s)." in capsys.readouterr().out
+
+
+def test_cli_openai_mode_polish(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:
+    monkeypatch.chdir(tmp_path)
+    calls: dict[str, object] = {}
+
+    def fake_build(openai_mode: str, config: object) -> list[BriefingText]:
+        calls["openai_mode"] = openai_mode
+        return sample_briefings()
+
+    monkeypatch.setattr(cli, "build_briefings_sync", fake_build)
+
+    cli.main(["--dry-run", "--openai-mode", "polish"])
+
+    assert calls["openai_mode"] == "polish"
+    assert "AI startup raises funding" in capsys.readouterr().out

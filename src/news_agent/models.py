@@ -97,16 +97,19 @@ class BriefingText:
     items: tuple[BriefingItem, ...]
 
     def to_message(self, max_sources: int = 3) -> str:
-        lines = [self.title]
+        lines = [self.title, ""]
         for index, item in enumerate(self.items, start=1):
             sources = ", ".join(item.sources[:max_sources])
             lines.append(f"{index}. {item.headline}")
-            lines.append(f"{item.summary} Why: {item.why_it_matters}")
+            lines.append(f"Summary: {item.summary}")
+            lines.append(f"Why it matters: {item.why_it_matters}")
             if item.next_watch:
                 lines.append(f"Watch: {item.next_watch}")
             if sources:
                 lines.append(f"Sources: {sources}")
-        return "\n".join(lines)
+            if index < len(self.items):
+                lines.append("")
+        return "\n".join(lines).strip()
 
     def to_sms(self, max_sources: int = 3) -> str:
         return self.to_message(max_sources=max_sources)

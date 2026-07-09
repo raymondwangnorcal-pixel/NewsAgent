@@ -148,10 +148,53 @@ def system_prompt() -> str:
     )
 
 
-def generate_briefings_with_openai(
-    category_clusters: dict[str, list[StoryCluster]],
-    config: AgentConfig,
-    stock_snapshot: StockSnapshot | None = None,
+def polish_system_prompt() -> str:
+    return (
+        "You polish already-selected morning briefing drafts. Use only the facts, sources, "
+        "tickers, prices, categories, and watch items present in the supplied drafts. Do not "
+        "add new facts, sources, causal claims, names, dates, numbers, or URLs. Preserve the "
+        "six briefing categories, keep source names attached to the same items, and return "
+        "the same structured briefing shape. Improve clarity, remove awkward repetition, and "
+        "keep the language direct and skimmable."
+    )
+
+
+def _briefing_payload(briefings: list[BriefingText]) -> dict[str, Any]:
+    return {
+        "draft_briefings": [
+            {
+                "category": briefing.category,
+                "title": briefing.title,
+                "items": [
+                    {
+                        "headline": item.headline,
+                        "summary": item.summary,
+                        "why_it_matters": item.why_it_matters,
+                        "next_watch": item.next_watch,
+                        "sources": list(item.sources),
+                    }
+                    for item in briefing.items
+                ],
+            }
+            for briefing in briefings
+        ]
+    }
+
+
+def build_polish_prompt(draft_briefings: list[BriefingText]) -> str:
+    payload = {
+        "briefing_order": BRIEFING_ORDER,
+        "instructions": (
+            "Polish these drafts only. Keep the same categories, item structure, and source "
+            "attribution. Do not introduce facts not already present in the draft."
+        ),
+        **_briefing_payload(draft_briefings),
+    }
+    return json.dumps(payload, ensure_ascii=False)
+
+
+def _generate_structured_briefings(
+    input_messages: list[dict[str, str]],
     model: str | None = None,
 ) -> list[BriefingText]:
     try:
@@ -163,10 +206,7 @@ def generate_briefings_with_openai(
     selected_model = model or os.getenv("OPENAI_MODEL", "gpt-5.5")
     response = client.responses.create(
         model=selected_model,
-        input=[
-            {"role": "system", "content": system_prompt()},
-            {"role": "user", "content": build_prompt(category_clusters, config, stock_snapshot)},
-        ],
+        input=input_messages,
         text={
             "format": {
                 "type": "json_schema",
@@ -178,6 +218,34 @@ def generate_briefings_with_openai(
     )
     data = json.loads(response.output_text)
     return parse_briefings(data)
+
+
+def generate_briefings_with_openai(
+    category_clusters: dict[str, list[StoryCluster]],
+    config: AgentConfig,
+    stock_snapshot: StockSnapshot | None = None,
+    model: str | None = None,
+) -> list[BriefingText]:
+    return _generate_structured_briefings(
+        [
+            {"role": "system", "content": system_prompt()},
+            {"role": "user", "content": build_prompt(category_clusters, config, stock_snapshot)},
+        ],
+        model=model,
+    )
+
+
+def generate_polished_briefings_with_openai(
+    draft_briefings: list[BriefingText],
+    model: str | None = None,
+) -> list[BriefingText]:
+    return _generate_structured_briefings(
+        [
+            {"role": "system", "content": polish_system_prompt()},
+            {"role": "user", "content": build_polish_prompt(draft_briefings)},
+        ],
+        model=model,
+    )
 
 
 def parse_briefings(data: dict[str, Any]) -> list[BriefingText]:
@@ -203,6 +271,82 @@ def parse_briefings(data: dict[str, Any]) -> list[BriefingText]:
     return briefings
 
 
+FALLBACK_WATCH_LINES = {
+    "business_tech": "Company updates, regulatory response, customer reaction, or market follow-through.",
+    "domestic": "New filings, official statements, court action, or policy response.",
+    "global": "Diplomatic response, security developments, energy prices, or market spillover.",
+    "culture": "Audience reaction, league/company response, ratings, or follow-up coverage.",
+    "finance": "Price action, Fed commentary, earnings updates, and broader market reaction.",
+    "overall": "Whether follow-up reporting confirms the signal and moves markets or policy.",
+}
+TRAILING_FILLER_WORDS = {
+    "a",
+    "an",
+    "and",
+    "as",
+    "at",
+    "but",
+    "for",
+    "from",
+    "his",
+    "her",
+    "in",
+    "into",
+    "of",
+    "on",
+    "or",
+    "that",
+    "the",
+    "their",
+    "to",
+    "with",
+}
+
+
+def compact_text(value: str, max_chars: int = 240) -> str:
+    text = " ".join(value.split())
+    for punctuation in (",", ".", ";", ":", "!", "?"):
+        text = text.replace(f" {punctuation}", punctuation)
+    text = text.replace(" 's", "'s")
+    text = text.replace("Why it matters:", "").replace("Why it matters", "").strip()
+    if len(text) <= max_chars:
+        return text
+
+    sentence_end = max(text.rfind(".", 0, max_chars + 1), text.rfind("!", 0, max_chars + 1), text.rfind("?", 0, max_chars + 1))
+    if sentence_end >= min(80, max_chars // 2):
+        return text[: sentence_end + 1]
+
+    shortened = text[: max_chars + 1].rsplit(" ", 1)[0].rstrip(" ,;:")
+    words = shortened.split()
+    while words and words[-1].strip(".,;:!?").lower() in TRAILING_FILLER_WORDS:
+        words.pop()
+    shortened = " ".join(words)
+    if shortened.endswith((".", "!", "?")):
+        return shortened
+    return f"{shortened}."
+
+
+def clean_fallback_summary(cluster: StoryCluster) -> str:
+    article = cluster.articles[0]
+    summary = article.summary or article.title
+    summary = compact_text(summary)
+    for source in (article.source, *cluster.sources):
+        suffix = f" {source}"
+        if source and summary.endswith(suffix):
+            summary = summary[: -len(suffix)].rstrip()
+    if summary.casefold() == cluster.title.casefold():
+        return "No additional source summary was available."
+    return summary or "No additional source summary was available."
+
+
+def fallback_why_it_matters(source_count: int) -> str:
+    if source_count >= 3:
+        return f"Confirmed by {source_count} sources and ranked high on recency, impact, and repeat coverage."
+    if source_count == 2:
+        return "Covered by two sources and ranked high on recency and impact signals."
+    return "A single-source item that ranked high on recency and impact signals; worth watching for confirmation."
+
+
 def generate_fallback_briefings(
     category_clusters: dict[str, list[StoryCluster]],
     config: AgentConfig,
@@ -218,22 +362,18 @@ def generate_fallback_briefings(
     }
     briefings: list[BriefingText] = []
     for category in BRIEFING_ORDER:
-        clusters = category_clusters.get(category, [])[:10 if category == "overall" else 5]
+        clusters = category_clusters.get(category, [])[:6 if category == "overall" else 5]
         items = []
         if category == "finance" and stock_snapshot is not None:
             items.extend(stock_snapshot_items(stock_snapshot))
         for cluster in clusters:
-            summary = cluster.articles[0].summary or cluster.articles[0].title
-            summary = summary.replace("Why it matters:", "").replace("Why it matters", "").strip()
+            source_count = len(cluster.sources)
             items.append(
                 BriefingItem(
                     headline=cluster.title,
-                    summary=summary[:220],
-                    why_it_matters=(
-                        f"Covered by {len(cluster.sources)} source(s); scored high on "
-                        f"frequency/impact/recency signals."
-                    ),
-                    next_watch="Watch for follow-up coverage, policy response, market reaction, or new filings.",
+                    summary=clean_fallback_summary(cluster),
+                    why_it_matters=fallback_why_it_matters(source_count),
+                    next_watch=FALLBACK_WATCH_LINES[category],
                     sources=tuple(cluster.sources[:5]),
                 )
             )

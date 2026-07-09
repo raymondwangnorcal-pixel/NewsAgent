@@ -31,6 +31,7 @@ Fill in `.env`, then run:
 
 ```bash
 news-briefing --dry-run
+news-briefing --dry-run --openai-mode polish
 news-briefing --test-telegram
 news-briefing --send
 news-briefing --send --no-openai
@@ -44,7 +45,7 @@ Required for AI summarization:
 
 ```text
 OPENAI_API_KEY=...
-OPENAI_MODEL=gpt-5.5
+OPENAI_MODEL=gpt-5.4-mini
 ```
 
 Required for Phase 1 Telegram delivery:
@@ -53,6 +54,7 @@ Required for Phase 1 Telegram delivery:
 BRIEFING_DELIVERY_CHANNEL=telegram
 TELEGRAM_BOT_TOKEN=...
 TELEGRAM_CHAT_ID=...
+TELEGRAM_CHAT_IDS=...
 ```
 
 Optional:
@@ -80,10 +82,10 @@ TWILIO_FROM_NUMBER=
 2. Send `/newbot` and follow the prompts.
 3. Copy the bot token into your local `.env` as `TELEGRAM_BOT_TOKEN`.
 4. Start a chat with your new bot and send it any message.
-5. Get your chat ID by opening this URL in a browser, replacing `<token>` with your token:
+5. Get your chat ID by opening this URL in a browser, replacing `BOT_TOKEN_HERE` with your token:
 
 ```text
-https://api.telegram.org/bot<token>/getUpdates
+https://api.telegram.org/botBOT_TOKEN_HERE/getUpdates
 ```
 
 6. Find the `chat.id` value in the response and put it in `.env` as `TELEGRAM_CHAT_ID`.
@@ -92,6 +94,16 @@ https://api.telegram.org/bot<token>/getUpdates
 ```bash
 news-briefing --test-telegram
 ```
+
+To send individual copies to more than one Telegram chat, have each person open
+the bot link and press **Start**, then refresh `getUpdates` and add their
+`chat.id` values to `TELEGRAM_CHAT_IDS`:
+
+```text
+TELEGRAM_CHAT_IDS=8325088675,8748244551
+```
+
+When `TELEGRAM_CHAT_IDS` is set, it is used instead of `TELEGRAM_CHAT_ID`.
 
 8. Send the real OpenAI-generated briefing:
 
@@ -104,6 +116,20 @@ For a cheaper pipeline check that still sends to Telegram:
 ```bash
 news-briefing --send --no-openai
 ```
+
+For a lower-cost OpenAI-backed briefing, use polish mode. It builds a local
+fallback draft first, then sends only that compact draft to OpenAI for final
+rewriting:
+
+```bash
+news-briefing --send --openai-mode polish
+```
+
+OpenAI modes:
+
+- `full`: send ranked article context to OpenAI for the full briefing
+- `polish`: build the local fallback draft, then send only the draft to OpenAI
+- `off`: use deterministic fallback summaries only; same as `--no-openai`
 
 Do not put the Telegram bot token in source code, tests, README examples, or committed files. It belongs only in local `.env` or a secret manager.
 
