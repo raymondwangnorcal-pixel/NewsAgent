@@ -1,0 +1,12 @@
+{
+  "alerts": {
+    "enabled": false,
+    "cooldown_minutes": 180,
+    "min_source_count": 5,
+    "market_thresholds": {
+      "major_index": 2.0,
+      "mega_cap": 7.0,
+      "crypto": 8.0
+    }
+  }
+}

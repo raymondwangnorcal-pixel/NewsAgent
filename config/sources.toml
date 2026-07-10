@@ -1,90 +1,137 @@
 [settings]
 lookback_hours = 30
 max_articles = 240
+max_chars_per_message_sms = 1400
+max_stories_per_category_sms = 5
+max_sources_per_story = 3
+include_links_sms = false
+include_links_telegram = true
 
 [[feeds]]
 name = "BBC World"
 url = "https://feeds.bbci.co.uk/news/world/rss.xml"
 reputation = 0.95
 categories = ["global"]
+source_type = "global"
+region = "global"
+quality_weight = 0.95
 
 [[feeds]]
 name = "NPR News"
 url = "https://feeds.npr.org/1001/rss.xml"
 reputation = 0.9
 categories = []
+source_type = "domestic"
+region = "U.S."
+quality_weight = 0.9
 
 [[feeds]]
 name = "CNBC Top News"
 url = "https://www.cnbc.com/id/100003114/device/rss/rss.html"
 reputation = 0.9
 categories = []
+source_type = "business"
+region = "U.S."
+quality_weight = 0.9
 
 [[feeds]]
 name = "MarketWatch Top Stories"
 url = "https://feeds.content.dowjones.io/public/rss/mw_topstories"
 reputation = 0.85
 categories = ["finance"]
+source_type = "finance"
+region = "U.S."
+quality_weight = 0.85
 
 [[feeds]]
 name = "TechCrunch"
 url = "https://techcrunch.com/feed/"
 reputation = 0.85
 categories = ["business_tech"]
+source_type = "tech"
+region = "U.S."
+quality_weight = 0.85
 
 [[feeds]]
 name = "The Verge"
 url = "https://www.theverge.com/rss/index.xml"
 reputation = 0.8
 categories = ["business_tech", "culture"]
+source_type = "tech"
+region = "U.S."
+quality_weight = 0.8
 
 [[feeds]]
 name = "Axios"
 url = "https://api.axios.com/feed/"
 reputation = 0.85
 categories = []
+source_type = "domestic"
+region = "U.S."
+quality_weight = 0.85
 
 [[feeds]]
 name = "ESPN Top Headlines"
 url = "https://www.espn.com/espn/rss/news"
 reputation = 0.7
 categories = ["culture"]
+source_type = "culture"
+region = "U.S."
+quality_weight = 0.7
 
 [[feeds]]
 name = "Variety"
 url = "https://variety.com/feed/"
 reputation = 0.75
 categories = ["culture"]
+source_type = "culture"
+region = "U.S."
+quality_weight = 0.75
 
 [[feeds]]
 name = "Google News Business Tech"
 url = "https://news.google.com/rss/search?q=(AI%20OR%20startup%20OR%20technology%20OR%20antitrust%20OR%20layoffs)%20when:1d&hl=en-US&gl=US&ceid=US:en"
 reputation = 0.75
 categories = ["business_tech"]
+source_type = "aggregator"
+region = "U.S."
+quality_weight = 0.72
 
 [[feeds]]
 name = "Google News Domestic"
 url = "https://news.google.com/rss/search?q=(Congress%20OR%20Supreme%20Court%20OR%20election%20OR%20policy%20OR%20healthcare)%20when:1d&hl=en-US&gl=US&ceid=US:en"
 reputation = 0.75
 categories = ["domestic"]
+source_type = "aggregator"
+region = "U.S."
+quality_weight = 0.72
 
 [[feeds]]
 name = "Google News Global"
 url = "https://news.google.com/rss/search?q=(war%20OR%20conflict%20OR%20election%20OR%20sanctions%20OR%20trade%20OR%20humanitarian)%20when:1d&hl=en-US&gl=US&ceid=US:en"
 reputation = 0.75
 categories = ["global"]
+source_type = "aggregator"
+region = "global"
+quality_weight = 0.72
 
 [[feeds]]
 name = "Google News Culture"
 url = "https://news.google.com/rss/search?q=(viral%20OR%20entertainment%20OR%20sports%20OR%20creator%20OR%20streaming)%20when:1d&hl=en-US&gl=US&ceid=US:en"
 reputation = 0.7
 categories = ["culture"]
+source_type = "aggregator"
+region = "U.S."
+quality_weight = 0.68
 
 [[feeds]]
 name = "Google News Finance"
 url = "https://news.google.com/rss/search?q=(stocks%20OR%20Fed%20OR%20inflation%20OR%20earnings%20OR%20IPO%20OR%20crypto)%20when:1d&hl=en-US&gl=US&ceid=US:en"
 reputation = 0.75
 categories = ["finance"]
+source_type = "aggregator"
+region = "U.S."
+quality_weight = 0.72
 
 [categories.business_tech]
 label = "Business and technology"

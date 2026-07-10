@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from pathlib import Path
+from types import SimpleNamespace
+
 import pytest
 
 from news_agent import cli
@@ -29,7 +32,7 @@ def test_cli_test_telegram_skips_news_pipeline(monkeypatch: pytest.MonkeyPatch, 
     called = {"telegram": False}
     monkeypatch.setattr(
         cli,
-        "build_briefings_sync",
+        "build_briefing_result_sync",
         lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("pipeline should not run")),
     )
 
@@ -47,12 +50,22 @@ def test_cli_test_telegram_skips_news_pipeline(monkeypatch: pytest.MonkeyPatch, 
 
 def test_cli_dry_run_prints_messages(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:
     monkeypatch.chdir(tmp_path)
-    monkeypatch.setattr(cli, "build_briefings_sync", lambda openai_mode, config: sample_briefings())
+    monkeypatch.setattr(
+        cli,
+        "build_briefing_result_sync",
+        lambda **kwargs: SimpleNamespace(
+            briefings=sample_briefings(),
+            skipped_stories=[],
+            skipped_log_path=Path("skipped.json"),
+            source_debug_lines=(),
+        ),
+    )
 
     cli.main(["--dry-run", "--no-openai"])
 
     output = capsys.readouterr().out
-    assert "--- MESSAGE 1/6 ---" in output
+    assert "TEXT 1/1: BUSINESS + TECH" in output
+    assert "Total messages: 1" in output
     assert "AI startup raises funding" in output
 
 
@@ -60,22 +73,30 @@ def test_cli_send_no_openai_uses_configured_sender(monkeypatch: pytest.MonkeyPat
     monkeypatch.chdir(tmp_path)
     calls: dict[str, object] = {}
 
-    def fake_build(openai_mode: str, config: object) -> list[BriefingText]:
-        calls["openai_mode"] = openai_mode
-        return sample_briefings()
+    def fake_build(**kwargs: object) -> object:
+        calls["openai_mode"] = kwargs["openai_mode"]
+        calls["persist_history"] = kwargs["persist_history"]
+        return SimpleNamespace(
+            briefings=sample_briefings(),
+            skipped_stories=[],
+            skipped_log_path=Path("skipped.json"),
+            source_debug_lines=(),
+        )
 
-    def fake_send(messages: list[str], channel: str | None = None) -> int:
+    def fake_send(messages: list[str], channel: str | None = None, header: str | None = None) -> int:
         calls["messages"] = messages
         calls["channel"] = channel
         return len(messages) + 1
 
-    monkeypatch.setattr(cli, "build_briefings_sync", fake_build)
+    monkeypatch.setattr(cli, "build_briefing_result_sync", fake_build)
     monkeypatch.setattr(cli, "send_briefing_messages", fake_send)
 
     cli.main(["--send", "--no-openai", "--channel", "telegram"])
 
     assert calls["openai_mode"] == "off"
+    assert calls["persist_history"] is True
     assert calls["channel"] == "telegram"
+    assert str(calls["messages"][0]).startswith("🧠 BUSINESS + TECH")
     assert "Sent 2 message(s)." in capsys.readouterr().out
 
 
@@ -83,13 +104,39 @@ def test_cli_openai_mode_polish(monkeypatch: pytest.MonkeyPatch, tmp_path, capsy
     monkeypatch.chdir(tmp_path)
     calls: dict[str, object] = {}
 
-    def fake_build(openai_mode: str, config: object) -> list[BriefingText]:
-        calls["openai_mode"] = openai_mode
-        return sample_briefings()
+    def fake_build(**kwargs: object) -> object:
+        calls["openai_mode"] = kwargs["openai_mode"]
+        return SimpleNamespace(
+            briefings=sample_briefings(),
+            skipped_stories=[],
+            skipped_log_path=Path("skipped.json"),
+            source_debug_lines=(),
+        )
 
-    monkeypatch.setattr(cli, "build_briefings_sync", fake_build)
+    monkeypatch.setattr(cli, "build_briefing_result_sync", fake_build)
 
     cli.main(["--dry-run", "--openai-mode", "polish"])
 
     assert calls["openai_mode"] == "polish"
     assert "AI startup raises funding" in capsys.readouterr().out
+
+
+def test_cli_dry_run_can_print_telegram_format(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(
+        cli,
+        "build_briefing_result_sync",
+        lambda **kwargs: SimpleNamespace(
+            briefings=sample_briefings(),
+            skipped_stories=[],
+            skipped_log_path=Path("skipped.json"),
+            source_debug_lines=(),
+        ),
+    )
+
+    cli.main(["--dry-run", "--no-openai", "--format", "telegram", "--brief"])
+
+    output = capsys.readouterr().out
+    assert "--- MESSAGE 1/6 ---" in output
+    assert "• AI startup raises funding — It may shape the AI market." in output
+    assert "What happened:" not in output

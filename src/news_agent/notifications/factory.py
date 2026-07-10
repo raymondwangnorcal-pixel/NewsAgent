@@ -61,12 +61,12 @@ def resolve_sender(channel: str | None = None) -> tuple[NotificationSender, tupl
     )
 
 
-def send_briefing_messages(messages: list[str], channel: str | None = None) -> int:
+def send_briefing_messages(messages: list[str], channel: str | None = None, header: str | None = None) -> int:
     sender, recipients, _label = resolve_sender(channel)
-    header = f"Morning Briefing - {date.today().isoformat()}"
+    resolved_header = header or f"Morning Briefing - {date.today().isoformat()}"
     sent_count = 0
     for recipient in recipients:
-        sender.send_message(recipient, header)
+        sender.send_message(recipient, resolved_header)
         sent_count += 1
         for message in messages:
             sender.send_message(recipient, message)

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import re
 from collections import defaultdict
+from datetime import datetime, timezone
 
 from news_agent.models import Article, StoryCluster
 
@@ -10,8 +11,79 @@ STOPWORDS = {
     "a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "has", "have",
     "in", "into", "is", "it", "its", "of", "on", "or", "over", "says", "the", "to",
     "with", "after", "amid", "new", "news", "live", "updates", "how", "why", "what",
+    "breaking", "latest", "analysis", "briefing", "report", "reports", "says", "said",
+    "seen", "watch", "here", "today", "yesterday", "tomorrow",
 }
 TOKEN_RE = re.compile(r"[a-z0-9]+")
+PUNCTUATION_RE = re.compile(r"[^a-z0-9\s]")
+TICKER_RE = re.compile(r"(?:\$|\b(?:NASDAQ|NYSE|AMEX|NYSEARCA)\s*:?\s*)?([A-Z][A-Z0-9.-]{1,5})\b")
+CAPITAL_PHRASE_RE = re.compile(r"\b[A-Z][A-Za-z0-9&.-]*(?:\s+[A-Z][A-Za-z0-9&.-]*){0,3}\b")
+SOURCE_SPLIT_RE = re.compile(r"\s+(?:-|–|—|\|)\s+")
+EVENT_TERMS = {
+    "acquisition",
+    "antitrust",
+    "approval",
+    "ban",
+    "bankruptcy",
+    "ceasefire",
+    "charges",
+    "cuts",
+    "deal",
+    "downgrade",
+    "earnings",
+    "election",
+    "forecast",
+    "guidance",
+    "inflation",
+    "ipo",
+    "lawsuit",
+    "launch",
+    "layoffs",
+    "merger",
+    "probe",
+    "recall",
+    "rates",
+    "regulation",
+    "sanctions",
+    "strike",
+    "tariff",
+    "upgrade",
+    "war",
+}
+ENTITY_STOPWORDS = {
+    "AP",
+    "BBC",
+    "CEO",
+    "CNN",
+    "ETF",
+    "EU",
+    "Fed",
+    "Friday",
+    "Monday",
+    "Nasdaq",
+    "Reuters",
+    "Saturday",
+    "Sunday",
+    "Thursday",
+    "Tuesday",
+    "Wednesday",
+}
+
+
+def strip_source_names(title: str, source: str = "") -> str:
+    parts = SOURCE_SPLIT_RE.split(title)
+    if len(parts) > 1 and (not source or parts[-1].strip().casefold() == source.casefold()):
+        return " ".join(parts[:-1]).strip()
+    if source:
+        return re.sub(rf"\b{re.escape(source)}\b", " ", title, flags=re.IGNORECASE)
+    return title
+
+
+def normalize_title(title: str, source: str = "") -> str:
+    value = strip_source_names(title, source).lower()
+    value = PUNCTUATION_RE.sub(" ", value)
+    tokens = [token for token in TOKEN_RE.findall(value) if token not in STOPWORDS]
+    return " ".join(tokens)
 
 
 def tokenize(text: str) -> set[str]:
@@ -19,7 +91,7 @@ def tokenize(text: str) -> set[str]:
 
 
 def story_key(article: Article) -> str:
-    tokens = sorted(tokenize(article.title))
+    tokens = sorted(tokenize(normalize_title(article.title, article.source)))
     return " ".join(tokens[:8]) or article.title.lower()
 
 
@@ -29,29 +101,127 @@ def jaccard(left: set[str], right: set[str]) -> float:
     return len(left & right) / len(left | right)
 
 
-def cluster_articles(articles: list[Article], threshold: float = 0.34) -> list[StoryCluster]:
+def extract_entities(text: str) -> set[str]:
+    entities: set[str] = set()
+    for match in TICKER_RE.findall(text):
+        if match.isupper() and 1 < len(match) <= 6:
+            entities.add(match.replace(".", "-").upper())
+    for phrase in CAPITAL_PHRASE_RE.findall(text):
+        cleaned = " ".join(phrase.split()).strip()
+        if cleaned and cleaned not in ENTITY_STOPWORDS and len(cleaned) > 2:
+            entities.add(cleaned.casefold())
+    return entities
+
+
+def event_terms(text: str) -> set[str]:
+    tokens = tokenize(text)
+    return tokens & EVENT_TERMS
+
+
+def article_tokens(article: Article) -> set[str]:
+    return tokenize(normalize_title(article.title, article.source))
+
+
+def cluster_tokens(cluster: StoryCluster) -> set[str]:
+    tokens: set[str] = set()
+    for article in cluster.articles:
+        tokens |= article_tokens(article)
+    return tokens
+
+
+def cluster_entities(cluster: StoryCluster) -> set[str]:
+    entities: set[str] = set()
+    for article in cluster.articles:
+        entities |= extract_entities(f"{article.title} {article.summary}")
+    return entities
+
+
+def cluster_event_terms(cluster: StoryCluster) -> set[str]:
+    terms: set[str] = set()
+    for article in cluster.articles:
+        terms |= event_terms(f"{article.title} {article.summary}")
+    return terms
+
+
+def hours_apart(left: datetime, right: datetime) -> float:
+    if left.tzinfo is None:
+        left = left.replace(tzinfo=timezone.utc)
+    if right.tzinfo is None:
+        right = right.replace(tzinfo=timezone.utc)
+    return abs((left - right).total_seconds()) / 3600
+
+
+def time_proximity_score(article: Article, cluster: StoryCluster) -> float:
+    hours = hours_apart(article.published_at, cluster.latest_published_at)
+    if hours <= 3:
+        return 1.0
+    if hours <= 12:
+        return 0.7
+    if hours <= 24:
+        return 0.35
+    return 0.0
+
+
+def different_development(article: Article, cluster: StoryCluster, title_score: float) -> bool:
+    shared_entities = extract_entities(f"{article.title} {article.summary}") & cluster_entities(cluster)
+    if not shared_entities or title_score >= 0.32:
+        return False
+    article_events = event_terms(f"{article.title} {article.summary}")
+    cluster_events = cluster_event_terms(cluster)
+    if article_events and cluster_events and article_events.isdisjoint(cluster_events):
+        return True
+    return False
+
+
+def article_cluster_similarity(article: Article, cluster: StoryCluster) -> float:
+    title_score = jaccard(article_tokens(article), cluster_tokens(cluster))
+    entity_score = jaccard(extract_entities(f"{article.title} {article.summary}"), cluster_entities(cluster))
+    event_score = jaccard(event_terms(f"{article.title} {article.summary}"), cluster_event_terms(cluster))
+    time_score = time_proximity_score(article, cluster)
+    if different_development(article, cluster, title_score):
+        return min(title_score, 0.25)
+    return title_score * 0.55 + entity_score * 0.2 + event_score * 0.15 + time_score * 0.1
+
+
+def choose_canonical_headline(articles: list[Article]) -> str:
+    if not articles:
+        return ""
+    ranked = sorted(
+        articles,
+        key=lambda item: (
+            item.reputation,
+            -int(any(word in item.title.lower() for word in ("live", "updates", "latest"))),
+            min(len(item.title), 120),
+        ),
+        reverse=True,
+    )
+    return ranked[0].title
+
+
+def refresh_cluster(cluster: StoryCluster) -> None:
+    cluster.title = choose_canonical_headline(cluster.articles) or cluster.title
+    cluster.key = story_key(max(cluster.articles, key=lambda item: item.reputation))
+
+
+def cluster_articles(articles: list[Article], threshold: float = 0.43) -> list[StoryCluster]:
     clusters: list[StoryCluster] = []
-    token_cache: dict[str, set[str]] = {}
 
     for article in articles:
-        article_tokens = tokenize(article.title)
         best_cluster: StoryCluster | None = None
         best_score = 0.0
         for cluster in clusters:
-            cluster_tokens = token_cache[cluster.key]
-            score = jaccard(article_tokens, cluster_tokens)
+            score = article_cluster_similarity(article, cluster)
             if score > best_score:
                 best_score = score
                 best_cluster = cluster
 
         if best_cluster is not None and best_score >= threshold:
             best_cluster.articles.append(article)
-            token_cache[best_cluster.key] |= article_tokens
+            refresh_cluster(best_cluster)
         else:
             key = story_key(article)
             cluster = StoryCluster(key=key, title=article.title, articles=[article])
             clusters.append(cluster)
-            token_cache[key] = set(article_tokens)
 
     return merge_url_duplicates(clusters)
 
@@ -68,6 +238,7 @@ def merge_url_duplicates(clusters: list[StoryCluster]) -> list[StoryCluster]:
                 by_url[url] = cluster
         else:
             existing.articles.extend(cluster.articles)
+            refresh_cluster(existing)
             for url in canonical_urls:
                 by_url[url] = existing
     return merged

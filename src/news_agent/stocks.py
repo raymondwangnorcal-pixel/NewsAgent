@@ -11,8 +11,10 @@ import urllib.parse
 import urllib.request
 from collections import defaultdict
 
+from news_agent.finance.movers import detect_market_movers
 from news_agent.fetch import USER_AGENT, _ssl_context
 from news_agent.models import Article, StockMention, StockQuote, StockSnapshot
+from news_agent.watchlist import WatchlistEntry
 
 
 DEFAULT_MEGA_CAPS = ("AAPL", "MSFT", "NVDA", "TSLA", "AMZN", "META", "GOOGL")
@@ -224,10 +226,14 @@ def parse_int(value: str | None) -> int | None:
         return None
 
 
-async def build_stock_snapshot(articles: list[Article]) -> StockSnapshot:
+async def build_stock_snapshot(
+    articles: list[Article],
+    watchlist_entries: tuple[WatchlistEntry, ...] = (),
+) -> StockSnapshot:
     mentions = collect_stock_mentions(articles)
     mega_caps = mega_cap_tickers()
     mentioned_symbols = [mention.symbol for mention in mentions]
     quote_symbols = sorted(set(mega_caps) | set(mentioned_symbols))
     quotes = await asyncio.to_thread(fetch_yahoo_quotes, quote_symbols)
-    return StockSnapshot(news_mentions=mentions, mega_caps=mega_caps, quotes=quotes)
+    movers = await asyncio.to_thread(detect_market_movers, list(articles), watchlist_entries)
+    return StockSnapshot(news_mentions=mentions, mega_caps=mega_caps, quotes=quotes, market_movers=movers)

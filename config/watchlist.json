@@ -1,0 +1,27 @@
+{
+  "items": [
+    {"label": "AI", "aliases": ["artificial intelligence", "generative ai"]},
+    {"label": "startups", "aliases": ["startup", "founder", "seed round"]},
+    {"label": "venture capital", "aliases": ["vc", "funding round"]},
+    {"label": "fintech", "aliases": ["financial technology"]},
+    {"label": "creator economy", "aliases": ["creator", "influencer"]},
+    {"label": "gaming", "aliases": ["video games", "game studio"]},
+    {"label": "education technology", "aliases": ["edtech", "education software"]},
+    {"label": "Columbia", "aliases": ["Columbia University"]},
+    {"label": "NYC", "aliases": ["New York City", "Manhattan", "Brooklyn"]},
+    {"label": "Endless Studios", "aliases": ["Endless"]},
+    {"label": "AAPL", "ticker": "AAPL", "aliases": ["Apple"]},
+    {"label": "MSFT", "ticker": "MSFT", "aliases": ["Microsoft"]},
+    {"label": "NVDA", "ticker": "NVDA", "aliases": ["Nvidia"]},
+    {"label": "TSLA", "ticker": "TSLA", "aliases": ["Tesla"]},
+    {"label": "META", "ticker": "META", "aliases": ["Meta", "Facebook"]},
+    {"label": "GOOGL", "ticker": "GOOGL", "aliases": ["Alphabet", "Google"]},
+    {"label": "AMZN", "ticker": "AMZN", "aliases": ["Amazon"]},
+    {"label": "BTC", "ticker": "BTC", "aliases": ["Bitcoin"]},
+    {"label": "ETH", "ticker": "ETH", "aliases": ["Ethereum"]},
+    {"label": "IPOs", "aliases": ["ipo", "public listing"]},
+    {"label": "interest rates", "aliases": ["rates", "treasury yields"]},
+    {"label": "inflation", "aliases": ["cpi", "prices"]},
+    {"label": "Federal Reserve", "aliases": ["Fed", "FOMC"]}
+  ]
+}

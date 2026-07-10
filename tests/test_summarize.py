@@ -71,7 +71,7 @@ def test_fallback_helpers_keep_copy_clean() -> None:
     compact = compact_text(text, max_chars=40)
 
     assert compact == "market market market market market."
-    assert fallback_why_it_matters(1).startswith("A single-source item")
+    assert fallback_why_it_matters(1).startswith("Single-source but high-signal")
     assert fallback_why_it_matters(3).startswith("Confirmed by 3 sources")
 
 
@@ -91,3 +91,30 @@ def test_clean_fallback_summary_removes_source_suffix_and_headline_duplicates() 
     )
 
     assert clean_fallback_summary(cluster) == "No additional source summary was available."
+
+
+def test_clean_fallback_summary_preserves_more_article_detail() -> None:
+    long_summary = (
+        "Markets rose after investors parsed inflation data, bond yields, and early earnings commentary from "
+        "large companies. Strategists said the move looked broad rather than limited to a few mega-cap names, "
+        "with cyclical shares and defensive sectors both drawing buyers. Traders were also watching whether "
+        "late-session demand would hold into the next round of central bank remarks."
+    )
+    cluster = StoryCluster(
+        key="market",
+        title="Markets rise after inflation data",
+        articles=[
+            Article(
+                title="Markets rise after inflation data",
+                url="https://example.com",
+                source="Reuters",
+                published_at=datetime.now(timezone.utc),
+                summary=long_summary,
+            )
+        ],
+    )
+
+    summary = clean_fallback_summary(cluster)
+
+    assert "late-session demand" in summary
+    assert len(summary) > 240

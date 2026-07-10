@@ -42,8 +42,14 @@ BRIEFING_SCHEMA: dict[str, Any] = {
                                     "minItems": 1,
                                     "maxItems": 5,
                                 },
+                                "urls": {
+                                    "type": "array",
+                                    "items": {"type": "string"},
+                                    "minItems": 0,
+                                    "maxItems": 5,
+                                },
                             },
-                            "required": ["headline", "summary", "why_it_matters", "next_watch", "sources"],
+                            "required": ["headline", "summary", "why_it_matters", "next_watch", "sources", "urls"],
                         },
                     },
                 },
@@ -61,9 +67,15 @@ def _cluster_payload(category: str, clusters: list[StoryCluster]) -> dict[str, A
         "stories": [
             {
                 "candidate_headline": cluster.title,
+                "representative_summary": cluster.representative_summary[:700],
                 "score": round(cluster.total_score, 2),
                 "source_count": len(cluster.sources),
                 "sources": cluster.sources[:5],
+                "urls": list(cluster.urls[:5]),
+                "latest_publication_time": cluster.latest_published_at.isoformat(),
+                "category_candidates": list(cluster.category_candidates),
+                "watchlist_matches": list(cluster.watchlist_matches),
+                "update_note": cluster.update_note,
                 "article_samples": [
                     {
                         "source": article.source,
@@ -142,9 +154,9 @@ def system_prompt() -> str:
         "unless the source frequency or impact score is high. In the financial briefing, include "
         "notable news-mentioned stocks from the market snapshot and the mega-cap watchlist "
         "(AAPL, MSFT, NVDA, TSLA, AMZN, META, GOOGL), especially large moves or repeated mentions. "
-        "Each item needs a headline, a 1-2 "
-        "sentence summary, why it matters, what to watch next, and the main sources. Keep language "
-        "direct and skimmable."
+        "Each item needs a headline, a 2-3 sentence summary with concrete context, a short "
+        "relevance note, what to watch next, the main sources, and source URLs when supplied. "
+        "Keep language direct and skimmable."
     )
 
 
@@ -154,8 +166,8 @@ def polish_system_prompt() -> str:
         "tickers, prices, categories, and watch items present in the supplied drafts. Do not "
         "add new facts, sources, causal claims, names, dates, numbers, or URLs. Preserve the "
         "six briefing categories, keep source names attached to the same items, and return "
-        "the same structured briefing shape. Improve clarity, remove awkward repetition, and "
-        "keep the language direct and skimmable."
+        "the same structured briefing shape, including source URLs. Make summaries more "
+        "informative while staying skimmable, keep relevance notes concise, and remove awkward repetition."
     )
 
 
@@ -172,6 +184,9 @@ def _briefing_payload(briefings: list[BriefingText]) -> dict[str, Any]:
                         "why_it_matters": item.why_it_matters,
                         "next_watch": item.next_watch,
                         "sources": list(item.sources),
+                        "watchlist_matches": list(item.watchlist_matches),
+                        "update_note": item.update_note,
+                        "urls": list(item.urls),
                     }
                     for item in briefing.items
                 ],
@@ -258,6 +273,7 @@ def parse_briefings(data: dict[str, Any]) -> list[BriefingText]:
                 why_it_matters=item["why_it_matters"],
                 next_watch=item.get("next_watch", ""),
                 sources=tuple(item["sources"]),
+                urls=tuple(item.get("urls", ())),
             )
             for item in briefing["items"]
         )
@@ -329,7 +345,7 @@ def compact_text(value: str, max_chars: int = 240) -> str:
 def clean_fallback_summary(cluster: StoryCluster) -> str:
     article = cluster.articles[0]
     summary = article.summary or article.title
-    summary = compact_text(summary)
+    summary = compact_text(summary, max_chars=420)
     for source in (article.source, *cluster.sources):
         suffix = f" {source}"
         if source and summary.endswith(suffix):
@@ -339,12 +355,25 @@ def clean_fallback_summary(cluster: StoryCluster) -> str:
     return summary or "No additional source summary was available."
 
 
-def fallback_why_it_matters(source_count: int) -> str:
+def fallback_why_it_matters(
+    source_count: int,
+    category: str = "overall",
+    watchlist_matches: tuple[str, ...] = (),
+) -> str:
+    watchlist_note = " It also matches your watchlist." if watchlist_matches else ""
+    category_templates = {
+        "business_tech": "Could affect company strategy, AI/product competition, regulation, funding, or customer adoption.",
+        "domestic": "Could shape policy, legal risk, public safety, economic conditions, or social debate.",
+        "global": "Could affect diplomacy, trade, conflict risk, humanitarian conditions, or energy markets.",
+        "culture": "Could shift public attention, platform incentives, creator economics, entertainment, or sports business.",
+        "finance": "Could move investors, sectors, earnings expectations, rates, IPOs, or risk appetite.",
+        "overall": "Could have broader consequences across markets, policy, public attention, or follow-up coverage.",
+    }
     if source_count >= 3:
-        return f"Confirmed by {source_count} sources and ranked high on recency, impact, and repeat coverage."
+        return f"Confirmed by {source_count} sources. {category_templates.get(category, category_templates['overall'])}{watchlist_note}".strip()
     if source_count == 2:
-        return "Covered by two sources and ranked high on recency and impact signals."
-    return "A single-source item that ranked high on recency and impact signals; worth watching for confirmation."
+        return f"Covered by two sources. {category_templates.get(category, category_templates['overall'])}{watchlist_note}".strip()
+    return f"Single-source but high-signal. {category_templates.get(category, category_templates['overall'])}{watchlist_note}".strip()
 
 
 def generate_fallback_briefings(
@@ -372,9 +401,13 @@ def generate_fallback_briefings(
                 BriefingItem(
                     headline=cluster.title,
                     summary=clean_fallback_summary(cluster),
-                    why_it_matters=fallback_why_it_matters(source_count),
+                    why_it_matters=cluster.why_it_matters
+                    or fallback_why_it_matters(source_count, category, cluster.watchlist_matches),
                     next_watch=FALLBACK_WATCH_LINES[category],
                     sources=tuple(cluster.sources[:5]),
+                    watchlist_matches=cluster.watchlist_matches,
+                    update_note=cluster.update_note,
+                    urls=cluster.urls[:5],
                 )
             )
         if not items:
@@ -393,6 +426,30 @@ def generate_fallback_briefings(
 
 def stock_snapshot_items(snapshot: StockSnapshot) -> list[BriefingItem]:
     items: list[BriefingItem] = []
+    if snapshot.market_movers:
+        top_movers = snapshot.market_movers[:5]
+        summary = "; ".join(
+            (
+                f"{mover.symbol} {mover.percent_change:+.1f}%"
+                f" ({mover.move_reason if mover.reason_confidence != 'low' else 'catalyst unclear from major headlines'})"
+            )
+            for mover in top_movers
+        )
+        sources = tuple(sorted({source for mover in top_movers for source in mover.reason_sources})) or ("Stooq",)
+        watchlist_matches = tuple(
+            sorted({match for mover in top_movers for match in mover.watchlist_matches})
+        )
+        items.append(
+            BriefingItem(
+                headline="Explained market movers",
+                summary=summary,
+                why_it_matters="Large asset moves with a credible catalyst can set the tone for the rest of the session.",
+                next_watch="Watch whether the moves hold after U.S. market liquidity deepens.",
+                sources=sources[:5],
+                watchlist_matches=watchlist_matches,
+            )
+        )
+
     if snapshot.news_mentions:
         top_mentions = snapshot.news_mentions[:8]
         summary = "; ".join(

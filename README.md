@@ -13,14 +13,15 @@ The agent is intentionally pipeline-shaped instead of chat-shaped:
 
 ```text
 RSS/news inputs -> article normalization -> duplicate clustering -> category scoring
--> stock mention extraction + quote snapshot -> OpenAI structured briefing
--> NotificationSender -> Telegram now, SMS later
+-> watchlist/source/history checks -> stock mentions + market mover detection
+-> OpenAI structured briefing or deterministic fallback -> NotificationSender
+-> Telegram now, SMS later
 ```
 
 ## Quick Start
 
 ```bash
-cd /Users/raymondwang/Documents/Codex/2026-07-07/i-wa/outputs/morning-news-agent
+cd /Users/raymondwang/PersonalProjects/NewsAgent
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e ".[providers]"
@@ -31,6 +32,8 @@ Fill in `.env`, then run:
 
 ```bash
 news-briefing --dry-run
+news-briefing --dry-run --no-openai --show-skipped
+news-briefing --dry-run --format console --brief
 news-briefing --dry-run --openai-mode polish
 news-briefing --test-telegram
 news-briefing --send
@@ -65,6 +68,26 @@ BRIEFING_MAX_ARTICLES=240
 BRIEFING_TIMEZONE=America/New_York
 BRIEFING_MEGA_CAP_TICKERS=AAPL,MSFT,NVDA,TSLA,AMZN,META,GOOGL
 BRIEFING_CA_BUNDLE=/etc/ssl/cert.pem
+BRIEFING_MAX_CHARS_PER_MESSAGE_SMS=1400
+BRIEFING_MAX_STORIES_PER_CATEGORY_SMS=5
+BRIEFING_MAX_SOURCES_PER_STORY=3
+BRIEFING_INCLUDE_LINKS_SMS=false
+BRIEFING_INCLUDE_LINKS_TELEGRAM=true
+```
+
+Useful CLI options:
+
+```bash
+news-briefing --watchlist config/watchlist.json
+news-briefing --history-path data/story_history.json
+news-briefing --ignore-history
+news-briefing --show-skipped
+news-briefing --format sms
+news-briefing --format telegram
+news-briefing --format console
+news-briefing --brief
+news-briefing --alerts --dry-run
+news-briefing --alerts --send
 ```
 
 Phase 4 SMS placeholders, not required for Phase 1:
@@ -133,6 +156,66 @@ OpenAI modes:
 
 Do not put the Telegram bot token in source code, tests, README examples, or committed files. It belongs only in local `.env` or a secret manager.
 
+## Personal Watchlist
+
+The default watchlist lives in `config/watchlist.json` and includes AI,
+startups, venture capital, fintech, creator economy, gaming, education
+technology, Columbia, NYC, Endless Studios, mega-cap tickers, BTC/ETH, IPOs,
+interest rates, inflation, and the Federal Reserve.
+
+Watchlist matches are checked against titles, summaries, snippets, explicit
+tickers, and topic aliases. Matching stories receive a modest score boost and
+show a `Watchlist:` tag in the briefing, but low-quality one-source stories are
+not promoted solely because they match the watchlist.
+
+## Story History And Skipped Logs
+
+Story history is stored in `data/story_history.json` by default after a real
+send. Repeated unchanged clusters are suppressed; meaningful updates can still
+appear with an `Update:` note.
+
+Skipped-story audit logs are written silently to:
+
+```text
+data/skipped_stories_YYYY-MM-DD.json
+```
+
+Use `--show-skipped` to print a readable source-distribution block and skipped
+story table after the briefing.
+
+## Message Formatting
+
+Final SMS/Telegram text is rendered through `src/news_agent/formatting.py`, so
+dry runs and sends use the same phone-friendly layout.
+
+Format modes:
+
+- `console`: default for `--dry-run`; prints separators, exact message bodies,
+  character counts, estimated SMS segments, and omitted-story totals
+- `telegram`: default for Telegram sends; readable spacing, compact source
+  attribution, and room for longer messages
+- `sms`: default for SMS sends; stricter message length, no links, fewer stories
+
+Use `--brief` for ultra-compact one-line story items:
+
+```bash
+news-briefing --dry-run --no-openai --format console --brief
+news-briefing --send --no-openai --format telegram --brief
+```
+
+## Breaking Alerts
+
+Alert mode is separate from the morning briefing:
+
+```bash
+news-briefing --alerts --dry-run
+news-briefing --alerts --send
+```
+
+Alerts are disabled by default in `config/alerts.json`. Enable them there and
+adjust cooldowns or thresholds as needed. Alert history is stored in
+`data/alert_history.json` to avoid repeated sends.
+
 ## Scheduling
 
 ### Local Cron
@@ -166,8 +249,53 @@ The fifth text also receives a stock snapshot with:
 - known mega-cap company names mapped to tickers when they appear in headlines
 - the mega-cap watchlist: `AAPL`, `MSFT`, `NVDA`, `TSLA`, `AMZN`, `META`, `GOOGL`
 - quote/change data from Yahoo Finance's chart endpoint when reachable
+- explained market movers from a Stooq-style no-key CSV provider when reachable
 
 If quote data is unavailable, the briefing still includes the mention counts and sources.
+
+The market mover detector checks major ETFs, mega-cap stocks, sector ETFs,
+BTC/ETH, and simple oil/gold/dollar/rate proxies. It flags large moves, looks
+for recent causal headlines, and includes only the strongest explained moves or
+very large unexplained moves with cautious wording.
+
+Free market data limitations:
+
+- Stooq coverage varies by symbol and asset class, especially crypto and macro proxies.
+- The provider currently uses available CSV fields, which may approximate previous close depending on the instrument.
+- If the data endpoint is unavailable, mover detection degrades gracefully and the rest of the briefing still runs.
+
+## Example Dry Run Shape
+
+```text
+==============================
+TEXT 1/6: BUSINESS + TECH
+==============================
+🧠 BUSINESS + TECH — July 10
+AI, startups, Big Tech, regulation
+
+• Nvidia shares jump after earnings beat
+  What happened: Nvidia raised guidance after strong AI chip demand.
+  Why it matters: It reinforces investor confidence in the AI infrastructure trade.
+  Sources: Reuters, CNBC
+
+==============================
+TEXT 5/6: FINANCE
+==============================
+💸 FINANCE — July 10
+Markets, movers, IPOs, earnings, rates
+
+Market snapshot
+• AAPL: 123.45 (+1.2%)
+• NVDA: 200.00 (+5.6%)
+
+Big movers
+• NVDA +5.6% — earnings beat expectations.
+
+Summary
+Total messages: 6
+Message 1: 432 chars, approx 3 SMS segments
+Omitted stories: 0
+```
 
 ## Notes
 
