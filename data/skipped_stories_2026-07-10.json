@@ -1,10 +1,22 @@
 [
   {
     "category_candidate": "finance",
+    "duplicate_cluster_id": "cash discount earnings flow mcd mcdonald premium stock",
+    "headline": "McDonald\u2019s (MCD) Stock Trades At A Premium On Cash Flow While Earnings Discount Value",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 10.52,
+    "source_names": [
+      "Yahoo Finance"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQYzlQaE5LTXZhVGctLVg0eGNsQmRpV1dINWZFQmFWTXV5OGdSVmRBR0g2U01tTjl6MkUwc09lNzFvc21UUEdQclJuekp2enZUWHowbjQ5d2tqanZ3cmQ0VHZBMDhTS0MzSHZCTnN0blFobUN6bkhSSkQwaVRhUjhnRW8xU3JMSy1PaUNSakVJRU5URnBLNkV6V3d1ZlFoQk0?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "finance",
     "duplicate_cluster_id": "discount earnings edison eix international may still stock",
     "headline": "Edison International (EIX) Stock May Still Trade At A Discount To Earnings",
     "reason_skipped": "no reliable source confirmation",
-    "score": 10.54,
+    "score": 10.52,
     "source_names": [
       "Yahoo Finance"
     ],
@@ -16,7 +28,7 @@
     "duplicate_cluster_id": "billionaires building buys crypto meet money vote where",
     "headline": "Meet the crypto billionaires building a world where money buys you a vote",
     "reason_skipped": "no reliable source confirmation",
-    "score": 10.31,
+    "score": 10.29,
     "source_names": [
       "BBC World"
     ],
@@ -25,10 +37,24 @@
   },
   {
     "category_candidate": "finance",
+    "duplicate_cluster_id": "agency creative development digital integrates jersey marketing services",
+    "headline": "New Jersey Digital Agency Synaryverse Integrates AI Into Marketing, Development, and Creative Services",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 10.01,
+    "source_names": [
+      "Yahoo Finance"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOek96cTk4ckpMNVAyZXBTeHlXRFZKbGhDdjdKNzZkS1MxeEdJUm9PUmJhRWlJZWVYZlZKT1ZxRzZMZGZSMEtwRFp2V1BZcnFHelRKWWVWS05vRUI4Xy1ucHVvTU1yNkllOFJNUm5TTnpIdEM2OVpVaUM5REZUS0JqbFdMSUVuZlZiVTVZajVHV1NnMjRLSWZKdTV0VjhmdXZiU0lOMW1ULXcwcHpS?oc=5",
+    "watchlist_match": [
+      "AI"
+    ]
+  },
+  {
+    "category_candidate": "finance",
     "duplicate_cluster_id": "bubble elsewhere face fears investors look stocks",
     "headline": "AI stocks face bubble fears as investors look elsewhere",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.92,
+    "score": 9.9,
     "source_names": [
       "Fox Business"
     ],
@@ -42,7 +68,7 @@
     "duplicate_cluster_id": "crypto digital infrastructure investors picks retail should stock",
     "headline": "Western Digital Stock And 2 Crypto Infrastructure Picks Retail Investors Should Watch",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.89,
+    "score": 9.87,
     "source_names": [
       "simplywall.st"
     ],
@@ -54,7 +80,7 @@
     "duplicate_cluster_id": "backlash days feature image meta suspends",
     "headline": "Meta Suspends AI Image Feature After Days of Backlash",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.8,
+    "score": 9.78,
     "source_names": [
       "Variety"
     ],
@@ -69,7 +95,7 @@
     "duplicate_cluster_id": "concerns east free narcan nonprofit overdose rising stocks",
     "headline": "East Texas nonprofit stocks free Narcan amid rising overdose concerns",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.71,
+    "score": 9.69,
     "source_names": [
       "KLTV.com"
     ],
@@ -81,7 +107,7 @@
     "duplicate_cluster_id": "debut euphoria hynix jump marquee persists shares",
     "headline": "SK Hynix shares jump in marquee US debut as AI euphoria persists",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.7,
+    "score": 9.68,
     "source_names": [
       "Reuters"
     ],
@@ -95,7 +121,7 @@
     "duplicate_cluster_id": "against charlie court devastating evidence kirk laid murder",
     "headline": "'Devastating' evidence against Charlie Kirk murder suspect laid out in court",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.54,
+    "score": 9.52,
     "source_names": [
       "BBC World"
     ],
@@ -107,7 +133,7 @@
     "duplicate_cluster_id": "christopher exactly filmmakers gen hitting nolan praises rejecting",
     "headline": "Christopher Nolan Praises Gen Z Filmmakers For \u201cUtterly Rejecting\u201d AI Slop: \u201cIt\u2019s Hitting At Exactly The Wrong Time\u201d",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.51,
+    "score": 9.49,
     "source_names": [
       "Deadline"
     ],
@@ -117,11 +143,23 @@
     ]
   },
   {
-    "category_candidate": "business_tech",
-    "duplicate_cluster_id": "aftra caa disables generator image meta sag trashed",
-    "headline": "Zucked Up! Meta Disables Its New AI Image Generator After CAA & SAG-AFTRA Trashed It",
+    "category_candidate": "global",
+    "duplicate_cluster_id": "august begins early election friday next voting",
+    "headline": "Early voting for August election begins next Friday",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.41,
+    "score": 9.44,
+    "source_names": [
+      "GreenevilleSun.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxNcDEtN1U1QU5obGtmS1pvQ3pPMVc0ZUVQd3FZMktfYUF2a3RoblhudVE0Q0hxTE5hLVp2VjctV3dpSXBnZEhSOUxYLVJMRUZ4RXowUXozZUNrRVJTRzZoVXhzRmRveldwT19PZkdIcjFZX2lEQ09uTUQxQVpJTUtkckc5empxaTNOZDdwOHZLbG1ZTlh6STMzbE8yY0lpQWF4TmFsX2ZHYTVEaUFmUHl1Zl9YMExwOEw2MzZhcVFnQTlvdEU5NmQtZElCYmktV1BqVnJaS3BQTnhCcXk5WTZySHF3?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "business_tech",
+    "duplicate_cluster_id": "aftra caa disables generator image mark meta missed",
+    "headline": "Zucked Up! Meta Disables AI Image Generator After CAA & SAG-AFTRA Trashed It: \u201cMissed The Mark\u201d",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 9.39,
     "source_names": [
       "Deadline"
     ],
@@ -136,7 +174,7 @@
     "duplicate_cluster_id": "against but giving isn putin shifting ukraine war",
     "headline": "The War in Ukraine Is Shifting Against Putin but He Isn\u2019t Giving In",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.38,
+    "score": 9.36,
     "source_names": [
       "WSJ"
     ],
@@ -148,7 +186,7 @@
     "duplicate_cluster_id": "frankfurt hit layoffs software",
     "headline": "Layoffs Hit id Software Frankfurt",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.35,
+    "score": 9.32,
     "source_names": [
       "Aftermath"
     ],
@@ -160,7 +198,7 @@
     "duplicate_cluster_id": "air announces big delta despite earnings fuel high",
     "headline": "Delta Air Lines announces big earnings report despite record-high fuel prices",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.33,
+    "score": 9.31,
     "source_names": [
       "WSB-TV"
     ],
@@ -174,7 +212,7 @@
     "duplicate_cluster_id": "backlash feature image mark meta missed muse removes",
     "headline": "Meta Removes Muse Image AI Feature After Backlash: \u201cMissed The Mark\u201d",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.32,
+    "score": 9.3,
     "source_names": [
       "Deadline"
     ],
@@ -189,7 +227,7 @@
     "duplicate_cluster_id": "aug election now officials prepare tennessee urge voters",
     "headline": "Tennessee election officials urge voters to prepare now for Aug. 6 election",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.31,
+    "score": 9.29,
     "source_names": [
       "WCYB"
     ],
@@ -201,7 +239,7 @@
     "duplicate_cluster_id": "china controversy launch platform pool stirs talent video",
     "headline": "China video platform stirs controversy with launch of AI talent pool",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.29,
+    "score": 9.27,
     "source_names": [
       "Japan Wire by Kyodo News"
     ],
@@ -215,7 +253,7 @@
     "duplicate_cluster_id": "coming gold ipo rush texas there york",
     "headline": "There\u2019s an IPO Gold Rush\u2014and Texas Is Coming for New York",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.2,
+    "score": 9.17,
     "source_names": [
       "WSJ"
     ],
@@ -225,11 +263,25 @@
     ]
   },
   {
+    "category_candidate": "finance",
+    "duplicate_cluster_id": "among boom buyers fomo francisco home impending ipo",
+    "headline": "An Impending IPO Boom Has Sparked FOMO Among San Francisco Home Buyers",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 9.14,
+    "source_names": [
+      "WSJ"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPYmtWanRNYUxDOFYyQTY4NUN4RDByblpkUkNNampaY1RndlYzYS1EdzNreHd1dkFTVmxibmVTdkplUkxod2ZablYtYmJDU21lRTZUQWpmVFZ5NEJJUU9UVGFKeTYtck9rZmtIQm84WUdoY1Y4Um5wUWhKTXBIdDVFZnFVRjlhVHQ0alY0X3FCYmo?oc=5",
+    "watchlist_match": [
+      "IPOs"
+    ]
+  },
+  {
     "category_candidate": "global",
     "duplicate_cluster_id": "hormuz iran pledge ships shooting stop strait wants",
     "headline": "US wants Iran to pledge to stop shooting at ships in Strait of Hormuz",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.12,
+    "score": 9.1,
     "source_names": [
       "BBC World"
     ],
@@ -241,7 +293,7 @@
     "duplicate_cluster_id": "alberta biggest canada fight fired gun rodeo separation",
     "headline": "At Canada's biggest rodeo, the starting gun is fired in the fight over Alberta separation",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.05,
+    "score": 9.03,
     "source_names": [
       "BBC World"
     ],
@@ -253,7 +305,7 @@
     "duplicate_cluster_id": "accused affiliate cookie credit didn earn phia purchases",
     "headline": "Phia accused of \u2018cookie stuffing,\u2019 taking affiliate credit on purchases it didn\u2019t earn",
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.0,
+    "score": 8.98,
     "source_names": [
       "TechCrunch"
     ],
@@ -267,7 +319,7 @@
     "duplicate_cluster_id": "alleged apple confidential iceberg info just openai sues",
     "headline": "Apple sues OpenAI for alleged theft of confidential info \u2014 and says that\u2019s just \u2018the tip of the iceberg\u2019",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.93,
+    "score": 8.9,
     "source_names": [
       "MarketWatch Top Stories"
     ],
@@ -281,7 +333,7 @@
     "duplicate_cluster_id": "cropped detector fails finds identify image images meta",
     "headline": "Meta AI image detector fails to identify some of its own cropped AI images, Reuters analysis finds",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.71,
+    "score": 8.68,
     "source_names": [
       "Reuters"
     ],
@@ -296,7 +348,7 @@
     "duplicate_cluster_id": "2026 250m cuts fuels outlook push rackspace sale",
     "headline": "Rackspace Technology Cuts 2026 Outlook as $250M Stock Sale Fuels AI Push",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.69,
+    "score": 8.67,
     "source_names": [
       "Yahoo Finance"
     ],
@@ -310,7 +362,7 @@
     "duplicate_cluster_id": "eat fed keeping kids meet program valley",
     "headline": "Meet Up and Eat Up program keeping valley kids fed",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.66,
+    "score": 8.64,
     "source_names": [
       "FOX5 Vegas"
     ],
@@ -324,7 +376,7 @@
     "duplicate_cluster_id": "account any deactivates feature generate images instagram let",
     "headline": "Meta Deactivates Feature That Let You Generate AI Images Of Any Public Instagram Account",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.66,
+    "score": 8.63,
     "source_names": [
       "Engadget"
     ],
@@ -339,7 +391,7 @@
     "duplicate_cluster_id": "create images instagram meta photos stop using your",
     "headline": "How to stop Meta from using your Instagram photos to create AI images",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.65,
+    "score": 8.63,
     "source_names": [
       "The Washington Post"
     ],
@@ -354,7 +406,7 @@
     "duplicate_cluster_id": "cuts expansion fully guidance rackspace raise rxt stakes",
     "headline": "Is Rackspace Technology (RXT) Fully Valued As Guidance Cuts And AI Expansion Raise The Stakes?",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.65,
+    "score": 8.63,
     "source_names": [
       "Yahoo Finance"
     ],
@@ -368,7 +420,7 @@
     "duplicate_cluster_id": "accounts backlash down instagram meta public shuts tool",
     "headline": "Meta shuts down AI tool after backlash over public Instagram accounts",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.64,
+    "score": 8.62,
     "source_names": [
       "Fox Business"
     ],
@@ -380,10 +432,34 @@
   },
   {
     "category_candidate": "business_tech",
+    "duplicate_cluster_id": "2026 advanced better buy devices instruments micro stock",
+    "headline": "Advanced Micro Devices vs. Texas Instruments: Which Technology Stock Is a Better Buy in 2026?",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 8.61,
+    "source_names": [
+      "The Motley Fool"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOZ2tRbmNpWW9QVWVQZlA1bjlxYlhQYkJqczB3TE85UXBDZVVVcW9WMzZvM3FBT2ZNMDN5dWFoVEZmV3NwLWJJeWtHMlFzdHB3bmx4UUhLd1FFdXVMZS0teEI1OVgxOVdiWUFpMHpaU183OUVMT1BpMEVaVW14UFR2eUQ5Z1VtcnZXSF9ldzJwQnhEdWVpakdoSmkwa3F6VzJQbnJCZzBTMThzenhoVndHMS1NNlFnZkc4Ri1NdVN0UDczV0dtQnRQa3o1UWsxYlh3ajFJRDVmSVBrNE0?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "global",
+    "duplicate_cluster_id": "acquire away balance brandon chicago competitive eisert gonzalez",
+    "headline": "The Pirates acquire Jacob Gonzalez, Brandon Eisert from the Chicago White Sox in a trade that includes sending away a competitive balance pick",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 8.6,
+    "source_names": [
+      "Pittsburgh Post-Gazette"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNZ2FRRHBkNlRwZUxWZVBNSHNfME1mdEljeTQ0VDRNeDF2ZmZhQ0I4TFhoaUg0UUdQNGpQQXRNdVU2RVRZQUpwNHlRRVZqR1l4ZnVlMk9lSmlIRnVkRWxjMWptR3NBdmx6aWI0R2h1bDdPamJTNzdpeHg1b2VIOGdseVVzZlYxd0IwRUZOWUU5OEoxeVdaTjlONUlaOXhTWVV0eV9RaWxJNFBCOG9mTHdaaGEyQmhZX2pHN091dXBlV1ZycFdNY25MM3AwWlVqZ1lzVzU3bXg3Z1Q0aGNZYjlFNg?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "business_tech",
     "duplicate_cluster_id": "adoption artificial defi financial growing intelligence introduces markets",
     "headline": "EX DeFi Introduces AI-Powered Trading Technology Amid Growing Adoption of Artificial Intelligence in Financial Markets",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.62,
+    "score": 8.6,
     "source_names": [
       "Yahoo Finance"
     ],
@@ -398,7 +474,7 @@
     "duplicate_cluster_id": "court lessons some supreme term this year",
     "headline": "Here are some of the lessons from this year\u2019s Supreme Court term",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.59,
+    "score": 8.57,
     "source_names": [
       "Deseret News"
     ],
@@ -410,7 +486,7 @@
     "duplicate_cluster_id": "bullpen draft help infield pick pirates trade",
     "headline": "Pirates Trade Draft Pick for Bullpen, Infield Help",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.59,
+    "score": 8.57,
     "source_names": [
       "Sports Illustrated"
     ],
@@ -422,7 +498,7 @@
     "duplicate_cluster_id": "analog cheating enabled forcing schools some",
     "headline": "AI-enabled cheating is forcing some schools to go analog",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.58,
+    "score": 8.56,
     "source_names": [
       "Business Insider"
     ],
@@ -432,11 +508,23 @@
     ]
   },
   {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "court giants lose media social",
+    "headline": "Social media giants lose in court",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 8.55,
+    "source_names": [
+      "FOX 5 DC"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNR1NwMEh5djFjX3UzSHVuUDc2OFpiaGpHaWZJaUY3ZDVYendZWEZaenZlRHMwbHU3LUFRbG5GMnFBY28wQmZTLVd4Um1SZGZaRmhxZnRETEM1X2JuNlJoeFQzMkhRZnBObWtmdnczTnk5T1pkcFF3Sk9Bc0U2WHozSNIBhgFBVV95cUxPUGZadHVCc1FQV1hSRS1CM2tRUjAxdjZLUkhPZUdVNnVqeXAyTWtvWm1FUkFuaFIzUm9rLUNDMHpScGZ2ZmJ2djRoMDNpdmlRdXVUV0xLcVRqVW9RRG5WdDE0NGtDaXl2QVBXY0l1SE5EeWtQVGVIMHRaZlRPYjdaOU9uY21Tdw?oc=5",
+    "watchlist_match": []
+  },
+  {
     "category_candidate": "global",
     "duplicate_cluster_id": "assistance commission dismissed election leadership president trump",
     "headline": "President Trump has dismissed the leadership of the Election Assistance Commission",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.57,
+    "score": 8.54,
     "source_names": [
       "WGAL"
     ],
@@ -448,7 +536,7 @@
     "duplicate_cluster_id": "compensation court fraud louisiana supreme won workers",
     "headline": "Workers\u2019 Compensation Fraud in Louisiana: How We Won at the Supreme Court",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.56,
+    "score": 8.54,
     "source_names": [
       "WorkersCompensation.com"
     ],
@@ -460,7 +548,7 @@
     "duplicate_cluster_id": "border critical securing soldiers tech transport",
     "headline": "Securing the Border: Soldiers Transport Critical Tech",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.55,
+    "score": 8.53,
     "source_names": [
       "U.S. Department of War (.gov)"
     ],
@@ -468,49 +556,11 @@
     "watchlist_match": []
   },
   {
-    "category_candidate": "domestic",
-    "duplicate_cluster_id": "colleen concerns court impartiality melody native opponents raise",
-    "headline": "Spokane native Colleen Melody seeks to retain Supreme Court seat as opponents raise impartiality concerns",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.53,
-    "source_names": [
-      "The Spokesman-Review"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOYmlOZ1hseXdEdkNkcFdPRkd1aEZ3MGFocG11VlRITTBXLXVpeHFKMExXYlpvR3F1Nkd2cVFnU0Rjdk9ZMWFmSkJaZGxOTGRMYkRqdFpuV2IzR0RSZkZKcmZkMks3ekJoUkY0YXA0Qy1XLVBkMWYxbENxUzByZXhZZzlrQ0h0R2dvZVNVRC1mSGp1dHEwcldLd3FvV0x0UQ?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "finance",
-    "duplicate_cluster_id": "caution cftc cme crypto firms rules tailor urge",
-    "headline": "Crypto Firms Urge CFTC To Tailor Rules, CME Urges Caution",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.53,
-    "source_names": [
-      "Law360"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE4tMzFlbTF6SEtacUFFTlNRbFpQMlFPclhGSnh0Z1pubGdoY0pxLXRqQ1dvUnpIUkZ5dF8tb1NKWWtlR2xGVGpjQmxEdUY2SFVlc2JhZVV30gFWQVVfeXFMTi0zMWVtMXpIS1pxQUVOU1FsWlAyUU9yWEZKeHRnWm5sZ2hjSnEtdGpDV29SekhSRnl0Xy1vU0pZa2VHbEZUamNCbER1RjZIVWVzYmFlVXc?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "business_tech",
-    "duplicate_cluster_id": "banning chicago classrooms cutting first law students technology",
-    "headline": "University of Chicago cutting use of AI by banning technology in classrooms for first-year law students",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.52,
-    "source_names": [
-      "CBS News"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5IeFh0cjhSM2NST0YzUjBLSHhfOXlPZkNpZTUzTXlOTDdMVXBoc2dlYnZHY01IbEl3ZzRtR2pwQk43VkNoVlJVc01jUFFrT3Y3dHFhSjZ3OVVYWVhGUnRiLVlqWTFwWHFi?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
     "category_candidate": "finance",
     "duplicate_cluster_id": "completely different haaland kane than",
     "headline": "Kane says Haaland 'completely different' than me",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.52,
+    "score": 8.51,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -522,7 +572,7 @@
     "duplicate_cluster_id": "altercation bam herro sources struck vegas",
     "headline": "Sources: Bam struck Herro in Vegas altercation",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.52,
+    "score": 8.51,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -534,7 +584,7 @@
     "duplicate_cluster_id": "252m extension inks max sources spurs wemby",
     "headline": "Sources: Spurs' Wemby inks $252M max extension",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.52,
+    "score": 8.51,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -546,7 +596,7 @@
     "duplicate_cluster_id": "curry dubs iggy interest lebron tribute",
     "headline": "Iggy: LeBron's Dubs interest tribute to Curry's pu...",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.52,
+    "score": 8.51,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -554,11 +604,37 @@
     "watchlist_match": []
   },
   {
+    "category_candidate": "domestic",
+    "duplicate_cluster_id": "colleen concerns court impartiality melody native opponents raise",
+    "headline": "Spokane native Colleen Melody seeks to retain Supreme Court seat as opponents raise impartiality concerns",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 8.51,
+    "source_names": [
+      "The Spokesman-Review"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOYmlOZ1hseXdEdkNkcFdPRkd1aEZ3MGFocG11VlRITTBXLXVpeHFKMExXYlpvR3F1Nkd2cVFnU0Rjdk9ZMWFmSkJaZGxOTGRMYkRqdFpuV2IzR0RSZkZKcmZkMks3ekJoUkY0YXA0Qy1XLVBkMWYxbENxUzByZXhZZzlrQ0h0R2dvZVNVRC1mSGp1dHEwcldLd3FvV0x0UQ?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "business_tech",
+    "duplicate_cluster_id": "banning chicago classrooms cutting first law students technology",
+    "headline": "University of Chicago cutting use of AI by banning technology in classrooms for first-year law students",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 8.5,
+    "source_names": [
+      "CBS News"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5IeFh0cjhSM2NST0YzUjBLSHhfOXlPZkNpZTUzTXlOTDdMVXBoc2dlYnZHY01IbEl3ZzRtR2pwQk43VkNoVlJVc01jUFFrT3Y3dHFhSjZ3OVVYWVhGUnRiLVlqWTFwWHFi?oc=5",
+    "watchlist_match": [
+      "AI"
+    ]
+  },
+  {
     "category_candidate": "culture",
     "duplicate_cluster_id": "band charley crockett decision defends dump front get",
     "headline": "Jack White Offers Opening Slot to \u2018Satanic\u2019 Band Twin Temple \u2014 \u2018Get in Front of Me, Satan!\u2019 \u2014 as Charley Crockett Defends Decision to Dump Them",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.52,
+    "score": 8.5,
     "source_names": [
       "Variety"
     ],
@@ -570,7 +646,7 @@
     "duplicate_cluster_id": "colorado election may point politics primary state turning",
     "headline": "Colorado primary election may be a turning point in state politics",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.51,
+    "score": 8.49,
     "source_names": [
       "CBS News"
     ],
@@ -582,7 +658,7 @@
     "duplicate_cluster_id": "chip curbs door eases export opening sales uae",
     "headline": "US Eases Export Curbs on UAE, Opening Door for AI Chip Sales",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.51,
+    "score": 8.49,
     "source_names": [
       "Bloomberg.com"
     ],
@@ -596,7 +672,7 @@
     "duplicate_cluster_id": "district election house laurie longtine wyoming",
     "headline": "Election Q&A: Laurie Longtine for Wyoming House District 59",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.5,
+    "score": 8.48,
     "source_names": [
       "Oil City News"
     ],
@@ -608,7 +684,7 @@
     "duplicate_cluster_id": "brief community election enforcement law officials security voting",
     "headline": "Election officials, law enforcement brief community on voting security",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.5,
+    "score": 8.48,
     "source_names": [
       "KVOA"
     ],
@@ -620,7 +696,7 @@
     "duplicate_cluster_id": "detect generated help industry introduce labels music organizations",
     "headline": "Music Industry Organizations Introduce Labels to Help Detect AI-Generated Music",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.5,
+    "score": 8.48,
     "source_names": [
       "People.com"
     ],
@@ -634,7 +710,7 @@
     "duplicate_cluster_id": "downtown entertainment events festivalgoers fill gap milwaukee say",
     "headline": "Festivalgoers say Milwaukee's summer events fill a gap in downtown entertainment",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.49,
+    "score": 8.47,
     "source_names": [
       "TMJ4 News"
     ],
@@ -646,7 +722,7 @@
     "duplicate_cluster_id": "bills court michigan sends stuns supreme surprise vetoes",
     "headline": "Michigan Supreme Court sends bills to Whitmer, who stuns with surprise vetoes",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.48,
+    "score": 8.46,
     "source_names": [
       "Michigan Public"
     ],
@@ -658,7 +734,7 @@
     "duplicate_cluster_id": "brief cameras court daily flock questions raises ruling",
     "headline": "Daily Brief: Supreme Court ruling raises questions on Flock cameras",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.48,
+    "score": 8.46,
     "source_names": [
       "FOX19 | Cincinnati"
     ],
@@ -666,25 +742,11 @@
     "watchlist_match": []
   },
   {
-    "category_candidate": "business_tech",
-    "duplicate_cluster_id": "backlash days feature instagram meta removes",
-    "headline": "Meta Removes A.I. Feature on Instagram After Days of Backlash",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.47,
-    "source_names": [
-      "The New York Times"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOVlVJcDR6ck5tMkg3N3MxS1AtQWxna0M4NmZDel9UczJydklkaXZfdHA0RTRiSDZvN2hmTDdKYnUta0liQ2NiNUQtbjVDbHhuSFF5VUR5OW1TUi02T0E1b0NoeXNMUGRmcG5uLXp1TUFLQVJmLVQ5anA5VHg1aUpVeHlVTUx6VHg0YzJHVGdB?oc=5",
-    "watchlist_match": [
-      "META"
-    ]
-  },
-  {
     "category_candidate": "global",
     "duplicate_cluster_id": "county discuss election entities safety transparency",
     "headline": "County entities discuss election safety, transparency",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.45,
+    "score": 8.43,
     "source_names": [
       "KOLD"
     ],
@@ -696,7 +758,7 @@
     "duplicate_cluster_id": "dogs more than war weapon",
     "headline": "War Dogs: More Than a Weapon",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.45,
+    "score": 8.43,
     "source_names": [
       "armyupress.army.mil"
     ],
@@ -708,7 +770,7 @@
     "duplicate_cluster_id": "bearing daughter destroyer first hero his korean name",
     "headline": "Korean War hero\u2019s daughter sees destroyer bearing his name for the first time",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.44,
+    "score": 8.42,
     "source_names": [
       "WLOX"
     ],
@@ -720,7 +782,7 @@
     "duplicate_cluster_id": "affirms court invalid maine referendum signatures sports supreme",
     "headline": "Maine Supreme Court affirms trans sports referendum has invalid signatures",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.44,
+    "score": 8.41,
     "source_names": [
       "newscentermaine.com"
     ],
@@ -728,35 +790,11 @@
     "watchlist_match": []
   },
   {
-    "category_candidate": "domestic",
-    "duplicate_cluster_id": "basketball contract extension multi signs spurs wembanyama year",
-    "headline": "Basketball-Wembanyama signs multi-year contract extension with Spurs",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.43,
-    "source_names": [
-      "Taylorville Daily News"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNVXBsTTZPVDdNQlRNV3BSVGk3bnkyQUoxWmFsRnZ1R0FZOVpDQ1V5cTM1NFhIa1BLdUJzOEZBOFZsb3VCM0RERU9ZdUNZZWdRaklTdV84a2MwcEVBSjFJVk9JNDAzak9zRFhxclF3MDJfdklodnVackthWnc5cmMtTXNlTG4yX1U1bkFHc0tOQVZKdHJaelo4?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "banks caleb long term upside vikings",
-    "headline": "What is Caleb Banks' long-term upside with the Vikings?",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.43,
-    "source_names": [
-      "Yahoo Sports"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQaHdjbUEwYzJWbGlhMWRPVVR1R21LVWx1TGtxYzhYdGtyLXRYODgwWlU4RXNMRmNFMGZrcWs5UG84ZnhGQzI0ZnV4OVBNZkFZMWtPTlZqbHE3ZEd3LVFYMFBSaV9SNjJ5R3F5VHE0SkhPQTNrMDFDaDRaSjNFaWIyOFI2RQ?oc=5",
-    "watchlist_match": []
-  },
-  {
     "category_candidate": "global",
     "duplicate_cluster_id": "agency free market nba offseason storylines top trade",
     "headline": "NBA offseason, free agency, trade market: Top unresolved storylines",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.42,
+    "score": 8.4,
     "source_names": [
       "ESPN"
     ],
@@ -768,7 +806,7 @@
     "duplicate_cluster_id": "alabama appeal bell court denies double guntersville murder",
     "headline": "Alabama Supreme Court denies appeal in Guntersville Taco Bell double murder",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.41,
+    "score": 8.39,
     "source_names": [
       "WAFF"
     ],
@@ -780,7 +818,7 @@
     "duplicate_cluster_id": "bills court democrats high litigated long nine order",
     "headline": "Whitmer vetoes Democrats' long-litigated nine bills after high court order",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.4,
+    "score": 8.38,
     "source_names": [
       "The Detroit News"
     ],
@@ -792,7 +830,7 @@
     "duplicate_cluster_id": "candidates cycle election endorsed primaries this trump won",
     "headline": "97% of Trump-endorsed candidates won primaries this election cycle",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.39,
+    "score": 8.37,
     "source_names": [
       "Ballotpedia News"
     ],
@@ -804,7 +842,7 @@
     "duplicate_cluster_id": "alamogordo conviction court killing mexico murder officer police",
     "headline": "New Mexico Supreme Court upholds murder conviction in killing of Alamogordo police officer",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.39,
+    "score": 8.37,
     "source_names": [
       "Organ Mountain News"
     ],
@@ -816,7 +854,7 @@
     "duplicate_cluster_id": "affirms california county court humboldt initiative legal oversight",
     "headline": "California Supreme Court Affirms That Sheriff Oversight is Legal as Proponents Push for Initiative in Humboldt County",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.39,
+    "score": 8.36,
     "source_names": [
       "Lost Coast Outpost"
     ],
@@ -828,7 +866,7 @@
     "duplicate_cluster_id": "allocating court followed kaul law money settlement supreme",
     "headline": "Supreme Court says AG Kaul followed law when allocating settlement money",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.38,
+    "score": 8.36,
     "source_names": [
       "WSAW"
     ],
@@ -840,7 +878,7 @@
     "duplicate_cluster_id": "court not responsible sinkhole state supreme",
     "headline": "State not responsible for sinkhole, SD Supreme Court says",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.38,
+    "score": 8.36,
     "source_names": [
       "KELOLAND.com"
     ],
@@ -852,7 +890,7 @@
     "duplicate_cluster_id": "before cases clears court dakota first previous south",
     "headline": "South Dakota Supreme Court clears previous term\u2019s cases before new term, a first",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.38,
+    "score": 8.36,
     "source_names": [
       "KOTA Territory News"
     ],
@@ -864,7 +902,7 @@
     "duplicate_cluster_id": "administration chief court korea names south",
     "headline": "South Korea names new court administration chief",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.37,
+    "score": 8.35,
     "source_names": [
       "upi.com"
     ],
@@ -872,23 +910,11 @@
     "watchlist_match": []
   },
   {
-    "category_candidate": "domestic",
-    "duplicate_cluster_id": "attorney court general legal money settlement sides supreme",
-    "headline": "Wisconsin Supreme Court sides with Attorney General over legal settlement money",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.37,
-    "source_names": [
-      "WSAW"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQMEpFMkxhUjJ4emF1WTByQllJUG5taGg1b0lHODNVV2V4bkVKR0I3eHVqLTU0MnVEUDBwQWdKcHQ5TDF0Rnl3OXVYWVlFRjdON1BHbi1CT1l4a3Bzc1NWNlhmN0VXSS1WVnF1Mjl4amp4NjZ4ek5FeGp6U1dOOEowYXdoREVJcEp6Xzk4dXRZWWRhOWNSZlBtcEUzVE5BemRzNnpobTk3QTZlekJYWWpERVY0OGJxWC1Id2c?oc=5",
-    "watchlist_match": []
-  },
-  {
     "category_candidate": "culture",
     "duplicate_cluster_id": "college collingwood continues football game giant marketing missouri",
     "headline": "Collingwood: EA Sports College Football 27 video game continues to be a marketing giant for Missouri State",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.37,
+    "score": 8.35,
     "source_names": [
       "Springfield Daily Citizen"
     ],
@@ -897,14 +923,14 @@
   },
   {
     "category_candidate": "domestic",
-    "duplicate_cluster_id": "attempt commission control election fires members process trump",
-    "headline": "Trump fires election commission members in latest attempt to control voting process",
+    "duplicate_cluster_id": "attorney court general legal money settlement sides supreme",
+    "headline": "Wisconsin Supreme Court sides with Attorney General over legal settlement money",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.36,
+    "score": 8.35,
     "source_names": [
-      "PBS"
+      "WSAW"
     ],
-    "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPbDJyblByTEYzcDlacHVnRW8tNXJESW5HZFZhMjhHWlNhNVJVMTlqZDdqbTJFRW5PQ0U2ZS0xZHgtY1p2aDVTRXFScHFzN2tVeGJsbmdhR1BQQ0lacGhSM1lxaXE5Z2pldWxGbmlWbk1DZklpRHJQeDMzTm9zSmJ4NE9JeW9QOUhDWFZfQUNYZkNndWVNcTZtdGQ1a0FBMmlJRXR3X0VQTThaSmZvZ1RNdXQxSWwxYUJR?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQMEpFMkxhUjJ4emF1WTByQllJUG5taGg1b0lHODNVV2V4bkVKR0I3eHVqLTU0MnVEUDBwQWdKcHQ5TDF0Rnl3OXVYWVlFRjdON1BHbi1CT1l4a3Bzc1NWNlhmN0VXSS1WVnF1Mjl4amp4NjZ4ek5FeGp6U1dOOEowYXdoREVJcEp6Xzk4dXRZWWRhOWNSZlBtcEUzVE5BemRzNnpobTk3QTZlekJYWWpERVY0OGJxWC1Id2c?oc=5",
     "watchlist_match": []
   },
   {
@@ -912,7 +938,7 @@
     "duplicate_cluster_id": "accusing apple company openai secrets stealing sues",
     "headline": "Apple Sues OpenAI, Accusing It of Stealing Company Secrets",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.32,
+    "score": 8.3,
     "source_names": [
       "The New York Times"
     ],
@@ -926,7 +952,7 @@
     "duplicate_cluster_id": "back inside irving kyrie surprise",
     "headline": "'Kyrie is back': Inside Kyrie Irving's surprise vi...",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.31,
+    "score": 8.29,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -934,23 +960,11 @@
     "watchlist_match": []
   },
   {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "extension max rookie signs spurs victor wembanyama year",
-    "headline": "Victor Wembanyama signs 5-year max rookie extension with Spurs",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.27,
-    "source_names": [
-      "Yahoo Sports"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNWGpDem03ZDhqM2h4T2NmNEZyTWc0WklkdkM3djQxZGFEdGt1UnJqMHJncUV3ZGRsQXg0UGZOMjZyUTFjWTk3THp3d01PSlMzNXFodFIwRlZVa1NraU96VjhHOEwwem1RUl9wVGRselR0bXB4MFZ0Y2RNc1BHZjI2b3I2M0EwTDZHRGZEckRTbGs0Y2RHMDM5YnVrN19nY0hpdkRZV2pHcDdfNHp5R2IyX2JUUU0wV1lTdFhkZW1VSGlzaElvUkow?oc=5",
-    "watchlist_match": []
-  },
-  {
     "category_candidate": "global",
     "duplicate_cluster_id": "almost budget council ended fake nigeria presidential",
     "headline": "How a fake presidential council ended up with a budget of almost $1m in Nigeria",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.25,
+    "score": 8.23,
     "source_names": [
       "BBC World"
     ],
@@ -959,24 +973,10 @@
   },
   {
     "category_candidate": "business_tech",
-    "duplicate_cluster_id": "2027 billion boom chipmaker nanya plans riding spending",
-    "headline": "Taiwanese chipmaker Nanya plans $6 billion in spending in 2027, riding AI boom",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.21,
-    "source_names": [
-      "1470 & 100.3 WMBD"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNMXpEaEI5Z2R0Wmw1MmtRTEJON2ZIbUgyS0tyY2QzLXFmWEJDQzlPTWw2RTg3Y01yWmZHSUlUR0R4djJwOUNqWDJNWWFETlZnSnFBRXhjZlJiekNMMUMwRldqdGtPaW1uYkVpMWJUSkw0MEJXX2RsTUNZT1RwLU9WNGp4N1cwYVp2M1M0ME9ja1Z2MDhxcUZZS0VjYU1BbDlac3VhZG5ub0xuMVV3ZExn?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "business_tech",
     "duplicate_cluster_id": "brands files ipo men owner publicly tailored wearhouse",
     "headline": "Men\u2019s Wearhouse owner Tailored Brands files publicly for US IPO",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.19,
+    "score": 8.17,
     "source_names": [
       "FashionNetwork - The World's Fashion Business News"
     ],
@@ -990,7 +990,7 @@
     "duplicate_cluster_id": "athletics baseball sox white",
     "headline": "Athletics White Sox Baseball",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.17,
+    "score": 8.15,
     "source_names": [
       "TelegraphHerald.com"
     ],
@@ -998,15 +998,15 @@
     "watchlist_match": []
   },
   {
-    "category_candidate": "business_tech",
-    "duplicate_cluster_id": "beautiful brings game still together world",
-    "headline": "The beautiful game still brings the world together",
+    "category_candidate": "global",
+    "duplicate_cluster_id": "2026 atlantic conflict control iran out season spin",
+    "headline": "Washington Week with The Atlantic | Will the Iran conflict spin out of control? | Season 2026",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.12,
+    "score": 8.1,
     "source_names": [
-      "The Daily News | Texas' Oldest Newspaper"
+      "PBS"
     ],
-    "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNcXp3a0JhVFRwTTViSUFETzZMeEJ6amdXZjhsNDczVUdpckMzVTRPYXoyLUlPbVNlTVVaWWYwaE5icW84MlphdE5Zbkk5WWN0SXEtenlkOWtibzN6WGJuSWtNSjd0Y3BtRlBibW1icHBCUHV0WDBYUEF4MlVDUEIxOFJ5ZlJVLUhNY21pU0hKc1pXVGRWQ0dGc050cWJySndTZ2tJM1lqTF8tZ3ZiMmx5Q0xENkU4OGFMdnhZLVAxRWJXNzV0YUVCeEZrbjFXblY5TEM1SEdoVQ?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE40WVloaXNtZENLYmVmX2FTRW5YZFlieFNyZzg2bWVwaEZGUXpTU2l4OGI4akF1R050aW13YzhfR25DRGtlVmx0QmNNaGl2RW53ckE?oc=5",
     "watchlist_match": []
   },
   {
@@ -1014,7 +1014,7 @@
     "duplicate_cluster_id": "about applied center ethics humanitas magnifica markkula series",
     "headline": "An Upcoming Series of Webinars about AI and \"Magnifica Humanitas\" - Markkula Center for Applied Ethics",
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.09,
+    "score": 8.07,
     "source_names": [
       "Santa Clara University"
     ],
@@ -1036,83 +1036,11 @@
     "watchlist_match": []
   },
   {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "decide degrom injury jacob pitching plans rangers update",
-    "headline": "Rangers Decide on Pitching Plans After Jacob deGrom's Injury Update",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.0,
-    "source_names": [
-      "Yahoo Sports"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQM2dKZGJCRWRHd1h4cEVOalE0c25aTjdZZVF2a3A2MXdFX254NlZfOHpicmxCUnV3aDNWSk94U0IyLUZZUkhhcWpzTldiTWpxbXBUWjJjbEY4VkZDbVFiamxZZU1oSTF1RElCb1c5R185UW9RdlpxMElRcURYR25QRXhBakFkcTAwaS1Maw?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "business_tech",
-    "duplicate_cluster_id": "ailing all could game kurtz miss nick star",
-    "headline": "A\u2019s 1B Nick Kurtz (thumb) ailing, could miss All-Star Game",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.95,
-    "source_names": [
-      "Taylorville Daily News"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPQ2VXbnVXSDVka3BnWjZEVTI5MkFiSTZEVUFURS1uWXJxT3B4djREQjhMZG13SXlPdndQdWNUUFNpNG9Td0JXUEdKaFp6Z0JsRHl2UlE2blpWclZncWVYZUR0UHBSLXM1YkhOVG9xZkpxZFllOEphVGZlaThGM05iMEkxclVaVURBTTVsNlF5c01JYnZlWnJ3?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "business_tech",
-    "duplicate_cluster_id": "000 10th all anniversary core create event exec",
-    "headline": "\u2018Pok\u00e9mon Go\u2019 Exec Promises 1,000-Person Times Square Mewtwo Event Is Just the Start of 10th Anniversary: \u2018My Personal Goal Is to Create Core Memories\u2019 for All Players",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.9,
-    "source_names": [
-      "Variety"
-    ],
-    "url": "https://variety.com/2026/gaming/news/pokemon-go-fest-10-year-anniversary-mewtwo-times-square-1236806876/",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "channel july options sky sparks streaming",
-    "headline": "How to watch Wings vs. Tempo: TV channel and streaming options for July 10",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.9,
-    "source_names": [
-      "The New York Times"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOOFRqZXdMcGVXeUI3UVIwSHlFMktxQVBxd3o1aldIUHpsakQzNFRua2FPYkU3c3FPcEhjV0c1UHNMN1ZSNEJMVDlWdjVJVXZoYnN0bXIyV0ItLWxDbVhNdS1GajR3RWtRU1R2NnZBLW5NaklrVEtpLW1hSDJrRFd2aUZSem13NHlnSF9fdWJlaDdqTS1UaEhFRHhQTFZDeWprTWdwakx4V2ZaUFgzZmdYcXRGUk5XRnVyeFhtWllOeTZDUQ?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "finance",
-    "duplicate_cluster_id": "could james lebron sign six teams",
-    "headline": "What LeBron James could sign for with six teams, a...",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.88,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/nba/story/_/id/49301354/lebron-james-2026-free-agency-market-offers-contract-money-team",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "battle damage driving hidden next ruling save scotus",
-    "headline": "What's next in the battle to 'save women's sports' after SCOTUS ruling \u2014 and the hidden damage driving it",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.85,
-    "source_names": [
-      "Fox News"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQeXVJS0RQVEg3UC1mMHpLVHFSc2FtUU9SeTBPVU9lNmQ3dlFfNHpZWW9WdzJ4UUl1aDZra0RqRzFDSEVacUUxSTh4STM3UTNheVdtUWRmTjBHZk9tY09XQmh2OVFYekprSGNBU1RmWE40R3VTb1VsU3hNNVFQemRxSTVaaWVUZmFqb1YtSnpRQXBMR2cxbFpLYkp1R3JBQXVSX3l4OHZCU3pPSWg1N2FnSTljc09RRTdlYllxQQ?oc=5",
-    "watchlist_match": []
-  },
-  {
     "category_candidate": "business_tech",
     "duplicate_cluster_id": "chicago cloud might natasha sky",
     "headline": "Why Natasha Cloud and the Chicago Sky might be the...",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.84,
+    "score": 8.04,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -1120,23 +1048,11 @@
     "watchlist_match": []
   },
   {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "2026 espys vote winners",
-    "headline": "Vote for the 2026 ESPYS Winners",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.78,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/espys/story/_/page/Voting2026/vote-2026-espys-winners",
-    "watchlist_match": []
-  },
-  {
     "category_candidate": "business_tech",
     "duplicate_cluster_id": "instagram meta model pics stop using your",
     "headline": "How to stop new Meta AI model from using your Instagram pics",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.37,
+    "score": 7.95,
     "source_names": [
       "WATE 6 On Your Side"
     ],
@@ -1148,10 +1064,72 @@
   },
   {
     "category_candidate": "business_tech",
+    "duplicate_cluster_id": "000 10th all anniversary core create event exec",
+    "headline": "\u2018Pok\u00e9mon Go\u2019 Exec Promises 1,000-Person Times Square Mewtwo Event Is Just the Start of 10th Anniversary: \u2018My Personal Goal Is to Create Core Memories\u2019 for All Players",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.88,
+    "source_names": [
+      "Variety"
+    ],
+    "url": "https://variety.com/2026/gaming/news/pokemon-go-fest-10-year-anniversary-mewtwo-times-square-1236806876/",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "finance",
+    "duplicate_cluster_id": "could james lebron sign six teams",
+    "headline": "What LeBron James could sign for with six teams, a...",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.86,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/nba/story/_/id/49301354/lebron-james-2026-free-agency-market-offers-contract-money-team",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "battle damage driving hidden next ruling save scotus",
+    "headline": "What's next in the battle to 'save women's sports' after SCOTUS ruling \u2014 and the hidden damage driving it",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.82,
+    "source_names": [
+      "Fox News"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQeXVJS0RQVEg3UC1mMHpLVHFSc2FtUU9SeTBPVU9lNmQ3dlFfNHpZWW9WdzJ4UUl1aDZra0RqRzFDSEVacUUxSTh4STM3UTNheVdtUWRmTjBHZk9tY09XQmh2OVFYekprSGNBU1RmWE40R3VTb1VsU3hNNVFQemRxSTVaaWVUZmFqb1YtSnpRQXBMR2cxbFpLYkp1R3JBQXVSX3l4OHZCU3pPSWg1N2FnSTljc09RRTdlYllxQQ?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "2026 espys vote winners",
+    "headline": "Vote for the 2026 ESPYS Winners",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.76,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/espys/story/_/page/Voting2026/vote-2026-espys-winners",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "business_tech",
+    "duplicate_cluster_id": "comes nothing right silicon torn valley when",
+    "headline": "When it comes to AI nothing's right, Silicon Valley is torn",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.35,
+    "source_names": [
+      "Le Monde.fr"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPOTd1VjBWdnNOcnJEZm80LUREMVlBX2NwcDVtQk11UkdyaWZ6UTNKN212RzhPRkJJcEhpTjFnc1AzVXpZaFFtMkR2WDVvVW5PazFCQ0lvNEZvY3lfM01ZYzhQVUM1blJNbXBLNXdORTVkbHBDNlJuZ3VpRkZ4YzBJWGVzX1Q3MVN2NnhPcFJyZUd0cGtyR1NuTlJXN25CMTRUNGtMMmdBS0NhWlVIaHlNQlozeDFQYkpBMlNqYXhTX2ZuLUFhOGRicg?oc=5",
+    "watchlist_match": [
+      "AI"
+    ]
+  },
+  {
+    "category_candidate": "business_tech",
     "duplicate_cluster_id": "agency build cisa cybersecurity during had incident playbook",
     "headline": "US cybersecurity agency CISA had to build its incident playbook during the incident, agency reveals",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.36,
+    "score": 7.34,
     "source_names": [
       "TechCrunch"
     ],
@@ -1163,7 +1141,7 @@
     "duplicate_cluster_id": "camera navigate navigation robostral single",
     "headline": "Robostral Navigate: single-camera AI navigation",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.36,
+    "score": 7.34,
     "source_names": [
       "mistral.ai"
     ],
@@ -1177,7 +1155,7 @@
     "duplicate_cluster_id": "donnell her obsessed reacts rosie trump video",
     "headline": "Rosie O\u2019Donnell reacts to Trump AI video of her: \u2018He\u2019s obsessed with me\u2019",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.33,
+    "score": 7.31,
     "source_names": [
       "The Hill"
     ],
@@ -1191,7 +1169,7 @@
     "duplicate_cluster_id": "audiences backrooms christopher nolan obsession praises rejecting slop",
     "headline": "Christopher Nolan Praises \u2018Obsession\u2019 and \u2018Backrooms,\u2019 Says Young Audiences Are Rejecting \u201cAI Slop\u201d",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.31,
+    "score": 7.29,
     "source_names": [
       "The Hollywood Reporter"
     ],
@@ -1205,7 +1183,7 @@
     "duplicate_cluster_id": "camera dies disney donald entertainment founder iwerks technician",
     "headline": "Donald Iwerks, Disney Camera Technician and Co-Founder of Iwerks Entertainment, Dies at 96",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.3,
+    "score": 7.28,
     "source_names": [
       "Variety"
     ],
@@ -1220,7 +1198,7 @@
     "duplicate_cluster_id": "about all changes layoffs microsoft reset studio xbox",
     "headline": "Xbox\u2019s \u2018reset\u2019: all the news about Microsoft\u2019s layoffs and studio changes",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.29,
+    "score": 7.27,
     "source_names": [
       "The Verge"
     ],
@@ -1231,10 +1209,22 @@
   },
   {
     "category_candidate": "business_tech",
+    "duplicate_cluster_id": "2025 crews exposes fear future impact lands layoffs",
+    "headline": "Skeleton crews, low morale, and a fear for the future: Park ranger exposes impact of 2025 public lands layoffs",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.26,
+    "source_names": [
+      "Denver7"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQd3E3SjhySi04NklqVjh5MUxXQVJLNllCMm9IS0lkdjlZZnp4SGgtYnpmczB6b05vdm1lZFk2MGNaaHJjMGpxWXRoNXFzSzhQN1BjQlY3T29VeE5LcEhYbWFFcW1UTjRSLVVCeGw1WnlrS0M3ejdOdVd6ck04YWJFVEQwV2dpVzZ1alBGWFg4REUyU3RIUXh5OS1zaC0xSWMwVjJWd3lhSlBJYm1pcnZ1dVEwYVB2cjdSSU1TNnJScU1vN0h0QWNQQkNRUVJFcjMzNHFfdHVGWl8xWUZOdGc?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "business_tech",
     "duplicate_cluster_id": "back feature function hollywood mark meta missed opt",
     "headline": "Meta Pulls Back on Opt-Out AI Function After Hollywood Outrage: \u201cThis Feature Missed the Mark\u201d",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.28,
+    "score": 7.26,
     "source_names": [
       "The Hollywood Reporter"
     ],
@@ -1249,7 +1239,7 @@
     "duplicate_cluster_id": "backlash discontinues feature generation hollywood image instagram meta",
     "headline": "Meta discontinues Instagram feature on new AI image generation tool after Hollywood backlash",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.28,
+    "score": 7.26,
     "source_names": [
       "Los Angeles Times"
     ],
@@ -1264,7 +1254,7 @@
     "duplicate_cluster_id": "brooklyn julius randle speaks trade",
     "headline": "Julius Randle speaks on trade to Brooklyn",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.28,
+    "score": 7.25,
     "source_names": [
       "NBA.com"
     ],
@@ -1275,10 +1265,22 @@
   },
   {
     "category_candidate": "business_tech",
+    "duplicate_cluster_id": "accessible falconstar final inc initial obtains offering prospectus",
+    "headline": "FALCONSTAR VENTURES INC. OBTAINS RECEIPT FOR FINAL PROSPECTUS FOR INITIAL PUBLIC OFFERING, FINAL PROSPECTUS ACCESSIBLE ON SEDAR+",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.25,
+    "source_names": [
+      "Yahoo Finance"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNMmhrREo5S0VNSXMtSXZjZ004V0RKVkFCN1Zza3RBRXBId0dHZkRPS0o2cWtJaW9YY1k4TUliU2piZEJaemhhVkdMOTJXTEpGNjFleGRiZHMwcHJTNkJPRHNyUW1BLXQtWTNETVQ1MXhuT0NncGllOUEtblFNVzFQYlMteEwxVFlhR3ktMm45SmRBMTJtSlRpVUVSSGFTVmxzbTRra3psbw?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "business_tech",
     "duplicate_cluster_id": "hunting job love making tips your",
     "headline": "Job hunting? Here are tips for making AI love your CV.",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.27,
+    "score": 7.25,
     "source_names": [
       "Mashable"
     ],
@@ -1292,7 +1294,7 @@
     "duplicate_cluster_id": "ball blockbuster lamelo naz now official reid trade",
     "headline": "Wolves\u2019 blockbuster trade of Naz Reid for LaMelo Ball is now official",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.26,
+    "score": 7.24,
     "source_names": [
       "Star Tribune"
     ],
@@ -1304,7 +1306,7 @@
     "duplicate_cluster_id": "series toolkit",
     "headline": "The AI Toolkit Series",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.26,
+    "score": 7.24,
     "source_names": [
       "City of Lake Oswego"
     ],
@@ -1318,11 +1320,11 @@
     "duplicate_cluster_id": "backlash instagram meta pics public reverses that tool",
     "headline": "Meta reverses new AI tool that uses public Instagram pics after backlash",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.25,
+    "score": 7.23,
     "source_names": [
-      "KOCO"
+      "WLKY"
     ],
-    "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNby1XSjdrQTR3dkFBWG5XQW40SUQ1aWhZcjVVSnpzMlpvMG80emp5ZV9tb3lCLWhNTGxZNkk4bGp6UGJoV1NrYncxc2RycVJoVjQ4TUlWQTdxc1loSFRsY1pOZzRCdjV0eUpCVm5TejM5STZ2a0tUckNsM1hqcG9keFdGaVVNWlE?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOU3RoeUtwV3hraTZVRFZKSl81aC0xM1B1eFdvS3RENWdLVXp1Mk5rM1ZOSUstRy1LM2xhNzZJaTl4YTNMc1h4RGZ4QmUyeHlqTFVpNzR2dGJBTnFTb2RvQkF3RUswYTJRWkJ0eGlRSm1lRE9Id3M3a1N0bjhkTmVReFlTaDlPOHc?oc=5",
     "watchlist_match": [
       "AI",
       "META"
@@ -1333,7 +1335,7 @@
     "duplicate_cluster_id": "assessing daily growth life political world",
     "headline": "Assessing AI's growth in the political world and in daily life",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.23,
+    "score": 7.21,
     "source_names": [
       "Spectrum News NY1"
     ],
@@ -1347,7 +1349,7 @@
     "duplicate_cluster_id": "actionable knowledge organisational turning",
     "headline": "Turning organisational knowledge into actionable AI",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.23,
+    "score": 7.2,
     "source_names": [
       "CORDIS"
     ],
@@ -1361,7 +1363,7 @@
     "duplicate_cluster_id": "basallo bat samuel swing technology tracking using visualizing",
     "headline": "Visualizing Samuel Basallo's swing using bat tracking technology",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.22,
+    "score": 7.2,
     "source_names": [
       "MLB.com"
     ],
@@ -1370,121 +1372,10 @@
   },
   {
     "category_candidate": "business_tech",
-    "duplicate_cluster_id": "debating flock isn people surveillance threatening",
-    "headline": "No, Flock isn\u2019t threatening people for debating surveillance",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.22,
-    "source_names": [
-      "The Verge"
-    ],
-    "url": "https://www.theverge.com/tech/964425/flock-safety-cease-and-desist-letter",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "business_tech",
-    "duplicate_cluster_id": "controversial generator image meta out rolls",
-    "headline": "Meta rolls out controversial new AI image generator",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.21,
-    "source_names": [
-      "KMTV 3 News Now"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQRV9Xc2o2REhJcERxb3M0LWJkblpfY0xfeWV6MEw5ZmZCUkxmM1NHUE95UTgtSXBaRUhfaHp3SU9WUWQ2U3FTU3NXZW04YkZZSFBPZjdEemwzSmM4TV9Xc3lONFFkVDFidlNONTN5ZnFXd0FUMlgzWUdBcVZPMFBJUnFWNG9iTGFmVXpTUE51cHRmZVdn?oc=5",
-    "watchlist_match": [
-      "AI",
-      "META"
-    ]
-  },
-  {
-    "category_candidate": "global",
-    "duplicate_cluster_id": "alex before camp highsmith possible put staying steelers",
-    "headline": "WATCH: Are T.J. Watt, Alex Highsmith staying put? Or is a trade still possible before Steelers training camp?",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.21,
-    "source_names": [
-      "Pittsburgh Post-Gazette"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNemFvVXRkU2JwdFhfWUhRVzh1aHhBcUlMeDYyRXhxSXlKLU9NTWcyVENiU0pZX3djNWFpRDNYM3ZZbGwwMmlXQUlQdlJBcHJkcjQ1WndmbnFEZm83UFFINDU4UVdtUnM0cmRyN2pfSnpoUXV6aERNOXVLR0Zka2t0UzJ2NmNiOGtPRlhqVFE3R2pudmprcXRjVWZQNzNoQnhlekVuWEFfbmJwbmVDX0xENjl1emt5T2RNZG1LZEdNY0RheGplNzNPRQ?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "business_tech",
-    "duplicate_cluster_id": "2nd apron fans fix hurts nbpa players urges",
-    "headline": "NBPA urges fix, says 2nd apron hurts players, fans...",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.2,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/nba/story/_/id/49329997/nbpa-players-carrying-burden-teams-due-second-apron",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "fear france semifinal should spain yamal",
-    "headline": "Spain's Yamal: France should fear us in semifinal",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.2,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/soccer/story/_/id/49328508/spain-lamine-yamal-france-world-cup-semifinal",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "abreu cycle first peters records since sox white",
-    "headline": "Peters records first White Sox cycle since Abreu",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.2,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/mlb/story/_/id/49330272/white-sox-rookie-tristan-peters-hits-cycle",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "crowd montreal record tempo watches wings",
-    "headline": "Record crowd in Montreal watches Wings, Tempo",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.2,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/wnba/story/_/id/49329872/wnba-regular-season-record-crowd-20996-watch-wings-beat-tempo",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "kornet lebron luke makes pitch spurs",
-    "headline": "\ud83d\udd0a Spurs' Luke Kornet makes pitch to LeBron",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.2,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/nba/story/_/id/49327978/luke-kornet-lebron-james-san-antonio-spurs-voice-memo",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "bluegrass clash hosts inaugural owensboro sports summit",
-    "headline": "Owensboro hosts inaugural Bluegrass Clash Sports Summit",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.2,
-    "source_names": [
-      "14 News"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQWHlrS1IzNVRXRGQ1Z3hjNm1rM0xzdE5RZ2NFTHo1ZXUzTlJjQkt6UHF1a3hZeW9VdzBuaGFMX1N5Z1JmVkdUa0JxMVJ4aktmUExidVVBbGNpQ1JNVUpSc1Z1cmJVNGZFN3RXLTJ1eWRnbUg3dExmdkF4dld6SzNLTlI4M0dpMXZQNUVxM2R4Y29PenlvbWRub29RRVM?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "business_tech",
     "duplicate_cluster_id": "backlash generator image instagram meta removes",
     "headline": "Meta removes Instagram AI image generator after backlash",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.19,
+    "score": 7.2,
     "source_names": [
       "NBC Bay Area"
     ],
@@ -1496,10 +1387,181 @@
   },
   {
     "category_candidate": "culture",
+    "duplicate_cluster_id": "brady claim drake fans maye patriots sabotaging tom",
+    "headline": "Patriots Fans Claim Tom Brady Is Sabotaging Drake Maye",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.2,
+    "source_names": [
+      "Yahoo Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNRFFYUUZiUEJRV0tseWUwN091ZEFoek45U3hfbERvdm96TEdVWkFhYjZMQ0tWaHRzUnBZNGV5dmRsazc4dDY0NVVxblF3MTZKUi0tT2VlX0w3ZU5MZV8tWW8zQUFfeVEwSm0zQ3psRkM2TTRQZlhWcm5sOElRUkRCUlVaNU8?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "business_tech",
+    "duplicate_cluster_id": "debating flock isn people surveillance threatening",
+    "headline": "No, Flock isn\u2019t threatening people for debating surveillance",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.19,
+    "source_names": [
+      "The Verge"
+    ],
+    "url": "https://www.theverge.com/tech/964425/flock-safety-cease-and-desist-letter",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "business_tech",
+    "duplicate_cluster_id": "2nd apron fans fix hurts nbpa players urges",
+    "headline": "NBPA urges fix, says 2nd apron hurts players, fans...",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.19,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/nba/story/_/id/49329997/nbpa-players-carrying-burden-teams-due-second-apron",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "fear france semifinal should spain yamal",
+    "headline": "Spain's Yamal: France should fear us in semifinal",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.19,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/soccer/story/_/id/49328508/spain-lamine-yamal-france-world-cup-semifinal",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "abreu cycle first peters records since sox white",
+    "headline": "Peters records first White Sox cycle since Abreu",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.19,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/mlb/story/_/id/49330272/white-sox-rookie-tristan-peters-hits-cycle",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "crowd montreal record tempo watches wings",
+    "headline": "Record crowd in Montreal watches Wings, Tempo",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.19,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/wnba/story/_/id/49329872/wnba-regular-season-record-crowd-20996-watch-wings-beat-tempo",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "kornet lebron luke makes pitch spurs",
+    "headline": "\ud83d\udd0a Spurs' Luke Kornet makes pitch to LeBron",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.19,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/nba/story/_/id/49327978/luke-kornet-lebron-james-san-antonio-spurs-voice-memo",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "against cup finale paso united",
+    "headline": "United in Cup finale against El Paso",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.19,
+    "source_names": [
+      "Santa Fe New Mexican"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNbno2eEhaTHlhVVR0aDBYcGpaZDVxaV9LeEEyUFhELWNBSHlxdy1hMlo2cThPNnpNalo0dTlHTzVsemEtNElVTzAxa2x3bkcwSi1odWw1U1BJMk13ZllDVzRlS1JQY2JiRjlUR2R5cWpTZWtLaTJqNjVMMW1LRTMtWjZpb2hEMThNV2lxLXMzWVBqdUhTcjA1U05ycEpfV2pXTmtDMlNWeHVUSmcyNk5EYXJhUlZkYzh2SWxVQ1ZWSEc4bkpHYnc?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "business_tech",
+    "duplicate_cluster_id": "controversial generator image meta out rolls",
+    "headline": "Meta rolls out controversial new AI image generator",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.19,
+    "source_names": [
+      "KMTV 3 News Now"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQRV9Xc2o2REhJcERxb3M0LWJkblpfY0xfeWV6MEw5ZmZCUkxmM1NHUE95UTgtSXBaRUhfaHp3SU9WUWQ2U3FTU3NXZW04YkZZSFBPZjdEemwzSmM4TV9Xc3lONFFkVDFidlNONTN5ZnFXd0FUMlgzWUdBcVZPMFBJUnFWNG9iTGFmVXpTUE51cHRmZVdn?oc=5",
+    "watchlist_match": [
+      "AI",
+      "META"
+    ]
+  },
+  {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "annual fundraiser golf help holds local oaso officials",
+    "headline": "OASO holds annual golf fundraiser to help support local sports officials and referees",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.19,
+    "source_names": [
+      "fox23.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPVERudVNONXZoSi0zMlhvNW9PaUM5cVRPTnFjSVpsNVAyZjdkUVJtOVk5QkROZkl5dTBjYjFKUktOS2hkLXRHVW1OVHl0SWpmemVnWWRSLWpsNWVZcV9fXzdicHl3ZVJ3bzc1MHlIcDNRN1JXU19hSHFyVXJxZHVWR1NaYk5JUlMxUmkySFBfUlJOS2t1NmxGMEpsU1NGZEMxNDlFVy1OSzllVTloRkYzS2JCYlBZSmE1b1h0R0R3cldhdzkzZzBCVkNscmE4bHZUMUJPN3BMamNTNzA0WlhUTWhnVGNwXzRiM0FQb3Fxdkt6TXpC?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "highlights july league northwoods softball",
+    "headline": "Northwoods League softball highlights - July 10",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.19,
+    "source_names": [
+      "WSAW"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNNkdXMzNyeUJ6WEMwN0lPbVJnbF9tUms4WWdaTUotNmdmV2JNSmtwSTdReEpsWlVMTVByTHVYOWRrd25nMmJWSXZiOHBRYVJhNzZYWGk5Wi1qSU81VFZMNXVSZVhhTGdxYlhBaGhsY2RwNUVmcUt3eEZESTZjQUxPaVpBbEY4eFFEYTNkdw?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "07112026 promo sports tgs",
+    "headline": "TGS-07112026-sports-promo",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.18,
+    "source_names": [
+      "GreenevilleSun.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQakhKUTJEVHlfcS1pN01aeFdIejNzT3JyeWhNRW1ZWWVfUmg3SEF4RDN3UjNYVl9lMVU0UHk5eHA2WjlwaVlUdE5sRGpMSDA3VkdOYkgzUVBvQkJEY1owMEFUZDJ2ckExV1ZXeWRaLWdEVGs3Q2djcVVJMVV0a0RzY2VRSHo1U3RDcjhNa0E5N0U0Ul9jRUQtVlRIR0sycTlMaEFuN0dxNjFHOTdl?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "recap sports weekly women",
+    "headline": "Weekly women's sports recap (7/10)",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.18,
+    "source_names": [
+      "KPTV"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9FQ1g2aUM1SS0yVk9WaTRiV3V1OXQ0SDZ3Y1ZsMXc5SGNlYkEyakVETmFfUjg2QXhOOWh3ZlBMWm9ubXJSWXZpR2E5Uk9DRDRyT0g3bzdlRTJybVpCcDY5Q2tYWDcxWGQxOGVBTVFJbUwyVVl5NmRKNA?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "bluegrass clash hosts inaugural owensboro sports summit",
+    "headline": "Owensboro hosts inaugural Bluegrass Clash Sports Summit",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.18,
+    "source_names": [
+      "14 News"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQWHlrS1IzNVRXRGQ1Z3hjNm1rM0xzdE5RZ2NFTHo1ZXUzTlJjQkt6UHF1a3hZeW9VdzBuaGFMX1N5Z1JmVkdUa0JxMVJ4aktmUExidVVBbGNpQ1JNVUpSc1Z1cmJVNGZFN3RXLTJ1eWRnbUg3dExmdkF4dld6SzNLTlI4M0dpMXZQNUVxM2R4Y29PenlvbWRub29RRVM?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
     "duplicate_cluster_id": "climb continue costs debate northwest ohio pay play",
     "headline": "Pay-to-play debate reaches northwest Ohio as youth sports costs continue to climb",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.19,
+    "score": 7.17,
     "source_names": [
       "wtol.com"
     ],
@@ -1508,10 +1570,22 @@
   },
   {
     "category_candidate": "culture",
+    "duplicate_cluster_id": "enough fall guardians home marlins not runs",
+    "headline": "2 Home Runs Not Enough as Marlins Fall to Guardians",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.16,
+    "source_names": [
+      "Yahoo Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE51Vm93Y01PX2pSY3M3S0VMaV9mSHJuMzEzVzBTeHQ0ajdVV2xYLUN6SWlqYUtmcUQzUXpyTVljaW1pWnRPQkRhWW15bUpKR0xGSy1QNnBDR1NEMFgwSlJLLVJFWG5YNTFvN1lyRE5yV29VbUtTdXFPNTR4QQ?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
     "duplicate_cluster_id": "abuse addresses alleged columbus dog humane questions surrounding",
     "headline": "Columbus Humane addresses questions surrounding viral video of alleged dog abuse",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.18,
+    "score": 7.16,
     "source_names": [
       "10TV"
     ],
@@ -1523,7 +1597,7 @@
     "duplicate_cluster_id": "beat before chicago game hours issues mets plane",
     "headline": "Red Sox beat Mets after plane issues strand team in Chicago hours before game in New York",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.18,
+    "score": 7.16,
     "source_names": [
       "Yahoo Sports"
     ],
@@ -1535,7 +1609,7 @@
     "duplicate_cluster_id": "advance city mayor outskirts reaches russian zaporizhzhia",
     "headline": "Zaporizhzhia\u2019s mayor says Russian advance reaches city\u2019s outskirts",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.18,
+    "score": 7.16,
     "source_names": [
       "Al Jazeera"
     ],
@@ -1547,7 +1621,7 @@
     "duplicate_cluster_id": "build city empowers program staff tools upskilling",
     "headline": "A City's AI Upskilling Program Empowers Staff to Build Tools",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.17,
+    "score": 7.15,
     "source_names": [
       "GovTech"
     ],
@@ -1558,10 +1632,22 @@
   },
   {
     "category_candidate": "culture",
+    "duplicate_cluster_id": "factually fan goes norway refusing row viking viral",
+    "headline": "Norway Fan Goes Viral for Refusing the 'Viking Row': 'It's Factually Wrong'",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.15,
+    "source_names": [
+      "Complex"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPb3JVS2x5OUI3WThnekZ1dV95V25MQzNRaG53T25heTFPR3I2UGNyNVBBY3JPaXFseUJ4NC1hRUlNamw5Z0xZWnc3Ylo5czlPSndhRV85VE14RkRScTBCM3NxQ3VSOGppOXBhejVtaUoxMld0QnFJaWJKVDFmYmtnc1V6M2U4SHhseThGbw?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
     "duplicate_cluster_id": "extra kare sports",
     "headline": "KARE 11 News at 10 & Sports Extra",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.17,
+    "score": 7.15,
     "source_names": [
       "kare11.com"
     ],
@@ -1573,7 +1659,7 @@
     "duplicate_cluster_id": "berkeley talk talking talks when",
     "headline": "Berkeley Talks: When we talk to AI, what are we talking to?",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.17,
+    "score": 7.15,
     "source_names": [
       "University of California, Berkeley"
     ],
@@ -1587,7 +1673,7 @@
     "duplicate_cluster_id": "ads campaign commission ethics looking oklahoma political use",
     "headline": "Oklahoma Ethics Commission looking into use of AI in political campaign ads",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.17,
+    "score": 7.15,
     "source_names": [
       "KOCO"
     ],
@@ -1597,11 +1683,23 @@
     ]
   },
   {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "8th come jaguars nfl power rankings",
+    "headline": "Jaguars Come in 8th in New NFL Power Rankings",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.15,
+    "source_names": [
+      "Yahoo Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNdXNWdHhpa19qU2hhRmVKSk5ZTm5SbW9WYnFGeW5kNzZsa2FPX2pjNlBnWWE1WFpCZ1ZaQ3ZKMjhoUmV2cVpveGZPckk1WDNLTHVfVjNHd3NVMURybjI2LXVsQm0waGVvUlFFVnhqb05PenlWeUxvUzRCMm4tMXZTRg?oc=5",
+    "watchlist_match": []
+  },
+  {
     "category_candidate": "business_tech",
     "duplicate_cluster_id": "committed got pohlad success sustained tom twins win",
     "headline": "'We've got to win': Tom Pohlad committed to sustained success for Twins",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.17,
+    "score": 7.15,
     "source_names": [
       "MLB.com"
     ],
@@ -1613,7 +1711,7 @@
     "duplicate_cluster_id": "acquire all attend blue buxton festivities jays nance",
     "headline": "Twins acquire reliever Nance from Blue Jays; Buxton to attend All-Star festivities",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.17,
+    "score": 7.15,
     "source_names": [
       "MLB.com"
     ],
@@ -1625,7 +1723,7 @@
     "duplicate_cluster_id": "ducks greer joins nhl talks tonight trade",
     "headline": "A.J. Greer joins NHL Tonight to talks trade to Ducks",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.17,
+    "score": 7.15,
     "source_names": [
       "NHL.com"
     ],
@@ -1637,7 +1735,7 @@
     "duplicate_cluster_id": "2026 draft nba offseason tracker trade",
     "headline": "2026 NBA Draft & Offseason Trade Tracker",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.17,
+    "score": 7.14,
     "source_names": [
       "NBA.com"
     ],
@@ -1649,7 +1747,7 @@
     "duplicate_cluster_id": "all game herrera ohtani replace shohei star",
     "headline": "Iv\u00e1n Herrera to Replace Shohei Ohtani in All-Star Game",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.17,
+    "score": 7.14,
     "source_names": [
       "Yahoo Sports"
     ],
@@ -1657,11 +1755,23 @@
     "watchlist_match": []
   },
   {
+    "category_candidate": "business_tech",
+    "duplicate_cluster_id": "bat kevin mcgonigle swing technology tracking using visualizing",
+    "headline": "Visualizing Kevin McGonigle's swing using bat tracking technology",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.14,
+    "source_names": [
+      "MLB.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNZzRETE10elBPa1RoWkttem1KMEJfS0s0QmE2U0VtdXByUDBXUFBnVkFwUFZ4cmk1YUJSVVRpS0dpSXUweWZwQV91UUpvRlR0VGxUZTNQdlhSQ1REM3QyNWxVbldQcFBHZ0hjQS1PNlNKN2pkRDdaV3B1NXBjdXBOSmVEM3NyekFCSGxod3hIdjJxMFh1WGYzQVR4V193WGNtYmxSd2JUTQ?oc=5",
+    "watchlist_match": []
+  },
+  {
     "category_candidate": "culture",
     "duplicate_cluster_id": "amplified buzzing camp expansion las more nba raiders",
     "headline": "AMPLIFIED: Las Vegas sports scene buzzing with NBA expansion talk, Raiders camp and more",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.16,
+    "score": 7.14,
     "source_names": [
       "FOX5 Vegas"
     ],
@@ -1670,10 +1780,22 @@
   },
   {
     "category_candidate": "culture",
+    "duplicate_cluster_id": "2026 bracket cup facing final finals fixtures knockout",
+    "headline": "World Cup 2026 bracket and knockout fixtures - who's facing who in the quarter-finals and route to final",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.13,
+    "source_names": [
+      "Sky Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxPNW95ejZPUE9nVVJnQS1wZzNfUURsMWhILVp4QlVQUm9WWV9QWnIxa0R2RzB2eThsb2pHbFZhY2dRSEJaRC1wTG1OVzN5Y21zM3NYcjJsQndBZ0F3MHJOQXJIb0xGemppM0YwV2Q3R3FWRFJHakNGLUZpejQ0dFRQSHI5S1lOdS0zOUd6NWpOcTBlZGJscDBnci1uak1nTnNsanFxdTJjNXgteTNUcUZMTm96NXM2Wk5ZZGNmVTN3dGFXMlpXRmVUTmp6RTVVb25HQ0JaSFZYc0Rfa01vY0VrNk5Ebw?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
     "duplicate_cluster_id": "arms finds her life showcasing success viral without",
     "headline": "WA woman finds viral success showcasing her life without arms",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.15,
+    "score": 7.13,
     "source_names": [
       "KIRO 7 News Seattle"
     ],
@@ -1685,7 +1807,7 @@
     "duplicate_cluster_id": "bucket fever kelsey late lifts mercury mitchell past",
     "headline": "Kelsey Mitchell's Late Bucket Lifts Fever Past Mercury 92-89",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.15,
+    "score": 7.13,
     "source_names": [
       "Yahoo Sports"
     ],
@@ -1693,25 +1815,11 @@
     "watchlist_match": []
   },
   {
-    "category_candidate": "business_tech",
-    "duplicate_cluster_id": "answer can farmers feed growing help hold may",
-    "headline": "Can AI help Valley farmers feed a growing world population? A new supercomputer may hold the answer",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.14,
-    "source_names": [
-      "thebusinessjournal.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxObGpNWmI4MHEwNFh5VWtVcTdFdzc4Uk81aS0yeVd1djhMTFpWREtwRkZqMHUyaV9NMkdIcUlYZGVTVTBZQTgzWWkxZlB5UGpnT25scFFDaUNNLVFQdWNYQml4WUVDeWNYSUJCNzJSaHhhVGlGZVNHa1hQUTlTcmotV0R0UVlmbTJ1QTlBUQ?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
     "category_candidate": "culture",
     "duplicate_cluster_id": "bay big bringing california catches fishermen hope north",
     "headline": "Sports salmon season reopens in California, bringing big catches and new hope to North Bay fishermen",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.14,
+    "score": 7.12,
     "source_names": [
       "ABC7 Bay Area"
     ],
@@ -1723,7 +1831,7 @@
     "duplicate_cluster_id": "get sox trounced white",
     "headline": "A\u2019s get trounced by the White Sox 14-1",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.14,
+    "score": 7.12,
     "source_names": [
       "Yahoo Sports"
     ],
@@ -1732,22 +1840,10 @@
   },
   {
     "category_candidate": "culture",
-    "duplicate_cluster_id": "about again future lebron mbapp should sports stories",
-    "headline": "Mbapp\u00e9 again? LeBron\u2019s future? Sports stories you should be talking about",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.13,
-    "source_names": [
-      "ttownmedia.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxOWnBTclpxR2VjNHY2UlZUcm5uQ2JpajgxTVVRb1BmbzFiZG1IejAzMTdaRHFYS2FFRGhjZmg4Q1cxQjdLU2lrVTlxRTBtVVEzVGJtbVZKbHRSUzJfUDVKRUc3N2dYOXZPN2YxWU5BTXBuLUNjMkVwc2NvY01CTWMtX3FHb1RWLXdQamV3cDd4S2FncGdnMHp3ejRSdThCU3d1Z0xQQVR3UkN6RzZOVWlLLUMwaU1ZYkE2dHJWdU5XZWdHdnhtaURrT2ZfS284ZklTNnVadGxpR2FuWHE4eXp4Zmd2ZnB4RVQ0ZmNxU2pmQ1RfZTQ?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
     "duplicate_cluster_id": "all cup eyes haaland norway star world",
     "headline": "All eyes are on Norway star Haaland at World Cup",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.12,
+    "score": 7.1,
     "source_names": [
       "altoonamirror.com"
     ],
@@ -1755,15 +1851,15 @@
     "watchlist_match": []
   },
   {
-    "category_candidate": "business_tech",
-    "duplicate_cluster_id": "cup kicks merino semis spain world",
-    "headline": "Merino kicks Spain into World Cup semis",
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "argentina cup facing messi semis switzerland upstart world",
+    "headline": "Messi\u2019s Argentina facing upstart Switzerland in World Cup semis",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.12,
+    "score": 7.1,
     "source_names": [
       "altoonamirror.com"
     ],
-    "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOWjliMUdjT0ZOU09GZm9GVHZ6Z09VZ3dfWlNPQUs4ci1ucUhKYnVLZHRPRkpTdVhUby02UUhiMTEwMzVOY2hDTFlrNzFwOGI3QmNGYWxObVdGZ1ZiV2RtRXRpbEk5aEp5QW9xNDZOa1pDeTV3YWNOZEpscS1WV1E4VVBEMHhUdllrajJKQ09XenRyZkV1RmQyYWtjbjlyYVJwZ0Rj?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPbF9rX3hGaTJ4NGdKOGVrWlJVRFExUmo5RkhvMUloWDJWRzlwb3Rkc3JtUXdzdzZTZ290bjU4UTQzd0U2SGZkYXAzQXZSdmthMmF5cS0yWTcwSlh6M3dMcXE1TDM2MERUNWFnWnFRYUFkQUJwUUozdV9nNDVzUEV2TkxuQjRrX1lpWGhncl95cEVPbFhXUWNLRHBEalJ2SmNoakNWanE5NXBwclpZbWhhT0U1Q2dYRW5yUGxiNDRQeXB6dw?oc=5",
     "watchlist_match": []
   },
   {
@@ -1771,7 +1867,7 @@
     "duplicate_cluster_id": "burnes corbin final looks program restarts salvage season",
     "headline": "Corbin Burnes restarts throwing program as he looks to salvage final stretch of season",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.12,
+    "score": 7.1,
     "source_names": [
       "Arizona Sports"
     ],
@@ -1780,34 +1876,10 @@
   },
   {
     "category_candidate": "culture",
-    "duplicate_cluster_id": "atlanta fresh hawks interest peyton shown watson",
-    "headline": "Report: Atlanta Hawks Have Shown \u2018Fresh Interest\u2019 in Peyton Watson",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.12,
-    "source_names": [
-      "Yahoo Sports"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOMllURDZpMWN3a2FnazV3RjZfX2lBellXUXplLWFYX3FnTF9odXRuUnl3eXBiNWpXMmdlRXNlTXQ1VTA5aG9JUUdUODl1Z1BzZUVmV1JYVTV6eGtXYnJCWWpjVzBRZVc4RTlDS3Q1WEt4Zl9vV1FDTDc5VW5EV05iY3hnYm9DVGVX?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "guardians win yay",
-    "headline": "Guardians Win! Yay!",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.12,
-    "source_names": [
-      "Yahoo Sports"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5rUWJnYWhzenVKY0lWY01rY1JMaE53b1VHcENQSmRpeVNQM0h1YnV5Q3EzV1BKT3BFWmVLMlJ6ZDdwSElVMTV0elcwb1ItaFFIU2YybVEwU25aVVRQWm5kemx0V25iQTlyWk9ROG1GZnpLdGR1?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
     "duplicate_cluster_id": "2026 bowl can form laporta pro return sam",
     "headline": "Can Sam LaPorta Return to Pro Bowl Form in 2026?",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.1,
+    "score": 7.08,
     "source_names": [
       "Yahoo Sports"
     ],
@@ -1816,26 +1888,14 @@
   },
   {
     "category_candidate": "culture",
-    "duplicate_cluster_id": "america english expat first living reaction time true",
-    "headline": "English expat living in the US says viral 'first time in America' reaction videos are true",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.1,
-    "source_names": [
-      "KRIS 6 News Corpus Christi"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQUmZkMTQ1NG9mLWt5cGFxd1BBSVVBWEt5UUE3blp0d2hXakpvbjBHNWYwQ2YtcU5ZMnNEdVpuNFE1azZ3RVgxSjBMTmR2WVNJQlN0dlRQSWtabko0bjhaVnZUZ0I2eklMT1RDazZxZW1VNWhKUjR3bkJsR3ZxNWpvSEZtTjlxRGY0VzROYjZob0lDRFRGcVp4ZjhMeGZTQzM5N0VYSVZFWXFIYlhYTjV0cm5hWTdST3hCZ2dKVGhzNUpjV003dkE?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
     "duplicate_cluster_id": "cardinals contract eight extension louis sign wetherholt year",
     "headline": "St. Louis Cardinals sign JJ Wetherholt to eight-year contract extension",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.1,
+    "score": 7.08,
     "source_names": [
       "KOMU 8"
     ],
-    "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxQQlBtQjg5U0MxaTdVUTdseTROY0o0QXdwSW5KaFNOdnRZeXE4UjNXTy11aUdxVzZHNGZGejByaGVIQXI4ZTNjS296ejd0R0tLaFF0TS1lOTBRbzVmNkJMNncwVnd5akY4MkVTUkh1ZFRXQ2E4WnBibzFpODUwMzZiV2NPOTl4YURHQ0FVT3R6SmhtZEJpQ3drNGhpd2tkY0hQenZsc0RldVhPbERsTXBOSE5Mb0p6TjRWU1FGTUthWEk2Xy1tR0VfWkVORjc2RmphSngzWDhCNWZ5WGZ1SWtLZTh6OWgzN1hEOWxRQV9OX3dQSlhC0gH0AUFVX3lxTFBCUG1CODlTQzFpN1VRN2x5NE5jSjRBd3BJbkpoU052dFl5cThSM1dPLXVpR3FXNkc0ZkZ6MHJoZUhBcjhlM2NLb3p6N3RHS0toUXRNLWU5MFFvNWY2Qkw2dzBWd3lqRjgyRVNSSHVkVFdDYThacGJvMWk4NTAzNmJXY085OXhhREdDQVVPdHpKaG1kQmlDd2s0aGl3a2RjSFB6dmxzRGV1WE9sRGxNcE5ITkxvSnpONFZTUUZNS2FYSTZfLW1HRV9aRU5GNzZGamFKeDNYOEI1ZnlYZnVJa0tlOHo5aDM3WEQ5bFFBX05fd1BKWEI?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxOM0M5UFFzZkRkTEJmZ0xNb2FYSTZzSENVWm9OOFJfNnhLY18zckM5YWZBT09KOTBZdjNIYWM2aEp1OWRfeV82R3cyYi1VOFpRY0ExN1VLM2VYWllqVXh4MGh1bG9US1dvX1E5Y1gwSHZFVi1LVGhLR3dwMllKTURyWlZiWWNZUTJwTlE2ME1fWnJjb2JDUktkbm9QZEgzS1RYeENiWm13UXNDSFE1SGRKeHFTaF8xUkZ5VmxIb2d1WWhHQ2NBV2xmY3FHQ2ZVSUYybjBTMnZNRWIzdjBRMm5pNUZ6MWxLRzFjNDNGY0E0Y9IB9AFBVV95cUxQQlBtQjg5U0MxaTdVUTdseTROY0o0QXdwSW5KaFNOdnRZeXE4UjNXTy11aUdxVzZHNGZGejByaGVIQXI4ZTNjS296ejd0R0tLaFF0TS1lOTBRbzVmNkJMNncwVnd5akY4MkVTUkh1ZFRXQ2E4WnBibzFpODUwMzZiV2NPOTl4YURHQ0FVT3R6SmhtZEJpQ3drNGhpd2tkY0hQenZsc0RldVhPbERsTXBOSE5Mb0p6TjRWU1FGTUthWEk2Xy1tR0VfWkVORjc2RmphSngzWDhCNWZ5WGZ1SWtLZTh6OWgzN1hEOWxRQV9OX3dQSlhC?oc=5",
     "watchlist_match": []
   },
   {
@@ -1843,7 +1903,7 @@
     "duplicate_cluster_id": "cam giants goes hair skattebo transformation viral",
     "headline": "Giants' Cam Skattebo goes viral for hair transformation",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.1,
+    "score": 7.08,
     "source_names": [
       "Yahoo Sports"
     ],
@@ -1855,7 +1915,7 @@
     "duplicate_cluster_id": "2026 canada cup fans including mexico tickets trump",
     "headline": "World Cup 2026 news and live updates - USA, Canada and Mexico latest including Trump, tickets and fans",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.1,
+    "score": 7.08,
     "source_names": [
       "Sky Sports"
     ],
@@ -1864,22 +1924,10 @@
   },
   {
     "category_candidate": "culture",
-    "duplicate_cluster_id": "belgian goalkeeper late mistake semifinals sends spain",
-    "headline": "Belgian goalkeeper\u2019s late mistake sends Spain to semifinals",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.09,
-    "source_names": [
-      "FOX Illinois"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOMlJrQ0FHWW93RnE3d0o4UHMzRmdpQUptRXp0YjFrX2R0SnBub0VueUlIM0lvNTlKa0RPT3hPaWpJY0JjeUptdWlnQ1NHc1M5aVM2RmZKbXJlSWFMVUJrNjF6UlVteHhqZTdXaUp1THBpWW03T2ktUFRrMUtTajF3QUJFZXRUeEZjZThRQkc0V0hmb1VPbURBbWhBVWluX0JvMVpZRm1uY21TbEMyNkdZUWVjMEJYbmhHUWZyRkZWN25HMFhuQXh3MWttVXg5XzRUR3A0MGVpXzRkRzBT?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
     "duplicate_cluster_id": "friday gif night orioles party victory",
     "headline": "Friday Night Orioles Victory GIF Party",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.09,
+    "score": 7.07,
     "source_names": [
       "Yahoo Sports"
     ],
@@ -1891,7 +1939,7 @@
     "duplicate_cluster_id": "borders innovation without",
     "headline": "Innovation without borders",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.09,
+    "score": 7.06,
     "source_names": [
       "CEPR"
     ],
@@ -1900,10 +1948,22 @@
   },
   {
     "category_candidate": "culture",
+    "duplicate_cluster_id": "america english expat first living reaction time true",
+    "headline": "English expat living in the US says viral 'first time in America' reaction videos are true",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.06,
+    "source_names": [
+      "KRIS 6 News Corpus Christi"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQUmZkMTQ1NG9mLWt5cGFxd1BBSVVBWEt5UUE3blp0d2hXakpvbjBHNWYwQ2YtcU5ZMnNEdVpuNFE1azZ3RVgxSjBMTmR2WVNJQlN0dlRQSWtabko0bjhaVnZUZ0I2eklMT1RDazZxZW1VNWhKUjR3bkJsR3ZxNWpvSEZtTjlxRGY0VzROYjZob0lDRFRGcVp4ZjhMeGZTQzM5N0VYSVZFWXFIYlhYTjV0cm5hWTdST3hCZ2dKVGhzNUpjV003dkE?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
     "duplicate_cluster_id": "being county free offered physicals sports summers",
     "headline": "Free sports physicals being offered in Summers County",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.08,
+    "score": 7.06,
     "source_names": [
       "WVNS"
     ],
@@ -1915,7 +1975,7 @@
     "duplicate_cluster_id": "action animation cast character every guide moana original",
     "headline": "\u2018Moana\u2019 Cast Guide: Every Live-Action Character vs. the Original Animation",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.08,
+    "score": 7.06,
     "source_names": [
       "Variety"
     ],
@@ -1923,11 +1983,23 @@
     "watchlist_match": []
   },
   {
+    "category_candidate": "business_tech",
+    "duplicate_cluster_id": "become billionaire calls chun college out pat playground",
+    "headline": "Washington's Pat Chun calls out the state of college sports: 'This has become a billionaire's playground'",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.06,
+    "source_names": [
+      "On3"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNXzh5aGNSWk9MbXlpTmUzQ09vQWRMTnVnSllqYXZLVWJ4djRuaUw4eUplNlRieWloS1RvT0ZlWmxuaVJ3RjI0cHZoclpCQ19ZTU5ydFowcmdVbDZ0RVdTWUUtRGY3bllLREpZRWZucWZJeW9PX3NHRkc2QXlxOEJnbUNhYldnUmxpc19HdklsVXVQbGhrU0wtQkd3OVBsaHlCR2FFUjh6cUJFem9MVmhlMnYwcWhpZHZNNVduaksxaw?oc=5",
+    "watchlist_match": []
+  },
+  {
     "category_candidate": "domestic",
     "duplicate_cluster_id": "dies emergency gage johnny mantooth played randolph who",
     "headline": "Randolph Mantooth, Who Played Johnny Gage on \u2018Emergency!,\u2019 Dies at 80",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.07,
+    "score": 7.05,
     "source_names": [
       "Variety"
     ],
@@ -1936,14 +2008,14 @@
   },
   {
     "category_candidate": "culture",
-    "duplicate_cluster_id": "adebayo altercation bam herro involved tyler",
-    "headline": "Tyler Herro, Bam Adebayo involved in altercation",
+    "duplicate_cluster_id": "bracket cup final full matchups quarterfinals road schedule",
+    "headline": "World Cup quarterfinals bracket: Full schedule, matchups and road to the final",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.07,
+    "score": 7.05,
     "source_names": [
-      "NBC Sports"
+      "Yahoo Sports"
     ],
-    "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOTElTOGlrZ01sY2tCWHVuUlNrWHl5Z1NONzBTNmw3anFRRFoyTjlVY1NjRVNheURJYlNSMEhmVlJtbEpPeUlFQmZoampJbTU5Uy1OOVBrWC1tdDBjNlJoTDBEU01FUS1zS0NZOTdic3otVWo2TTUtbTNHNGpjVUplTkd2WEl1UHByU3dBejZocUt2TTg3b3YzMTJxLWN1QjVRXzlIOW9aRXgtNENQcEV5blRuTUNLQQ?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPbmx2emVQOUlqRVotV2pCQ3JVTl93LXJCMlM2UTBPSzgtYlJQTGNTdXJPNG5rYmk5WktNZF91N081Y0QxNDI4d3NFRE5uRWhnUTVVUHctYmp4NjlBQ3FmRUdxYXU5a08yWlplRjNlQWx1WjBiMmtPc3JBanY0MTJnVzhjUjN5d3hVUG03VGJzaWFSbFdYMzdtUnd5c1dHX1ZTNjV5WXB3QWxUa3FiVzBWckpTakIxSGdWWThScTh4ZEczTndSZ09oLS1LZw?oc=5",
     "watchlist_match": []
   },
   {
@@ -1951,7 +2023,7 @@
     "duplicate_cluster_id": "big caleb contestant exploring fame his island jaiden",
     "headline": "\u2018Love Island USA\u2019 Season 8 Contestant Caleb McDaniel on His Relationship With Jaiden, Not Exploring Melanie and His Newfound Fame: \u2018I\u2019m Just Now Starting to Realize It\u2019s As Big As It Is\u2019",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.06,
+    "score": 7.04,
     "source_names": [
       "Variety"
     ],
@@ -1959,11 +2031,23 @@
     "watchlist_match": []
   },
   {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "cup fifa games info july kickoff livestream schedule",
+    "headline": "FIFA World Cup schedule today: Games, kickoff times, livestream info for July 10",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.04,
+    "source_names": [
+      "Mashable"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOT284U3BtVFJuSWxfQk1TQnNkbGs3TV85WjJ6cDJWQmw3VkVQbmdrSHZJZEZtQm93RDBNYmJPZjB3ZnZkUmhIQV82RmZIbW9ZSzZIdnc0ZEhKM2lHS2FUQ2I3dWh6VDZQWmFTZzgteWpUdTRMbkk0czNPRWxjaENhVDJ1Nl9WSXl1VVRvR3EtRGp0T25SZWc?oc=5",
+    "watchlist_match": []
+  },
+  {
     "category_candidate": "business_tech",
     "duplicate_cluster_id": "2026 341 county first half increase layoffs shelby",
     "headline": "Shelby County layoffs increase 341% in first half of 2026",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.05,
+    "score": 7.03,
     "source_names": [
       "FOX13 Memphis"
     ],
@@ -1972,10 +2056,22 @@
   },
   {
     "category_candidate": "culture",
+    "duplicate_cluster_id": "2026 daily format league nba schedule scores summer",
+    "headline": "NBA Summer League 2026: Daily schedule, scores, format, how to watch",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.03,
+    "source_names": [
+      "Yahoo Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNdWJZMkNPUnh1V3FZWWtsbUdLV3RMcUZ5TDZBOTdCa29FbkdFdkh3RDMtakR6ZkZ1V1F6MkFvM24xM3A0Ql9Pc3hiUEJ6clc1MUNaYzFXeV9RNnVUWFpLQTR1eTg3MWtsYU9USjNXNkZvYzRHenZ2SVZPSVJ1UkdhWXFMQmhxZ2JNMXgwYTBNM3lsMXN5TWowRFhNbjV6clYtd283dTNZbk51SnFLN29ObXZJbTlsckU?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
     "duplicate_cluster_id": "draft kiley mcdaniel mlb predicts saturday",
     "headline": "The MLB draft is Saturday! Kiley McDaniel predicts...",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.05,
+    "score": 7.03,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -1987,7 +2083,7 @@
     "duplicate_cluster_id": "can future mlb players see wait",
     "headline": "The players we can't wait to see in the MLB Future...",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.05,
+    "score": 7.03,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -1999,7 +2095,7 @@
     "duplicate_cluster_id": "2026 bracket cup dates fifa group locations matches",
     "headline": "2026 FIFA World Cup Schedule: Bracket, matches, dates, locations, group tables, results, how to watch",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.05,
+    "score": 7.03,
     "source_names": [
       "NBC Sports"
     ],
@@ -2011,7 +2107,7 @@
     "duplicate_cluster_id": "agent every free grades including signing",
     "headline": "Grades for every free agent signing, including the...",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.04,
+    "score": 7.02,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -2023,7 +2119,7 @@
     "duplicate_cluster_id": "discover ideas lynn show streaming vance",
     "headline": "Discover new streaming ideas on \u2018The Lynn Vance Show\u2019",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.04,
+    "score": 7.02,
     "source_names": [
       "KTALnews.com"
     ],
@@ -2035,7 +2131,7 @@
     "duplicate_cluster_id": "day good olympics special sports youth",
     "headline": "Good News at the Special Olympics Youth Sports Day",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.04,
+    "score": 7.02,
     "source_names": [
       "9News"
     ],
@@ -2047,7 +2143,7 @@
     "duplicate_cluster_id": "cup fifa results schedule standings world",
     "headline": "FIFA World Cup: Schedule, Results and Standings",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.03,
+    "score": 7.01,
     "source_names": [
       "Eli Sports Network"
     ],
@@ -2059,11 +2155,11 @@
     "duplicate_cluster_id": "baseball good prepping regional rival sports teams tournament",
     "headline": "Good Sports: Rival Valley baseball teams prepping for regional tournament",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.02,
+    "score": 7.0,
     "source_names": [
       "ABC30 Fresno"
     ],
-    "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNYXVJYTdrWWNRd1JTTDZsYlhYaWd0RlBVanUwOTMzZFYzZTZFM20xbFM0VTQ1R0l2WXU2cDh4LXdwV0xvbnZ4azlUYWlQZms3VFdGTXZlZkxxWUhxQldQaG1NYXFVcnMwdGRCNXhGaExySFJuVDBtTnA5ZTZFN3pZVG4zcWhJeHF0cVpNR3RCZXNVY2JZVmEwNmhFd0xuc293RUlJ0gGoAUFVX3lxTE9aOWJBSEJKZzV2UWludTlBY0lhM2lpc05rQWhQd3A4UF9QV1U1VGxvOTdFZVFLOV9DTGtSWDNkT3Y1QXJ3aWM3N052MGxKc3lTQlhmeHdoYXdGTmdJSTdnZVdqaUlCdjFTM1p3UzF0dldHOExXcE94amYwUzIwSFJhM2tGamd1NUZsd3pCeGZMRS1nWk9uZVJSbHcteTJRdDJQMEQ4TVVOdQ?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPWjliQUhCSmc1dlFpbnU5QWNJYTNpaXNOa0FoUHdwOFBfUFdVNVRsbzk3RWVRSzlfQ0xrUlgzZE92NUFyd2ljNzdOdjBsSnN5U0JYZnh3aGF3Rk5nSUk3Z2VXamlJQnYxUzNad1MxdHZXRzhMV3BPeGpmMFMyMEhSYTNrRmpndTVGbHd6QnhmTEUtZ1pPbmVSUmx3LXkyUXQyUDBEOE1VTnXSAagBQVVfeXFMT1o5YkFIQkpnNXZRaW51OUFjSWEzaWlzTmtBaFB3cDhQX1BXVTVUbG85N0VlUUs5X0NMa1JYM2RPdjVBcndpYzc3TnYwbEpzeVNCWGZ4d2hhd0ZOZ0lJN2dlV2ppSUJ2MVMzWndTMXR2V0c4TFdwT3hqZjBTMjBIUmEza0ZqZ3U1Rmx3ekJ4ZkxFLWdaT25lUlJsdy15MlF0MlAwRDhNVU51?oc=5",
     "watchlist_match": []
   },
   {
@@ -2071,7 +2167,7 @@
     "duplicate_cluster_id": "2026 all cup free friday games info july",
     "headline": "2026 World Cup: How to watch all of today's games, Friday, July 10 match schedule, free streaming info, and more",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.02,
+    "score": 7.0,
     "source_names": [
       "Yahoo Sports"
     ],
@@ -2083,7 +2179,7 @@
     "duplicate_cluster_id": "2026 251m cup deal debate hoops office sports",
     "headline": "Sports Office 7-10-2026: Wemby's $251M Deal, World Cup, Texas Hoops & Verlander Debate",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.01,
+    "score": 6.99,
     "source_names": [
       "FOX 7 Austin"
     ],
@@ -2095,7 +2191,7 @@
     "duplicate_cluster_id": "planner saturday sports",
     "headline": "Sports Planner for Saturday",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.01,
+    "score": 6.99,
     "source_names": [
       "The Republic News"
     ],
@@ -2107,7 +2203,7 @@
     "duplicate_cluster_id": "box breaks bringing card collectors midwest sports together",
     "headline": "How Midwest Box Breaks is bringing sports card collectors together",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.01,
+    "score": 6.98,
     "source_names": [
       "WANE 15"
     ],
@@ -2119,7 +2215,7 @@
     "duplicate_cluster_id": "00pm july sports",
     "headline": "6:00PM Sports - July 10",
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.0,
+    "score": 6.98,
     "source_names": [
       "Valley News Live"
     ],
@@ -2131,7 +2227,7 @@
     "duplicate_cluster_id": "adebayo altercation bam based bucks heat herro physical",
     "headline": "Heat's Bam Adebayo reportedly struck Bucks' Tyler Herro in Vegas-based physical altercation",
     "reason_skipped": "no reliable source confirmation",
-    "score": 6.99,
+    "score": 6.97,
     "source_names": [
       "Yahoo Sports"
     ],
@@ -2143,7 +2239,7 @@
     "duplicate_cluster_id": "2026 argentina channel jul start streaming switzerland time",
     "headline": "Watch Argentina vs Switzerland Live Today: Streaming, TV Channel & Start Time (Jul 11, 2026)",
     "reason_skipped": "no reliable source confirmation",
-    "score": 6.99,
+    "score": 6.97,
     "source_names": [
       "FOX One"
     ],
@@ -2152,34 +2248,10 @@
   },
   {
     "category_candidate": "culture",
-    "duplicate_cluster_id": "bracket cup final full matchups quarterfinals road schedule",
-    "headline": "World Cup quarterfinals bracket: Full schedule, matchups and road to the final",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 6.99,
-    "source_names": [
-      "Yahoo Sports"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPbmx2emVQOUlqRVotV2pCQ3JVTl93LXJCMlM2UTBPSzgtYlJQTGNTdXJPNG5rYmk5WktNZF91N081Y0QxNDI4d3NFRE5uRWhnUTVVUHctYmp4NjlBQ3FmRUdxYXU5a08yWlplRjNlQWx1WjBiMmtPc3JBanY0MTJnVzhjUjN5d3hVUG03VGJzaWFSbFdYMzdtUnd5c1dHX1ZTNjV5WXB3QWxUa3FiVzBWckpTakIxSGdWWThScTh4ZEczTndSZ09oLS1LZw?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "2026 bracket cup facing final finals fixtures knockout",
-    "headline": "World Cup 2026 bracket and knockout fixtures - who's facing who in the quarter-finals and route to final",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 6.99,
-    "source_names": [
-      "Sky Sports"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxPNW95ejZPUE9nVVJnQS1wZzNfUURsMWhILVp4QlVQUm9WWV9QWnIxa0R2RzB2eThsb2pHbFZhY2dRSEJaRC1wTG1OVzN5Y21zM3NYcjJsQndBZ0F3MHJOQXJIb0xGemppM0YwV2Q3R3FWRFJHakNGLUZpejQ0dFRQSHI5S1lOdS0zOUd6NWpOcTBlZGJscDBnci1uak1nTnNsanFxdTJjNXgteTNUcUZMTm96NXM2Wk5ZZGNmVTN3dGFXMlpXRmVUTmp6RTVVb25HQ0JaSFZYc0Rfa01vY0VrNk5Ebw?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
     "duplicate_cluster_id": "limits pushing spending sports",
     "headline": "Sports TV spending pushing limits",
     "reason_skipped": "no reliable source confirmation",
-    "score": 6.98,
+    "score": 6.96,
     "source_names": [
       "altoonamirror.com"
     ],
@@ -2191,7 +2263,7 @@
     "duplicate_cluster_id": "clark debate physical play rages wnba",
     "headline": "Clark debate rages on with physical play in WNBA",
     "reason_skipped": "no reliable source confirmation",
-    "score": 6.98,
+    "score": 6.96,
     "source_names": [
       "altoonamirror.com"
     ],
@@ -2203,7 +2275,7 @@
     "duplicate_cluster_id": "but merino need roja semis sends spain",
     "headline": "Merino sends Spain to the semis, but La Roja need ...",
     "reason_skipped": "no reliable source confirmation",
-    "score": 6.98,
+    "score": 6.96,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -2215,7 +2287,7 @@
     "duplicate_cluster_id": "another cup delivers late merino recap winn world",
     "headline": "World Cup recap: Merino delivers another late winn...",
     "reason_skipped": "no reliable source confirmation",
-    "score": 6.98,
+    "score": 6.96,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -2227,7 +2299,7 @@
     "duplicate_cluster_id": "county fame hall inductees set seven sports weakley",
     "headline": "Seven inductees are set to go into the Weakley County Sports Hall of Fame",
     "reason_skipped": "no reliable source confirmation",
-    "score": 6.98,
+    "score": 6.96,
     "source_names": [
       "wbbjtv.com"
     ],
@@ -2236,10 +2308,22 @@
   },
   {
     "category_candidate": "culture",
+    "duplicate_cluster_id": "2026 cup dates every fifa match schedule scores",
+    "headline": "How to Watch the 2026 FIFA World Cup: Scores, Schedule, Dates for Every Match",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 6.96,
+    "source_names": [
+      "FOX Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOUVFCYXl0QkQ3TVVHMFlVZmFTVU5ZYkFIbkVOVUJzTUJxWU9lSU9ocDV5OGZxX2Y2MzM3RXpSOHJmTkYyS3Y3OXRWelBmMWdDNDdvZ1lnTDhFZnVWSjJNeC1GZ3VBMmdwUEF6aXVEd3pKdGEtakI5VFVLaXpTTUNrUGd6UVlpTWFfZmZ0MnNGZHZPZGdWV2YxRHVHV1cyM1prcTl2RtIBpAFBVV95cUxNQnBNVzFVejlFR0RBdTZSRUtvX19acUd4VTNKc3lLVFQ4eFRGV3ZFc202eDJIOWNzenFSUklSdHJLZFBRMGdYZE84UUtYVEVuckRoY0xsVnNvWndKTEcxdUFQLWVad0JzcV9qT0VBRzUyTFowYnQ4V1ExS2lGWFFaWjZ2TTVTeS1EOFh0RkYwWno0YzVFMGphLU9nRDlaZm5uV2Fudg?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
     "duplicate_cluster_id": "madison pickleball sports support tournament youth",
     "headline": "Madison pickleball tournament to support youth sports",
     "reason_skipped": "no reliable source confirmation",
-    "score": 6.98,
+    "score": 6.96,
     "source_names": [
       "WSAW"
     ],
@@ -2251,7 +2335,7 @@
     "duplicate_cluster_id": "2026 championships friday full match more schedule tennis",
     "headline": "Wimbledon 2026: How to watch The Championships tennis tournament on Friday, full match schedule, and more",
     "reason_skipped": "no reliable source confirmation",
-    "score": 6.97,
+    "score": 6.95,
     "source_names": [
       "Yahoo Sports"
     ],
@@ -2263,47 +2347,23 @@
     "duplicate_cluster_id": "concept district eager lake multi near one rochester",
     "headline": "Rochester sports teams eager for \u2018One Rochester\u2019 multi-use district concept near Silver Lake",
     "reason_skipped": "no reliable source confirmation",
-    "score": 6.96,
+    "score": 6.93,
     "source_names": [
       "KTTC | Rochester, MN"
     ],
-    "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOdm80WjctazFBRHozX2gtRHpsWlZ4ZEpTamNoTlJtTzBHb0hmOHNyV0xxdmRXXzFpNDliVGh6b1J0UThfZExCZHBJZHVrbjNSSFlaYU5SSk9oVzBHRklhRG1XNzBGdHVZdlhQbUNjS291TWw5c09WUzFGRXJYUUl0QWhsQjhYTmVZRmJDbHFOWVJ4TEFEOW9Rd0w4WDhrbDcyMFB4akFCcWQ5bk9GLUhSMjdhOUlVcUI0Tk9J?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOdm80WjctazFBRHozX2gtRHpsWlZ4ZEpTamNoTlJtTzBHb0hmOHNyV0xxdmRXXzFpNDliVGh6b1J0UThfZExCZHBJZHVrbjNSSFlaYU5SSk9oVzBHRklhRG1XNzBGdHVZdlhQbUNjS291TWw5c09WUzFGRXJYUUl0QWhsQjhYTmVZRmJDbHFOWVJ4TEFEOW9Rd0w4WDhrbDcyMFB4akFCcWQ5bk9GLUhSMjdhOUlVcUI0Tk9J0gHPAUFVX3lxTFB6NHU4Wjl6MGJ6OEVKc3NiOTBGeTJhaEtjNFkxX2dja1I1Z3pRb09sOE56VTBDcDYxTVdWM0tUNXlZWkd4YmN4ZUZZMTdNZlpXaUJRNEk1cTNzX3NEUDdVVklJTzNocVk2Tjh4cllRNGJET0p3QzhxNHgwNi1WcWdkODY5Rk1kWkdFa0JGQzA1ODJUeHM1M3U0N1BCT0V1WDRMRk5LaXdhVkpzTGczOWJwRnRfQWxtdHVrVEJyMlNOa1hXNllSOUxZVjNFc3JkTQ?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "culture",
-    "duplicate_cluster_id": "athlete behind best men nominees sports stats",
-    "headline": "Stats behind Best Athlete - Women's Sports nominee...",
+    "duplicate_cluster_id": "2026 july streaming this week",
+    "headline": "What's new to streaming this week? (July 10, 2026)",
     "reason_skipped": "no reliable source confirmation",
-    "score": 6.94,
+    "score": 6.93,
     "source_names": [
-      "ESPN Top Headlines"
+      "Mashable"
     ],
-    "url": "https://www.espn.com/espys/story/_/page/BestMensAthlete*2026/espys-2026-stats-best-athlete-men-sports-nominees",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "best coaches ends execs nfl tight who",
-    "headline": "Who are the NFL's best tight ends? Execs, coaches ...",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 6.94,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/nfl/story/_/id/49267903/ranking-nfl-top-10-tight-ends-2026-execs-coaches-scouts",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "barnwell bowl built posit rosters super",
-    "headline": "How are Super Bowl rosters built? Barnwell's posit...",
-    "reason_skipped": "no reliable source confirmation",
-    "score": 6.94,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/nfl/story/_/id/49309306/2026-nfl-season-super-bowl-roster-building-positions-draft-signings-trades",
+    "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE8wS1BvSjV0UHNTZk1BcVQ0Y1pWNnIwTWhsM09YOFhpTjgzS3Eyb3F4aHNOaU8yVEVBeWEyUFlOdzZuRWEtX1p1WkRQZzBnWHYtZTBuWnV3MmpKWFloOU91bGJHSkE1YU1laVg3TzhSQTJ1QQ?oc=5",
     "watchlist_match": []
   }
 ]

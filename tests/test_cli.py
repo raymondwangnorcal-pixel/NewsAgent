@@ -64,7 +64,8 @@ def test_cli_dry_run_prints_messages(monkeypatch: pytest.MonkeyPatch, tmp_path, 
     cli.main(["--dry-run", "--no-openai"])
 
     output = capsys.readouterr().out
-    assert "TEXT 1/1: BUSINESS + TECH" in output
+    assert "===== TEXT 1/1 =====" in output
+    assert "BUSINESS + TECH" in output
     assert "Total messages: 1" in output
     assert "AI startup raises funding" in output
 

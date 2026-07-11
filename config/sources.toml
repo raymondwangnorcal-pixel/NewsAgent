@@ -5,7 +5,7 @@ max_chars_per_message_sms = 1400
 max_stories_per_category_sms = 5
 max_sources_per_story = 3
 include_links_sms = false
-include_links_telegram = true
+include_links_telegram = false
 
 [[feeds]]
 name = "BBC World"

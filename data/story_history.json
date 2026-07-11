@@ -394,11 +394,11 @@
         "trade",
         "when"
       ],
-      "last_seen_time": "2026-07-10T22:01:19.985024+00:00",
-      "last_update_note": "",
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "New sources or details since 2026-07-10.",
       "sources": [
         "CNBC Top News",
-        "CNBC"
+        "Axios"
       ],
       "summary": "The two companies entered into a high-profile partnership in 2024 when ChatGPT was integrated into the iPhone's operating system."
     },
@@ -726,6 +726,842 @@
         "Reuters"
       ],
       "summary": "Wall Street ends higher as investors turn to earnings season The Daily News | Texas' Oldest Newspaper"
+    },
+    {
+      "canonical_headline": "Apple accuses OpenAI, and former design star Jony Ive's io Products firm, of stealing hardware trade secrets in blockbuster lawsuit",
+      "category": "global",
+      "cluster_id": "c4a29dc1a39c1eac",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "accuses",
+        "accusing",
+        "apple",
+        "blockbuster",
+        "chatgpt",
+        "design",
+        "files",
+        "firm",
+        "former",
+        "hardware",
+        "jony",
+        "lawsuit",
+        "maker",
+        "openai",
+        "products",
+        "secrets",
+        "star",
+        "stealing",
+        "trade"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "AP News",
+        "Fortune",
+        "Al Jazeera"
+      ],
+      "summary": "Apple files lawsuit accusing ChatGPT maker OpenAI of stealing trade secrets AP News"
+    },
+    {
+      "canonical_headline": "Apple sues OpenAI, its employees claiming theft of trade secrets",
+      "category": "global",
+      "cluster_id": "45be32d3965cce9f",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "apple",
+        "business",
+        "claiming",
+        "core",
+        "employees",
+        "friday",
+        "hardware",
+        "lawsuit",
+        "nascent",
+        "openai",
+        "rotten",
+        "secrets",
+        "sues",
+        "that",
+        "theft",
+        "trade"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "BBC World",
+        "BBC"
+      ],
+      "summary": "Apple said in a Friday lawsuit that OpenAI\u2019s nascent hardware business is \u201crotten to its core.\u201d"
+    },
+    {
+      "canonical_headline": "Meta removes controversial AI feature on Instagram after backlash",
+      "category": "business_tech",
+      "cluster_id": "4b59318e68e651c3",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "available",
+        "backlash",
+        "blog",
+        "company",
+        "content",
+        "control",
+        "controversial",
+        "could",
+        "creative",
+        "feature",
+        "feedback",
+        "give",
+        "heard",
+        "instagram",
+        "intent",
+        "longer",
+        "mark",
+        "meta",
+        "missed",
+        "people",
+        "post",
+        "provide",
+        "public",
+        "referenced",
+        "removes",
+        "that",
+        "their",
+        "this",
+        "tool",
+        "useful",
+        "whether"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "TechCrunch",
+        "The New York Times"
+      ],
+      "summary": "\"Our intent was to provide a useful creative tool and to give people control over whether their public content could be referenced in this way,\" the company said in a blog post. \"We've heard the feedback that this feature missed the mark, so it's no longer available.\""
+    },
+    {
+      "canonical_headline": "Meta pulls new AI image feature after days of backlash",
+      "category": "business_tech",
+      "cluster_id": "cf77c6d711011eaf",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "alter",
+        "backlash",
+        "blowback",
+        "content",
+        "days",
+        "drew",
+        "feature",
+        "image",
+        "instagram",
+        "meta",
+        "people",
+        "pulls",
+        "release",
+        "swift",
+        "that",
+        "this",
+        "week"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "BBC World",
+        "Reuters"
+      ],
+      "summary": "Meta's release this week of an AI feature that let people alter Instagram content drew swift blowback."
+    },
+    {
+      "canonical_headline": "Market Sets Up, 5 Stocks Near Buy Points; Big Earnings Ahead",
+      "category": "finance",
+      "cluster_id": "a9f2be8e2d0c0bb7",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "ahead",
+        "business",
+        "daily",
+        "earnings",
+        "investor",
+        "market",
+        "near",
+        "points",
+        "sets",
+        "stocks"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "New sources or details since 2026-07-10.",
+      "sources": [
+        "Investor's Business Daily"
+      ],
+      "summary": "Market Sets Up, 5 Stocks Near Buy Points; Big Earnings Ahead Investor's Business Daily"
+    },
+    {
+      "canonical_headline": "Trump officials sought ways to sidestep election agency before firings, sources say",
+      "category": "global",
+      "cluster_id": "24528131730901ee",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "agency",
+        "before",
+        "election",
+        "firings",
+        "officials",
+        "reuters",
+        "sidestep",
+        "sought",
+        "sources",
+        "trump",
+        "ways"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Reuters",
+        "The Japan Times"
+      ],
+      "summary": "Trump officials sought ways to sidestep election agency before firings, sources say Reuters"
+    },
+    {
+      "canonical_headline": "Feds threaten Rhode Island\u2019s top election official with criminal charges if noncitizens vote",
+      "category": "global",
+      "cluster_id": "b25082576e9fa824",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "charges",
+        "criminal",
+        "current",
+        "election",
+        "feds",
+        "island",
+        "noncitizens",
+        "official",
+        "rhode",
+        "threaten",
+        "vote"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Rhode Island Current"
+      ],
+      "summary": "Feds threaten Rhode Island\u2019s top election official with criminal charges if noncitizens vote Rhode Island Current"
+    },
+    {
+      "canonical_headline": "Remarks by Under Secretary of War for Policy Elbridge Colby at the Conference of Defense M",
+      "category": "domestic",
+      "cluster_id": "411d5c3e771556ed",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "colby",
+        "conference",
+        "defense",
+        "department",
+        "elbridge",
+        "policy",
+        "remarks",
+        "secretary",
+        "under"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "U.S. Department of War (.gov)"
+      ],
+      "summary": "Remarks by Under Secretary of War for Policy Elbridge Colby at the Conference of Defense M U.S. Department of War (.gov)"
+    },
+    {
+      "canonical_headline": "Trump administration ties states' anti-terrorism grants to election security",
+      "category": "domestic",
+      "cluster_id": "05d17adf81b2f044",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "administration",
+        "anti",
+        "election",
+        "grants",
+        "reuters",
+        "security",
+        "states",
+        "terrorism",
+        "ties",
+        "trump"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Reuters"
+      ],
+      "summary": "Trump administration ties states' anti-terrorism grants to election security Reuters"
+    },
+    {
+      "canonical_headline": "American Benefits Council Urges Supreme Court to Reject ERISA Claims Based Solely on Fund Underperformance",
+      "category": "domestic",
+      "cluster_id": "393a8dd130693443",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "american",
+        "based",
+        "benefits",
+        "claims",
+        "council",
+        "court",
+        "erisa",
+        "fund",
+        "plansponsor",
+        "reject",
+        "solely",
+        "supreme",
+        "underperformance",
+        "urges"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "plansponsor"
+      ],
+      "summary": "American Benefits Council Urges Supreme Court to Reject ERISA Claims Based Solely on Fund Underperformance plansponsor"
+    },
+    {
+      "canonical_headline": "Wisconsin Supreme Court says unborn 'patients' are owed informed consent",
+      "category": "domestic",
+      "cluster_id": "c4b4095dd80d36ff",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "consent",
+        "court",
+        "courthouse",
+        "informed",
+        "owed",
+        "patients",
+        "supreme",
+        "unborn",
+        "wisconsin"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Courthouse News"
+      ],
+      "summary": "Wisconsin Supreme Court says unborn 'patients' are owed informed consent Courthouse News"
+    },
+    {
+      "canonical_headline": "White Sox Trade Jacob Gonzalez, Brandon Eisert to Pittsburgh Pirates",
+      "category": "global",
+      "cluster_id": "22c1b9cd53702e5c",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "35th",
+        "brandon",
+        "eisert",
+        "gonzalez",
+        "jacob",
+        "pirates",
+        "pittsburgh",
+        "trade",
+        "white"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Sox On 35th",
+        "MLB Trade Rumors"
+      ],
+      "summary": "White Sox Trade Jacob Gonzalez, Brandon Eisert to Pittsburgh Pirates Sox On 35th"
+    },
+    {
+      "canonical_headline": "Apple sues OpenAI, alleging the AI company stole trade secrets",
+      "category": "global",
+      "cluster_id": "6160d3ee6a2b3860",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "alleging",
+        "apple",
+        "company",
+        "openai",
+        "post",
+        "secrets",
+        "stole",
+        "sues",
+        "trade",
+        "washington"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "The Washington Post",
+        "WSJ"
+      ],
+      "summary": "Apple sues OpenAI, alleging the AI company stole trade secrets The Washington Post"
+    },
+    {
+      "canonical_headline": "Ukraine war briefing: Zelenskyy creates \u2018long-range impact\u2019 command to strike Russian energy sector",
+      "category": "global",
+      "cluster_id": "4dbaf8eac60f061e",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "command",
+        "creates",
+        "energy",
+        "guardian",
+        "impact",
+        "long",
+        "range",
+        "russian",
+        "sector",
+        "strike",
+        "ukraine",
+        "zelenskyy"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "The Guardian"
+      ],
+      "summary": "Ukraine war briefing: Zelenskyy creates \u2018long-range impact\u2019 command to strike Russian energy sector The Guardian"
+    },
+    {
+      "canonical_headline": "Clip: Will the Iran conflict spin out of control after Trump says ceasefire is over?",
+      "category": "global",
+      "cluster_id": "58a0dd6e75d0f99d",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "ceasefire",
+        "clip",
+        "conflict",
+        "control",
+        "iran",
+        "spin",
+        "trump",
+        "will"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "PBS"
+      ],
+      "summary": "Clip: Will the Iran conflict spin out of control after Trump says ceasefire is over? PBS"
+    },
+    {
+      "canonical_headline": "Allemand\u2019s DUI lawyer may face sanctions, indirect contempt finding for missing July 8 hearing",
+      "category": "global",
+      "cluster_id": "0bf4da51608b714b",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "allemand",
+        "city",
+        "contempt",
+        "face",
+        "finding",
+        "hearing",
+        "indirect",
+        "july",
+        "lawyer",
+        "missing",
+        "sanctions"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Oil City News"
+      ],
+      "summary": "Allemand\u2019s DUI lawyer may face sanctions, indirect contempt finding for missing July 8 hearing Oil City News"
+    },
+    {
+      "canonical_headline": "New attacks raise questions about what comes next in the Iran war",
+      "category": "global",
+      "cluster_id": "7f9056a6b3716283",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "about",
+        "attacks",
+        "comes",
+        "iran",
+        "next",
+        "questions",
+        "raise",
+        "wbal"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "WBAL-TV"
+      ],
+      "summary": "New attacks raise questions about what comes next in the Iran war WBAL-TV"
+    },
+    {
+      "canonical_headline": "How to watch the 2026 Genesis Scottish Open: Streaming options for Round 3",
+      "category": "culture",
+      "cluster_id": "612ab69014ba239b",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "2026",
+        "championship",
+        "genesis",
+        "isco",
+        "open",
+        "options",
+        "round",
+        "scottish",
+        "streaming",
+        "times",
+        "york"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "The New York Times"
+      ],
+      "summary": "How to watch the 2026 ISCO Championship: Streaming options for Round 3 The New York Times"
+    },
+    {
+      "canonical_headline": "Oregon D.A. Drops Motion to Delay Paramount-Warner Bros. Merger",
+      "category": "business_tech",
+      "cluster_id": "0ac9ea843d6ba7c8",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "according",
+        "attorney",
+        "billion",
+        "bros",
+        "california",
+        "circuit",
+        "close",
+        "closing",
+        "could",
+        "county",
+        "court",
+        "deal",
+        "delay",
+        "drops",
+        "filing",
+        "friday",
+        "general",
+        "including",
+        "investigating",
+        "july",
+        "merger",
+        "motion",
+        "multnomah",
+        "office",
+        "oregon",
+        "paramount",
+        "portland",
+        "several",
+        "soon",
+        "states",
+        "submitted",
+        "though",
+        "warner",
+        "whether",
+        "withdrawn"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Variety"
+      ],
+      "summary": "The Oregon attorney general\u2019s office has withdrawn its motion to delay the closing of the Paramount-Warner Bros. merger, according to a filing submitted Friday in the Multnomah County Circuit Court in Portland, Ore. The deal could close as soon as July 22, though several states, including Oregon and California, are investigating whether the $111 billion [\u2026]"
+    },
+    {
+      "canonical_headline": "Cineverse Buys Horror-Comedy \u2018Portal to Hell\u2019 (EXCLUSIVE)",
+      "category": "culture",
+      "cluster_id": "469d536b09e8ee13",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "acquired",
+        "ahead",
+        "bess",
+        "bloody",
+        "buys",
+        "cineverse",
+        "comedy",
+        "david",
+        "debut",
+        "diabolical",
+        "digital",
+        "disgusting",
+        "division",
+        "exclusive",
+        "expected",
+        "feature",
+        "frightfest",
+        "hell",
+        "holland",
+        "horror",
+        "keith",
+        "kind",
+        "limited",
+        "monkeys",
+        "portal",
+        "release",
+        "richard",
+        "rights",
+        "rollout",
+        "romina",
+        "slamdance",
+        "streaming",
+        "summer",
+        "theatrical",
+        "thing",
+        "this",
+        "trey",
+        "woody"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Variety"
+      ],
+      "summary": "Cineverse and its horror division Bloody Disgusting have acquired U.S. VOD and streaming rights to \u201cPortal to Hell,\u201d the Slamdance and Frightfest debut feature from Woody Bess. A limited theatrical rollout is expected ahead of Cineverse\u2019s digital release this summer. Trey Holland (\u201cThe Diabolical\u201d), Romina D\u2019Ugo (\u201c12 Monkeys\u201d), Keith David (\u201cThe Thing\u201d), and Richard Kind [\u2026]"
+    },
+    {
+      "canonical_headline": "How to watch Braves vs. Cardinals: TV channel and streaming options for July 10",
+      "category": "culture",
+      "cluster_id": "2b0994ec9825e805",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "braves",
+        "cardinals",
+        "channel",
+        "july",
+        "options",
+        "streaming",
+        "times",
+        "york"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "The New York Times"
+      ],
+      "summary": "How to watch Braves vs. Cardinals: TV channel and streaming options for July 10 The New York Times"
+    },
+    {
+      "canonical_headline": "How to watch Sky vs. Sparks: TV channel and streaming options for July 10",
+      "category": "culture",
+      "cluster_id": "0502019d95610d3f",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "channel",
+        "cubs",
+        "july",
+        "options",
+        "reds",
+        "sparks",
+        "streaming",
+        "times",
+        "york"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "The New York Times"
+      ],
+      "summary": "How to watch Cubs vs. Reds: TV channel and streaming options for July 10 The New York Times"
+    },
+    {
+      "canonical_headline": "Meta turns off the Instagram feature that let users make AI deepfakes of public accounts",
+      "category": "business_tech",
+      "cluster_id": "7cedb0af0038bdf2",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "account",
+        "accounts",
+        "announced",
+        "backlash",
+        "based",
+        "content",
+        "could",
+        "creations",
+        "deepfakes",
+        "feature",
+        "following",
+        "generate",
+        "images",
+        "instagram",
+        "just",
+        "make",
+        "meant",
+        "meta",
+        "originally",
+        "owner",
+        "permission",
+        "public",
+        "significant",
+        "tagging",
+        "that",
+        "them",
+        "this",
+        "turning",
+        "turns",
+        "used",
+        "users",
+        "week",
+        "without"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "The Verge"
+      ],
+      "summary": "Following significant backlash, Meta is turning off the feature it announced this week that let users generate AI images based on content from public Instagram accounts just by tagging them. The feature, as originally set up, meant that content from any public Instagram account could be used in AI creations without the account owner's permission. [\u2026]"
+    },
+    {
+      "canonical_headline": "Lyft (LYFT) Stock Looks Cheap On Earnings But Weak On Returns",
+      "category": "finance",
+      "cluster_id": "dcbabe8048cf4372",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "cheap",
+        "earnings",
+        "finance",
+        "looks",
+        "lyft",
+        "returns",
+        "stock",
+        "weak",
+        "yahoo"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Yahoo Finance",
+        "Yahoo! Finance Canada"
+      ],
+      "summary": "Lyft (LYFT) Stock Looks Cheap On Earnings But Weak On Returns Yahoo Finance"
+    },
+    {
+      "canonical_headline": "Investment expert draws attention to \u2018insane\u2019 percentage tech stocks occupy in the market",
+      "category": "finance",
+      "cluster_id": "cee390702d1b9a45",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "attention",
+        "business",
+        "draws",
+        "expert",
+        "insane",
+        "investment",
+        "market",
+        "occupy",
+        "percentage",
+        "stocks",
+        "tech"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Fox Business"
+      ],
+      "summary": "Investment expert draws attention to \u2018insane\u2019 percentage tech stocks occupy in the market Fox Business"
+    },
+    {
+      "canonical_headline": "Equity Residential (EQR) Skips Earnings Call As AvalonBay Merger Takes Center Stage",
+      "category": "finance",
+      "cluster_id": "3d1d33721730eb66",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "avalonbay",
+        "call",
+        "center",
+        "earnings",
+        "equity",
+        "finance",
+        "merger",
+        "residential",
+        "skips",
+        "stage",
+        "takes",
+        "yahoo"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Yahoo Finance"
+      ],
+      "summary": "Equity Residential (EQR) Skips Earnings Call As AvalonBay Merger Takes Center Stage Yahoo Finance"
+    },
+    {
+      "canonical_headline": "Wall Street ends higher as investors turn to earnings season",
+      "category": "finance",
+      "cluster_id": "88cc72c947d479d3",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "earnings",
+        "ends",
+        "higher",
+        "investors",
+        "reuters",
+        "season",
+        "street",
+        "turn",
+        "wall"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "New sources or details since 2026-07-10.",
+      "sources": [
+        "Reuters"
+      ],
+      "summary": "Wall Street ends higher as investors turn to earnings season Reuters"
+    },
+    {
+      "canonical_headline": "L3Harris (LHX) Stock Looks Discounted On Cash Flow But Fair On Earnings",
+      "category": "finance",
+      "cluster_id": "f6606cf9de9ec3ed",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "cash",
+        "discounted",
+        "earnings",
+        "fair",
+        "finance",
+        "flow",
+        "l3harris",
+        "looks",
+        "stock",
+        "yahoo"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Yahoo Finance"
+      ],
+      "summary": "L3Harris (LHX) Stock Looks Discounted On Cash Flow But Fair On Earnings Yahoo Finance"
+    },
+    {
+      "canonical_headline": "Forced to wait his turn, Marine Le Pen's deputy Bardella returns to the shadows",
+      "category": "global",
+      "cluster_id": "0bc7f85951bc50c1",
+      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "keywords": [
+        "bardella",
+        "been",
+        "deputy",
+        "forced",
+        "france",
+        "groomed",
+        "hard",
+        "jordan",
+        "leader",
+        "longer",
+        "marine",
+        "next",
+        "returns",
+        "right",
+        "shadows",
+        "success",
+        "thirty",
+        "turn",
+        "wait",
+        "will",
+        "year"
+      ],
+      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
+      "last_update_note": "",
+      "sources": [
+        "BBC World"
+      ],
+      "summary": "Thirty-year-old Jordan Bardella had been groomed for success as France's next hard-right leader. He will now have to wait longer."
     }
   ]
 }

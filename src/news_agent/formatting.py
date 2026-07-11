@@ -236,26 +236,26 @@ def format_story_item(
     if index is not None:
         lines = [f"{index}. {headline}"]
         if why:
-            lines.append(f"   Why it matters: {why}")
+            lines.append(f"Why it matters: {why}")
         if story.next_watch:
-            lines.append(f"   Watch next: {compact_sentence(story.next_watch, max_chars=110)}")
+            lines.append(f"Watch next: {compact_sentence(story.next_watch, max_chars=110)}")
         if options.include_links and story.urls and options.mode == "console":
-            lines.append(f"   Link: {story.urls[0]}")
+            lines.append(f"Link: {story.urls[0]}")
         return "\n".join(lines)
 
     lines = [f"• {headline}"]
     if summary:
-        lines.append(f"  What happened: {summary}")
+        lines.append(f"What happened: {summary}")
     if why:
-        lines.append(f"  Why it matters: {why}")
+        lines.append(f"Why it matters: {why}")
     if include_sources and sources:
-        lines.append(f"  Sources: {sources}")
+        lines.append(f"Sources: {sources}")
     if options.include_links and story.urls:
-        lines.append(f"  Link: {format_links(story.urls)}")
+        lines.append(f"Link: {format_links(story.urls)}")
     if story.update_note and options.mode != "sms":
-        lines.append(f"  Update: {compact_sentence(story.update_note, max_chars=110)}")
+        lines.append(f"Update: {compact_sentence(story.update_note, max_chars=110)}")
     if story.watchlist_matches and options.mode in {"telegram", "console"}:
-        lines.append(f"  Watchlist: {', '.join(story.watchlist_matches[:5])}")
+        lines.append(f"Watchlist: {', '.join(story.watchlist_matches[:5])}")
     return "\n".join(lines)
 
 
@@ -459,28 +459,21 @@ def truncate_message(text: str, max_chars: int) -> str:
 
 
 def format_console_preview(messages: list[FormattedMessage]) -> str:
+    total = len(messages)
     lines: list[str] = []
     for index, message in enumerate(messages, start=1):
-        lines.append("==============================")
-        lines.append(f"TEXT {index}/{len(messages)}: {console_title(message.title)}")
-        lines.append("==============================")
+        lines.append(f"===== TEXT {index}/{total} =====")
         lines.append(message.text)
         lines.append("")
-    lines.append("Summary")
-    lines.append(f"Total messages: {len(messages)}")
+
+    lines.append("===== Summary =====")
+    lines.append(f"Total messages: {total}")
     for index, message in enumerate(messages, start=1):
-        lines.append(
-            f"Message {index}: {message.char_count} chars, approx {message.sms_segments} SMS segment"
-            f"{'' if message.sms_segments == 1 else 's'}"
-        )
+        segment_label = "segment" if message.sms_segments == 1 else "segments"
+        lines.append(f"Message {index}: {message.char_count} chars, approx {message.sms_segments} SMS {segment_label}")
     omitted = sum(message.omitted_count for message in messages)
     lines.append(f"Omitted stories: {omitted}")
     return "\n".join(lines).rstrip()
-
-
-def console_title(title: str) -> str:
-    heading = title.split("—", 1)[0].strip()
-    return re.sub(r"^[^\w]+", "", heading).strip()
 
 
 def omitted_story_count(text: str) -> int:

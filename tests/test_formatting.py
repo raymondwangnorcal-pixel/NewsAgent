@@ -55,9 +55,12 @@ def test_story_bullet_formatting() -> None:
     ).text
 
     assert "• OpenAI announces new enterprise tools" in message
-    assert "  What happened: OpenAI introduced new tools" in message
-    assert "  Why it matters: Enterprise adoption is becoming" in message
-    assert "  Sources: Reuters, The Verge, Bloomberg" in message
+    assert "What happened: OpenAI introduced new tools" in message
+    assert "Why it matters: Enterprise adoption is becoming" in message
+    assert "Sources: Reuters, The Verge, Bloomberg" in message
+    assert "\n  What happened:" not in message
+    assert "\n  Why it matters:" not in message
+    assert "\n  Sources:" not in message
 
 
 def test_finance_snapshot_and_movers_skip_empty_sections() -> None:
@@ -114,6 +117,18 @@ def test_telegram_can_include_links_but_sms_omits_them_by_default() -> None:
     assert "https://example.com/story" not in sms
 
 
+def test_telegram_omits_links_when_disabled() -> None:
+    linked = briefing("business_tech", item(urls=("https://example.com/story",)))
+
+    telegram = format_category_message(
+        linked,
+        options=FormatOptions(mode="telegram", include_links_telegram=False),
+    ).text
+
+    assert "Link:" not in telegram
+    assert "https://example.com/story" not in telegram
+
+
 def test_sms_length_truncation_adds_omitted_line() -> None:
     long_items = tuple(
         item(
@@ -152,8 +167,8 @@ def test_console_dry_run_preview_includes_counts() -> None:
 
     preview = format_console_preview(previews)
 
-    assert "==============================" in preview
-    assert "TEXT 1/1: BUSINESS + TECH" in preview
+    assert "===== TEXT 1/1 =====" in preview
+    assert "BUSINESS + TECH" in preview
     assert "Total messages: 1" in preview
     assert "approx" in preview
     assert "Omitted stories: 0" in preview
