@@ -13,7 +13,7 @@ def sample_briefings() -> list[BriefingText]:
     return [
         BriefingText(
             category="business_tech",
-            title="1/6 Business and technology",
+            title="1/5 Business and technology",
             items=(
                 BriefingItem(
                     headline="AI startup raises funding",
@@ -137,6 +137,6 @@ def test_cli_dry_run_can_print_telegram_format(monkeypatch: pytest.MonkeyPatch, 
     cli.main(["--dry-run", "--no-openai", "--format", "telegram", "--brief"])
 
     output = capsys.readouterr().out
-    assert "--- MESSAGE 1/6 ---" in output
+    assert "--- MESSAGE 1/1 ---" in output
     assert "• AI startup raises funding — It may shape the AI market." in output
     assert "What happened:" not in output

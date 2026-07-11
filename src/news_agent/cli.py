@@ -18,7 +18,7 @@ from news_agent.watchlist import DEFAULT_WATCHLIST_PATH
 
 def main(argv: list[str] | None = None) -> None:
     load_dotenv()
-    parser = argparse.ArgumentParser(description="Build and send six morning news briefing messages.")
+    parser = argparse.ArgumentParser(description="Build and send five morning news briefing messages.")
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG_PATH)
     parser.add_argument("--watchlist", type=Path, default=DEFAULT_WATCHLIST_PATH, help="Path to watchlist JSON/YAML.")
     parser.add_argument("--history-path", type=Path, default=DEFAULT_HISTORY_PATH, help="Story history JSON path.")
@@ -121,7 +121,7 @@ def main(argv: list[str] | None = None) -> None:
             print(format_console_preview(formatted_messages))
         else:
             for index, message in enumerate(messages, start=1):
-                divider = f"\n--- MESSAGE {index}/6 ---"
+                divider = f"\n--- MESSAGE {index}/{len(messages)} ---"
                 print(divider)
                 print(message)
         if args.show_skipped:

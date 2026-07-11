@@ -11,12 +11,11 @@ from news_agent.models import BriefingItem, BriefingText, FormattingConfig
 FormatMode = Literal["sms", "telegram", "console"]
 
 CATEGORY_HEADERS = {
-    "business_tech": ("🧠 BUSINESS + TECH", "AI, startups, Big Tech, regulation"),
-    "domestic": ("🇺🇸 U.S. NEWS", "Policy, courts, economy, public safety"),
-    "global": ("🌍 GLOBAL NEWS", "Geopolitics, conflict, trade, diplomacy"),
-    "culture": ("🎭 CULTURE + MEDIA", "Culture, platforms, sports, entertainment"),
-    "finance": ("💸 FINANCE", "Markets, movers, IPOs, earnings, rates"),
-    "overall": ("⚡ WHAT MATTERS TODAY", "The highest-signal stories to watch"),
+    "business_tech": "🧠 BUSINESS + TECH",
+    "domestic": "🇺🇸 U.S. NEWS",
+    "global": "🌍 GLOBAL NEWS",
+    "culture": "🎭 CULTURE + MEDIA",
+    "finance": "💸 FINANCE",
 }
 SOURCE_ALIASES = {
     "ap": "AP",
@@ -141,8 +140,6 @@ def format_category_message(
     items = stories or briefing.items
     if category == "finance":
         return format_finance_message(briefing, options)
-    if category == "overall":
-        return fit_category_message(category, items, options, numbered=True)
     return fit_category_message(category, items, options, numbered=False, emoji=emoji)
 
 
@@ -406,7 +403,7 @@ def build_header(category: str, options: FormatOptions, emoji: str | None = None
 
 
 def header_title(category: str, today: date | None = None, emoji: str | None = None) -> str:
-    title, _description = CATEGORY_HEADERS.get(category, (category.upper(), ""))
+    title = CATEGORY_HEADERS.get(category, category.upper())
     if emoji:
         title = f"{emoji} {title.split(' ', 1)[-1]}"
     selected_day = today or date.today()

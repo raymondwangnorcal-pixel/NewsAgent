@@ -1,13 +1,12 @@
 # Morning News Agent
 
-A scheduled AI briefing agent that gathers signals from reputable news sources every morning, ranks stories by frequency and expected impact, and sends six concise briefing messages:
+A scheduled AI briefing agent that gathers signals from reputable news sources every morning, ranks stories by frequency and expected impact, and sends five concise briefing messages:
 
 1. Business and technology
 2. Domestic U.S. news
 3. Global news
 4. Culture, social, and media trends
 5. Financial news
-6. What matters most today
 
 The agent is intentionally pipeline-shaped instead of chat-shaped:
 
@@ -40,7 +39,7 @@ news-briefing --send
 news-briefing --send --no-openai
 ```
 
-Use `--dry-run` until the content looks right. It prints the six messages instead of sending them.
+Use `--dry-run` until the content looks right. It prints the five messages instead of sending them.
 
 ## Environment
 
@@ -268,10 +267,9 @@ Free market data limitations:
 
 ```text
 ==============================
-TEXT 1/6: BUSINESS + TECH
+TEXT 1/5: BUSINESS + TECH
 ==============================
 🧠 BUSINESS + TECH — July 10
-AI, startups, Big Tech, regulation
 
 • Nvidia shares jump after earnings beat
   What happened: Nvidia raised guidance after strong AI chip demand.
@@ -279,10 +277,9 @@ AI, startups, Big Tech, regulation
   Sources: Reuters, CNBC
 
 ==============================
-TEXT 5/6: FINANCE
+TEXT 5/5: FINANCE
 ==============================
 💸 FINANCE — July 10
-Markets, movers, IPOs, earnings, rates
 
 Market snapshot
 • AAPL: 123.45 (+1.2%)
@@ -292,14 +289,14 @@ Big movers
 • NVDA +5.6% — earnings beat expectations.
 
 Summary
-Total messages: 6
+Total messages: 5
 Message 1: 432 chars, approx 3 SMS segments
 Omitted stories: 0
 ```
 
 ## Notes
 
-- Telegram messages are sent as one header plus six separate briefing messages. Long messages are split safely before sending.
+- Telegram messages are sent as one header plus five separate briefing messages. Long messages are split safely before sending.
 - The agent does not scrape paywalled article bodies. It uses headlines, summaries, timestamps, and source names from configured feeds.
 - For best results, keep a mix of wire services, national outlets, finance outlets, tech outlets, international outlets, and culture/sports sources.
 

@@ -6,7 +6,7 @@ from news_agent.models import BriefingItem, BriefingText
 def test_briefing_text_message_uses_readable_sections() -> None:
     briefing = BriefingText(
         category="finance",
-        title="5/6 Financial news",
+        title="5/5 Financial news",
         items=(
             BriefingItem(
                 headline="Markets rise",

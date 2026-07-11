@@ -18,7 +18,7 @@ from news_agent.config import load_config
 from news_agent.fetch import fetch_all_feeds
 from news_agent.history import DEFAULT_HISTORY_PATH, apply_history, save_story_history
 from news_agent.models import AgentConfig, BriefingText, StoryCluster
-from news_agent.scoring import score_clusters, top_for_category, top_overall
+from news_agent.scoring import score_clusters, top_for_category
 from news_agent.skipped_log import SkippedStory, build_skipped_stories, default_skipped_path, write_skipped_log
 from news_agent.source_balance import source_distribution_label
 from news_agent.summarize import (
@@ -39,6 +39,14 @@ CATEGORY_LIMITS = {
     "culture": 6,
     "finance": 6,
 }
+
+
+def story_identity(cluster: StoryCluster) -> str:
+    if cluster.key:
+        return cluster.key
+    if cluster.urls:
+        return cluster.urls[0].split("?", 1)[0]
+    return cluster.title.casefold()
 
 
 @dataclass(frozen=True)
@@ -83,11 +91,7 @@ async def collect_pipeline_context(
     clusters = score_clusters(cluster_articles(articles), config, watchlist_entries=watchlist_entries)
     apply_history(clusters, history_path, ignore_history=ignore_history)
     clusters.sort(key=lambda item: item.total_score, reverse=True)
-    category_clusters = {
-        category: top_for_category(clusters, category, limit)
-        for category, limit in CATEGORY_LIMITS.items()
-    }
-    category_clusters["overall"] = top_overall(clusters, 10)
+    category_clusters = select_unique_category_clusters(clusters)
     stock_snapshot = await build_stock_snapshot(articles, watchlist_entries)
     return PipelineContext(category_clusters=category_clusters, stock_snapshot=stock_snapshot, all_clusters=clusters)
 
@@ -125,14 +129,26 @@ async def build_briefings(
 
 def selected_clusters(category_clusters: dict[str, list[StoryCluster]]) -> list[StoryCluster]:
     selected: list[StoryCluster] = []
-    seen: set[int] = set()
+    seen: set[str] = set()
     for clusters in category_clusters.values():
         for cluster in clusters:
-            cluster_id = id(cluster)
-            if cluster_id not in seen:
+            identity = story_identity(cluster)
+            if identity not in seen:
                 selected.append(cluster)
-                seen.add(cluster_id)
+                seen.add(identity)
     return selected
+
+
+def select_unique_category_clusters(clusters: list[StoryCluster]) -> dict[str, list[StoryCluster]]:
+    used_story_ids: set[str] = set()
+    category_clusters: dict[str, list[StoryCluster]] = {}
+    for category, limit in CATEGORY_LIMITS.items():
+        available = [cluster for cluster in clusters if story_identity(cluster) not in used_story_ids]
+        selected = top_for_category(available, category, limit)
+        category_clusters[category] = selected
+        used_story_ids.update(story_identity(cluster) for cluster in selected)
+
+    return category_clusters
 
 
 def source_debug_lines(category_clusters: dict[str, list[StoryCluster]]) -> tuple[str, ...]:

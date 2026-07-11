@@ -113,7 +113,3 @@ def top_for_category(clusters: list[StoryCluster], category: str, limit: int) ->
             break
         selected.append(cluster)
     return selected
-
-
-def top_overall(clusters: list[StoryCluster], limit: int) -> list[StoryCluster]:
-    return [cluster for cluster in clusters if not cluster.skip_reason][:limit]

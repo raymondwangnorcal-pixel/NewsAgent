@@ -7,6 +7,7 @@ from news_agent.summarize import (
     build_polish_prompt,
     clean_fallback_summary,
     compact_text,
+    event_why_it_matters,
     fallback_why_it_matters,
     parse_briefings,
 )
@@ -18,7 +19,7 @@ def test_parse_briefings_maps_structured_output() -> None:
             "briefings": [
                 {
                     "category": "finance",
-                    "title": "5/6 Financial news",
+                    "title": "5/5 Financial news",
                     "items": [
                         {
                             "headline": "Markets rise",
@@ -42,7 +43,7 @@ def test_build_polish_prompt_uses_compact_draft_payload() -> None:
         [
             BriefingText(
                 category="finance",
-                title="5/6 Financial news",
+                title="5/5 Financial news",
                 items=(
                     BriefingItem(
                         headline="Markets rise",
@@ -118,3 +119,65 @@ def test_clean_fallback_summary_preserves_more_article_detail() -> None:
 
     assert "late-session demand" in summary
     assert len(summary) > 240
+
+
+def test_event_why_it_matters_explains_nvidia_export_restriction_relevance() -> None:
+    cluster = StoryCluster(
+        key="nvidia export",
+        title="Nvidia falls 6% after new export restriction news",
+        articles=[
+            Article(
+                title="Nvidia falls 6% after new export restriction news",
+                url="https://example.com/nvda",
+                source="Reuters",
+                published_at=datetime.now(timezone.utc),
+                summary="New AI chip export restrictions raised concern about Nvidia sales in China.",
+            )
+        ],
+    )
+
+    why = event_why_it_matters(cluster, "finance")
+
+    assert why == "AI chip restrictions could pressure Nvidia's China revenue and weigh on the broader semiconductor sector."
+
+
+def test_event_why_it_matters_explains_inflation_relevance() -> None:
+    cluster = StoryCluster(
+        key="inflation",
+        title="Inflation cools more than expected",
+        articles=[
+            Article(
+                title="Inflation cools more than expected",
+                url="https://example.com/inflation",
+                source="CNBC",
+                published_at=datetime.now(timezone.utc),
+                summary="Consumer prices rose less than economists expected.",
+            )
+        ],
+    )
+
+    why = event_why_it_matters(cluster, "finance")
+
+    assert "rate-cut expectations" in why
+    assert "equity valuations" in why
+
+
+def test_event_why_it_matters_explains_conflict_relevance() -> None:
+    cluster = StoryCluster(
+        key="conflict",
+        title="Missile attack escalates regional conflict",
+        articles=[
+            Article(
+                title="Missile attack escalates regional conflict",
+                url="https://example.com/conflict",
+                source="BBC",
+                published_at=datetime.now(timezone.utc),
+                summary="The attack raised fears of a broader war.",
+            )
+        ],
+    )
+
+    why = event_why_it_matters(cluster, "global")
+
+    assert "humanitarian risks" in why
+    assert "energy" in why

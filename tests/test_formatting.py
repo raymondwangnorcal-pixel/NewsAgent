@@ -144,16 +144,6 @@ def test_brief_mode_uses_one_line_stories() -> None:
     assert "What happened:" not in message
 
 
-def test_overall_uses_numbered_items() -> None:
-    overall = BriefingText(category="overall", title="unused", items=(item(headline="Fed decision moves markets"),))
-
-    message = format_category_message(overall, options=FormatOptions(today=date(2026, 7, 10))).text
-
-    assert message.startswith("⚡ WHAT MATTERS TODAY — July 10")
-    assert "1. Fed decision moves markets" in message
-    assert "   Watch next:" in message
-
-
 def test_console_dry_run_preview_includes_counts() -> None:
     previews = format_briefing_previews(
         [briefing()],

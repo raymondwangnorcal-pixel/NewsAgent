@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from typing import Any
 
 from news_agent.models import AgentConfig, BriefingItem, BriefingText, StockSnapshot, StoryCluster
 
 
-BRIEFING_ORDER = ("business_tech", "domestic", "global", "culture", "finance", "overall")
+BRIEFING_ORDER = ("business_tech", "domestic", "global", "culture", "finance")
 
 
 BRIEFING_SCHEMA: dict[str, Any] = {
@@ -16,8 +17,8 @@ BRIEFING_SCHEMA: dict[str, Any] = {
     "properties": {
         "briefings": {
             "type": "array",
-            "minItems": 6,
-            "maxItems": 6,
+            "minItems": 5,
+            "maxItems": 5,
             "items": {
                 "type": "object",
                 "additionalProperties": False,
@@ -135,7 +136,7 @@ def build_prompt(
     category_labels = {name: category.label for name, category in config.categories.items()}
     payload = {
         "briefing_order": BRIEFING_ORDER,
-        "category_labels": category_labels | {"overall": "What matters most today"},
+        "category_labels": category_labels,
         "market_snapshot": _stock_payload(stock_snapshot),
         "category_clusters": [
             _cluster_payload(category, clusters)
@@ -155,7 +156,10 @@ def system_prompt() -> str:
         "notable news-mentioned stocks from the market snapshot and the mega-cap watchlist "
         "(AAPL, MSFT, NVDA, TSLA, AMZN, META, GOOGL), especially large moves or repeated mentions. "
         "Each item needs a headline, a 2-3 sentence summary with concrete context, a short "
-        "relevance note, what to watch next, the main sources, and source URLs when supplied. "
+        "why-it-matters note, what to watch next, the main sources, and source URLs when supplied. "
+        "The why-it-matters note must explain the concrete consequence of this event, not a generic "
+        "category impact. For example, if Nvidia falls on export restriction news, explain that AI chip "
+        "restrictions could pressure Nvidia's China revenue and affect the broader semiconductor sector. "
         "Keep language direct and skimmable."
     )
 
@@ -165,9 +169,11 @@ def polish_system_prompt() -> str:
         "You polish already-selected morning briefing drafts. Use only the facts, sources, "
         "tickers, prices, categories, and watch items present in the supplied drafts. Do not "
         "add new facts, sources, causal claims, names, dates, numbers, or URLs. Preserve the "
-        "six briefing categories, keep source names attached to the same items, and return "
+        "five briefing categories, keep source names attached to the same items, and return "
         "the same structured briefing shape, including source URLs. Make summaries more "
-        "informative while staying skimmable, keep relevance notes concise, and remove awkward repetition."
+        "informative while staying skimmable. Rewrite relevance notes so they explain the concrete "
+        "business, policy, market, geopolitical, or cultural consequence of the specific event; avoid "
+        "generic category statements and remove awkward repetition."
     )
 
 
@@ -293,7 +299,6 @@ FALLBACK_WATCH_LINES = {
     "global": "Diplomatic response, security developments, energy prices, or market spillover.",
     "culture": "Audience reaction, league/company response, ratings, or follow-up coverage.",
     "finance": "Price action, Fed commentary, earnings updates, and broader market reaction.",
-    "overall": "Whether follow-up reporting confirms the signal and moves markets or policy.",
 }
 TRAILING_FILLER_WORDS = {
     "a",
@@ -316,6 +321,22 @@ TRAILING_FILLER_WORDS = {
     "their",
     "to",
     "with",
+}
+COMPANY_ALIASES = {
+    "aapl": "Apple",
+    "alphabet": "Alphabet",
+    "amazon": "Amazon",
+    "amzn": "Amazon",
+    "apple": "Apple",
+    "googl": "Alphabet",
+    "google": "Google",
+    "meta": "Meta",
+    "microsoft": "Microsoft",
+    "msft": "Microsoft",
+    "nvidia": "Nvidia",
+    "nvda": "Nvidia",
+    "tesla": "Tesla",
+    "tsla": "Tesla",
 }
 
 
@@ -357,7 +378,7 @@ def clean_fallback_summary(cluster: StoryCluster) -> str:
 
 def fallback_why_it_matters(
     source_count: int,
-    category: str = "overall",
+    category: str = "general",
     watchlist_matches: tuple[str, ...] = (),
 ) -> str:
     watchlist_note = " It also matches your watchlist." if watchlist_matches else ""
@@ -367,13 +388,109 @@ def fallback_why_it_matters(
         "global": "Could affect diplomacy, trade, conflict risk, humanitarian conditions, or energy markets.",
         "culture": "Could shift public attention, platform incentives, creator economics, entertainment, or sports business.",
         "finance": "Could move investors, sectors, earnings expectations, rates, IPOs, or risk appetite.",
-        "overall": "Could have broader consequences across markets, policy, public attention, or follow-up coverage.",
+        "general": "Could have broader consequences across markets, policy, public attention, or follow-up coverage.",
     }
     if source_count >= 3:
-        return f"Confirmed by {source_count} sources. {category_templates.get(category, category_templates['overall'])}{watchlist_note}".strip()
+        return f"Confirmed by {source_count} sources. {category_templates.get(category, category_templates['general'])}{watchlist_note}".strip()
     if source_count == 2:
-        return f"Covered by two sources. {category_templates.get(category, category_templates['overall'])}{watchlist_note}".strip()
-    return f"Single-source but high-signal. {category_templates.get(category, category_templates['overall'])}{watchlist_note}".strip()
+        return f"Covered by two sources. {category_templates.get(category, category_templates['general'])}{watchlist_note}".strip()
+    return f"Single-source but high-signal. {category_templates.get(category, category_templates['general'])}{watchlist_note}".strip()
+
+
+def contains_any(text: str, terms: tuple[str, ...]) -> bool:
+    return any(re.search(rf"\b{re.escape(term)}\b", text) for term in terms)
+
+
+def detected_company(text: str) -> str:
+    for alias, company in COMPANY_ALIASES.items():
+        if re.search(rf"\b{re.escape(alias)}\b", text):
+            return company
+    return "The company"
+
+
+def event_why_it_matters(
+    cluster: StoryCluster,
+    category: str,
+    watchlist_matches: tuple[str, ...] = (),
+) -> str:
+    text = f"{cluster.title} {cluster.representative_summary}".lower()
+    company = detected_company(text)
+
+    if contains_any(text, ("export restriction", "export restrictions", "export control", "export controls", "chip restriction")):
+        if contains_any(text, ("nvidia", "nvda", "ai chip", "chips", "semiconductor")):
+            return "AI chip restrictions could pressure Nvidia's China revenue and weigh on the broader semiconductor sector."
+        return "Export controls could reshape company sales, supply chains, and U.S.-China technology competition."
+
+    if contains_any(text, ("earnings", "guidance", "forecast", "profit", "revenue")):
+        if contains_any(text, ("beat", "tops", "raises", "raised", "strong", "surge", "jump")):
+            return f"{company}'s results could lift investor expectations and influence how peers in the sector trade."
+        if contains_any(text, ("miss", "cuts", "cut", "weak", "falls", "fell", "drops", "plunges", "slumps")):
+            return f"{company}'s weaker outlook could pressure its valuation and raise concern about demand across its sector."
+        return f"{company}'s results can reset investor expectations and shape sentiment toward comparable companies."
+
+    if contains_any(text, ("fed", "federal reserve", "rate cut", "interest rate", "treasury yield", "yields")):
+        return "Rate expectations can move borrowing costs, bond yields, bank stocks, housing, and broad market risk appetite."
+
+    if contains_any(text, ("inflation", "cpi", "consumer prices", "prices")):
+        return "Inflation data can shift rate-cut expectations, bond yields, consumer pressure, and equity valuations."
+
+    if contains_any(text, ("tariff", "tariffs", "trade war")):
+        return "Tariffs could raise costs for companies and consumers while adding stress to global supply chains."
+
+    if contains_any(text, ("lawsuit", "sues", "court", "judge", "antitrust", "doj", "ftc", "probe", "investigation")):
+        if category == "domestic":
+            return "The case could set legal precedent and force policy, enforcement, or business changes beyond this dispute."
+        return "Legal pressure could constrain company strategy, raise compliance costs, and set precedents for the sector."
+
+    if contains_any(text, ("merger", "acquisition", "acquires", "takeover", "deal")):
+        return "The deal could reshape competition, pricing power, and investor expectations in the affected market."
+
+    if contains_any(text, ("ipo", "public listing", "go public")):
+        return "IPO momentum is a read on risk appetite and can influence valuations for similar private companies."
+
+    if contains_any(text, ("startup", "funding", "venture", "vc", "raises", "seed round")):
+        return "Funding signals where investors see durable demand and can shape the next wave of startup competition."
+
+    if contains_any(text, ("layoff", "layoffs", "job cuts", "cuts jobs")):
+        return "Job cuts point to cost pressure and can signal weaker demand, margin concerns, or a strategic reset."
+
+    if contains_any(text, ("ai", "artificial intelligence", "model", "chip", "semiconductor")):
+        return "AI infrastructure and model shifts can affect product roadmaps, cloud spending, and semiconductor demand."
+
+    if contains_any(text, ("supreme court", "ruling", "appeals court", "federal court")):
+        return "The ruling could change legal precedent and force policy or business adjustments beyond this case."
+
+    if contains_any(text, ("election", "vote", "campaign", "ballot", "primary")):
+        return "The outcome could shift policy priorities, regulation, public spending, and market expectations."
+
+    if contains_any(text, ("immigration", "healthcare", "education", "student loan", "school")):
+        return "The policy change could affect household costs, public services, and state or federal budget priorities."
+
+    if contains_any(text, ("war", "missile", "attack", "conflict", "invasion", "escalation")):
+        return "Escalation could raise humanitarian risks and ripple through energy, trade, defense, and diplomacy."
+
+    if contains_any(text, ("ceasefire", "peace talks", "truce")):
+        return "A ceasefire could reduce humanitarian pressure and change the diplomatic path of the conflict."
+
+    if contains_any(text, ("sanction", "sanctions")):
+        return "Sanctions could disrupt trade flows, energy markets, and diplomatic leverage."
+
+    if contains_any(text, ("oil", "energy", "gas", "opec")):
+        return "Energy moves can feed into inflation, consumer costs, and earnings for transport and industrial companies."
+
+    if contains_any(text, ("bitcoin", "btc", "ethereum", "eth", "crypto", "etf")):
+        return "Crypto moves can signal risk appetite and influence flows into ETFs, exchanges, and related equities."
+
+    if contains_any(text, ("streaming", "netflix", "disney", "youtube", "tiktok", "platform")):
+        return "Platform shifts can alter audience attention, subscription trends, ad spending, and creator economics."
+
+    if contains_any(text, ("nfl", "nba", "mlb", "sports", "league", "championship")):
+        return "Major sports developments can affect media rights, sponsorships, fan attention, and league economics."
+
+    if watchlist_matches:
+        return f"This touches your watchlist topic {watchlist_matches[0]} and could be worth tracking for follow-up impact."
+
+    return fallback_why_it_matters(len(cluster.sources), category, watchlist_matches)
 
 
 def generate_fallback_briefings(
@@ -382,27 +499,25 @@ def generate_fallback_briefings(
     stock_snapshot: StockSnapshot | None = None,
 ) -> list[BriefingText]:
     titles = {
-        "business_tech": "1/6 Business and technology",
-        "domestic": "2/6 Domestic U.S. news",
-        "global": "3/6 Global news",
-        "culture": "4/6 Culture, social, and media trends",
-        "finance": "5/6 Financial news",
-        "overall": "6/6 What matters most today",
+        "business_tech": "1/5 Business and technology",
+        "domestic": "2/5 Domestic U.S. news",
+        "global": "3/5 Global news",
+        "culture": "4/5 Culture, social, and media trends",
+        "finance": "5/5 Financial news",
     }
     briefings: list[BriefingText] = []
     for category in BRIEFING_ORDER:
-        clusters = category_clusters.get(category, [])[:6 if category == "overall" else 5]
+        clusters = category_clusters.get(category, [])[:5]
         items = []
         if category == "finance" and stock_snapshot is not None:
             items.extend(stock_snapshot_items(stock_snapshot))
         for cluster in clusters:
-            source_count = len(cluster.sources)
             items.append(
                 BriefingItem(
                     headline=cluster.title,
                     summary=clean_fallback_summary(cluster),
                     why_it_matters=cluster.why_it_matters
-                    or fallback_why_it_matters(source_count, category, cluster.watchlist_matches),
+                    or event_why_it_matters(cluster, category, cluster.watchlist_matches),
                     next_watch=FALLBACK_WATCH_LINES[category],
                     sources=tuple(cluster.sources[:5]),
                     watchlist_matches=cluster.watchlist_matches,
