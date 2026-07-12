@@ -7,6 +7,7 @@ import os
 import ssl
 import urllib.error
 import urllib.request
+import unicodedata
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
@@ -18,6 +19,14 @@ USER_AGENT = "morning-news-agent/0.1 (+https://example.local)"
 TAG_RE = re.compile(r"<[^>]+>")
 ATOM_NS = "{http://www.w3.org/2005/Atom}"
 SYSTEM_CA_BUNDLE = "/etc/ssl/cert.pem"
+MAX_TITLE_LENGTH = 320
+MAX_FULLWIDTH_CHARACTERS = 8
+MALFORMED_TITLE_MARKUP_RE = re.compile(r"!+\[|\]!+|@!+")
+STREAMING_SPAM_RE = re.compile(
+    r"\b(?:live\s+stream(?:ing)?\s+free|free\s+(?:live\s+)?stream(?:ing)?|"
+    r"watch\b.*\b(?:live\s+)?stream(?:ing)?\b.*\bfree\b)",
+    re.IGNORECASE,
+)
 
 
 def _ssl_context() -> ssl.SSLContext:
@@ -82,10 +91,21 @@ def _article_source(node: ET.Element, feed: FeedConfig) -> str:
 
 
 def _clean_title(title: str, source: str) -> str:
+    title = unicodedata.normalize("NFKC", title)
     suffix = f" - {source}"
     if source and title.endswith(suffix):
         return title[: -len(suffix)].strip()
     return title
+
+
+def _is_acceptable_title(raw_title: str) -> bool:
+    normalized = unicodedata.normalize("NFKC", raw_title)
+    fullwidth_count = sum("\uff01" <= char <= "\uff5e" for char in raw_title)
+    if len(normalized) > MAX_TITLE_LENGTH or fullwidth_count >= MAX_FULLWIDTH_CHARACTERS:
+        return False
+    if MALFORMED_TITLE_MARKUP_RE.search(raw_title):
+        return False
+    return not STREAMING_SPAM_RE.search(normalized)
 
 
 def parse_feed(xml_text: str, feed: FeedConfig) -> list[Article]:
@@ -96,10 +116,12 @@ def parse_feed(xml_text: str, feed: FeedConfig) -> list[Article]:
 
     articles: list[Article] = []
     for node in nodes:
-        title = _child_text(node, ("title", f"{ATOM_NS}title"))
+        raw_title = _child_text(node, ("title", f"{ATOM_NS}title"))
         url = _child_link(node)
         source = _article_source(node, feed)
-        title = _clean_title(title, source)
+        if not _is_acceptable_title(raw_title):
+            continue
+        title = _clean_title(raw_title, source)
         summary = _child_text(node, ("description", "summary", f"{ATOM_NS}summary", f"{ATOM_NS}content"))
         published_raw = _child_text(
             node,

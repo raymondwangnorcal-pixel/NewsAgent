@@ -58,7 +58,7 @@ def test_detect_market_mover_handles_unexplained_large_move(tmp_path) -> None:
     movers = detect_market_movers([], universe=universe, provider=provider, cache_path=tmp_path / "cache.json")
 
     assert movers[0].reason_confidence == "low"
-    assert "catalyst was not clear" in movers[0].move_reason
+    assert "nothing in the major headlines explains why" in movers[0].move_reason
 
 
 def test_explanation_ignores_false_match_without_causal_signal(tmp_path) -> None:

@@ -35,13 +35,14 @@ class NewsAlert:
 
     def to_message(self) -> str:
         sources = ", ".join(self.sources[:5])
-        return (
-            f"Alert: {self.headline}\n"
-            f"Summary: {self.summary}\n"
-            f"Why it matters: {self.why_it_matters}\n"
-            f"Confidence: {self.confidence}\n"
-            f"Sources: {sources}"
-        ).strip()
+        confidence_note = "" if self.confidence == "high" else " (still confirming)"
+        lines = [f"🚨 {self.headline}"]
+        body = " ".join(part for part in (self.summary, self.why_it_matters) if part)
+        if body:
+            lines.append(f"{body}{confidence_note}")
+        if sources:
+            lines.append(f"(via {sources})")
+        return "\n".join(lines).strip()
 
 
 def load_alert_config(path: Path = DEFAULT_ALERT_CONFIG_PATH) -> AlertConfig:
@@ -83,10 +84,9 @@ def market_alerts(movers: tuple[MarketMover, ...], config: AlertConfig) -> list[
         alerts.append(
             NewsAlert(
                 alert_id=alert_id("market", mover.symbol, f"{mover.percent_change:.1f}"),
-                headline=f"{mover.symbol} moves {direction} {abs(mover.percent_change):.1f}%",
-                summary=mover.move_reason
-                or "The asset moved sharply, but the immediate catalyst was not clear from major headlines.",
-                why_it_matters="A move this large can quickly affect risk appetite and related assets.",
+                headline=f"{mover.symbol} just went {direction} {abs(mover.percent_change):.1f}%",
+                summary=mover.move_reason or "Big swing, but nothing obvious in the headlines explains it yet.",
+                why_it_matters="A move this size can spook risk appetite fast and drag related assets with it.",
                 sources=mover.reason_sources or ("Stooq",),
                 confidence="high" if mover.reason_confidence == "high" else "medium",
             )
@@ -121,7 +121,7 @@ def cluster_alerts(clusters: list[StoryCluster], config: AlertConfig) -> list[Ne
                 headline=cluster.title,
                 summary=cluster.representative_summary,
                 why_it_matters=cluster.why_it_matters
-                or "The story is appearing across reputable sources and may develop quickly.",
+                or "This is popping up across reputable sources and could move fast.",
                 sources=tuple(cluster.sources[:5]),
                 confidence=confidence,
             )

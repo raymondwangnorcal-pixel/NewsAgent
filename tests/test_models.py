@@ -27,9 +27,8 @@ def test_briefing_text_message_uses_readable_sections() -> None:
     message = briefing.to_message()
 
     assert message.startswith("💸 FINANCE")
-    assert "Key headlines" in message
+    assert "Also happening" in message
     assert "• Markets rise" in message
-    assert "What happened: Stocks rose after inflation data." in message
-    assert "Why it matters: Rate expectations shifted." in message
-    assert "Sources: Reuters, CNBC" in message
+    assert "Stocks rose after inflation data. Rate expectations shifted." in message
+    assert "(via Reuters, CNBC)" in message
     assert "\n• Oil slips" in message

@@ -20,7 +20,7 @@ def test_generate_alerts_triggers_major_index_move() -> None:
 
     alerts = generate_alerts([], (mover,), AlertConfig(enabled=True))
 
-    assert alerts[0].headline == "QQQ moves down 3.0%"
+    assert alerts[0].headline == "QQQ just went down 3.0%"
     assert alerts[0].confidence == "medium"
 
 

@@ -44,7 +44,7 @@ def test_category_header_formatting() -> None:
         options=FormatOptions(mode="telegram", today=date(2026, 7, 10)),
     ).text
 
-    assert message.startswith("🧠 BUSINESS + TECH — July 10\n\n")
+    assert message.startswith("🧠 BUSINESS + TECH · July 10\n\n")
     assert "AI, startups, Big Tech, regulation" not in message
 
 
@@ -55,12 +55,22 @@ def test_story_bullet_formatting() -> None:
     ).text
 
     assert "• OpenAI announces new enterprise tools" in message
-    assert "What happened: OpenAI introduced new tools" in message
-    assert "Why it matters: Enterprise adoption is becoming" in message
-    assert "Sources: Reuters, The Verge, Bloomberg" in message
-    assert "\n  What happened:" not in message
-    assert "\n  Why it matters:" not in message
-    assert "\n  Sources:" not in message
+    assert "OpenAI introduced new tools" in message
+    assert "Enterprise adoption is becoming" in message
+    assert "(via Reuters, The Verge, Bloomberg)" in message
+    assert "What happened:" not in message
+    assert "Why it matters:" not in message
+    assert "Sources:" not in message
+
+
+def test_story_bullet_omits_empty_summary() -> None:
+    message = format_category_message(
+        briefing("business_tech", item(summary="")),
+        options=FormatOptions(mode="telegram", today=date(2026, 7, 10)),
+    ).text
+
+    assert "No additional source summary was available." not in message
+    assert "Enterprise adoption is becoming the main battleground for AI platforms." in message
 
 
 def test_finance_snapshot_and_movers_skip_empty_sections() -> None:
@@ -85,10 +95,10 @@ def test_finance_snapshot_and_movers_skip_empty_sections() -> None:
 
     message = format_category_message(finance, options=FormatOptions(today=date(2026, 7, 10))).text
 
-    assert "Market snapshot\n• AAPL: 123.45 (+1.20%)\n• NVDA: 200.00 (+5.60%)" in message
-    assert "Big movers\n• NVDA +5.6% — earnings beat expectations" in message
-    assert "No clear catalyst found in major headlines." in message
-    assert "Key headlines" not in message
+    assert "Market check\n• AAPL: 123.45 (+1.20%)\n• NVDA: 200.00 (+5.60%)" in message
+    assert "Biggest moves\n• NVDA +5.6%: earnings beat expectations" in message
+    assert "no clear reason yet" in message
+    assert "Also happening" not in message
 
 
 def test_source_cleanup_and_deduplication() -> None:
@@ -113,7 +123,7 @@ def test_telegram_can_include_links_but_sms_omits_them_by_default() -> None:
         options=FormatOptions(mode="sms", include_links_sms=False),
     ).text
 
-    assert "Link: https://example.com/story" in telegram
+    assert "https://example.com/story" in telegram
     assert "https://example.com/story" not in sms
 
 
@@ -155,7 +165,7 @@ def test_brief_mode_uses_one_line_stories() -> None:
         options=FormatOptions(mode="sms", brief=True, today=date(2026, 7, 10)),
     ).text
 
-    assert "• OpenAI announces new enterprise tools — Enterprise adoption" in message
+    assert "• OpenAI announces new enterprise tools: Enterprise adoption" in message
     assert "What happened:" not in message
 
 

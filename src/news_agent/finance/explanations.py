@@ -99,7 +99,7 @@ def explain_mover(mover: MarketMover, articles: list[Article]) -> MarketMover:
         )
     return replace(
         mover,
-        move_reason="Shares moved sharply, but the immediate catalyst was not clear from major headlines.",
+        move_reason="Shares moved a lot, but nothing in the major headlines explains why yet.",
         reason_confidence="low",
         reason_sources=tuple(article.source for article in candidates[:3]),
     )

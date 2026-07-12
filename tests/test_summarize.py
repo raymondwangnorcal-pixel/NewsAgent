@@ -72,11 +72,11 @@ def test_fallback_helpers_keep_copy_clean() -> None:
     compact = compact_text(text, max_chars=40)
 
     assert compact == "market market market market market."
-    assert fallback_why_it_matters(1).startswith("Single-source but high-signal")
-    assert fallback_why_it_matters(3).startswith("Confirmed by 3 sources")
+    assert fallback_why_it_matters(1).startswith("Single source, but high-signal")
+    assert fallback_why_it_matters(3).startswith("3 outlets are on this")
 
 
-def test_clean_fallback_summary_removes_source_suffix_and_headline_duplicates() -> None:
+def test_clean_fallback_summary_omits_source_suffix_and_headline_duplicates() -> None:
     cluster = StoryCluster(
         key="market",
         title="Markets rise",
@@ -91,7 +91,32 @@ def test_clean_fallback_summary_removes_source_suffix_and_headline_duplicates() 
         ],
     )
 
-    assert clean_fallback_summary(cluster) == "No additional source summary was available."
+    assert clean_fallback_summary(cluster) == ""
+
+
+def test_clean_fallback_summary_uses_detail_from_another_cluster_article() -> None:
+    cluster = StoryCluster(
+        key="market",
+        title="Markets rise",
+        articles=[
+            Article(
+                title="Markets rise",
+                url="https://example.com/first",
+                source="Reuters",
+                published_at=datetime.now(timezone.utc),
+                summary="Markets rise Reuters",
+            ),
+            Article(
+                title="Stocks rally after inflation data",
+                url="https://example.com/second",
+                source="CNBC",
+                published_at=datetime.now(timezone.utc),
+                summary="Stocks rose after inflation data eased concerns about further rate increases.",
+            ),
+        ],
+    )
+
+    assert clean_fallback_summary(cluster) == "Stocks rose after inflation data eased concerns about further rate increases."
 
 
 def test_clean_fallback_summary_preserves_more_article_detail() -> None:
@@ -138,7 +163,7 @@ def test_event_why_it_matters_explains_nvidia_export_restriction_relevance() -> 
 
     why = event_why_it_matters(cluster, "finance")
 
-    assert why == "AI chip restrictions could pressure Nvidia's China revenue and weigh on the broader semiconductor sector."
+    assert why == "Chip export curbs could hit Nvidia's China sales hard and drag down the rest of the semiconductor trade."
 
 
 def test_event_why_it_matters_explains_inflation_relevance() -> None:
@@ -158,7 +183,7 @@ def test_event_why_it_matters_explains_inflation_relevance() -> None:
 
     why = event_why_it_matters(cluster, "finance")
 
-    assert "rate-cut expectations" in why
+    assert "rate-cut bets" in why
     assert "equity valuations" in why
 
 
@@ -179,5 +204,5 @@ def test_event_why_it_matters_explains_conflict_relevance() -> None:
 
     why = event_why_it_matters(cluster, "global")
 
-    assert "humanitarian risks" in why
+    assert "humanitarian risk" in why
     assert "energy" in why

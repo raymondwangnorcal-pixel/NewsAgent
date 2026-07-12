@@ -139,5 +139,5 @@ def test_cli_dry_run_can_print_telegram_format(monkeypatch: pytest.MonkeyPatch, 
 
     output = capsys.readouterr().out
     assert "--- MESSAGE 1/1 ---" in output
-    assert "• AI startup raises funding — It may shape the AI market." in output
+    assert "• AI startup raises funding: It may shape the AI market." in output
     assert "What happened:" not in output

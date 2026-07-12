@@ -226,36 +226,35 @@ def format_story_item(
     if options.brief:
         line = f"{prefix} {headline}"
         if why:
-            line = f"{line} — {why}"
+            line = f"{line}: {why}"
         if include_sources and sources and index is None:
-            line = f"{line} Sources: {sources}"
+            line = f"{line} (via {sources})"
         if options.include_links and story.urls and options.mode == "console":
-            line = f"{line} Link: {story.urls[0]}"
+            line = f"{line} {story.urls[0]}"
         return line
 
     if index is not None:
         lines = [f"{index}. {headline}"]
         if why:
-            lines.append(f"Why it matters: {why}")
+            lines.append(why)
         if story.next_watch:
-            lines.append(f"Watch next: {compact_sentence(story.next_watch, max_chars=110)}")
+            lines.append(f"Watching: {compact_sentence(story.next_watch, max_chars=110)}")
         if options.include_links and story.urls and options.mode == "console":
-            lines.append(f"Link: {story.urls[0]}")
+            lines.append(story.urls[0])
         return "\n".join(lines)
 
     lines = [f"• {headline}"]
-    if summary:
-        lines.append(f"What happened: {summary}")
-    if why:
-        lines.append(f"Why it matters: {why}")
-    if include_sources and sources:
-        lines.append(f"Sources: {sources}")
-    if options.include_links and story.urls:
-        lines.append(f"Link: {format_links(story.urls)}")
+    body = " ".join(part for part in (summary, why) if part)
     if story.update_note and options.mode != "sms":
-        lines.append(f"Update: {compact_sentence(story.update_note, max_chars=110)}")
+        body = " ".join(part for part in (body, compact_sentence(story.update_note, max_chars=110)) if part)
+    if body:
+        lines.append(body)
+    if include_sources and sources:
+        lines.append(f"(via {sources})")
+    if options.include_links and story.urls:
+        lines.append(format_links(story.urls))
     if story.watchlist_matches and options.mode in {"telegram", "console"}:
-        lines.append(f"Watchlist: {', '.join(story.watchlist_matches[:5])}")
+        lines.append(f"📌 on your radar: {', '.join(story.watchlist_matches[:5])}")
     return "\n".join(lines)
 
 
@@ -296,8 +295,8 @@ def build_finance_text(
     include_sources: bool = True,
     compact: bool = False,
 ) -> str:
-    mover_items = [item for item in items if "mover" in item.headline.lower()]
-    snapshot_items = [item for item in items if item.headline.lower() == "mega-cap watchlist"]
+    mover_items = [item for item in items if item.headline.lower() in {"biggest moves", "explained market movers"}]
+    snapshot_items = [item for item in items if item.headline.lower() in {"mega-cap check", "mega-cap watchlist"}]
     headline_items = [
         item
         for item in items
@@ -307,14 +306,14 @@ def build_finance_text(
 
     snapshot_lines = format_market_snapshot(snapshot_items)
     if snapshot_lines:
-        lines.extend(["", "Market snapshot", *snapshot_lines])
+        lines.extend(["", "Market check", *snapshot_lines])
 
     mover_lines = format_big_movers(mover_items)
     if mover_lines:
-        lines.extend(["", "Big movers", *mover_lines])
+        lines.extend(["", "Biggest moves", *mover_lines])
 
     if headline_items:
-        lines.extend(["", "Key headlines"])
+        lines.extend(["", "Also happening"])
         for item in headline_items:
             lines.append(
                 format_story_item(
@@ -350,8 +349,8 @@ def format_big_movers(items: list[BriefingItem]) -> list[str]:
             part = raw_part.strip()
             if not part:
                 continue
-            part = part.replace("catalyst unclear from major headlines", "No clear catalyst found in major headlines.")
-            part = part.replace("(", "— ", 1).rstrip(")")
+            part = part.replace("catalyst unclear from major headlines", "no clear reason yet")
+            part = part.replace(" (", ": ", 1).rstrip(")")
             lines.append(f"• {part}")
     return lines[:8]
 
@@ -407,7 +406,7 @@ def header_title(category: str, today: date | None = None, emoji: str | None = N
     if emoji:
         title = f"{emoji} {title.split(' ', 1)[-1]}"
     selected_day = today or date.today()
-    return f"{title} — {selected_day.strftime('%B')} {selected_day.day}"
+    return f"{title} · {selected_day.strftime('%B')} {selected_day.day}"
 
 
 def compact_sentence(value: str, max_chars: int = 180) -> str:
