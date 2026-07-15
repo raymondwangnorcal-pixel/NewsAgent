@@ -169,25 +169,6 @@ class BriefingSection:
 
 
 @dataclass(frozen=True)
-class BriefingItem:
-    headline: str
-    summary: str
-    why_it_matters: str
-    sources: tuple[str, ...]
-    next_watch: str = ""
-    watchlist_matches: tuple[str, ...] = ()
-    update_note: str = ""
-    urls: tuple[str, ...] = ()
-
-
-@dataclass(frozen=True)
-class BriefingText:
-    category: str
-    title: str
-    items: tuple[BriefingItem, ...]
-
-
-@dataclass(frozen=True)
 class StockQuote:
     symbol: str
     price: float | None = None
