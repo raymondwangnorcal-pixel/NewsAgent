@@ -20,11 +20,16 @@ the underlying API call.
 - Articles get bucketed by regex signal count: 0 triggered heuristics = `clear_good` (penalty 0),
   1 triggered heuristic = `ambiguous`, 2+ = `clear_bad` (penalty applied directly, no LLM call —
   confident enough without one).
-- For the `ambiguous` bucket, when `openai_mode != "off"`, make **one batched** structured-output
-  OpenAI call per pipeline run (not one call per article) classifying all ambiguous articles at
-  once — bounds latency and cost regardless of how many articles land in that bucket, and follows
-  the existing summarize.py call pattern (`client.responses.create` with `json_schema`, strict
-  mode) rather than inventing a new call shape.
+- For the `ambiguous` bucket, when `openai_mode != "off"`, make **batched** structured-output
+  OpenAI calls (not one call per article), chunked at 40 articles per call with per-article
+  title+summary truncated to a fixed length before prompt construction — this bounds latency and
+  cost per call regardless of bucket size, and follows the existing summarize.py call pattern
+  (`client.responses.create` with `json_schema`, strict mode) rather than inventing a new call
+  shape. A single unbounded call was considered and rejected: production rejection logs
+  (`data/quality_gate_rejections_2026-07-12.json`, `-14.json`) show ~150-165 articles/day
+  currently hard-rejected under the *old*, wider hard-reject rule — under the narrowed rule most
+  of those move into the ambiguous bucket instead, so an uncapped call is a realistic, not
+  hypothetical, risk on exactly the days the feature matters most.
 - The call is wrapped in an explicit `try/except` at the call site (no existing precedent for this
   in `summarize.py` — that function has no error handling on the API call itself, so this is new).
   On any exception (network, API, malformed response), degrade to the regex-only ambiguous-tier

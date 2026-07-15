@@ -38,25 +38,40 @@ Recorded across `ceo-review` (SCOPE EXPANSION) and `eng-review`:
    `content_quality_penalty` subtraction. Mitigated by capping `content_quality_penalty` at 2.5
    and requiring a dedicated test (Task H2) proving legitimate single-source breaking news isn't
    over-suppressed.
+8. **Cluster-level aggregation: mean, not MIN** (`validate` Layer 2, independent review): the
+   originally-proposed MIN-aggregation (one clean article zeroes the whole cluster's penalty) was
+   rejected after independent review showed it combines with `scoring.py`'s pre-existing
+   source-count-rewards-credibility mechanics to let a majority-junk cluster (5 junk + 1 clean
+   article) fully zero its penalty *and* outrank a solitary clean single-source report. Switched
+   to mean-aggregation, which scales the penalty with the fraction of the cluster's coverage
+   that's junky (see ADR-0001).
 7. **Source-report scope, v1**: `--quality-report` reports raw hard-reject counts by source across
    the retained daily JSON logs, not a true rejection *rate* — computing a rate requires logging
    total per-source fetched-article counts, which don't currently exist anywhere. Explicitly out
    of scope for this plan (see Out of Scope); flagged here so it isn't mistaken for an oversight.
+9. **Validate-phase plan fixes** (Layer 1 + independent review): Task E's acceptance criterion
+   was rewritten to isolate the penalty term rather than assert full `total_score` equality
+   (which doesn't hold — source count independently moves other score terms); Task F's threshold
+   was added to `QualityGateConfig` with explicit branch order specified; Task D's LLM call was
+   given an explicit batch-size cap (40 articles/call) and per-article text truncation after
+   production log data showed an uncapped call was a real risk, not a hypothetical one; the vague
+   `total_score` "floor" language in Task E was dropped in favor of the existing penalty cap
+   alone.
 
 ## Architecture
 
 See ADR-0001 (soft scoring), ADR-0002 (config-driven thresholds), ADR-0003 (LLM fallback) in
 `docs/adr/`. Key structural points confirmed by research agents:
 
-- All 23 existing `Article(...)` construction sites use keyword arguments — adding
-  `content_quality_penalty: float = 0.0` (defaulted) is safe everywhere, no positional-arg
-  breakage. No `Article` equality/hash dependency exists anywhere in the codebase, so the new
-  field participating in the auto-generated `__eq__`/`__hash__` is a non-issue.
+- Every existing `Article(...)` construction site (across `src/` and `tests/`) uses keyword
+  arguments — adding `content_quality_penalty: float = 0.0` (defaulted) is safe everywhere, no
+  positional-arg breakage. No `Article` equality/hash dependency exists anywhere in the codebase,
+  so the new field participating in the auto-generated `__eq__`/`__hash__` is a non-issue.
 - `fetch.py`'s `parse_feed()` guarantees non-empty `title`/`url` but **not** non-empty `summary` —
   the hard-reject "empty summary" check must handle this real input shape, not assume it can't
   happen.
 - Per-article scoring must happen **before** `cluster_articles()` (articles are frozen; clustering
-  consumes already-scored articles). Cluster-level MIN-aggregation must happen **after**
+  consumes already-scored articles). Cluster-level mean-aggregation must happen **after**
   clustering — the natural fit is inside `score_clusters()`'s existing per-cluster loop
   (`scoring.py`), alongside where `cluster.quality_score = cluster_quality_score(cluster)` is
   already computed today.
@@ -72,7 +87,8 @@ See ADR-0001 (soft scoring), ADR-0002 (config-driven thresholds), ADR-0003 (LLM 
 
 - [ ] **Task A**: Add `QualityGateConfig` dataclass to `models.py` (fields: `min_summary_chars`,
   `summary_duplicate_threshold`, `ambiguous_penalty_weight`, `clear_bad_penalty_weight`,
-  `max_content_quality_penalty`, matching current hardcoded values as defaults). Add
+  `max_content_quality_penalty`, `low_content_quality_skip_threshold`, matching current
+  hardcoded values as defaults). Add
   `quality_gate: QualityGateConfig = field(default_factory=QualityGateConfig)` to `AgentConfig`.
   Add `content_quality_penalty: float = 0.0` to `Article` and to `StoryCluster`.
   **Acceptance**: existing `AgentConfig(...)` / `Article(...)` / `StoryCluster(...)` constructor
@@ -99,30 +115,53 @@ See ADR-0001 (soft scoring), ADR-0002 (config-driven thresholds), ADR-0003 (LLM 
   still reject; former hard-reject cases for thin-summary/teaser/stock-tip-without-catalyst now
   survive with `content_quality_penalty > 0` instead of being dropped.
 - [ ] **Task D**: Add `judge_ambiguous_articles(articles, model=None) -> dict[str, str]` (URL ->
-  `"good"`/`"junk"`) using one batched `client.responses.create(...)` call with a strict
+  `"good"`/`"junk"`) using batched `client.responses.create(...)` calls with a strict
   `json_schema` response format, following `summarize.py`'s `_generate_structured_briefings`
-  shape. Explicit `try/except` around the call — on any exception, return `{}` (caller falls back
-  to the regex-only ambiguous-tier penalty). Wire into Task C's flow: only called when the
-  ambiguous bucket is non-empty and `openai_mode != "off"`.
+  shape. **Batch-size cap**: chunk the ambiguous bucket into groups of at most 40 articles per
+  call (production logs show 150-165 articles/day currently hard-rejected under the *old* rule —
+  under the narrowed hard-reject set, a large fraction of those move into the ambiguous bucket
+  instead, so an uncapped single call is a real, not hypothetical, risk on high-junk-volume days).
+  Truncate each article's title+summary to a fixed length (e.g. 300 chars) before building the
+  prompt, to bound per-article prompt size. Explicit `try/except` around each chunk's call — on
+  any exception, that chunk's articles fall back to the regex-only ambiguous-tier penalty (a
+  partial-batch failure doesn't invalidate chunks that already succeeded). Wire into Task C's
+  flow: only called when the ambiguous bucket is non-empty and `openai_mode != "off"`.
   **Acceptance**: mocked-success test confirms `"good"` verdicts zero out the penalty and
   `"junk"` verdicts raise it to clear-bad level; mocked-failure test confirms graceful degradation
-  to the regex verdict with no exception propagating.
+  to the regex verdict with no exception propagating; a test with >40 ambiguous articles confirms
+  chunking occurs (multiple calls, not one oversized call).
 
 ### Layer 3 — Scoring integration (depends on Layer 2)
 
 - [ ] **Task E**: In `scoring.py`'s `score_clusters()` loop, compute
-  `cluster.content_quality_penalty = min(a.content_quality_penalty for a in cluster.articles)`
-  alongside the existing `cluster.quality_score` line. Subtract it from `total_score` as a new
-  term, capped so it can't alone push a cluster below a sane floor.
-  **Acceptance**: a cluster with one clean corroborating article and one teaser-headline article
-  scores the same as a cluster with only the clean article (MIN-aggregation proven).
+  `cluster.content_quality_penalty = sum(a.content_quality_penalty for a in cluster.articles) /
+  len(cluster.articles)` (mean across the cluster's articles — see ADR-0001 for why mean replaced
+  the originally-proposed MIN) alongside the existing `cluster.quality_score` line. Subtract it
+  from `total_score` as a new term; `max_content_quality_penalty` (Task A) is the only cap needed
+  — no separate `total_score` floor (the codebase already allows negative `total_score` via the
+  existing single-source penalty, and no such floor exists elsewhere, so don't invent one here).
+  **Acceptance**: isolate the penalty term itself, not full `total_score` —
+  (a) a single-article cluster's `content_quality_penalty` equals that article's own penalty;
+  (b) a cluster with one `clear_bad` article and one `clear_good` article has a penalty roughly
+  half the `clear_bad` weight (moderate dilution, not zeroed);
+  (c) a cluster with 5 `clear_bad` articles and 1 `clear_good` article stays close to the
+  `clear_bad` weight (majority-junk stays penalized despite one clean corroborator — this is the
+  scenario `validate` flagged against the original MIN design);
+  (d) a cluster with zero `clear_bad`/`ambiguous` articles has `content_quality_penalty == 0`.
+  Do **not** assert `total_score` equality between differently-sourced clusters — adding a second
+  source independently moves `frequency_score`, `source_balance_score`, and the multi-source bonus
+  regardless of content quality, so that comparison doesn't isolate the thing under test.
 - [ ] **Task F**: Add a `"low content quality"` branch to `skip_reason()` in `skipped_log.py`,
-  distinct from the existing `"low source quality"` branch, gated on `content_quality_penalty`
-  exceeding a threshold. This is what surfaces the soft-penalty signal in the existing
+  distinct from the existing `"low source quality"` branch, gated on `content_quality_penalty >=
+  low_content_quality_skip_threshold` (new `QualityGateConfig` field, Task A). Branch order in
+  `skip_reason()`: check `content_quality_penalty` **before** the existing `quality_score < 0.55`
+  check — content quality is the more specific, more actionable new signal, so it should win when
+  both conditions are true. This is what surfaces the soft-penalty signal in the existing
   skipped-stories debug output (closing the feedback loop via the mechanism that already exists,
   per ADR-0001).
   **Acceptance**: `format_skipped_table()` output for a heavily-penalized-but-not-hard-rejected
-  cluster shows `"low content quality"`, distinguishable from `"low source quality"`.
+  cluster shows `"low content quality"`, distinguishable from `"low source quality"`; a cluster
+  that trips both thresholds shows `"low content quality"` (order test).
 
 ### Layer 4 — Pipeline wiring + regression safety (depends on Layer 3)
 
@@ -133,10 +172,10 @@ See ADR-0001 (soft scoring), ADR-0002 (config-driven thresholds), ADR-0003 (LLM 
   **Acceptance**: `test_collect_pipeline_context_filters_articles_before_clustering` (existing)
   still passes for the narrowed hard-reject set; new test confirms soft-penalized articles reach
   `cluster_articles()` rather than being filtered out beforehand.
-- [ ] **Task H1** (compounding-penalty regression test): a single-source cluster with maximum
-  `content_quality_penalty` does not silently vanish from `all_clusters` — it's still present,
-  just heavily downranked and/or `skip_reason`-tagged, distinguishing "soft-suppressed" from the
-  old "hard-dropped, gone forever" behavior.
+- [ ] **Task H1** (compounding-penalty regression test, in `tests/test_scoring.py`): a
+  single-source cluster with maximum `content_quality_penalty` does not silently vanish from
+  `all_clusters` — it's still present, just heavily downranked and/or `skip_reason`-tagged,
+  distinguishing "soft-suppressed" from the old "hard-dropped, gone forever" behavior.
 - [ ] **Task H2** (golden-set tests): pull confirmed examples from the on-disk
   `data/quality_gate_rejections_2026-07-12.json`, `data/quality_gate_rejections_2026-07-14.json`,
   `data/skipped_stories_2026-07-12.json`, `data/skipped_stories_2026-07-14.json` into
@@ -165,8 +204,9 @@ See ADR-0001 (soft scoring), ADR-0002 (config-driven thresholds), ADR-0003 (LLM 
 - Unit: `test_models.py` — new `QualityGateConfig` defaults, `Article`/`StoryCluster` new fields
   don't break existing construction.
 - Unit: config — `[quality_gate]` section present/absent, env-var overrides.
-- Integration: `test_scoring.py` — MIN-aggregation across cluster articles, `total_score`
-  subtraction, compounding-penalty regression (Task H1).
+- Integration: `test_scoring.py` — mean-aggregation across cluster articles (including the
+  majority-junk-with-one-clean-corroborator case), `total_score` subtraction, compounding-penalty
+  regression (Task H1).
 - Integration: `test_skipped_log.py` — new `"low content quality"` skip reason distinguishable
   from `"low source quality"`.
 - Integration: `test_pipeline.py` — `collect_pipeline_context` end-to-end with the new scoring

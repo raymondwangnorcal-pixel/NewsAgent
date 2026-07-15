@@ -29,9 +29,20 @@ That name is taken; the new signal needs a distinct name to avoid confusion.
   are frozen; clustering must consume already-scored articles).
 - `StoryCluster` gets an analogous `content_quality_penalty: float = 0.0` field, computed inside
   the existing `score_clusters()` loop (`scoring.py`, alongside `cluster.quality_score =
-  cluster_quality_score(cluster)`) as the **MIN** of `content_quality_penalty` across the
-  cluster's articles — if even one corroborating source covers a story cleanly, the cluster is
-  real news even if another source's headline was teaser-y.
+  cluster_quality_score(cluster)`) as the **mean** of `content_quality_penalty` across the
+  cluster's articles (equivalently: the penalty scales with the fraction of the cluster's
+  coverage that's junky). A single teaser-headline article alongside one clean report only
+  moderately dilutes the penalty rather than zeroing it, and a cluster that's mostly junk with one
+  weak clean corroborator stays meaningfully penalized rather than being fully absolved.
+
+  MIN-aggregation was the original design (rationale: "one clean source vouches for the whole
+  cluster") but was rejected during `validate` after independent review showed it combines badly
+  with `scoring.py`'s pre-existing source-count-rewards-credibility mechanics
+  (`frequency_score`, `source_balance_score`, the multi-source bonus): under MIN, a cluster with 5
+  junk articles and 1 clean one would fully zero its content penalty *and* outrank a solitary
+  clean single-source report, because more sources earn more credit independent of content
+  quality. Mean-aggregation directly ties the penalty to how junk-heavy the cluster's coverage
+  actually is, closing that gap.
 - `content_quality_penalty` subtracts from `total_score` in `scoring.py`, as a new term separate
   from `quality_score` (source reputation, unchanged) and `impact_score`.
 - The penalty is capped (max 2.5) to bound compounding with the existing single-source-cluster
