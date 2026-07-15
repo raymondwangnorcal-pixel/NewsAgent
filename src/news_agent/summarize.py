@@ -437,6 +437,20 @@ def detected_company(text: str) -> str:
     return "The company"
 
 
+OPINION_LABEL_RE = re.compile(r"^\s*(opinion|editorial|op-ed|analysis|perspective|commentary)\s*[:|-]", re.IGNORECASE)
+WAR_IDIOM_RE = re.compile(
+    r"\bwars?\s+on\s+(?:science|drugs?|poverty|cancer|obesity|crime|christmas)\b", re.IGNORECASE
+)
+CENTRAL_BANK_TERMS = (
+    "fed", "federal reserve", "boj", "bank of japan", "ecb", "european central bank",
+    "boe", "bank of england", "pboc", "people's bank of china", "central bank",
+)
+
+
+def is_opinion_piece(cluster: StoryCluster) -> bool:
+    return bool(OPINION_LABEL_RE.match(cluster.title.strip()))
+
+
 def event_why_it_matters(
     cluster: StoryCluster,
     category: str,
@@ -445,17 +459,32 @@ def event_why_it_matters(
     text = f"{cluster.title} {cluster.representative_summary}".lower()
     company = detected_company(text)
 
+    # Opinion/editorial pieces are one writer's take, not a confirmed event. Keyword-bucket
+    # guesses below are tuned for hard news and misfire badly on op-ed framing (see "war on
+    # science" below), so route straight to the honest, non-assertive fallback instead.
+    if is_opinion_piece(cluster):
+        return fallback_why_it_matters(len(cluster.sources), category, watchlist_matches)
+
     if contains_any(text, ("export restriction", "export restrictions", "export control", "export controls", "chip restriction")):
         if contains_any(text, ("nvidia", "nvda", "ai chip", "chips", "semiconductor")):
             return "Chip export curbs could hit Nvidia's China sales hard and drag down the rest of the semiconductor trade."
         return "Export controls could scramble sales, supply chains, and the whole U.S.-China tech rivalry."
 
-    if contains_any(text, ("earnings", "guidance", "forecast", "profit", "revenue")):
+    if contains_any(text, CENTRAL_BANK_TERMS) and contains_any(
+        text, ("rate cut", "interest rate", "treasury yield", "yields", "growth forecast", "policy meeting", "rate hike", "vigilance")
+    ):
+        return "Central bank moves like this shift borrowing costs, bond yields, bank stocks, housing, basically everyone's risk appetite."
+
+    if contains_any(text, ("earnings", "guidance", "profit", "revenue")) or (
+        contains_any(text, ("forecast",)) and company != "The company"
+    ):
         if contains_any(text, ("beat", "tops", "raises", "raised", "strong", "surge", "jump")):
             return f"{company} just gave investors a reason to feel good, and peers in the sector could ride the wave too."
         if contains_any(text, ("miss", "cuts", "cut", "weak", "falls", "fell", "drops", "plunges", "slumps")):
             return f"{company}'s weak outlook could hit its valuation and stir up demand worries across the sector."
-        return f"{company}'s numbers can reset the mood for the whole sector, not just its own stock."
+        if company != "The company":
+            return f"{company}'s numbers can reset the mood for the whole sector, not just its own stock."
+        return "Companies going quiet on guidance like this is itself a signal investors read as uncertainty."
 
     if contains_any(text, ("fed", "federal reserve", "rate cut", "interest rate", "treasury yield", "yields")):
         return "Rate expectations move borrowing costs, bond yields, bank stocks, housing, basically everyone's risk appetite."
@@ -495,7 +524,7 @@ def event_why_it_matters(
     if contains_any(text, ("immigration", "healthcare", "education", "student loan", "school")):
         return "This policy shift could hit household costs, public services, and state or federal budgets."
 
-    if contains_any(text, ("war", "missile", "attack", "conflict", "invasion", "escalation")):
+    if contains_any(text, ("war", "missile", "attack", "conflict", "invasion", "escalation")) and not WAR_IDIOM_RE.search(text):
         return "Escalation like this raises real humanitarian risk and can ripple into energy, trade, defense, and diplomacy fast."
 
     if contains_any(text, ("ceasefire", "peace talks", "truce")):

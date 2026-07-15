@@ -1,0 +1,50 @@
+[
+  {
+    "category_candidate": "global",
+    "duplicate_cluster_id": "among britons killed seven spain those wildfires",
+    "headline": "Seven Britons among those killed in Spain wildfires",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 9.63,
+    "source_names": [
+      "BBC World"
+    ],
+    "url": "https://www.bbc.co.uk/news/articles/cp8l87784ngo?at_medium=RSS&at_campaign=rss",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "global",
+    "duplicate_cluster_id": "2022 china expectations gdp growth missing posts since",
+    "headline": "China posts slowest GDP growth since 2022 at 4.3%, missing expectations",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 8.28,
+    "source_names": [
+      "CNBC Top News"
+    ],
+    "url": "https://www.cnbc.com/2026/07/15/china-gdp-retail-sales-investment-june-.html",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "global",
+    "duplicate_cluster_id": "company investigation korean million paid south trade trump",
+    "headline": "South Korean company paid Trump $2 million amid trade investigation",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 8.14,
+    "source_names": [
+      "The Washington Post"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOZmNzRS1kak5PWE5yWWkyX3JEb3dnVXpWUW53ZHFERk9jdWNGSzdtR0wtOWgzZVRLUVVDcFdmRXNuUUlXUkZoWHUtSmNTeWdtLS1SYVdCYUNkT1NsaTNLNTFoWjNIQ2RKX01yZ0JCblJYVDY0X0c1UHducVloRTd3ZmNxOWJzcXlSRE11NEc4QnZyZlU2RkJUTF9oUk54MkRlYzBadHZJbnExZw?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "domestic",
+    "duplicate_cluster_id": "continues daughter eliot him inspire",
+    "headline": "How DJ Eliot's daughter continues to inspire him a...",
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.1,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/college-football/story/_/id/49314547/nc-state-defensive-coordinator-dj-eliot-daughter-drue-cancer",
+    "watchlist_match": []
+  }
+]

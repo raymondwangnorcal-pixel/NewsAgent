@@ -5,10 +5,11 @@ from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
-from news_agent.models import StoryCluster
+from news_agent.models import QualityGateConfig, StoryCluster
 
 
 DEFAULT_SKIPPED_DIR = Path("data")
+DEFAULT_LOW_CONTENT_QUALITY_SKIP_THRESHOLD = QualityGateConfig().low_content_quality_skip_threshold
 
 
 @dataclass(frozen=True)
@@ -28,11 +29,18 @@ def default_skipped_path(today: date | None = None) -> Path:
     return DEFAULT_SKIPPED_DIR / f"skipped_stories_{selected_day.isoformat()}.json"
 
 
-def skip_reason(cluster: StoryCluster, selected_ids: set[int], category_full: bool = False) -> str:
+def skip_reason(
+    cluster: StoryCluster,
+    selected_ids: set[int],
+    category_full: bool = False,
+    low_content_quality_threshold: float = DEFAULT_LOW_CONTENT_QUALITY_SKIP_THRESHOLD,
+) -> str:
     if cluster.skip_reason:
         return cluster.skip_reason
     if id(cluster) in selected_ids:
         return ""
+    if cluster.content_quality_penalty >= low_content_quality_threshold:
+        return "low content quality"
     if cluster.quality_score < 0.55 and cluster.source_count <= 1:
         return "low source quality"
     if cluster.source_count <= 1 and cluster.impact_score < 3.0:
@@ -45,11 +53,17 @@ def skip_reason(cluster: StoryCluster, selected_ids: set[int], category_full: bo
 def build_skipped_stories(
     clusters: list[StoryCluster],
     selected_clusters: list[StoryCluster],
+    low_content_quality_threshold: float = DEFAULT_LOW_CONTENT_QUALITY_SKIP_THRESHOLD,
 ) -> list[SkippedStory]:
     selected_ids = {id(cluster) for cluster in selected_clusters}
     skipped: list[SkippedStory] = []
     for cluster in clusters:
-        reason = skip_reason(cluster, selected_ids, category_full=id(cluster) not in selected_ids)
+        reason = skip_reason(
+            cluster,
+            selected_ids,
+            category_full=id(cluster) not in selected_ids,
+            low_content_quality_threshold=low_content_quality_threshold,
+        )
         if not reason:
             continue
         category = cluster.category_candidates[0] if cluster.category_candidates else "uncategorized"

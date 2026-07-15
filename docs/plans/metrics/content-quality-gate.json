@@ -1,0 +1,113 @@
+{
+  "plan": "content-quality-gate",
+  "created": "2026-07-15",
+  "pipeline_stages": {
+    "ceo_review": {
+      "mode": "SCOPE EXPANSION",
+      "outcome": "reframe accepted with extended scope (4 of 4 optional items included)"
+    },
+    "eng_review": {
+      "open_questions_resolved": 3,
+      "key_architecture_finding": "StoryCluster.quality_score name collision avoided via distinct content_quality_penalty field"
+    },
+    "start": {
+      "research_tier": "Tier 1 (Focused)",
+      "agents_spawned": 3,
+      "agent_roles": ["code-explorer", "arch-researcher", "test-analyzer"],
+      "adrs_created": 3,
+      "risks_surfaced_by_research": [
+        "compounding penalty risk on single-source clusters (arch-researcher)",
+        "AgentConfig default_factory requirement to avoid breaking existing test constructors (arch-researcher)",
+        "no existing OpenAI client mocking precedent in repo (test-analyzer)"
+      ]
+    },
+    "validate": {
+      "layer1_structural": {
+        "blockers": 0,
+        "warnings": 1,
+        "info": 1
+      },
+      "layer2_specialist_agents_triggered": 0,
+      "layer2_independent_reviewer_spawned": true,
+      "issues": [
+        {
+          "id": "S-001",
+          "layer": 1,
+          "severity": "WARNING",
+          "category": "test-coverage",
+          "description": "Task H1 (compounding-penalty regression test) did not name its target test file",
+          "reporting_agent": "structural",
+          "triage": "A",
+          "resolution_source": "first-principles",
+          "resolution": "Specified tests/test_scoring.py in Task H1"
+        },
+        {
+          "id": "S-002",
+          "layer": 1,
+          "severity": "INFO",
+          "category": "clarity",
+          "description": "Task I labeled as depending on Layer 4 but only actually depends on the pre-existing rejection-log format",
+          "reporting_agent": "structural",
+          "triage": "A",
+          "resolution_source": "first-principles",
+          "resolution": "Left as documented Layer 5 for sequencing simplicity; noted dependency is looser than stated"
+        },
+        {
+          "id": "B-001",
+          "layer": 2,
+          "severity": "BLOCKER",
+          "category": "correctness",
+          "description": "Task E acceptance criterion asserted total_score equality across differently-sourced clusters, which is false given scoring.py's source-count-driven terms (frequency_score, source_balance_score, multi-source bonus)",
+          "reporting_agent": "independent-reviewer",
+          "triage": "A",
+          "resolution_source": "first-principles",
+          "resolution": "Rewrote acceptance criteria to isolate content_quality_penalty itself, not total_score"
+        },
+        {
+          "id": "B-002",
+          "layer": 2,
+          "severity": "BLOCKER",
+          "category": "spec-completeness",
+          "description": "Task F referenced an undefined penalty threshold not present in QualityGateConfig, and left skip_reason() branch order with the existing quality_score check unspecified",
+          "reporting_agent": "independent-reviewer",
+          "triage": "A",
+          "resolution_source": "first-principles",
+          "resolution": "Added low_content_quality_skip_threshold to QualityGateConfig (Task A); specified content-quality check runs before the existing quality_score check"
+        },
+        {
+          "id": "B-003",
+          "layer": 2,
+          "severity": "WARNING",
+          "category": "cost-risk",
+          "description": "LLM ambiguous-case batch call had no size cap; production logs show ~150-165 articles/day currently hard-rejected under the old rule, most of which move to the ambiguous bucket under the narrowed hard-reject rule -- an uncapped single call was a real risk on high-junk-volume days, undermining ADR-0003's 'bounded cost' claim",
+          "reporting_agent": "independent-reviewer",
+          "triage": "A",
+          "resolution_source": "first-principles",
+          "resolution": "Added 40-article batch-size cap with chunking and per-article text truncation to Task D and ADR-0003"
+        },
+        {
+          "id": "B-004",
+          "layer": 2,
+          "severity": "WARNING",
+          "category": "spec-completeness",
+          "description": "Task E mentioned capping total_score at 'a sane floor' with no value specified and no existing precedent for such a floor in scoring.py",
+          "reporting_agent": "independent-reviewer",
+          "triage": "A",
+          "resolution_source": "first-principles",
+          "resolution": "Dropped the floor language; max_content_quality_penalty cap is the only bound, consistent with existing scoring.py allowing negative total_score"
+        },
+        {
+          "id": "B-005",
+          "layer": 2,
+          "severity": "INFO",
+          "category": "architecture",
+          "description": "MIN-aggregation (one clean article zeroes cluster content_quality_penalty) combines with scoring.py's pre-existing source-count-rewards-credibility mechanics to let a majority-junk cluster (5 junk + 1 clean) fully zero its penalty and outrank a solitary clean single-source report",
+          "reporting_agent": "independent-reviewer",
+          "triage": "B",
+          "resolution_source": "human-decision",
+          "resolution": "User chose junk-fraction-weighted penalty over documenting-as-limitation; switched cluster aggregation from MIN to mean across cluster articles (ADR-0001 updated, Task E rewritten, new acceptance case for 5-junk-1-clean scenario)"
+        }
+      ]
+    }
+  }
+}
