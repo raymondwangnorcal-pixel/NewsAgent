@@ -8,20 +8,20 @@ from types import SimpleNamespace
 import pytest
 
 from news_agent import cli
-from news_agent.models import Article, BriefingItem, BriefingText
+from news_agent.models import Article, BriefingParagraph, BriefingSection
 
 
-def sample_briefings() -> list[BriefingText]:
+def sample_briefings() -> list[BriefingSection]:
     return [
-        BriefingText(
+        BriefingSection(
             category="business_tech",
-            title="1/5 Business and technology",
-            items=(
-                BriefingItem(
-                    headline="AI startup raises funding",
-                    summary="A startup raised a large round.",
-                    why_it_matters="It may shape the AI market.",
-                    next_watch="Watch hiring and customer growth.",
+            label="Business + Tech",
+            paragraphs=(
+                BriefingParagraph(
+                    story_id="ai-funding",
+                    category="business_tech",
+                    paragraph="An AI startup raised a large funding round, a sign investors "
+                    "still see room to grow in the space.",
                     sources=("Reuters",),
                 ),
             ),
@@ -101,7 +101,7 @@ def test_cli_dry_run_prints_messages(monkeypatch: pytest.MonkeyPatch, tmp_path, 
     assert "===== TEXT 1/1 =====" in output
     assert "BUSINESS + TECH" in output
     assert "Total messages: 1" in output
-    assert "AI startup raises funding" in output
+    assert "An AI startup raised a large funding round" in output
 
 
 def test_cli_send_no_openai_uses_configured_sender(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:
@@ -135,25 +135,12 @@ def test_cli_send_no_openai_uses_configured_sender(monkeypatch: pytest.MonkeyPat
     assert "Sent 2 message(s)." in capsys.readouterr().out
 
 
-def test_cli_openai_mode_polish(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:
-    monkeypatch.chdir(tmp_path)
-    calls: dict[str, object] = {}
-
-    def fake_build(**kwargs: object) -> object:
-        calls["openai_mode"] = kwargs["openai_mode"]
-        return SimpleNamespace(
-            briefings=sample_briefings(),
-            skipped_stories=[],
-            skipped_log_path=Path("skipped.json"),
-            source_debug_lines=(),
-        )
-
-    monkeypatch.setattr(cli, "build_briefing_result_sync", fake_build)
-
-    cli.main(["--dry-run", "--openai-mode", "polish"])
-
-    assert calls["openai_mode"] == "polish"
-    assert "AI startup raises funding" in capsys.readouterr().out
+def test_cli_openai_mode_choices_reject_polish(capsys: pytest.CaptureFixture[str]) -> None:
+    # "polish" mode was removed with the old fragmented-schema pipeline --
+    # only full/off remain.
+    with pytest.raises(SystemExit):
+        cli.main(["--dry-run", "--openai-mode", "polish"])
+    assert "invalid choice: 'polish'" in capsys.readouterr().err
 
 
 def test_cli_dry_run_can_print_telegram_format(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:
@@ -169,12 +156,13 @@ def test_cli_dry_run_can_print_telegram_format(monkeypatch: pytest.MonkeyPatch, 
         ),
     )
 
-    cli.main(["--dry-run", "--no-openai", "--format", "telegram", "--brief"])
+    cli.main(["--dry-run", "--no-openai", "--format", "telegram"])
 
     output = capsys.readouterr().out
     assert "--- MESSAGE 1/1 ---" in output
-    assert "• AI startup raises funding: It may shape the AI market." in output
+    assert "An AI startup raised a large funding round" in output
     assert "What happened:" not in output
+    assert "• " not in output
 
 
 def test_cli_show_skipped_prints_quality_gate_rejections(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:

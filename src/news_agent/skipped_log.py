@@ -66,7 +66,7 @@ def build_skipped_stories(
         )
         if not reason:
             continue
-        category = cluster.category_candidates[0] if cluster.category_candidates else "uncategorized"
+        category = cluster.category or "uncategorized"
         skipped.append(
             SkippedStory(
                 headline=cluster.title,

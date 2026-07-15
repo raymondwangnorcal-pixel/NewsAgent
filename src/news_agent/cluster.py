@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import re
-from collections import defaultdict
 from datetime import datetime, timezone
 
 from news_agent.models import Article, StoryCluster
@@ -242,13 +241,3 @@ def merge_url_duplicates(clusters: list[StoryCluster]) -> list[StoryCluster]:
             for url in canonical_urls:
                 by_url[url] = existing
     return merged
-
-
-def group_by_category(clusters: list[StoryCluster]) -> dict[str, list[StoryCluster]]:
-    grouped: dict[str, list[StoryCluster]] = defaultdict(list)
-    for cluster in clusters:
-        if not cluster.category_scores:
-            continue
-        category = max(cluster.category_scores, key=cluster.category_scores.get)
-        grouped[category].append(cluster)
-    return dict(grouped)

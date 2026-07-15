@@ -20,7 +20,7 @@ def cluster(title: str, source: str = "Reuters", summary: str = "A summary.") ->
                 reputation=1.0,
             )
         ],
-        category_scores={"finance": 1.0},
+        category="finance",
         total_score=5.0,
     )
     return item

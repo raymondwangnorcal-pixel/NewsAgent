@@ -133,63 +133,21 @@ source_type = "aggregator"
 region = "U.S."
 quality_weight = 0.72
 
+# Category assignment is handled by news_agent.classify against
+# docs/category-guidelines.md (LLM judgment, not keyword matching). These
+# entries are display-label registrations only.
+
 [categories.business_tech]
-label = "Business and technology"
-keywords = [
-  "ai", "artificial intelligence", "openai", "anthropic", "google", "microsoft",
-  "apple", "nvidia", "meta", "startup", "funding", "venture", "ipo", "product",
-  "launch", "layoffs", "antitrust", "regulator", "security", "cloud", "chips",
-  "semiconductor", "founder", "acquisition", "merger"
-]
-impact_terms = [
-  "billion", "million", "regulator", "lawsuit", "antitrust", "layoffs", "shutdown",
-  "funding", "ipo", "launches", "acquires", "merger", "security breach"
-]
+label = "Business + Tech"
 
 [categories.domestic]
-label = "Domestic U.S. news"
-keywords = [
-  "u.s.", "us ", "united states", "white house", "congress", "senate", "house",
-  "supreme court", "federal", "state", "election", "policy", "healthcare",
-  "education", "infrastructure", "public safety", "immigration", "weather"
-]
-impact_terms = [
-  "supreme court", "congress", "federal", "ban", "rule", "emergency", "dead",
-  "evacuation", "election", "policy", "healthcare", "strike"
-]
+label = "U.S. News"
 
 [categories.global]
-label = "Global news"
-keywords = [
-  "war", "conflict", "ceasefire", "china", "russia", "ukraine", "israel", "gaza",
-  "iran", "europe", "election", "trade", "tariff", "sanction", "nato", "un ",
-  "humanitarian", "refugee", "central bank"
-]
-impact_terms = [
-  "war", "missile", "ceasefire", "sanction", "tariff", "election", "central bank",
-  "border", "humanitarian", "trade", "oil", "gas"
-]
+label = "Global News"
 
 [categories.culture]
-label = "Culture, social, and media trends"
-keywords = [
-  "viral", "tiktok", "youtube", "creator", "streaming", "netflix", "disney",
-  "music", "film", "box office", "sports", "nfl", "nba", "mlb", "olympics",
-  "media", "podcast", "influencer", "social media"
-]
-impact_terms = [
-  "record", "viral", "final", "championship", "strike", "boycott", "lawsuit",
-  "streaming", "box office", "ratings"
-]
+label = "Culture + Media"
 
 [categories.finance]
-label = "Financial news"
-keywords = [
-  "stocks", "shares", "market", "s&p", "nasdaq", "dow", "fed", "federal reserve",
-  "inflation", "interest rate", "yield", "earnings", "ipo", "m&a", "merger",
-  "acquisition", "crypto", "bitcoin", "ethereum", "oil", "dollar"
-]
-impact_terms = [
-  "fed", "inflation", "rate", "earnings", "guidance", "plunges", "surges",
-  "ipo", "merger", "acquisition", "bitcoin", "recession", "jobs report"
-]
+label = "Finance"

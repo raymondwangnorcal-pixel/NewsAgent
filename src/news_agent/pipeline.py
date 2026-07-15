@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import asyncio
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Literal
 
@@ -13,11 +13,25 @@ from news_agent.alerts import (
     generate_alerts,
     load_alert_config,
 )
+from news_agent.classify import (
+    classify_clusters,
+    default_category_assignments_path,
+    write_category_assignments,
+)
 from news_agent.cluster import cluster_articles
 from news_agent.config import load_config
+from news_agent.draft import DraftCandidate, draft_paragraphs
 from news_agent.fetch import fetch_all_feeds
 from news_agent.history import DEFAULT_HISTORY_PATH, apply_history, save_story_history
-from news_agent.models import AgentConfig, Article, BriefingText, QualityGateConfig, StoryCluster
+from news_agent.models import (
+    AgentConfig,
+    Article,
+    BriefingParagraph,
+    BriefingSection,
+    CategoryAssignment,
+    QualityGateConfig,
+    StoryCluster,
+)
 from news_agent.quality_gate import (
     apply_quality_gate,
     default_quality_gate_rejections_path,
@@ -27,16 +41,11 @@ from news_agent.quality_gate import (
 from news_agent.scoring import score_clusters, top_for_category
 from news_agent.skipped_log import SkippedStory, build_skipped_stories, default_skipped_path, write_skipped_log
 from news_agent.source_balance import source_distribution_label
-from news_agent.summarize import (
-    generate_briefings_with_openai,
-    generate_fallback_briefings,
-    generate_polished_briefings_with_openai,
-)
 from news_agent.stocks import build_stock_snapshot
 from news_agent.watchlist import DEFAULT_WATCHLIST_PATH, WatchlistEntry, load_watchlist
 
 
-OpenAIMode = Literal["full", "polish", "off"]
+OpenAIMode = Literal["full", "off"]
 
 CATEGORY_LIMITS = {
     "business_tech": 6,
@@ -45,6 +54,14 @@ CATEGORY_LIMITS = {
     "culture": 6,
     "finance": 6,
 }
+
+# Materially larger than the ~30 stories that actually publish (5 categories x 6),
+# so importance-ranking (category-agnostic) doesn't starve a naturally-lower-scoring
+# category before classification even runs -- e.g. Culture+Media during a week
+# dominated by conflict/finance-market-reaction stories.
+CLASSIFICATION_POOL_SIZE = 50
+
+FINANCE_LEAD_TICKER_COUNT = 7
 
 
 def story_identity(cluster: StoryCluster) -> str:
@@ -62,16 +79,19 @@ class PipelineContext:
     all_clusters: list[StoryCluster]
     quality_gate_rejections: tuple[tuple[Article, str], ...] = ()
     quality_gate_log_path: Path | None = None
+    category_assignments: dict[str, CategoryAssignment] = field(default_factory=dict)
+    category_assignments_log_path: Path | None = None
 
 
 @dataclass(frozen=True)
 class BriefingBuildResult:
-    briefings: list[BriefingText]
+    briefings: list[BriefingSection]
     skipped_stories: list[SkippedStory]
     skipped_log_path: Path
     source_debug_lines: tuple[str, ...]
     quality_gate_rejections: tuple[tuple[Article, str], ...] = ()
     quality_gate_log_path: Path | None = None
+    category_assignments_log_path: Path | None = None
 
 
 @dataclass(frozen=True)
@@ -122,6 +142,34 @@ def _apply_ambiguous_verdicts(
     return [replacements.get(id(article), article) for article in survivors]
 
 
+def select_classification_candidates(
+    clusters: list[StoryCluster],
+    pool_size: int = CLASSIFICATION_POOL_SIZE,
+) -> list[StoryCluster]:
+    """Bounded, category-agnostic top-N by importance score. Sized well above the
+    number of stories that will actually publish so a dominant topic can't crowd
+    out every candidate for a naturally-lower-scoring category before the
+    guideline-driven classifier ever gets a chance to weigh in."""
+    eligible = [cluster for cluster in clusters if not cluster.skip_reason]
+    ranked = sorted(eligible, key=lambda item: item.total_score, reverse=True)
+    return ranked[:pool_size]
+
+
+def apply_category_assignments(
+    candidates: list[StoryCluster],
+    assignments: dict[str, CategoryAssignment],
+) -> None:
+    """Mutates cluster.category in place for every candidate that has an
+    assignment. Candidates classify_clusters didn't cover (shouldn't happen --
+    it always fills gaps with the degraded fallback -- but defensive here)
+    are left at their default empty category, which excludes them from every
+    top_for_category result without crashing anything."""
+    for cluster in candidates:
+        assignment = assignments.get(cluster.key)
+        if assignment is not None:
+            cluster.category = assignment.category
+
+
 async def collect_pipeline_context(
     config: AgentConfig | None = None,
     watchlist_entries: tuple[WatchlistEntry, ...] = (),
@@ -129,14 +177,16 @@ async def collect_pipeline_context(
     ignore_history: bool = False,
     openai_mode: OpenAIMode | None = None,
     quality_gate_log_path: Path | None = None,
+    category_assignments_log_path: Path | None = None,
 ) -> PipelineContext:
     config = config or load_config()
+    resolved_mode = resolve_openai_mode(openai_mode=openai_mode)
     articles = await fetch_all_feeds(config.feeds, config.lookback_hours, config.max_articles)
 
     quality_gate_config = _resolve_quality_gate_config(config)
     survivors, hard_rejections, ambiguous_articles = apply_quality_gate(list(articles), quality_gate_config)
 
-    if ambiguous_articles and resolve_openai_mode(openai_mode=openai_mode) != "off":
+    if ambiguous_articles and resolved_mode != "off":
         survivors = _apply_ambiguous_verdicts(survivors, ambiguous_articles, quality_gate_config)
 
     resolved_quality_gate_log_path = quality_gate_log_path or default_quality_gate_rejections_path()
@@ -145,6 +195,13 @@ async def collect_pipeline_context(
     clusters = score_clusters(cluster_articles(survivors), config, watchlist_entries=watchlist_entries)
     apply_history(clusters, history_path, ignore_history=ignore_history)
     clusters.sort(key=lambda item: item.total_score, reverse=True)
+
+    candidates = select_classification_candidates(clusters)
+    assignments = classify_clusters(candidates, openai_mode=resolved_mode)
+    apply_category_assignments(candidates, assignments)
+    resolved_category_assignments_log_path = category_assignments_log_path or default_category_assignments_path()
+    write_category_assignments(assignments, resolved_category_assignments_log_path)
+
     category_clusters = select_unique_category_clusters(clusters)
     stock_snapshot = await build_stock_snapshot(articles, watchlist_entries)
     return PipelineContext(
@@ -153,6 +210,8 @@ async def collect_pipeline_context(
         all_clusters=clusters,
         quality_gate_rejections=tuple(hard_rejections),
         quality_gate_log_path=resolved_quality_gate_log_path,
+        category_assignments=assignments,
+        category_assignments_log_path=resolved_category_assignments_log_path,
     )
 
 
@@ -174,7 +233,8 @@ async def build_briefings(
     persist_history: bool = True,
     skipped_log_path: Path | None = None,
     quality_gate_log_path: Path | None = None,
-) -> list[BriefingText]:
+    category_assignments_log_path: Path | None = None,
+) -> list[BriefingSection]:
     result = await build_briefing_result(
         use_openai=use_openai,
         config=config,
@@ -185,6 +245,7 @@ async def build_briefings(
         persist_history=persist_history,
         skipped_log_path=skipped_log_path,
         quality_gate_log_path=quality_gate_log_path,
+        category_assignments_log_path=category_assignments_log_path,
     )
     return result.briefings
 
@@ -202,15 +263,10 @@ def selected_clusters(category_clusters: dict[str, list[StoryCluster]]) -> list[
 
 
 def select_unique_category_clusters(clusters: list[StoryCluster]) -> dict[str, list[StoryCluster]]:
-    used_story_ids: set[str] = set()
-    category_clusters: dict[str, list[StoryCluster]] = {}
-    for category, limit in CATEGORY_LIMITS.items():
-        available = [cluster for cluster in clusters if story_identity(cluster) not in used_story_ids]
-        selected = top_for_category(available, category, limit)
-        category_clusters[category] = selected
-        used_story_ids.update(story_identity(cluster) for cluster in selected)
-
-    return category_clusters
+    # Cross-category duplication is structurally prevented upstream: classify_clusters
+    # assigns exactly one category per cluster, so there's no "first category to claim
+    # it wins" tiebreak to do here anymore -- just cap each category independently.
+    return {category: top_for_category(clusters, category, limit) for category, limit in CATEGORY_LIMITS.items()}
 
 
 def source_debug_lines(category_clusters: dict[str, list[StoryCluster]]) -> tuple[str, ...]:
@@ -224,6 +280,60 @@ def source_debug_lines(category_clusters: dict[str, list[StoryCluster]]) -> tupl
     return tuple(lines)
 
 
+def _finance_lead_lines(stock_snapshot: object) -> tuple[str, ...]:
+    """Real, non-LLM-generated market-quote lines for the finance section's
+    lead-in -- kept structurally separate from drafted paragraphs (see
+    BriefingSection.lead_lines) since a drafting model shouldn't be trusted
+    to state today's exact price from memory."""
+    mega_caps = getattr(stock_snapshot, "mega_caps", None)
+    quote_for = getattr(stock_snapshot, "quote_for", None)
+    if not mega_caps or quote_for is None:
+        return ()
+    return tuple(quote_for(symbol).compact() for symbol in mega_caps[:FINANCE_LEAD_TICKER_COUNT])
+
+
+def build_draft_candidates(
+    category_clusters: dict[str, list[StoryCluster]],
+    category_assignments: dict[str, CategoryAssignment],
+) -> list[DraftCandidate]:
+    candidates: list[DraftCandidate] = []
+    for category, clusters in category_clusters.items():
+        for cluster in clusters:
+            assignment = category_assignments.get(cluster.key)
+            outlier_urls = set(assignment.outlier_urls) if assignment else set()
+            articles = tuple(article for article in cluster.articles if article.url not in outlier_urls) or tuple(
+                cluster.articles
+            )
+            candidates.append(
+                DraftCandidate(story_id=cluster.key, category=category, title=cluster.title, articles=articles)
+            )
+    return candidates
+
+
+def build_briefing_sections(
+    paragraphs: list[BriefingParagraph],
+    config: AgentConfig,
+    stock_snapshot: object,
+) -> list[BriefingSection]:
+    by_category: dict[str, list[BriefingParagraph]] = {name: [] for name in CATEGORY_LIMITS}
+    for paragraph in paragraphs:
+        by_category.setdefault(paragraph.category, []).append(paragraph)
+
+    sections: list[BriefingSection] = []
+    for category in CATEGORY_LIMITS:
+        label = config.categories[category].label if category in config.categories else category
+        lead_lines = _finance_lead_lines(stock_snapshot) if category == "finance" else ()
+        sections.append(
+            BriefingSection(
+                category=category,
+                label=label,
+                paragraphs=tuple(by_category.get(category, ())),
+                lead_lines=lead_lines,
+            )
+        )
+    return sections
+
+
 async def build_briefing_result(
     use_openai: bool | None = None,
     config: AgentConfig | None = None,
@@ -233,6 +343,7 @@ async def build_briefing_result(
     ignore_history: bool = False,
     skipped_log_path: Path | None = None,
     quality_gate_log_path: Path | None = None,
+    category_assignments_log_path: Path | None = None,
     persist_history: bool = True,
 ) -> BriefingBuildResult:
     config = config or load_config()
@@ -245,18 +356,12 @@ async def build_briefing_result(
         ignore_history=ignore_history,
         openai_mode=mode,
         quality_gate_log_path=quality_gate_log_path,
+        category_assignments_log_path=category_assignments_log_path,
     )
 
-    if mode == "full":
-        briefings = generate_briefings_with_openai(context.category_clusters, config, context.stock_snapshot)
-    else:
-        draft_briefings = generate_fallback_briefings(context.category_clusters, config, context.stock_snapshot)
-        if mode == "polish":
-            briefings = generate_polished_briefings_with_openai(draft_briefings)
-        elif mode == "off":
-            briefings = draft_briefings
-        else:
-            raise ValueError(f"Unsupported OpenAI mode: {mode}")
+    draft_candidates = build_draft_candidates(context.category_clusters, context.category_assignments)
+    paragraphs = draft_paragraphs(draft_candidates, openai_mode=mode)
+    briefings = build_briefing_sections(paragraphs, config, context.stock_snapshot)
 
     selected = selected_clusters(context.category_clusters)
     if persist_history and not ignore_history:
@@ -276,6 +381,7 @@ async def build_briefing_result(
         source_debug_lines=source_debug_lines(context.category_clusters),
         quality_gate_rejections=context.quality_gate_rejections,
         quality_gate_log_path=context.quality_gate_log_path,
+        category_assignments_log_path=context.category_assignments_log_path,
     )
 
 
@@ -289,7 +395,8 @@ def build_briefings_sync(
     persist_history: bool = True,
     skipped_log_path: Path | None = None,
     quality_gate_log_path: Path | None = None,
-) -> list[BriefingText]:
+    category_assignments_log_path: Path | None = None,
+) -> list[BriefingSection]:
     return asyncio.run(
         build_briefings(
             use_openai=use_openai,
@@ -301,6 +408,7 @@ def build_briefings_sync(
             persist_history=persist_history,
             skipped_log_path=skipped_log_path,
             quality_gate_log_path=quality_gate_log_path,
+            category_assignments_log_path=category_assignments_log_path,
         )
     )
 
@@ -314,6 +422,7 @@ def build_briefing_result_sync(
     ignore_history: bool = False,
     skipped_log_path: Path | None = None,
     quality_gate_log_path: Path | None = None,
+    category_assignments_log_path: Path | None = None,
     persist_history: bool = True,
 ) -> BriefingBuildResult:
     return asyncio.run(
@@ -326,6 +435,7 @@ def build_briefing_result_sync(
             ignore_history=ignore_history,
             skipped_log_path=skipped_log_path,
             quality_gate_log_path=quality_gate_log_path,
+            category_assignments_log_path=category_assignments_log_path,
             persist_history=persist_history,
         )
     )

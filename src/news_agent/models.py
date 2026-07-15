@@ -23,8 +23,6 @@ class FeedConfig:
 class CategoryConfig:
     name: CategoryName
     label: str
-    keywords: tuple[str, ...]
-    impact_terms: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -78,7 +76,10 @@ class StoryCluster:
     key: str
     title: str
     articles: list[Article] = field(default_factory=list)
-    category_scores: dict[CategoryName, float] = field(default_factory=dict)
+    category: CategoryName = ""
+    """Set once by the classification stage (news_agent.classify) -- exactly one
+    category per cluster, never a keyword-derived score dict. Empty string means
+    not yet classified or classified as not fitting any category."""
     impact_score: float = 0.0
     frequency_score: float = 0.0
     recency_score: float = 0.0
@@ -130,14 +131,6 @@ class StoryCluster:
     @property
     def source_count(self) -> int:
         return len(self.sources)
-
-    @property
-    def category_candidates(self) -> tuple[CategoryName, ...]:
-        return tuple(
-            category
-            for category, _score in sorted(self.category_scores.items(), key=lambda item: item[1], reverse=True)
-            if _score > 0
-        )
 
     @property
     def merged_text(self) -> str:
@@ -192,18 +185,6 @@ class BriefingText:
     category: str
     title: str
     items: tuple[BriefingItem, ...]
-
-    def to_message(self, max_sources: int = 3) -> str:
-        from news_agent.formatting import FormatOptions, format_category_message
-
-        options = FormatOptions(mode="telegram", max_sources_per_story=max_sources)
-        return format_category_message(self, options=options).text
-
-    def to_sms(self, max_sources: int = 3) -> str:
-        from news_agent.formatting import FormatOptions, format_category_message
-
-        options = FormatOptions(mode="sms", max_sources_per_story=max_sources)
-        return format_category_message(self, options=options).text
 
 
 @dataclass(frozen=True)
