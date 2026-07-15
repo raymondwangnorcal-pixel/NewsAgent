@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+import re
 from datetime import datetime, timezone
 
 from news_agent.models import AgentConfig, StoryCluster
@@ -21,10 +22,24 @@ FORWARD_LOOKING_TERMS = {
     "vote", "hearing", "trial", "earnings", "launch", "ipo",
 }
 
+_TERM_PATTERN_CACHE: dict[str, re.Pattern[str]] = {}
+
+
+def _term_pattern(term: str) -> re.Pattern[str]:
+    pattern = _TERM_PATTERN_CACHE.get(term)
+    if pattern is None:
+        # Word-boundary match, not a bare substring check: a naive `"ai" in text` matches
+        # inside "daily", "said", "maintain", "explain", "certain", and dozens of other
+        # ordinary words, which was silently shoving unrelated articles into whatever
+        # category owns a short keyword like "ai" or "us ". \b keeps short keywords honest.
+        pattern = re.compile(rf"\b{re.escape(term.strip())}\b")
+        _TERM_PATTERN_CACHE[term] = pattern
+    return pattern
+
 
 def _term_hits(text: str, terms: tuple[str, ...] | set[str]) -> int:
     lowered = text.lower()
-    return sum(1 for term in terms if term in lowered)
+    return sum(1 for term in terms if _term_pattern(term).search(lowered))
 
 
 def score_clusters(
@@ -49,15 +64,28 @@ def score_clusters(
         cluster.impact_score = min(5.0, 1.0 + broad_impact * 0.55 + forward_looking * 0.35)
 
         category_scores: dict[str, float] = {}
-        feed_category_votes: dict[str, float] = {}
+        trusted_feed_votes: dict[str, float] = {}
+        aggregator_feed_votes: dict[str, float] = {}
         for article in cluster.articles:
+            votes = aggregator_feed_votes if article.feed_source_type == "aggregator" else trusted_feed_votes
             for category in article.feed_categories:
-                feed_category_votes[category] = feed_category_votes.get(category, 0.0) + article.reputation
+                votes[category] = votes.get(category, 0.0) + article.reputation
 
         for name, category in config.categories.items():
             keyword_hits = _term_hits(text, category.keywords)
             impact_hits = _term_hits(text, category.impact_terms)
-            feed_vote = feed_category_votes.get(name, 0.0)
+            # A dedicated feed's category tag (e.g. TechCrunch -> business_tech) is a reliable
+            # signal on its own. A broad aggregator search's category tag (e.g. a Google News
+            # query for "technology") is not: it blanket-tags every result regardless of
+            # whether the article is actually on-topic, so it only counts at full weight when
+            # corroborated by real keyword/impact hits in the text. Otherwise it's discounted
+            # so an off-topic aggregator hit can't alone push a story into a category it has
+            # nothing to do with.
+            has_content_signal = keyword_hits > 0 or impact_hits > 0
+            aggregator_vote = aggregator_feed_votes.get(name, 0.0)
+            if not has_content_signal:
+                aggregator_vote *= 0.15
+            feed_vote = trusted_feed_votes.get(name, 0.0) + aggregator_vote
             category_scores[name] = feed_vote + keyword_hits * 0.75 + impact_hits * 0.9
 
         cluster.category_scores = category_scores

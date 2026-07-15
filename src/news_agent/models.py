@@ -54,6 +54,7 @@ class Article:
     summary: str = ""
     reputation: float = 0.7
     feed_categories: tuple[CategoryName, ...] = ()
+    feed_source_type: str = "general"
 
     @property
     def text(self) -> str:

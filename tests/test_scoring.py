@@ -130,3 +130,52 @@ def test_top_for_category_limits_single_source_overrepresentation() -> None:
     selected = top_for_category(clusters, "finance", 3)
 
     assert any(cluster.sources == ["Other Source"] for cluster in selected)
+
+
+def test_aggregator_feed_category_tag_is_discounted_without_keyword_signal() -> None:
+    config = AgentConfig(
+        feeds=(),
+        categories={
+            "business_tech": CategoryConfig(
+                "business_tech", "Business and technology", ("ai", "startup", "chip"), ("layoffs",)
+            ),
+            "domestic": CategoryConfig("domestic", "Domestic", ("federal", "policy"), ("federal",)),
+        },
+        lookback_hours=30,
+        max_articles=20,
+    )
+    off_topic = cluster_articles(
+        [
+            Article(
+                title="Opinion: The cost of Trump's war on science will be measured in Alaska",
+                url="https://example.com/opinion",
+                source="Anchorage Daily",
+                published_at=datetime.now(timezone.utc),
+                summary="A researcher argues federal funding cuts will hurt Alaska research.",
+                reputation=0.75,
+                feed_categories=("business_tech",),
+                feed_source_type="aggregator",
+            )
+        ]
+    )[0]
+    on_topic = cluster_articles(
+        [
+            Article(
+                title="Startup raises new funding for AI chip design",
+                url="https://example.com/startup",
+                source="TechCrunch",
+                published_at=datetime.now(timezone.utc),
+                summary="The startup will use the funding to expand its chip design team.",
+                reputation=0.85,
+                feed_categories=("business_tech",),
+                feed_source_type="dedicated",
+            )
+        ]
+    )[0]
+
+    clusters = score_clusters([off_topic, on_topic], config)
+    off_topic_scored = next(c for c in clusters if c.key == off_topic.key)
+    on_topic_scored = next(c for c in clusters if c.key == on_topic.key)
+
+    assert off_topic_scored.category_scores["business_tech"] < on_topic_scored.category_scores["business_tech"]
+    assert off_topic_scored.category_scores["business_tech"] < 0.2

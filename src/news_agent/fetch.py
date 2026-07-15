@@ -137,6 +137,7 @@ def parse_feed(xml_text: str, feed: FeedConfig) -> list[Article]:
                     summary=summary,
                     reputation=feed.reputation,
                     feed_categories=feed.categories,
+                    feed_source_type=feed.source_type,
                 )
             )
     return articles
