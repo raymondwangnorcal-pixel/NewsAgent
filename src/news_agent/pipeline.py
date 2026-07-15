@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import asyncio
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Literal
 
@@ -17,7 +17,13 @@ from news_agent.cluster import cluster_articles
 from news_agent.config import load_config
 from news_agent.fetch import fetch_all_feeds
 from news_agent.history import DEFAULT_HISTORY_PATH, apply_history, save_story_history
-from news_agent.models import AgentConfig, BriefingText, StoryCluster
+from news_agent.models import AgentConfig, Article, BriefingText, QualityGateConfig, StoryCluster
+from news_agent.quality_gate import (
+    apply_quality_gate,
+    default_quality_gate_rejections_path,
+    judge_ambiguous_articles,
+    write_quality_gate_rejections,
+)
 from news_agent.scoring import score_clusters, top_for_category
 from news_agent.skipped_log import SkippedStory, build_skipped_stories, default_skipped_path, write_skipped_log
 from news_agent.source_balance import source_distribution_label
@@ -54,6 +60,8 @@ class PipelineContext:
     category_clusters: dict[str, list[StoryCluster]]
     stock_snapshot: object
     all_clusters: list[StoryCluster]
+    quality_gate_rejections: tuple[tuple[Article, str], ...] = ()
+    quality_gate_log_path: Path | None = None
 
 
 @dataclass(frozen=True)
@@ -62,6 +70,8 @@ class BriefingBuildResult:
     skipped_stories: list[SkippedStory]
     skipped_log_path: Path
     source_debug_lines: tuple[str, ...]
+    quality_gate_rejections: tuple[tuple[Article, str], ...] = ()
+    quality_gate_log_path: Path | None = None
 
 
 @dataclass(frozen=True)
@@ -80,20 +90,70 @@ async def collect_context(config: AgentConfig | None = None):
     return context.category_clusters, context.stock_snapshot
 
 
+def _resolve_quality_gate_config(config: object) -> QualityGateConfig:
+    # `config` isn't always a real AgentConfig — some tests pass an opaque `object()`
+    # sentinel while monkeypatching away everything that would otherwise touch it. Fall
+    # back to defaults rather than assuming `config.quality_gate` exists.
+    return getattr(config, "quality_gate", None) or QualityGateConfig()
+
+
+def _apply_ambiguous_verdicts(
+    survivors: list[Article],
+    ambiguous_articles: list[Article],
+    quality_gate_config: QualityGateConfig,
+) -> list[Article]:
+    verdicts = judge_ambiguous_articles(ambiguous_articles)
+    if not verdicts:
+        return survivors
+
+    junk_penalty = min(quality_gate_config.clear_bad_penalty_weight, quality_gate_config.max_content_quality_penalty)
+    replacements: dict[int, Article] = {}
+    for article in ambiguous_articles:
+        verdict = verdicts.get(article.url)
+        if verdict is None:
+            # No verdict for this URL (chunk failure or omitted) — keep the original
+            # regex-only ambiguous-tier penalty.
+            continue
+        penalty = 0.0 if verdict == "good" else junk_penalty
+        replacements[id(article)] = replace(article, content_quality_penalty=penalty)
+
+    if not replacements:
+        return survivors
+    return [replacements.get(id(article), article) for article in survivors]
+
+
 async def collect_pipeline_context(
     config: AgentConfig | None = None,
     watchlist_entries: tuple[WatchlistEntry, ...] = (),
     history_path: Path = DEFAULT_HISTORY_PATH,
     ignore_history: bool = False,
+    openai_mode: OpenAIMode | None = None,
+    quality_gate_log_path: Path | None = None,
 ) -> PipelineContext:
     config = config or load_config()
     articles = await fetch_all_feeds(config.feeds, config.lookback_hours, config.max_articles)
-    clusters = score_clusters(cluster_articles(articles), config, watchlist_entries=watchlist_entries)
+
+    quality_gate_config = _resolve_quality_gate_config(config)
+    survivors, hard_rejections, ambiguous_articles = apply_quality_gate(list(articles), quality_gate_config)
+
+    if ambiguous_articles and resolve_openai_mode(openai_mode=openai_mode) != "off":
+        survivors = _apply_ambiguous_verdicts(survivors, ambiguous_articles, quality_gate_config)
+
+    resolved_quality_gate_log_path = quality_gate_log_path or default_quality_gate_rejections_path()
+    write_quality_gate_rejections(hard_rejections, resolved_quality_gate_log_path)
+
+    clusters = score_clusters(cluster_articles(survivors), config, watchlist_entries=watchlist_entries)
     apply_history(clusters, history_path, ignore_history=ignore_history)
     clusters.sort(key=lambda item: item.total_score, reverse=True)
     category_clusters = select_unique_category_clusters(clusters)
     stock_snapshot = await build_stock_snapshot(articles, watchlist_entries)
-    return PipelineContext(category_clusters=category_clusters, stock_snapshot=stock_snapshot, all_clusters=clusters)
+    return PipelineContext(
+        category_clusters=category_clusters,
+        stock_snapshot=stock_snapshot,
+        all_clusters=clusters,
+        quality_gate_rejections=tuple(hard_rejections),
+        quality_gate_log_path=resolved_quality_gate_log_path,
+    )
 
 
 def resolve_openai_mode(use_openai: bool | None = None, openai_mode: OpenAIMode | None = None) -> OpenAIMode:
@@ -113,6 +173,7 @@ async def build_briefings(
     ignore_history: bool = False,
     persist_history: bool = True,
     skipped_log_path: Path | None = None,
+    quality_gate_log_path: Path | None = None,
 ) -> list[BriefingText]:
     result = await build_briefing_result(
         use_openai=use_openai,
@@ -123,6 +184,7 @@ async def build_briefings(
         ignore_history=ignore_history,
         persist_history=persist_history,
         skipped_log_path=skipped_log_path,
+        quality_gate_log_path=quality_gate_log_path,
     )
     return result.briefings
 
@@ -170,6 +232,7 @@ async def build_briefing_result(
     history_path: Path = DEFAULT_HISTORY_PATH,
     ignore_history: bool = False,
     skipped_log_path: Path | None = None,
+    quality_gate_log_path: Path | None = None,
     persist_history: bool = True,
 ) -> BriefingBuildResult:
     config = config or load_config()
@@ -180,6 +243,8 @@ async def build_briefing_result(
         watchlist_entries=watchlist_entries,
         history_path=history_path,
         ignore_history=ignore_history,
+        openai_mode=mode,
+        quality_gate_log_path=quality_gate_log_path,
     )
 
     if mode == "full":
@@ -196,7 +261,12 @@ async def build_briefing_result(
     selected = selected_clusters(context.category_clusters)
     if persist_history and not ignore_history:
         save_story_history(selected, history_path)
-    skipped = build_skipped_stories(context.all_clusters, selected)
+    quality_gate_config = _resolve_quality_gate_config(config)
+    skipped = build_skipped_stories(
+        context.all_clusters,
+        selected,
+        low_content_quality_threshold=quality_gate_config.low_content_quality_skip_threshold,
+    )
     resolved_skipped_log_path = skipped_log_path or default_skipped_path()
     write_skipped_log(skipped, resolved_skipped_log_path)
     return BriefingBuildResult(
@@ -204,6 +274,8 @@ async def build_briefing_result(
         skipped_stories=skipped,
         skipped_log_path=resolved_skipped_log_path,
         source_debug_lines=source_debug_lines(context.category_clusters),
+        quality_gate_rejections=context.quality_gate_rejections,
+        quality_gate_log_path=context.quality_gate_log_path,
     )
 
 
@@ -216,6 +288,7 @@ def build_briefings_sync(
     ignore_history: bool = False,
     persist_history: bool = True,
     skipped_log_path: Path | None = None,
+    quality_gate_log_path: Path | None = None,
 ) -> list[BriefingText]:
     return asyncio.run(
         build_briefings(
@@ -227,6 +300,7 @@ def build_briefings_sync(
             ignore_history=ignore_history,
             persist_history=persist_history,
             skipped_log_path=skipped_log_path,
+            quality_gate_log_path=quality_gate_log_path,
         )
     )
 
@@ -239,6 +313,7 @@ def build_briefing_result_sync(
     history_path: Path = DEFAULT_HISTORY_PATH,
     ignore_history: bool = False,
     skipped_log_path: Path | None = None,
+    quality_gate_log_path: Path | None = None,
     persist_history: bool = True,
 ) -> BriefingBuildResult:
     return asyncio.run(
@@ -250,6 +325,7 @@ def build_briefing_result_sync(
             history_path=history_path,
             ignore_history=ignore_history,
             skipped_log_path=skipped_log_path,
+            quality_gate_log_path=quality_gate_log_path,
             persist_history=persist_history,
         )
     )

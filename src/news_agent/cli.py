@@ -12,6 +12,7 @@ from news_agent.history import DEFAULT_HISTORY_PATH
 from news_agent.notifications.base import NotificationError
 from news_agent.notifications.factory import selected_channel, send_briefing_messages, send_telegram_test_message
 from news_agent.pipeline import OpenAIMode, build_alert_result_sync, build_briefing_result_sync
+from news_agent.quality_gate import format_quality_gate_rejections
 from news_agent.skipped_log import format_skipped_table
 from news_agent.watchlist import DEFAULT_WATCHLIST_PATH
 
@@ -130,6 +131,7 @@ def main(argv: list[str] | None = None) -> None:
                 print("Source distribution")
                 for line in result.source_debug_lines:
                     print(line)
+            print_quality_gate_rejections(getattr(result, "quality_gate_rejections", ()))
             print()
             print(format_skipped_table(result.skipped_stories))
         return
@@ -145,8 +147,19 @@ def main(argv: list[str] | None = None) -> None:
             print("Source distribution")
             for line in result.source_debug_lines:
                 print(line)
+        print_quality_gate_rejections(getattr(result, "quality_gate_rejections", ()))
         print()
         print(format_skipped_table(result.skipped_stories))
+
+
+def print_quality_gate_rejections(quality_gate_rejections: object) -> None:
+    rejections = list(quality_gate_rejections or ())
+    if not rejections:
+        return
+    print()
+    print(f"Quality gate rejections: {len(rejections)}")
+    for entry in format_quality_gate_rejections(rejections):
+        print(f"{entry['reason']} | {entry['source']} | {entry['title']}")
 
 
 def resolve_format_mode(requested: str | None, dry_run: bool, channel: str | None) -> FormatMode:
