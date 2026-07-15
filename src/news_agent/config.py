@@ -4,7 +4,7 @@ import os
 import tomllib
 from pathlib import Path
 
-from news_agent.models import AgentConfig, CategoryConfig, FeedConfig, FormattingConfig
+from news_agent.models import AgentConfig, CategoryConfig, FeedConfig, FormattingConfig, QualityGateConfig
 
 
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[2] / "config" / "sources.toml"
@@ -21,6 +21,7 @@ def parse_bool(value: object, default: bool = False) -> bool:
 def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
     raw = tomllib.loads(path.read_text(encoding="utf-8"))
     settings = raw.get("settings", {})
+    quality_gate_settings = raw.get("quality_gate", {})
     feeds = tuple(
         FeedConfig(
             name=item["name"],
@@ -68,6 +69,44 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
             include_links_telegram=parse_bool(
                 os.getenv("BRIEFING_INCLUDE_LINKS_TELEGRAM", settings.get("include_links_telegram")),
                 default=True,
+            ),
+        ),
+        quality_gate=QualityGateConfig(
+            min_summary_chars=int(
+                os.getenv(
+                    "BRIEFING_QUALITY_GATE_MIN_SUMMARY_CHARS",
+                    quality_gate_settings.get("min_summary_chars", 80),
+                )
+            ),
+            summary_duplicate_threshold=float(
+                os.getenv(
+                    "BRIEFING_QUALITY_GATE_SUMMARY_DUPLICATE_THRESHOLD",
+                    quality_gate_settings.get("summary_duplicate_threshold", 0.85),
+                )
+            ),
+            ambiguous_penalty_weight=float(
+                os.getenv(
+                    "BRIEFING_QUALITY_GATE_AMBIGUOUS_PENALTY_WEIGHT",
+                    quality_gate_settings.get("ambiguous_penalty_weight", 0.4),
+                )
+            ),
+            clear_bad_penalty_weight=float(
+                os.getenv(
+                    "BRIEFING_QUALITY_GATE_CLEAR_BAD_PENALTY_WEIGHT",
+                    quality_gate_settings.get("clear_bad_penalty_weight", 1.5),
+                )
+            ),
+            max_content_quality_penalty=float(
+                os.getenv(
+                    "BRIEFING_QUALITY_GATE_MAX_CONTENT_QUALITY_PENALTY",
+                    quality_gate_settings.get("max_content_quality_penalty", 2.5),
+                )
+            ),
+            low_content_quality_skip_threshold=float(
+                os.getenv(
+                    "BRIEFING_QUALITY_GATE_LOW_CONTENT_QUALITY_SKIP_THRESHOLD",
+                    quality_gate_settings.get("low_content_quality_skip_threshold", 1.0),
+                )
             ),
         ),
     )

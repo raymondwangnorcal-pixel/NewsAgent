@@ -37,12 +37,23 @@ class FormattingConfig:
 
 
 @dataclass(frozen=True)
+class QualityGateConfig:
+    min_summary_chars: int = 80
+    summary_duplicate_threshold: float = 0.85
+    ambiguous_penalty_weight: float = 0.4
+    clear_bad_penalty_weight: float = 1.5
+    max_content_quality_penalty: float = 2.5
+    low_content_quality_skip_threshold: float = 1.0
+
+
+@dataclass(frozen=True)
 class AgentConfig:
     feeds: tuple[FeedConfig, ...]
     categories: dict[CategoryName, CategoryConfig]
     lookback_hours: int
     max_articles: int
     formatting: FormattingConfig = field(default_factory=FormattingConfig)
+    quality_gate: QualityGateConfig = field(default_factory=QualityGateConfig)
 
 
 @dataclass(frozen=True)
@@ -55,6 +66,7 @@ class Article:
     reputation: float = 0.7
     feed_categories: tuple[CategoryName, ...] = ()
     feed_source_type: str = "general"
+    content_quality_penalty: float = 0.0
 
     @property
     def text(self) -> str:
@@ -80,6 +92,7 @@ class StoryCluster:
     update_note: str = ""
     confidence: str = ""
     skip_reason: str = ""
+    content_quality_penalty: float = 0.0
 
     @property
     def sources(self) -> list[str]:
