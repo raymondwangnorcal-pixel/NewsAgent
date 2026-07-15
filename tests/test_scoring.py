@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from news_agent.models import AgentConfig, Article, CategoryConfig, FeedConfig, StoryCluster
 from news_agent.scoring import score_clusters, top_for_category
 from news_agent.cluster import cluster_articles
+from news_agent.skipped_log import skip_reason
 
 
 def _basic_config() -> AgentConfig:
@@ -276,3 +277,61 @@ def test_all_clean_cluster_has_zero_content_quality_penalty() -> None:
     scored = score_clusters([cluster], config)
 
     assert scored[0].content_quality_penalty == 0
+
+
+def test_max_penalty_cluster_is_downranked_and_flagged_not_dropped() -> None:
+    """Task H1 — compounding-penalty regression test.
+
+    ADR-0001 replaces the old hard-reject-before-clustering behavior with a soft
+    penalty subtracted from `total_score`. That penalty (capped at
+    `max_content_quality_penalty`) compounds with two other independent
+    mechanisms that can fire on the same single-source, low-signal cluster: the
+    `source_count == 1 and impact_score < 3.0` total_score penalty in
+    `score_clusters`, and the `quality_score < 0.55` skip check in
+    `skipped_log.py`. The ADR calls out that this compounding is intentional but
+    needs an explicit test rather than being assumed safe — specifically, that a
+    maximally-penalized cluster is *downranked and observable*, not silently
+    dropped from the clusters list the way a pre-clustering hard-reject would
+    have dropped it.
+    """
+    config = _basic_config()
+    max_penalty = config.quality_gate.max_content_quality_penalty
+
+    bad_cluster = StoryCluster(
+        key="max-penalty-single-source",
+        title="Story about something bad",
+        articles=[_article("https://example.com/bad", penalty=max_penalty, source="Junk Source")],
+    )
+    clean_cluster = StoryCluster(
+        key="clean-single-source",
+        title="Story about something clean",
+        articles=[_article("https://example.com/clean", penalty=0.0, source="Clean Source")],
+    )
+
+    scored = score_clusters([bad_cluster, clean_cluster], config)
+
+    # (1) Soft-suppressed, not hard-dropped: score_clusters has no mechanism to
+    # remove clusters, but this is the exact contract this test protects, so
+    # assert it explicitly rather than trusting that implicitly.
+    assert len(scored) == 2
+    assert any(cluster is bad_cluster for cluster in scored)
+
+    # (2) The mean-aggregated penalty is correctly reflected post-aggregation
+    # (single article, so the cluster penalty equals the article penalty).
+    assert bad_cluster.content_quality_penalty == max_penalty
+
+    # (3) The penalty measurably suppresses ranking rather than being a no-op:
+    # same article shape, only the content_quality_penalty differs.
+    assert bad_cluster.total_score < clean_cluster.total_score
+    assert clean_cluster.total_score - bad_cluster.total_score >= max_penalty * 0.9
+
+    # (4) Downranked-but-observable, verified via the actual reporting path:
+    # a maximally-penalized cluster gets tagged with a skip reason instead of
+    # crashing or vanishing from the skipped-stories report. Since
+    # max_content_quality_penalty (2.5 by default) exceeds
+    # low_content_quality_skip_threshold (1.0 by default), this resolves to
+    # "low content quality" specifically, ahead of the other fallback reasons.
+    reason = skip_reason(bad_cluster, selected_ids=set())
+    assert reason
+    if max_penalty >= config.quality_gate.low_content_quality_skip_threshold:
+        assert reason == "low content quality"
