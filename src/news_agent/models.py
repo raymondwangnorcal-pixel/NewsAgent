@@ -168,6 +168,11 @@ class BriefingSection:
     category: CategoryName
     label: str
     paragraphs: tuple[BriefingParagraph, ...]
+    lead_lines: tuple[str, ...] = ()
+    """Optional factual, non-prose preamble lines rendered above the paragraphs
+    (e.g. finance's live market-quote ticker). Never LLM-generated -- this is
+    for real numeric/reference data a drafting model shouldn't be trusted to
+    state from memory, kept structurally separate from editorial paragraphs."""
 
 
 @dataclass(frozen=True)
