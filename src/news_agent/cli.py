@@ -54,14 +54,13 @@ def main(argv: list[str] | None = None) -> None:
         choices=("sms", "telegram", "console"),
         help="Output format. Defaults to console for dry-run, sms for SMS sends, and telegram for Telegram sends.",
     )
-    parser.add_argument("--brief", action="store_true", help="Use one-line ultra-brief story formatting.")
     parser.add_argument(
         "--openai-mode",
-        choices=("full", "polish", "off"),
+        choices=("full", "off"),
         default="full",
         help=(
-            "Choose OpenAI usage: full sends ranked article context, polish rewrites the "
-            "local fallback draft, off uses only deterministic fallback summaries."
+            "Choose OpenAI usage: full drafts paragraphs and classifies categories with the "
+            "LLM, off uses only deterministic extractive fallbacks for both."
         ),
     )
     parser.add_argument(
@@ -130,7 +129,7 @@ def main(argv: list[str] | None = None) -> None:
         ignore_history=args.ignore_history,
         persist_history=args.send,
     )
-    options = FormatOptions.from_config(config.formatting, mode=format_mode, brief=args.brief)
+    options = FormatOptions.from_config(config.formatting, mode=format_mode)
     formatted_messages = format_briefing_previews(result.briefings, options=options)
     messages = [message.text for message in formatted_messages]
 

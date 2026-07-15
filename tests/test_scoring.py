@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from news_agent.models import AgentConfig, Article, CategoryConfig, FeedConfig, StoryCluster
+from news_agent.models import AgentConfig, Article, StoryCluster
 from news_agent.scoring import score_clusters, top_for_category
 from news_agent.cluster import cluster_articles
 from news_agent.skipped_log import skip_reason
@@ -29,53 +29,46 @@ def _article(url: str, *, penalty: float, source: str = "Some Source") -> Articl
     )
 
 
-def test_finance_story_scores_for_finance_category() -> None:
-    config = AgentConfig(
-        feeds=(FeedConfig("Reuters", "https://example.com", 1.0, ("finance",)),),
-        categories={
-            "finance": CategoryConfig(
-                name="finance",
-                label="Financial news",
-                keywords=("fed", "inflation", "stock", "earnings"),
-                impact_terms=("fed", "inflation"),
-            ),
-            "culture": CategoryConfig(
-                name="culture",
-                label="Culture",
-                keywords=("film", "music"),
-                impact_terms=("viral",),
-            ),
-        },
-        lookback_hours=30,
-        max_articles=20,
-    )
-    articles = [
-        Article(
-            title="Fed decision lifts stocks as inflation cools",
-            url="https://example.com/fed",
-            source="Reuters",
-            published_at=datetime.now(timezone.utc),
-            summary="Investors expect interest rate cuts after new inflation data.",
-            reputation=1.0,
-            feed_categories=("finance",),
-        )
-    ]
+def test_top_for_category_selects_by_assigned_category_not_score() -> None:
+    # Category assignment now happens once, upstream, via news_agent.classify --
+    # score_clusters no longer computes any per-category score at all.
+    config = _basic_config()
+    finance_cluster = cluster_articles(
+        [
+            Article(
+                title="Fed decision lifts stocks as inflation cools",
+                url="https://example.com/fed",
+                source="Reuters",
+                published_at=datetime.now(timezone.utc),
+                summary="Investors expect interest rate cuts after new inflation data.",
+                reputation=1.0,
+            )
+        ]
+    )[0]
+    culture_cluster = cluster_articles(
+        [
+            Article(
+                title="A major film breaks box-office records",
+                url="https://example.com/film",
+                source="Variety",
+                published_at=datetime.now(timezone.utc),
+                summary="The film topped the weekend box office by a wide margin.",
+                reputation=1.0,
+            )
+        ]
+    )[0]
+    finance_cluster.category = "finance"
+    culture_cluster.category = "culture"
 
-    clusters = score_clusters(cluster_articles(articles), config)
+    clusters = score_clusters([finance_cluster, culture_cluster], config)
 
     assert top_for_category(clusters, "finance", 1)[0].title == "Fed decision lifts stocks as inflation cools"
-    assert clusters[0].category_scores["finance"] > clusters[0].category_scores["culture"]
+    assert top_for_category(clusters, "culture", 1)[0].title == "A major film breaks box-office records"
+    assert not any(c.category == "finance" for c in top_for_category(clusters, "culture", 5))
 
 
 def test_high_quality_confirmation_beats_low_quality_repetition() -> None:
-    config = AgentConfig(
-        feeds=(),
-        categories={
-            "domestic": CategoryConfig("domestic", "Domestic", ("court", "policy"), ("court", "policy")),
-        },
-        lookback_hours=30,
-        max_articles=20,
-    )
+    config = _basic_config()
     articles = [
         Article(
             title="Supreme Court ruling changes federal policy",
@@ -118,6 +111,7 @@ def test_high_quality_confirmation_beats_low_quality_repetition() -> None:
 
 
 def test_top_for_category_limits_single_source_overrepresentation() -> None:
+    config = _basic_config()
     clusters = []
     for index in range(4):
         item = cluster_articles(
@@ -131,8 +125,7 @@ def test_top_for_category_limits_single_source_overrepresentation() -> None:
                 )
             ]
         )[0]
-        item.category_scores["finance"] = 10 - index
-        item.total_score = 10 - index
+        item.category = "finance"
         clusters.append(item)
     diverse = cluster_articles(
         [
@@ -145,62 +138,13 @@ def test_top_for_category_limits_single_source_overrepresentation() -> None:
             )
         ]
     )[0]
-    diverse.category_scores["finance"] = 6
-    diverse.total_score = 6
+    diverse.category = "finance"
     clusters.append(diverse)
 
-    selected = top_for_category(clusters, "finance", 3)
+    scored = score_clusters(clusters, config)
+    selected = top_for_category(scored, "finance", 3)
 
     assert any(cluster.sources == ["Other Source"] for cluster in selected)
-
-
-def test_aggregator_feed_category_tag_is_discounted_without_keyword_signal() -> None:
-    config = AgentConfig(
-        feeds=(),
-        categories={
-            "business_tech": CategoryConfig(
-                "business_tech", "Business and technology", ("ai", "startup", "chip"), ("layoffs",)
-            ),
-            "domestic": CategoryConfig("domestic", "Domestic", ("federal", "policy"), ("federal",)),
-        },
-        lookback_hours=30,
-        max_articles=20,
-    )
-    off_topic = cluster_articles(
-        [
-            Article(
-                title="Opinion: The cost of Trump's war on science will be measured in Alaska",
-                url="https://example.com/opinion",
-                source="Anchorage Daily",
-                published_at=datetime.now(timezone.utc),
-                summary="A researcher argues federal funding cuts will hurt Alaska research.",
-                reputation=0.75,
-                feed_categories=("business_tech",),
-                feed_source_type="aggregator",
-            )
-        ]
-    )[0]
-    on_topic = cluster_articles(
-        [
-            Article(
-                title="Startup raises new funding for AI chip design",
-                url="https://example.com/startup",
-                source="TechCrunch",
-                published_at=datetime.now(timezone.utc),
-                summary="The startup will use the funding to expand its chip design team.",
-                reputation=0.85,
-                feed_categories=("business_tech",),
-                feed_source_type="dedicated",
-            )
-        ]
-    )[0]
-
-    clusters = score_clusters([off_topic, on_topic], config)
-    off_topic_scored = next(c for c in clusters if c.key == off_topic.key)
-    on_topic_scored = next(c for c in clusters if c.key == on_topic.key)
-
-    assert off_topic_scored.category_scores["business_tech"] < on_topic_scored.category_scores["business_tech"]
-    assert off_topic_scored.category_scores["business_tech"] < 0.2
 
 
 def test_single_article_cluster_penalty_equals_article_penalty() -> None:

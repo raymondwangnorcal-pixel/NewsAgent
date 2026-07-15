@@ -20,7 +20,7 @@ def test_skipped_stories_include_reason_sources_url_and_watchlist(tmp_path) -> N
                 reputation=0.85,
             )
         ],
-        category_scores={"business_tech": 1.0},
+        category="business_tech",
         total_score=2.5,
         watchlist_matches=("AI",),
         skip_reason="score below threshold",
@@ -50,7 +50,7 @@ def _single_source_cluster(key: str, title: str, *, quality_score: float, conten
                 reputation=0.4,
             )
         ],
-        category_scores={"business_tech": 1.0},
+        category="business_tech",
         quality_score=quality_score,
         impact_score=1.0,
         total_score=1.0,
@@ -78,7 +78,7 @@ def _multi_source_cluster(key: str, title: str, *, content_quality_penalty: floa
                 reputation=0.9,
             ),
         ],
-        category_scores={"business_tech": 1.0},
+        category="business_tech",
         quality_score=0.9,
         impact_score=5.0,
         total_score=4.0,

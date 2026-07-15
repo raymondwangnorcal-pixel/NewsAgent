@@ -36,12 +36,7 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
         for item in raw.get("feeds", [])
     )
     categories = {
-        name: CategoryConfig(
-            name=name,
-            label=item["label"],
-            keywords=tuple(keyword.lower() for keyword in item.get("keywords", ())),
-            impact_terms=tuple(term.lower() for term in item.get("impact_terms", ())),
-        )
+        name: CategoryConfig(name=name, label=item["label"])
         for name, item in raw.get("categories", {}).items()
     }
     return AgentConfig(

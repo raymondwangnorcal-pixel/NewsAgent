@@ -66,32 +66,9 @@ def score_clusters(
         forward_looking = _term_hits(text, FORWARD_LOOKING_TERMS)
         cluster.impact_score = min(5.0, 1.0 + broad_impact * 0.55 + forward_looking * 0.35)
 
-        category_scores: dict[str, float] = {}
-        trusted_feed_votes: dict[str, float] = {}
-        aggregator_feed_votes: dict[str, float] = {}
-        for article in cluster.articles:
-            votes = aggregator_feed_votes if article.feed_source_type == "aggregator" else trusted_feed_votes
-            for category in article.feed_categories:
-                votes[category] = votes.get(category, 0.0) + article.reputation
-
-        for name, category in config.categories.items():
-            keyword_hits = _term_hits(text, category.keywords)
-            impact_hits = _term_hits(text, category.impact_terms)
-            # A dedicated feed's category tag (e.g. TechCrunch -> business_tech) is a reliable
-            # signal on its own. A broad aggregator search's category tag (e.g. a Google News
-            # query for "technology") is not: it blanket-tags every result regardless of
-            # whether the article is actually on-topic, so it only counts at full weight when
-            # corroborated by real keyword/impact hits in the text. Otherwise it's discounted
-            # so an off-topic aggregator hit can't alone push a story into a category it has
-            # nothing to do with.
-            has_content_signal = keyword_hits > 0 or impact_hits > 0
-            aggregator_vote = aggregator_feed_votes.get(name, 0.0)
-            if not has_content_signal:
-                aggregator_vote *= 0.15
-            feed_vote = trusted_feed_votes.get(name, 0.0) + aggregator_vote
-            category_scores[name] = feed_vote + keyword_hits * 0.75 + impact_hits * 0.9
-
-        cluster.category_scores = category_scores
+        # Category assignment is not computed here -- it's a category-agnostic
+        # importance score only. See news_agent.classify for guideline-driven
+        # (LLM) category assignment, which sets cluster.category downstream.
         cluster.watchlist_matches = match_cluster_watchlist(cluster, watchlist_entries) if watchlist_entries else ()
         raw_watchlist_score = watchlist_score(cluster.watchlist_matches, watchlist_entries)
         if source_count >= 2 or cluster.impact_score >= 3.0 or cluster.quality_score >= 0.8:
@@ -118,15 +95,12 @@ def score_clusters(
 
 
 def top_for_category(clusters: list[StoryCluster], category: str, limit: int) -> list[StoryCluster]:
-    eligible = [
-        cluster
-        for cluster in clusters
-        if cluster.category_scores.get(category, 0.0) > 0 and not cluster.skip_reason
-    ]
-    eligible.sort(
-        key=lambda item: (item.category_scores.get(category, 0.0) + item.total_score, item.total_score),
-        reverse=True,
-    )
+    # Category is set once, upstream, by news_agent.classify's guideline-driven LLM
+    # judgment -- an exact match here, not a keyword score threshold. Duplication
+    # across categories is structurally prevented by that single-assignment design
+    # rather than resolved by a claim-order tiebreak.
+    eligible = [cluster for cluster in clusters if cluster.category == category and not cluster.skip_reason]
+    eligible.sort(key=lambda item: item.total_score, reverse=True)
     selected: list[StoryCluster] = []
     source_counts: dict[str, int] = {}
     max_per_source = max(2, limit // 2)

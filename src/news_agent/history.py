@@ -30,9 +30,7 @@ def parse_datetime(value: str | None) -> datetime:
 
 
 def cluster_category(cluster: StoryCluster) -> str:
-    if cluster.category_candidates:
-        return cluster.category_candidates[0]
-    return "uncategorized"
+    return cluster.category or "uncategorized"
 
 
 def cluster_keywords(cluster: StoryCluster) -> set[str]:
