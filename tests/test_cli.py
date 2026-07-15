@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+import json
+from datetime import date, datetime, timezone
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -47,6 +48,38 @@ def test_cli_test_telegram_skips_news_pipeline(monkeypatch: pytest.MonkeyPatch, 
 
     assert called["telegram"] is True
     assert "Telegram test message sent to 2 recipient(s)." in capsys.readouterr().out
+
+
+def test_cli_quality_report_skips_news_pipeline(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(
+        cli,
+        "build_briefing_result_sync",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("pipeline should not run")),
+    )
+
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+    today = date.today().isoformat()
+    (data_dir / f"quality_gate_rejections_{today}.json").write_text(
+        json.dumps(
+            [
+                {
+                    "title": "Content-free teaser headline",
+                    "source": "Wire Service",
+                    "url": "https://example.com/teaser",
+                    "reason": "empty_summary",
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    cli.main(["--quality-report"])
+
+    output = capsys.readouterr().out
+    assert "Quality gate rejections by source" in output
+    assert "1 | Wire Service" in output
 
 
 def test_cli_dry_run_prints_messages(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:

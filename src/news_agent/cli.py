@@ -12,7 +12,8 @@ from news_agent.history import DEFAULT_HISTORY_PATH
 from news_agent.notifications.base import NotificationError
 from news_agent.notifications.factory import selected_channel, send_briefing_messages, send_telegram_test_message
 from news_agent.pipeline import OpenAIMode, build_alert_result_sync, build_briefing_result_sync
-from news_agent.quality_gate import format_quality_gate_rejections
+from news_agent.quality_gate import DEFAULT_QUALITY_GATE_REJECTIONS_DIR, format_quality_gate_rejections
+from news_agent.quality_report import aggregate_source_rejections, format_source_rejection_report
 from news_agent.skipped_log import format_skipped_table
 from news_agent.watchlist import DEFAULT_WATCHLIST_PATH
 
@@ -36,6 +37,17 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--dry-run", action="store_true", help="Print messages instead of sending them.")
     parser.add_argument("--send", action="store_true", help="Send messages through the configured delivery channel.")
     parser.add_argument("--test-telegram", action="store_true", help="Send one Telegram test message and exit.")
+    parser.add_argument(
+        "--quality-report",
+        action="store_true",
+        help="Print a per-source quality-gate rejection report and exit.",
+    )
+    parser.add_argument(
+        "--report-days",
+        type=int,
+        default=7,
+        help="Lookback window in calendar days for --quality-report (default: 7).",
+    )
     parser.add_argument("--channel", choices=("telegram", "sms"), help="Override BRIEFING_DELIVERY_CHANNEL.")
     parser.add_argument(
         "--format",
@@ -65,6 +77,11 @@ def main(argv: list[str] | None = None) -> None:
         except NotificationError as exc:
             raise SystemExit(f"Telegram test failed: {exc}") from exc
         print(f"Telegram test message sent to {recipient_count} recipient(s).")
+        return
+
+    if args.quality_report:
+        counts = aggregate_source_rejections(DEFAULT_QUALITY_GATE_REJECTIONS_DIR, args.report_days)
+        print(format_source_rejection_report(counts))
         return
 
     if not args.dry_run and not args.send:
