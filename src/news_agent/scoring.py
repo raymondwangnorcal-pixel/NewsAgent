@@ -52,6 +52,9 @@ def score_clusters(
         source_count = len(cluster.sources)
         reputation = sum(article.reputation for article in cluster.articles) / max(len(cluster.articles), 1)
         cluster.quality_score = cluster_quality_score(cluster)
+        cluster.content_quality_penalty = sum(
+            article.content_quality_penalty for article in cluster.articles
+        ) / max(len(cluster.articles), 1)
         cluster.source_balance_score = source_balance_score(cluster)
         cluster.frequency_score = min(4.0, math.log2(source_count + 1) * 1.7)
 
@@ -104,6 +107,7 @@ def score_clusters(
             + cluster.quality_score
             + cluster.source_balance_score
             + cluster.watchlist_score
+            - cluster.content_quality_penalty
         )
         if source_count >= 2:
             cluster.total_score += 1.25
