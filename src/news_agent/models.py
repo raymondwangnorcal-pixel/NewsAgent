@@ -148,6 +148,29 @@ class StoryCluster:
 
 
 @dataclass(frozen=True)
+class CategoryAssignment:
+    category: CategoryName
+    rationale: str
+    outlier_urls: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class BriefingParagraph:
+    story_id: str
+    category: CategoryName
+    paragraph: str
+    sources: tuple[str, ...]
+    urls: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class BriefingSection:
+    category: CategoryName
+    label: str
+    paragraphs: tuple[BriefingParagraph, ...]
+
+
+@dataclass(frozen=True)
 class BriefingItem:
     headline: str
     summary: str
