@@ -32,8 +32,7 @@ Fill in `.env`, then run:
 ```bash
 news-briefing --dry-run
 news-briefing --dry-run --no-openai --show-skipped
-news-briefing --dry-run --format console --brief
-news-briefing --dry-run --openai-mode polish
+news-briefing --dry-run --format console
 news-briefing --test-telegram
 news-briefing --send
 news-briefing --send --no-openai
@@ -72,6 +71,10 @@ BRIEFING_MAX_STORIES_PER_CATEGORY_SMS=5
 BRIEFING_MAX_SOURCES_PER_STORY=3
 BRIEFING_INCLUDE_LINKS_SMS=false
 BRIEFING_INCLUDE_LINKS_TELEGRAM=true
+BRIEFING_QUALITY_GATE_THIN_SUMMARY_PENALTY_WEIGHT=0.4
+BRIEFING_QUALITY_GATE_TEASER_TITLE_PENALTY_WEIGHT=1.1
+BRIEFING_QUALITY_GATE_CATALYSTLESS_STOCK_TIP_PENALTY_WEIGHT=1.1
+BRIEFING_QUALITY_GATE_LOW_CONTENT_QUALITY_SKIP_THRESHOLD=1.0
 ```
 
 Useful CLI options:
@@ -139,18 +142,9 @@ For a cheaper pipeline check that still sends to Telegram:
 news-briefing --send --no-openai
 ```
 
-For a lower-cost OpenAI-backed briefing, use polish mode. It builds a local
-fallback draft first, then sends only that compact draft to OpenAI for final
-rewriting:
-
-```bash
-news-briefing --send --openai-mode polish
-```
-
 OpenAI modes:
 
 - `full`: send ranked article context to OpenAI for the full briefing
-- `polish`: build the local fallback draft, then send only the draft to OpenAI
 - `off`: use deterministic fallback summaries only; same as `--no-openai`
 
 Do not put the Telegram bot token in source code, tests, README examples, or committed files. It belongs only in local `.env` or a secret manager.
@@ -178,6 +172,12 @@ Skipped-story audit logs are written silently to:
 ```text
 data/skipped_stories_YYYY-MM-DD.json
 ```
+
+Quality-gate logs retain the legacy hard-rejection record at
+`data/quality_gate_rejections_YYYY-MM-DD.json` and write a full audit journal
+at `data/quality_gate_audit_YYYY-MM-DD.json`. The journal includes source fetch
+counts, heuristic signals, model verdicts, and final quarantine decisions; use
+`news-briefing --quality-report` for per-source removal rates.
 
 Use `--show-skipped` to print a readable source-distribution block and skipped
 story table after the briefing.

@@ -7,6 +7,16 @@ max_sources_per_story = 3
 include_links_sms = false
 include_links_telegram = false
 
+[quality_gate]
+min_summary_chars = 80
+summary_duplicate_threshold = 0.85
+thin_summary_penalty_weight = 0.4
+teaser_title_penalty_weight = 1.1
+catalystless_stock_tip_penalty_weight = 1.1
+clear_bad_penalty_weight = 1.5
+max_content_quality_penalty = 2.5
+low_content_quality_skip_threshold = 1.0
+
 [[feeds]]
 name = "BBC World"
 url = "https://feeds.bbci.co.uk/news/world/rss.xml"

@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
+
 from news_agent.alerts import AlertConfig, apply_alert_cooldown, generate_alerts, save_alert_history
-from news_agent.models import MarketMover
+from news_agent.models import Article, MarketMover, StoryCluster
 
 
 def test_generate_alerts_triggers_major_index_move() -> None:
@@ -42,3 +44,31 @@ def test_alert_cooldown_suppresses_recent_alert(tmp_path) -> None:
     save_alert_history([alert], history_path)
 
     assert apply_alert_cooldown([alert], history_path, cooldown_minutes=180) == []
+
+
+def test_generate_alerts_excludes_quality_quarantined_clusters() -> None:
+    cluster = StoryCluster(
+        key="fed-story",
+        title="Fed policy shifts suddenly",
+        articles=[
+            Article(
+                title="Fed policy shifts suddenly",
+                url="https://example.com/one",
+                source="Reuters",
+                published_at=datetime.now(timezone.utc),
+                summary="A market-moving policy shift is developing.",
+            ),
+            Article(
+                title="Fed policy shifts suddenly",
+                url="https://example.com/two",
+                source="Associated Press",
+                published_at=datetime.now(timezone.utc),
+                summary="A market-moving policy shift is developing.",
+            ),
+        ],
+        skip_reason="low content quality",
+    )
+
+    alerts = generate_alerts([cluster], (), AlertConfig(enabled=True))
+
+    assert alerts == []

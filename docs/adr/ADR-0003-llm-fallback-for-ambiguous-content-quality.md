@@ -17,9 +17,9 @@ the underlying API call.
 
 ## Decision
 
-- Articles get bucketed by regex signal count: 0 triggered heuristics = `clear_good` (penalty 0),
-  1 triggered heuristic = `ambiguous`, 2+ = `clear_bad` (penalty applied directly, no LLM call —
-  confident enough without one).
+- Articles get bucketed by weighted regex signals: no signals = `clear_good`; a combined raw
+  penalty below `clear_bad_penalty_weight` = `ambiguous`; and a penalty at or above that threshold
+  = `clear_bad` (penalty applied directly, no LLM call — confident enough without one).
 - For the `ambiguous` bucket, when `openai_mode != "off"`, make **batched** structured-output
   OpenAI calls (not one call per article), chunked at 40 articles per call with per-article
   title+summary truncated to a fixed length before prompt construction — this bounds latency and
@@ -38,8 +38,8 @@ the underlying API call.
   (`"good"` / `"junk"` per article via the JSON schema), never free text, and never feed the
   response back into another prompt. This is the one new trust boundary in this feature (RSS
   content flowing into an LLM call for the first time in this codebase's filtering path).
-- Runs when `openai_mode` is `"full"` or `"polish"` (matching the existing flag), skipped when
-  `"off"` — no new independent flag, per locked direction.
+- Runs when `openai_mode` is `"full"`, and is skipped when `"off"` — no new independent flag,
+  per locked direction.
 
 ## Consequences
 

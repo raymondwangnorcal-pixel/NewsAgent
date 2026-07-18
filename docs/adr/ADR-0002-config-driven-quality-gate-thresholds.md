@@ -16,7 +16,8 @@ is config-driven through `AgentConfig`/`config/sources.toml`, loaded by `config.
 
 - Add `QualityGateConfig` to `models.py`, following the `FormattingConfig` pattern (a frozen
   dataclass with sensible defaults), holding: `min_summary_chars`, `summary_duplicate_threshold`,
-  `ambiguous_penalty_weight`, `clear_bad_penalty_weight`, `max_content_quality_penalty`.
+  the per-signal penalty weights, `clear_bad_penalty_weight`, `max_content_quality_penalty`, and
+  `low_content_quality_skip_threshold`.
 - Add `quality_gate: QualityGateConfig = field(default_factory=QualityGateConfig)` to
   `AgentConfig` — a `default_factory`, not a required field, so every existing test that
   constructs `AgentConfig(...)` directly (tests/test_pipeline.py, tests/test_scoring.py) keeps

@@ -13,7 +13,12 @@ from news_agent.notifications.base import NotificationError
 from news_agent.notifications.factory import selected_channel, send_briefing_messages, send_telegram_test_message
 from news_agent.pipeline import OpenAIMode, build_alert_result_sync, build_briefing_result_sync
 from news_agent.quality_gate import DEFAULT_QUALITY_GATE_REJECTIONS_DIR, format_quality_gate_rejections
-from news_agent.quality_report import aggregate_source_rejections, format_source_rejection_report
+from news_agent.quality_report import (
+    aggregate_source_quality,
+    aggregate_source_rejections,
+    format_source_quality_report,
+    format_source_rejection_report,
+)
 from news_agent.skipped_log import format_skipped_table
 from news_agent.watchlist import DEFAULT_WATCHLIST_PATH
 
@@ -79,8 +84,12 @@ def main(argv: list[str] | None = None) -> None:
         return
 
     if args.quality_report:
-        counts = aggregate_source_rejections(DEFAULT_QUALITY_GATE_REJECTIONS_DIR, args.report_days)
-        print(format_source_rejection_report(counts))
+        stats = aggregate_source_quality(DEFAULT_QUALITY_GATE_REJECTIONS_DIR, args.report_days)
+        if stats:
+            print(format_source_quality_report(stats))
+        else:
+            counts = aggregate_source_rejections(DEFAULT_QUALITY_GATE_REJECTIONS_DIR, args.report_days)
+            print(format_source_rejection_report(counts))
         return
 
     if not args.dry_run and not args.send:

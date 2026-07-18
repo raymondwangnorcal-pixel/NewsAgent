@@ -307,6 +307,48 @@ def test_collect_pipeline_context_soft_penalized_articles_reach_clustering(
     assert matching[0].content_quality_penalty == pytest.approx(QualityGateConfig().ambiguous_penalty_weight)
 
 
+def test_collect_pipeline_context_quarantines_high_scoring_multisource_low_content_cluster(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    title = "7 stocks to buy as the Fed, Nasdaq, crypto and inflation move markets?"
+    articles = [
+        make_article(title, "https://example.com/reuters", "Stocks rise.", source="Reuters"),
+        make_article(title, "https://example.com/ap", "Stocks rise.", source="Associated Press"),
+    ]
+    _patch_fetch_and_stock(monkeypatch, articles)
+    monkeypatch.setattr(
+        pipeline,
+        "classify_clusters",
+        lambda candidates, openai_mode: {
+            item.key: CategoryAssignment(category="finance", rationale="Finance test fixture.") for item in candidates
+        },
+    )
+
+    audit_path = tmp_path / "quality_gate_audit.json"
+    context = asyncio.run(
+        pipeline.collect_pipeline_context(
+            minimal_config(),
+            openai_mode="off",
+            quality_gate_log_path=tmp_path / "quality_gate_rejections.json",
+            quality_gate_audit_path=audit_path,
+            category_assignments_log_path=tmp_path / "category_assignments.json",
+        )
+    )
+
+    assert len(context.all_clusters) == 1
+    quarantined = context.all_clusters[0]
+    assert quarantined.source_count == 2
+    assert quarantined.impact_score >= 3.0
+    assert quarantined.content_quality_penalty >= minimal_config().quality_gate.low_content_quality_skip_threshold
+    assert quarantined.skip_reason == "low content quality"
+    assert quarantined.category == "finance"
+    assert context.category_clusters["finance"] == []
+
+    audit = json.loads(audit_path.read_text(encoding="utf-8"))
+    assert audit["decision_counts"] == {"quarantined": 2}
+    assert {entry["final_action"] for entry in audit["articles"]} == {"quarantined"}
+
+
 def test_collect_pipeline_context_off_mode_never_calls_classify_llm(
     monkeypatch: pytest.MonkeyPatch, tmp_path
 ) -> None:

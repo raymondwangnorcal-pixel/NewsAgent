@@ -2,15 +2,18 @@ from __future__ import annotations
 
 import json
 import sys
+from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
 
 import pytest
 
-from news_agent.models import Article, QualityGateConfig
+from news_agent.models import Article, QualityGateConfig, StoryCluster
 from news_agent.quality_gate import (
     apply_quality_gate,
+    default_quality_gate_audit_path,
     default_quality_gate_rejections_path,
+    format_quality_gate_audit,
     format_quality_gate_rejections,
     hard_reject_reason,
     judge_ambiguous_articles,
@@ -158,7 +161,12 @@ def test_stock_tip_with_catalyst_does_not_trigger_heuristic() -> None:
 
 
 def test_penalty_is_capped_at_max_content_quality_penalty() -> None:
-    config = QualityGateConfig(clear_bad_penalty_weight=10.0, max_content_quality_penalty=2.5)
+    config = QualityGateConfig(
+        thin_summary_penalty_weight=10.0,
+        teaser_title_penalty_weight=10.0,
+        catalystless_stock_tip_penalty_weight=10.0,
+        max_content_quality_penalty=2.5,
+    )
     article = make_article(
         title="Here's what to know about 7 stocks to buy today?",
         summary="Rates fall.",
@@ -167,12 +175,41 @@ def test_penalty_is_capped_at_max_content_quality_penalty() -> None:
     assert survivors[0].content_quality_penalty == pytest.approx(2.5)
 
 
+def test_weighted_heuristics_distinguish_a_stock_tip_from_a_thin_summary() -> None:
+    config = QualityGateConfig(
+        thin_summary_penalty_weight=0.2,
+        teaser_title_penalty_weight=0.6,
+        catalystless_stock_tip_penalty_weight=1.4,
+    )
+    thin_article = make_article(url="https://example.com/thin", summary="Brief update.")
+    stock_tip = make_article(
+        title="7 stocks to buy right now",
+        url="https://example.com/stock-tip",
+        summary=(
+            "Analysts shared several names for investors to consider this week, without tying "
+            "the recommendations to a company event or broader market development."
+        ),
+    )
+
+    survivors, _hard_rejections, ambiguous = apply_quality_gate([thin_article, stock_tip], config)
+
+    by_url = {article.url: article for article in survivors}
+    assert by_url[thin_article.url].content_quality_penalty == pytest.approx(0.2)
+    assert by_url[stock_tip.url].content_quality_penalty == pytest.approx(1.4)
+    assert [article.url for article in ambiguous] == [thin_article.url, stock_tip.url]
+
+
 # --- Rejection logging ----------------------------------------------------------
 
 
 def test_default_quality_gate_rejections_path_uses_iso_date() -> None:
     path = default_quality_gate_rejections_path(today=datetime(2026, 7, 15).date())
     assert path == Path("data") / "quality_gate_rejections_2026-07-15.json"
+
+
+def test_default_quality_gate_audit_path_uses_iso_date() -> None:
+    path = default_quality_gate_audit_path(today=datetime(2026, 7, 15).date())
+    assert path == Path("data") / "quality_gate_audit_2026-07-15.json"
 
 
 def test_format_quality_gate_rejections_matches_expected_shape() -> None:
@@ -228,6 +265,46 @@ def test_write_quality_gate_rejections_creates_parent_dirs(tmp_path: Path) -> No
     write_quality_gate_rejections([], path=nested_path)
     assert nested_path.exists()
     assert json.loads(nested_path.read_text(encoding="utf-8")) == []
+
+
+def test_format_quality_gate_audit_records_decisions_and_source_denominators() -> None:
+    ambiguous = make_article(
+        title="Regional airline announces new routes",
+        url="https://example.com/ambiguous",
+        source="Wire Service",
+        summary="Brief update.",
+    )
+    hard_rejected = make_article(
+        title="Duplicate summary headline",
+        url="https://example.com/rejected",
+        source="Other Desk",
+        summary="",
+    )
+    surviving_article = replace(ambiguous, content_quality_penalty=0.0)
+    cluster = StoryCluster(
+        key="regional-airline",
+        title=ambiguous.title,
+        articles=[surviving_article],
+        content_quality_penalty=0.0,
+    )
+
+    audit = format_quality_gate_audit(
+        [ambiguous, hard_rejected],
+        [surviving_article],
+        [(hard_rejected, "empty_summary")],
+        [cluster],
+        default_config(),
+        llm_verdicts={ambiguous.url: "good"},
+        llm_model="test-model",
+    )
+
+    assert audit["source_fetch_counts"] == {"Other Desk": 1, "Wire Service": 1}
+    assert audit["decision_counts"] == {"eligible": 1, "hard_rejected": 1}
+    decisions = {entry["url"]: entry for entry in audit["articles"]}
+    assert decisions[ambiguous.url]["quality_bucket"] == "llm_good"
+    assert decisions[ambiguous.url]["llm_model"] == "test-model"
+    assert decisions[hard_rejected.url]["hard_rejection_reason"] == "empty_summary"
+    assert decisions[hard_rejected.url]["summary_sha256"]
 
 
 # --- Task D: LLM judge for ambiguous articles ------------------------------------
@@ -302,7 +379,9 @@ def test_judge_ambiguous_articles_success_path(monkeypatch: pytest.MonkeyPatch) 
     assert len(fake_responses.calls) == 1
 
 
-def test_judge_ambiguous_articles_degrades_gracefully_on_exception(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_judge_ambiguous_articles_degrades_gracefully_on_exception(
+    monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
     articles = [make_article(url="https://example.com/1")]
     fake_responses = FakeResponses(error=RuntimeError("boom"))
     install_fake_openai(monkeypatch, fake_responses)
@@ -311,6 +390,28 @@ def test_judge_ambiguous_articles_degrades_gracefully_on_exception(monkeypatch: 
 
     assert verdicts == {}
     assert len(fake_responses.calls) == 1
+    assert "LLM judge failed for chunk 1/1" in caplog.text
+
+
+def test_judge_ambiguous_articles_logs_and_ignores_unexpected_urls(
+    monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    article = make_article(url="https://example.com/expected")
+    payload = json.dumps(
+        {
+            "verdicts": [
+                {"url": article.url, "verdict": "good"},
+                {"url": "https://example.com/unexpected", "verdict": "junk"},
+            ]
+        }
+    )
+    fake_responses = FakeResponses(outputs=[payload])
+    install_fake_openai(monkeypatch, fake_responses)
+
+    verdicts = judge_ambiguous_articles([article])
+
+    assert verdicts == {article.url: "good"}
+    assert "1 unexpected" in caplog.text
 
 
 def test_judge_ambiguous_articles_chunks_batches_over_forty_articles(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -529,7 +630,7 @@ GOLDEN_SOFT_PENALTY_CASES = [
             "tip-off time in this guide, along with a quick preview of each team's recent form."
         ),
         ["teaser_title"],
-        0.4,
+        1.1,
         id="how_to_watch_liberty_tempo_ambiguous",
     ),
     pytest.param(
@@ -543,7 +644,7 @@ GOLDEN_SOFT_PENALTY_CASES = [
             "referees and coaches say the system still leaves plenty of room for dispute."
         ),
         ["teaser_title"],
-        0.4,
+        1.1,
         id="world_cup_contentious_calls_ambiguous",
     ),
     pytest.param(

@@ -39,6 +39,9 @@ class QualityGateConfig:
     min_summary_chars: int = 80
     summary_duplicate_threshold: float = 0.85
     ambiguous_penalty_weight: float = 0.4
+    thin_summary_penalty_weight: float = 0.4
+    teaser_title_penalty_weight: float = 1.1
+    catalystless_stock_tip_penalty_weight: float = 1.1
     clear_bad_penalty_weight: float = 1.5
     max_content_quality_penalty: float = 2.5
     low_content_quality_skip_threshold: float = 1.0
