@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 
 import pytest
 
-from news_agent.draft import DraftCandidate, draft_paragraphs
+from news_agent.draft import DraftCandidate, _candidate_payload, draft_paragraphs
 from news_agent.models import Article
 
 
@@ -134,6 +134,23 @@ def test_draft_sources_and_urls_deduplicated(monkeypatch: pytest.MonkeyPatch) ->
 
     assert results[0].sources == ("Reuters", "AP News")
     assert results[0].urls == ("https://example.com/1", "https://example.com/2", "https://example.com/3")
+
+
+def test_candidate_payload_marks_attribution_requirement_and_specialist_context() -> None:
+    specialist = make_article(url="https://ft.com/context", source="Financial Times")
+    candidate = DraftCandidate(
+        story_id="story-1",
+        category="finance",
+        title="Market story",
+        articles=(specialist,),
+        corroboration_status="single_source",
+        specialist_article_urls=(specialist.url,),
+    )
+
+    payload = json.loads(_candidate_payload([candidate]))
+
+    assert payload["stories"][0]["corroboration_status"] == "single_source"
+    assert payload["stories"][0]["articles"][0]["specialist_context"] is True
 
 
 # --- Preservation of numbers/entities (LLM path passthrough) -------------------------

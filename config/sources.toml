@@ -7,6 +7,94 @@ max_sources_per_story = 3
 include_links_sms = false
 include_links_telegram = false
 
+[source_tiers.business_tech]
+primary = "Reuters"
+secondary = "Bloomberg"
+specialist = "Financial Times"
+
+[source_tiers.domestic]
+primary = "Associated Press"
+secondary = "Reuters"
+specialist = "The New York Times"
+
+[source_tiers.global]
+primary = "Reuters"
+secondary = "Associated Press"
+specialist = "BBC News"
+
+[source_tiers.culture]
+primary = "Variety"
+secondary = "The Hollywood Reporter"
+specialist = "Billboard"
+
+[source_tiers.finance]
+primary = "Bloomberg"
+secondary = "Reuters"
+specialist = "Financial Times"
+
+[[feeds]]
+name = "Google News Reuters"
+url = "https://news.google.com/rss/search?q=site%3Areuters.com%20when%3A1d&hl=en-US&gl=US&ceid=US%3Aen"
+reputation = 1.0
+categories = []
+source_type = "wire"
+region = "global"
+quality_weight = 1.0
+
+[[feeds]]
+name = "Google News AP"
+url = "https://news.google.com/rss/search?q=site%3Aapnews.com%20when%3A1d&hl=en-US&gl=US&ceid=US%3Aen"
+reputation = 1.0
+categories = []
+source_type = "wire"
+region = "global"
+quality_weight = 1.0
+
+[[feeds]]
+name = "Bloomberg Markets"
+url = "https://feeds.bloomberg.com/markets/news.rss"
+reputation = 1.0
+categories = ["business_tech", "finance"]
+source_type = "business"
+region = "global"
+quality_weight = 1.0
+
+[[feeds]]
+name = "Financial Times"
+url = "https://www.ft.com/?format=rss"
+reputation = 1.0
+categories = ["business_tech", "finance"]
+source_type = "business"
+region = "global"
+quality_weight = 1.0
+
+[[feeds]]
+name = "The New York Times"
+url = "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
+reputation = 0.95
+categories = ["domestic"]
+source_type = "domestic"
+region = "U.S."
+quality_weight = 0.95
+
+[[feeds]]
+name = "The Hollywood Reporter"
+url = "https://www.hollywoodreporter.com/feed/"
+reputation = 0.85
+categories = ["culture"]
+source_type = "culture"
+region = "U.S."
+quality_weight = 0.85
+
+[[feeds]]
+name = "Billboard"
+url = "https://www.billboard.com/feed/"
+reputation = 0.85
+categories = ["culture"]
+source_type = "culture"
+region = "U.S."
+quality_weight = 0.85
+
 [[feeds]]
 name = "BBC World"
 url = "https://feeds.bbci.co.uk/news/world/rss.xml"

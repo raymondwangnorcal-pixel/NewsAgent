@@ -227,17 +227,29 @@ def default_category_assignments_path(today: date | None = None) -> Path:
 def write_category_assignments(
     assignments: dict[str, CategoryAssignment],
     path: Path | None = None,
+    clusters: list[StoryCluster] | None = None,
 ) -> Path:
     resolved = path or default_category_assignments_path()
     resolved.parent.mkdir(parents=True, exist_ok=True)
-    payload = [
-        {
+    clusters_by_key = {cluster.key: cluster for cluster in clusters or []}
+    payload = []
+    for cluster_id, assignment in assignments.items():
+        item: dict[str, Any] = {
             "cluster_id": cluster_id,
             "category": assignment.category,
             "rationale": assignment.rationale,
             "outlier_urls": list(assignment.outlier_urls),
         }
-        for cluster_id, assignment in assignments.items()
-    ]
+        cluster = clusters_by_key.get(cluster_id)
+        if cluster is not None:
+            item.update(
+                {
+                    "corroboration_status": cluster.corroboration_status,
+                    "source_roles": list(cluster.source_roles),
+                    "source_attributions": list(cluster.source_attributions),
+                    "specialist_article_urls": list(cluster.specialist_article_urls),
+                }
+            )
+        payload.append(item)
     resolved.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
     return resolved

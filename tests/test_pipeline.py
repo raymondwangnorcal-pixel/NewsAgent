@@ -16,6 +16,7 @@ from news_agent.models import (
     QualityGateConfig,
     StockSnapshot,
     StoryCluster,
+    SourceTierConfig,
 )
 
 
@@ -103,6 +104,60 @@ def test_apply_category_assignments_leaves_unassigned_clusters_uncategorized() -
     assert story.category == ""
 
 
+def test_apply_source_tier_scoring_boosts_primary_and_secondary_not_specialist() -> None:
+    config = minimal_config()
+    config = AgentConfig(
+        feeds=config.feeds,
+        categories=config.categories,
+        lookback_hours=config.lookback_hours,
+        max_articles=config.max_articles,
+        source_tiers={
+            "finance": SourceTierConfig("Bloomberg", "Reuters", "Financial Times")
+        },
+    )
+    primary = cluster("primary", "Primary", total_score=10, category="finance")
+    primary.articles = [make_article("Primary", "https://example.com/p", "Summary", source="Bloomberg")]
+    secondary = cluster("secondary", "Secondary", total_score=10, category="finance")
+    secondary.articles = [make_article("Secondary", "https://example.com/s", "Summary", source="Reuters")]
+    specialist = cluster("specialist", "Specialist", total_score=10, category="finance")
+    specialist.articles = [make_article("Specialist", "https://example.com/f", "Summary", source="Financial Times")]
+
+    pipeline.apply_source_tier_scoring([primary, secondary, specialist], config)
+
+    assert primary.total_score == pytest.approx(10 + pipeline.PRIMARY_SOURCE_TIER_BOOST)
+    assert secondary.total_score == pytest.approx(10 + pipeline.SECONDARY_SOURCE_TIER_BOOST)
+    assert specialist.total_score == 10
+    assert specialist.specialist_article_urls == ("https://example.com/f",)
+
+
+def test_apply_source_tier_scoring_skips_explicit_wire_syndication() -> None:
+    wire = make_article("Event", "https://reuters.com/event", "Wire summary", source="Reuters")
+    copy = make_article("Event - Reuters", "https://local.test/event", "Wire summary", source="Local Gazette")
+    story = cluster("event", "Event", category="global")
+    story.articles = [wire, copy]
+
+    pipeline.apply_source_tier_scoring([story], minimal_config())
+
+    assert story.source_count == 2
+    assert story.corroboration_status == "single_source"
+    assert story.skip_reason == "single wire-syndicated source only"
+    assert story.sources == ["Reuters", "Local Gazette"]
+
+
+def test_apply_source_tier_scoring_uncertain_similarity_never_collapses_count() -> None:
+    summary = "Officials announced a detailed policy change affecting millions of households next year."
+    wire = make_article("Event", "https://reuters.com/event", summary, source="Reuters")
+    similar = make_article("Event", "https://local.test/event", summary, source="Local Gazette")
+    story = cluster("event", "Event", category="global")
+    story.articles = [wire, similar]
+
+    pipeline.apply_source_tier_scoring([story], minimal_config())
+
+    assert story.corroboration_status == "confirmed"
+    assert story.skip_reason == ""
+    assert story.source_attributions[1]["confidence"] == "uncertain"
+
+
 # --- select_unique_category_clusters: structural dedup ----------------------------
 
 
@@ -169,6 +224,19 @@ def test_build_draft_candidates_keeps_all_articles_when_no_outliers() -> None:
     candidates = pipeline.build_draft_candidates({"business_tech": [story]}, {})
 
     assert len(candidates[0].articles) == 1
+
+
+def test_build_draft_candidates_propagates_corroboration_and_specialist_flags() -> None:
+    specialist = make_article("Analysis", "https://ft.com/analysis", "Context", source="Financial Times")
+    story = cluster("context", "Context")
+    story.articles = [specialist]
+    story.corroboration_status = "single_source"
+    story.specialist_article_urls = (specialist.url,)
+
+    candidates = pipeline.build_draft_candidates({"finance": [story]}, {})
+
+    assert candidates[0].corroboration_status == "single_source"
+    assert candidates[0].specialist_article_urls == (specialist.url,)
 
 
 def test_build_draft_candidates_falls_back_to_all_articles_if_outliers_cover_everything() -> None:

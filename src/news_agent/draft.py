@@ -28,6 +28,8 @@ class DraftCandidate:
     category: str
     title: str
     articles: tuple[Article, ...]
+    corroboration_status: str = "confirmed"
+    specialist_article_urls: tuple[str, ...] = ()
 
 
 DRAFT_SCHEMA: dict[str, Any] = {
@@ -79,6 +81,11 @@ DRAFT_SYSTEM_PROMPT = (
     "- Only state a causal relationship between two facts (X happened because of Y) when the "
     "source articles themselves support that relationship. Never invent a causal explanation "
     "that isn't in the sources.\n"
+    "- If a story's corroboration_status is 'single_source', clearly attribute its material claims "
+    "to the named outlet (for example, 'Reuters reports...') instead of presenting them as "
+    "independently confirmed fact.\n"
+    "- Articles marked specialist_context should be used for deeper industry or explanatory detail, "
+    "but they do not provide independent corroboration by themselves.\n"
     "- A story in the finance category should explain, in the paragraph itself: what moved, how "
     "much it moved, why it moved, and why the movement matters.\n\n"
     "You will receive a JSON array of stories, each with a story_id, category, title, and its "
@@ -102,11 +109,13 @@ def _candidate_payload(candidates: list[DraftCandidate]) -> str:
                 "story_id": candidate.story_id,
                 "category": candidate.category,
                 "title": candidate.title,
+                "corroboration_status": candidate.corroboration_status,
                 "articles": [
                     {
                         "source": article.source,
                         "title": _truncate(article.title, 200),
                         "summary": _truncate(article.summary, 400),
+                        "specialist_context": article.url in candidate.specialist_article_urls,
                     }
                     for article in candidate.articles[:ARTICLES_PER_STORY_SAMPLE]
                 ],

@@ -45,6 +45,13 @@ class QualityGateConfig:
 
 
 @dataclass(frozen=True)
+class SourceTierConfig:
+    primary: str
+    secondary: str
+    specialist: str
+
+
+@dataclass(frozen=True)
 class AgentConfig:
     feeds: tuple[FeedConfig, ...]
     categories: dict[CategoryName, CategoryConfig]
@@ -52,6 +59,7 @@ class AgentConfig:
     max_articles: int
     formatting: FormattingConfig = field(default_factory=FormattingConfig)
     quality_gate: QualityGateConfig = field(default_factory=QualityGateConfig)
+    source_tiers: dict[CategoryName, SourceTierConfig] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -94,6 +102,10 @@ class StoryCluster:
     confidence: str = ""
     skip_reason: str = ""
     content_quality_penalty: float = 0.0
+    corroboration_status: str = "single_source"
+    source_attributions: tuple[dict[str, str], ...] = ()
+    source_roles: tuple[str, ...] = ()
+    specialist_article_urls: tuple[str, ...] = ()
 
     @property
     def sources(self) -> list[str]:
