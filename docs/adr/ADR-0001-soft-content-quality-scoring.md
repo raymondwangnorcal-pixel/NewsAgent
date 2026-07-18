@@ -45,10 +45,6 @@ That name is taken; the new signal needs a distinct name to avoid confusion.
   actually is, closing that gap.
 - `content_quality_penalty` subtracts from `total_score` in `scoring.py`, as a new term separate
   from `quality_score` (source reputation, unchanged) and `impact_score`.
-- After category assignment, clusters whose mean `content_quality_penalty` meets the configured
-  `low_content_quality_skip_threshold` receive the existing `"low content quality"` skip reason.
-  They remain in the ranked cluster list and skipped-story audit, but cannot enter a published
-  briefing section or breaking-news alert.
 - The penalty is capped (max 2.5) to bound compounding with the existing single-source-cluster
   penalty (`scoring.py` `total_score -= 1.5` when `source_count == 1 and impact_score < 3.0`) and
   the existing `quality_score < 0.55` skip check in `skipped_log.py` — three independent
@@ -62,8 +58,8 @@ That name is taken; the new signal needs a distinct name to avoid confusion.
 
 ## Consequences
 
-- A terse-but-real story stays available for clustering and audit; clusters that remain below the
-  configured quality bar are explicitly quarantined before publication and recorded as such.
+- A terse-but-real story is downranked, not disappeared — recoverable and observable via the
+  existing skipped-stories log.
 - `quality_gate.py` keeps its name and its rejection-log filename (only the narrow hard-reject set
   changes); no unrelated file renames.
 - Requires a dedicated test proving the single-source compounding-penalty scenario doesn't over-

@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
 from dataclasses import dataclass
 from typing import Any
 
 from news_agent.models import Article, BriefingParagraph
-from news_agent.openai_settings import resolve_openai_model
 
 
 DRAFT_BATCH_SIZE = 40
@@ -138,7 +138,7 @@ def _draft_paragraphs_llm(candidates: list[DraftCandidate], model: str | None = 
         return {}
 
     client = OpenAI()
-    selected_model = resolve_openai_model(model)
+    selected_model = model or os.getenv("OPENAI_MODEL", "gpt-5.5")
 
     paragraphs: dict[str, str] = {}
     for chunk in _chunk_candidates(candidates, DRAFT_BATCH_SIZE):

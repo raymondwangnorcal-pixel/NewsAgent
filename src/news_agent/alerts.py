@@ -109,8 +109,6 @@ def cluster_alerts(clusters: list[StoryCluster], config: AlertConfig) -> list[Ne
         "acquisition",
     )
     for cluster in clusters:
-        if cluster.skip_reason:
-            continue
         text = f"{cluster.title} {cluster.representative_summary}".lower()
         if cluster.source_count < config.min_source_count and not any(term in text for term in trigger_terms):
             continue

@@ -85,27 +85,6 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
                     quality_gate_settings.get("ambiguous_penalty_weight", 0.4),
                 )
             ),
-            thin_summary_penalty_weight=float(
-                os.getenv(
-                    "BRIEFING_QUALITY_GATE_THIN_SUMMARY_PENALTY_WEIGHT",
-                    quality_gate_settings.get(
-                        "thin_summary_penalty_weight",
-                        quality_gate_settings.get("ambiguous_penalty_weight", 0.4),
-                    ),
-                )
-            ),
-            teaser_title_penalty_weight=float(
-                os.getenv(
-                    "BRIEFING_QUALITY_GATE_TEASER_TITLE_PENALTY_WEIGHT",
-                    quality_gate_settings.get("teaser_title_penalty_weight", 1.1),
-                )
-            ),
-            catalystless_stock_tip_penalty_weight=float(
-                os.getenv(
-                    "BRIEFING_QUALITY_GATE_CATALYSTLESS_STOCK_TIP_PENALTY_WEIGHT",
-                    quality_gate_settings.get("catalystless_stock_tip_penalty_weight", 1.1),
-                )
-            ),
             clear_bad_penalty_weight=float(
                 os.getenv(
                     "BRIEFING_QUALITY_GATE_CLEAR_BAD_PENALTY_WEIGHT",

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from collections import Counter
 from datetime import date
 from functools import lru_cache
@@ -9,7 +10,6 @@ from pathlib import Path
 from typing import Any
 
 from news_agent.models import CategoryAssignment, CategoryName, StoryCluster
-from news_agent.openai_settings import resolve_openai_model
 
 
 DEFAULT_GUIDELINES_PATH = Path(__file__).resolve().parents[2] / "docs" / "category-guidelines.md"
@@ -124,7 +124,7 @@ def _classify_clusters_llm(clusters: list[StoryCluster], model: str | None = Non
         return {}
 
     client = OpenAI()
-    selected_model = resolve_openai_model(model)
+    selected_model = model or os.getenv("OPENAI_MODEL", "gpt-5.5")
     guidelines = load_category_guidelines()
     system_prompt = _classify_system_prompt(guidelines)
 

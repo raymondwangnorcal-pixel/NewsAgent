@@ -4,13 +4,7 @@ import json
 from datetime import date, timedelta
 from pathlib import Path
 
-from news_agent.quality_report import (
-    SourceQualityStats,
-    aggregate_source_quality,
-    aggregate_source_rejections,
-    format_source_quality_report,
-    format_source_rejection_report,
-)
+from news_agent.quality_report import aggregate_source_rejections, format_source_rejection_report
 
 
 def _write_log(log_dir: Path, day: date, entries: list[dict[str, str]]) -> Path:
@@ -123,35 +117,3 @@ def test_format_source_rejection_report_sorted_by_count_desc() -> None:
     assert lines[2] == "3 | Wire Service"
     assert lines[3] == "2 | Tech Blog"
     assert lines[4] == "1 | Sports Desk"
-
-
-def test_aggregate_source_quality_calculates_removal_rates_from_audit_journal(tmp_path: Path) -> None:
-    today = date.today()
-    audit_path = tmp_path / f"quality_gate_audit_{today.isoformat()}.json"
-    audit_path.write_text(
-        json.dumps(
-            {
-                "schema_version": 1,
-                "source_fetch_counts": {"Wire Service": 4, "Sports Desk": 2},
-                "articles": [
-                    {"source": "Wire Service", "final_action": "eligible"},
-                    {"source": "Wire Service", "final_action": "eligible"},
-                    {"source": "Wire Service", "final_action": "hard_rejected"},
-                    {"source": "Wire Service", "final_action": "quarantined"},
-                    {"source": "Sports Desk", "final_action": "eligible"},
-                    {"source": "Sports Desk", "final_action": "quarantined"},
-                ],
-            }
-        ),
-        encoding="utf-8",
-    )
-
-    stats = aggregate_source_quality(tmp_path, days=7)
-
-    assert stats == {
-        "Sports Desk": SourceQualityStats(fetched=2, quarantined=1),
-        "Wire Service": SourceQualityStats(fetched=4, hard_rejected=1, quarantined=1),
-    }
-    report = format_source_quality_report(stats)
-    assert "1 | 1 | 4 | 50.0% | Wire Service" in report
-    assert "0 | 1 | 2 | 50.0% | Sports Desk" in report

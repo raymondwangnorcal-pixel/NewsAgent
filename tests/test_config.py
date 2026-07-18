@@ -24,9 +24,6 @@ def test_load_config_parses_explicit_quality_gate_section(tmp_path: Path) -> Non
         min_summary_chars = 120
         summary_duplicate_threshold = 0.9
         ambiguous_penalty_weight = 0.6
-        thin_summary_penalty_weight = 0.3
-        teaser_title_penalty_weight = 0.9
-        catalystless_stock_tip_penalty_weight = 1.3
         clear_bad_penalty_weight = 2.0
         max_content_quality_penalty = 3.0
         low_content_quality_skip_threshold = 1.5
@@ -40,9 +37,6 @@ def test_load_config_parses_explicit_quality_gate_section(tmp_path: Path) -> Non
         min_summary_chars=120,
         summary_duplicate_threshold=0.9,
         ambiguous_penalty_weight=0.6,
-        thin_summary_penalty_weight=0.3,
-        teaser_title_penalty_weight=0.9,
-        catalystless_stock_tip_penalty_weight=1.3,
         clear_bad_penalty_weight=2.0,
         max_content_quality_penalty=3.0,
         low_content_quality_skip_threshold=1.5,

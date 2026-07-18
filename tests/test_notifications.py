@@ -59,7 +59,6 @@ def test_resolve_sender_telegram_does_not_require_twilio(monkeypatch: pytest.Mon
     monkeypatch.setenv("BRIEFING_DELIVERY_CHANNEL", "telegram")
     monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "token")
     monkeypatch.setenv("TELEGRAM_CHAT_ID", "123")
-    monkeypatch.delenv("TELEGRAM_CHAT_IDS", raising=False)
     monkeypatch.delenv("TWILIO_ACCOUNT_SID", raising=False)
     monkeypatch.delenv("TWILIO_AUTH_TOKEN", raising=False)
     monkeypatch.delenv("TWILIO_FROM_NUMBER", raising=False)
