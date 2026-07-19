@@ -63,7 +63,7 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
             ),
             include_links_telegram=parse_bool(
                 os.getenv("BRIEFING_INCLUDE_LINKS_TELEGRAM", settings.get("include_links_telegram")),
-                default=True,
+                default=False,
             ),
         ),
         quality_gate=QualityGateConfig(

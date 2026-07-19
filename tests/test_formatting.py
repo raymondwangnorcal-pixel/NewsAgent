@@ -126,19 +126,19 @@ def test_source_cleanup_and_deduplication() -> None:
 # --- Links per channel -------------------------------------------------------------------
 
 
-def test_telegram_can_include_links_but_sms_omits_them_by_default() -> None:
+def test_telegram_and_sms_omit_links_by_default() -> None:
     telegram_options = FormatOptions(mode="telegram")
     sms_options = FormatOptions(mode="sms")
     telegram_message = format_category_message(section(), options=telegram_options)
     sms_message = format_category_message(section(), options=sms_options)
-    assert "https://example.com/story-1" in telegram_message.text
+    assert "https://example.com/story-1" not in telegram_message.text
     assert "https://example.com/story-1" not in sms_message.text
 
 
-def test_telegram_omits_links_when_disabled() -> None:
-    options = FormatOptions(mode="telegram", include_links_telegram=False)
+def test_telegram_can_include_links_when_explicitly_enabled() -> None:
+    options = FormatOptions(mode="telegram", include_links_telegram=True)
     message = format_category_message(section(), options=options)
-    assert "https://example.com/story-1" not in message.text
+    assert "https://example.com/story-1" in message.text
 
 
 # --- Char-limit fitting: drops whole stories, never truncates mid-sentence --------------

@@ -51,7 +51,7 @@ class FormatOptions:
     max_stories_per_category_sms: int = 5
     max_sources_per_story: int = 3
     include_links_sms: bool = False
-    include_links_telegram: bool = True
+    include_links_telegram: bool = False
     today: date | None = None
 
     @classmethod
