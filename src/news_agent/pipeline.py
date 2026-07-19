@@ -40,7 +40,7 @@ from news_agent.quality_gate import (
 )
 from news_agent.scoring import score_clusters, top_for_category
 from news_agent.skipped_log import SkippedStory, build_skipped_stories, default_skipped_path, write_skipped_log
-from news_agent.source_balance import cluster_source_attributions, resolve_source_name, source_distribution_label
+from news_agent.source_balance import source_distribution_label
 from news_agent.stocks import build_stock_snapshot
 from news_agent.watchlist import DEFAULT_WATCHLIST_PATH, WatchlistEntry, load_watchlist
 
@@ -62,8 +62,6 @@ CATEGORY_LIMITS = {
 CLASSIFICATION_POOL_SIZE = 50
 
 FINANCE_LEAD_TICKER_COUNT = 7
-PRIMARY_SOURCE_TIER_BOOST = 0.75
-SECONDARY_SOURCE_TIER_BOOST = 0.5
 
 
 def story_identity(cluster: StoryCluster) -> str:
@@ -172,60 +170,6 @@ def apply_category_assignments(
             cluster.category = assignment.category
 
 
-def apply_source_tier_scoring(candidates: list[StoryCluster], config: AgentConfig) -> None:
-    """Apply category-aware source boosts and annotate corroboration integrity.
-
-    Uncertain body-similarity matches deliberately retain the article's display
-    outlet as an independent identity. Only explicit publisher/title-credit
-    evidence can collapse syndicated copies into the same source.
-    """
-    for cluster in candidates:
-        attributions = cluster_source_attributions(cluster)
-        counted_identities = {
-            attribution.resolved_source if attribution.confidence == "confirmed" else attribution.display_source
-            for attribution in attributions
-        }
-        cluster.corroboration_status = "confirmed" if len(counted_identities) >= 2 else "single_source"
-        cluster.source_attributions = tuple(
-            {
-                "display_source": attribution.display_source,
-                "resolved_source": attribution.resolved_source,
-                "confidence": attribution.confidence,
-                "signal": attribution.signal,
-            }
-            for attribution in attributions
-        )
-
-        tier = config.source_tiers.get(cluster.category)
-        roles: list[str] = []
-        specialist_urls: list[str] = []
-        if tier is not None:
-            tier_sources = {
-                "primary": resolve_source_name(tier.primary) or tier.primary,
-                "secondary": resolve_source_name(tier.secondary) or tier.secondary,
-                "specialist": resolve_source_name(tier.specialist) or tier.specialist,
-            }
-            confirmed_sources = {
-                attribution.resolved_source for attribution in attributions if attribution.confidence == "confirmed"
-            }
-            for role, source in tier_sources.items():
-                if source in confirmed_sources:
-                    roles.append(role)
-            for article, attribution in zip(cluster.articles, attributions):
-                if attribution.resolved_source == tier_sources["specialist"] and attribution.confidence == "confirmed":
-                    specialist_urls.append(article.url)
-
-            if "primary" in roles:
-                cluster.total_score += PRIMARY_SOURCE_TIER_BOOST
-            if "secondary" in roles:
-                cluster.total_score += SECONDARY_SOURCE_TIER_BOOST
-
-        cluster.source_roles = tuple(roles)
-        cluster.specialist_article_urls = tuple(dict.fromkeys(specialist_urls))
-        if cluster.source_count >= 2 and len(counted_identities) == 1:
-            cluster.skip_reason = "single wire-syndicated source only"
-
-
 async def collect_pipeline_context(
     config: AgentConfig | None = None,
     watchlist_entries: tuple[WatchlistEntry, ...] = (),
@@ -255,10 +199,8 @@ async def collect_pipeline_context(
     candidates = select_classification_candidates(clusters)
     assignments = classify_clusters(candidates, openai_mode=resolved_mode)
     apply_category_assignments(candidates, assignments)
-    apply_source_tier_scoring(candidates, config)
-    clusters.sort(key=lambda item: item.total_score, reverse=True)
     resolved_category_assignments_log_path = category_assignments_log_path or default_category_assignments_path()
-    write_category_assignments(assignments, resolved_category_assignments_log_path, clusters=candidates)
+    write_category_assignments(assignments, resolved_category_assignments_log_path)
 
     category_clusters = select_unique_category_clusters(clusters)
     stock_snapshot = await build_stock_snapshot(articles, watchlist_entries)
@@ -363,14 +305,7 @@ def build_draft_candidates(
                 cluster.articles
             )
             candidates.append(
-                DraftCandidate(
-                    story_id=cluster.key,
-                    category=category,
-                    title=cluster.title,
-                    articles=articles,
-                    corroboration_status=cluster.corroboration_status,
-                    specialist_article_urls=cluster.specialist_article_urls,
-                )
+                DraftCandidate(story_id=cluster.key, category=category, title=cluster.title, articles=articles)
             )
     return candidates
 

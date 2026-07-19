@@ -4,14 +4,7 @@ import os
 import tomllib
 from pathlib import Path
 
-from news_agent.models import (
-    AgentConfig,
-    CategoryConfig,
-    FeedConfig,
-    FormattingConfig,
-    QualityGateConfig,
-    SourceTierConfig,
-)
+from news_agent.models import AgentConfig, CategoryConfig, FeedConfig, FormattingConfig, QualityGateConfig
 
 
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[2] / "config" / "sources.toml"
@@ -45,14 +38,6 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
     categories = {
         name: CategoryConfig(name=name, label=item["label"])
         for name, item in raw.get("categories", {}).items()
-    }
-    source_tiers = {
-        name: SourceTierConfig(
-            primary=item["primary"],
-            secondary=item["secondary"],
-            specialist=item["specialist"],
-        )
-        for name, item in raw.get("source_tiers", {}).items()
     }
     return AgentConfig(
         feeds=feeds,
@@ -119,5 +104,4 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
                 )
             ),
         ),
-        source_tiers=source_tiers,
     )

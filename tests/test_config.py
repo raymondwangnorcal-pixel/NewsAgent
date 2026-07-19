@@ -3,16 +3,13 @@ from __future__ import annotations
 from pathlib import Path
 
 from news_agent.config import DEFAULT_CONFIG_PATH, load_config
-from news_agent.models import QualityGateConfig, SourceTierConfig
+from news_agent.models import QualityGateConfig
 
 
 def test_load_config_defaults_quality_gate_when_section_absent() -> None:
     config = load_config(DEFAULT_CONFIG_PATH)
 
     assert config.quality_gate == QualityGateConfig()
-    assert config.source_tiers["global"] == SourceTierConfig(
-        primary="Reuters", secondary="Associated Press", specialist="BBC News"
-    )
 
 
 def test_load_config_parses_explicit_quality_gate_section(tmp_path: Path) -> None:
@@ -44,27 +41,3 @@ def test_load_config_parses_explicit_quality_gate_section(tmp_path: Path) -> Non
         max_content_quality_penalty=3.0,
         low_content_quality_skip_threshold=1.5,
     )
-    assert config.source_tiers == {}
-
-
-def test_load_config_parses_source_tiers(tmp_path: Path) -> None:
-    toml_path = tmp_path / "sources.toml"
-    toml_path.write_text(
-        """
-        [settings]
-        lookback_hours = 30
-        max_articles = 240
-
-        [source_tiers.finance]
-        primary = "Bloomberg"
-        secondary = "Reuters"
-        specialist = "Financial Times"
-        """,
-        encoding="utf-8",
-    )
-
-    config = load_config(toml_path)
-
-    assert config.source_tiers == {
-        "finance": SourceTierConfig("Bloomberg", "Reuters", "Financial Times")
-    }
