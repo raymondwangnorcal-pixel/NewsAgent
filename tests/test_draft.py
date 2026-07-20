@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 
 import pytest
 
-from news_agent.draft import DraftCandidate, draft_paragraphs
+from news_agent.draft import DRAFT_SYSTEM_PROMPT, DraftCandidate, draft_paragraphs
 from news_agent.models import Article
 
 
@@ -84,6 +84,14 @@ def paragraph_payload(entries: list[dict]) -> str:
 
 
 # --- Paragraph structure -------------------------------------------------------------
+
+
+def test_draft_prompt_prioritizes_the_compact_informal_analytical_story_style() -> None:
+    assert "normally 55-90 words and 2-3 sentences" in DRAFT_SYSTEM_PROMPT
+    assert "Lead immediately with the main actors, action or event, and immediate result" in DRAFT_SYSTEM_PROMPT
+    assert "End with the broader consequence, risk, or likely next development" in DRAFT_SYSTEM_PROMPT
+    assert "informal but credible, analytical without sounding academic" in DRAFT_SYSTEM_PROMPT
+    assert "knowledgeable person summarizing the news for a friend" in DRAFT_SYSTEM_PROMPT
 
 
 def test_draft_produces_one_paragraph_per_candidate_no_headline_field(monkeypatch: pytest.MonkeyPatch) -> None:

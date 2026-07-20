@@ -1,0 +1,937 @@
+[
+  {
+    "category": "global",
+    "cluster_id": "back claims documents election fail trump",
+    "corroboration_status": "confirmed",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "THIRTEEN - New York Public Media",
+        "resolved_source": "THIRTEEN - New York Public Media",
+        "signal": "publisher"
+      },
+      {
+        "confidence": "confirmed",
+        "display_source": "The Washington Post",
+        "resolved_source": "The Washington Post",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "global",
+    "cluster_id": "election lawmakers react speech trump",
+    "corroboration_status": "confirmed",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "Spectrum News NY1",
+        "resolved_source": "Spectrum News NY1",
+        "signal": "publisher"
+      },
+      {
+        "confidence": "independent",
+        "display_source": "Spectrum News",
+        "resolved_source": "Spectrum News",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "culture",
+    "cluster_id": "action colman domingo frog inspired movie princess talks",
+    "corroboration_status": "confirmed",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "Variety",
+        "resolved_source": "Variety",
+        "signal": "publisher"
+      },
+      {
+        "confidence": "confirmed",
+        "display_source": "The Hollywood Reporter",
+        "resolved_source": "The Hollywood Reporter",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "primary",
+      "secondary"
+    ],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "culture",
+    "cluster_id": "card fanatics fest industry inside skyrocketing sports",
+    "corroboration_status": "confirmed",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "Central Oregon Daily",
+        "resolved_source": "Central Oregon Daily",
+        "signal": "publisher"
+      },
+      {
+        "confidence": "independent",
+        "display_source": "ABC News - Breaking News, Latest News and Videos",
+        "resolved_source": "ABC News - Breaking News, Latest News and Videos",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "finance",
+    "cluster_id": "could cuts fed hikes more next officials rate",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "The Washington Post",
+        "resolved_source": "The Washington Post",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "finance",
+    "cluster_id": "below close crucial day ipo launch postponed price",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "MarketWatch Top Stories",
+        "resolved_source": "MarketWatch Top Stories",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "global",
+    "cluster_id": "changed congress court history made mind supreme then",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "BBC World",
+        "resolved_source": "BBC News",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "specialist"
+    ],
+    "specialist_article_urls": [
+      "https://www.bbc.co.uk/news/articles/cn949jvjxplo?at_medium=RSS&at_campaign=rss"
+    ]
+  },
+  {
+    "category": "finance",
+    "cluster_id": "bill could crypto despite landmark midterms odds pass",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "Bloomberg.com",
+        "resolved_source": "Bloomberg",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "primary"
+    ],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "back carry clawed concealed could court laws next",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "San Francisco Chronicle",
+        "resolved_source": "San Francisco Chronicle",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "",
+    "cluster_id": "add canada cost pollution rips smoke spreads tariffs",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: no feed-tag signal available, dropped rather than guessed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "CNBC Top News",
+        "resolved_source": "CNBC",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "culture",
+    "cluster_id": "dodgers mets red skubal sox will",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "ESPN Top Headlines",
+        "resolved_source": "ESPN Top Headlines",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "americans ban disputed ebola kenya sent site travel",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "The New York Times",
+        "resolved_source": "The New York Times",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "specialist"
+    ],
+    "specialist_article_urls": [
+      "https://www.nytimes.com/2026/07/17/world/africa/ebola-kenya-americans-quarantine.html"
+    ]
+  },
+  {
+    "category": "",
+    "cluster_id": "data ice medicaid palantir shared supposed wasn",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: no feed-tag signal available, dropped rather than guessed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "NPR News",
+        "resolved_source": "NPR",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "",
+    "cluster_id": "agent beliefs had ice killed maine man racist",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: no feed-tag signal available, dropped rather than guessed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "NPR News",
+        "resolved_source": "NPR",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "global",
+    "cluster_id": "2026 ahead backs challenger democratic election house out",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "Alaska's News Source",
+        "resolved_source": "Alaska's News Source",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "finance",
+    "cluster_id": "earnings evolving forecasts investors margin may narrative respond",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "Yahoo Finance",
+        "resolved_source": "Yahoo Finance",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "global",
+    "cluster_id": "cancer could disorder growth key preventing provide rare",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "BBC World",
+        "resolved_source": "BBC News",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "specialist"
+    ],
+    "specialist_article_urls": [
+      "https://www.bbc.co.uk/news/articles/c8jnlmek8reo?at_medium=RSS&at_campaign=rss"
+    ]
+  },
+  {
+    "category": "finance",
+    "cluster_id": "can companies earnings justify optimism rising tjx valuation",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "Yahoo Finance",
+        "resolved_source": "Yahoo Finance",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "",
+    "cluster_id": "auction ceo goes jacket just leather million nvidia",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: no feed-tag signal available, dropped rather than guessed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "CNBC Top News",
+        "resolved_source": "CNBC",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "culture",
+    "cluster_id": "bobby cast cheryl curb david dead drop except",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "Variety",
+        "resolved_source": "Variety",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "primary"
+    ],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "checkered construction firms midtown pasts project tied troubled",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "The New York Times",
+        "resolved_source": "The New York Times",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "specialist"
+    ],
+    "specialist_article_urls": [
+      "https://www.nytimes.com/2026/07/17/nyregion/nyc-building-emergency-companies.html"
+    ]
+  },
+  {
+    "category": "",
+    "cluster_id": "brought chinese focus leveled model open renewed shift",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: no feed-tag signal available, dropped rather than guessed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "CNBC Top News",
+        "resolved_source": "CNBC",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "global",
+    "cluster_id": "16s 35s back deploying east heats iran middle",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "Air & Space Forces Magazine",
+        "resolved_source": "Air & Space Forces Magazine",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "culture",
+    "cluster_id": "arena concert dean first grammy off olivia one",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "Variety",
+        "resolved_source": "Variety",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "primary"
+    ],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "culture",
+    "cluster_id": "best damon genius greek king math matt performances",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "Variety",
+        "resolved_source": "Variety",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "primary"
+    ],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "finance",
+    "cluster_id": "bulloch center county crypto data mining possibilities regs",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "Statesboro Herald",
+        "resolved_source": "Statesboro Herald",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "about applications australian battlefield close everything founders hours",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "TechCrunch",
+        "resolved_source": "TechCrunch",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "culture",
+    "cluster_id": "cards exec gambling nfl suspends violations",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "ESPN Top Headlines",
+        "resolved_source": "ESPN Top Headlines",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "",
+    "cluster_id": "access dictating frontier giants house models power say",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: no feed-tag signal available, dropped rather than guessed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "CNBC Top News",
+        "resolved_source": "CNBC",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "application california categorical ceqa clarifies class court exemption",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "Atkinson, Andelson, Loya, Ruud & Romo",
+        "resolved_source": "Atkinson, Andelson, Loya, Ruud & Romo",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "global",
+    "cluster_id": "against amo back budget costs debt fails fights",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "Congressman Gabe Amo (.gov)",
+        "resolved_source": "Congressman Gabe Amo (.gov)",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "finance",
+    "cluster_id": "crypto hill house measure need panel regulatory stress",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "Northwest Arkansas Democrat-Gazette",
+        "resolved_source": "Northwest Arkansas Democrat-Gazette",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "global",
+    "cluster_id": "air canada cities filthy fires sending tariffs threatens",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "BBC World",
+        "resolved_source": "BBC News",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "specialist"
+    ],
+    "specialist_article_urls": [
+      "https://www.bbc.co.uk/news/articles/cwyq93j34lgo?at_medium=RSS&at_campaign=rss"
+    ]
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "governor lieutenant quits race rodriguez sara wisconsin",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "The New York Times",
+        "resolved_source": "The New York Times",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "specialist"
+    ],
+    "specialist_article_urls": [
+      "https://www.nytimes.com/2026/07/17/us/sara-rodriguez-wisconsin-governor-drop-out.html"
+    ]
+  },
+  {
+    "category": "global",
+    "cluster_id": "consecutive hit iran night seventh strikes",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "BBC World",
+        "resolved_source": "BBC News",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "specialist"
+    ],
+    "specialist_article_urls": [
+      "https://www.bbc.co.uk/news/articles/cy748n8zx8ro?at_medium=RSS&at_campaign=rss"
+    ]
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "cape cleaning cod ladies old out taking these",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "The New York Times",
+        "resolved_source": "The New York Times",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "specialist"
+    ],
+    "specialist_article_urls": [
+      "https://www.nytimes.com/2026/07/17/climate/old-ladies-diving-for-trash.html"
+    ]
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "another devastated family mourning one sea tragedy",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "The New York Times",
+        "resolved_source": "The New York Times",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "specialist"
+    ],
+    "specialist_article_urls": [
+      "https://www.nytimes.com/2026/07/17/us/volare-boat-sink-alcatraz.html"
+    ]
+  },
+  {
+    "category": "global",
+    "cluster_id": "about can city deaths desert heat tackling teach",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "BBC World",
+        "resolved_source": "BBC News",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "specialist"
+    ],
+    "specialist_article_urls": [
+      "https://www.bbc.co.uk/news/articles/cgl3lnpxy6no?at_medium=RSS&at_campaign=rss"
+    ]
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "abused america declassify power secrets trump",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "The New York Times",
+        "resolved_source": "The New York Times",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "specialist"
+    ],
+    "specialist_article_urls": [
+      "https://www.nytimes.com/2026/07/17/opinion/trump-speech-us-intelligence-secrets-classified.html"
+    ]
+  },
+  {
+    "category": "culture",
+    "cluster_id": "all confused explained greek monsters myths odyssey timelines",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "Variety",
+        "resolved_source": "Variety",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "primary"
+    ],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "cases cyclospora farms lettuce linked products remove taylor",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "The New York Times",
+        "resolved_source": "The New York Times",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [
+      "specialist"
+    ],
+    "specialist_article_urls": [
+      "https://www.nytimes.com/2026/07/17/business/cyclospora-taylor-farms-lettuce.html"
+    ]
+  },
+  {
+    "category": "global",
+    "cluster_id": "2026 district election forum hawai house",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "Honolulu Civil Beat",
+        "resolved_source": "Honolulu Civil Beat",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "finance",
+    "cluster_id": "detail emu hicp inflation lurking shows",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "Haver Analytics",
+        "resolved_source": "Haver Analytics",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "global",
+    "cluster_id": "000 278 experts noncitizens rolls say that trump",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "The Washington Post",
+        "resolved_source": "The Washington Post",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "brief china moonshot tech",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "The Washington Post",
+        "resolved_source": "The Washington Post",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "china jinping openness path pitches push shape",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "confirmed",
+        "display_source": "The New York Times",
+        "resolved_source": "The New York Times",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "dies ignatow johnstone judge known martin mel trial",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "The Courier-Journal",
+        "resolved_source": "The Courier-Journal",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "global",
+    "cluster_id": "calls election measures security trump",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "NBC News",
+        "resolved_source": "NBC News",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "culture",
+    "cluster_id": "lebron mum process sparks still tiz trust",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "ESPN Top Headlines",
+        "resolved_source": "ESPN Top Headlines",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  },
+  {
+    "category": "culture",
+    "cluster_id": "college football lingering questions top",
+    "corroboration_status": "single_source",
+    "outlier_urls": [],
+    "rationale": "degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+    "source_attributions": [
+      {
+        "confidence": "independent",
+        "display_source": "ESPN Top Headlines",
+        "resolved_source": "ESPN Top Headlines",
+        "signal": "publisher"
+      }
+    ],
+    "source_roles": [],
+    "specialist_article_urls": []
+  }
+]
