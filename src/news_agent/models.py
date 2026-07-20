@@ -2,9 +2,15 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+from typing import Literal
 
 
 CategoryName = str
+EnrichmentStatus = Literal[
+    "not_attempted", "feed_content", "extracted", "metadata_only",
+    "not_permitted", "blocked", "failed", "too_thin",
+]
+DraftStatus = Literal["llm", "fallback_disabled", "fallback_error", "fallback_missing"]
 
 
 @dataclass(frozen=True)
@@ -35,6 +41,27 @@ class FormattingConfig:
 
 
 @dataclass(frozen=True)
+class ExtractionPolicyConfig:
+    id: str
+    allowed_domains: tuple[str, ...]
+    policy: Literal["disabled", "metadata_only", "article_text"] = "disabled"
+
+
+@dataclass(frozen=True)
+class EnrichmentConfig:
+    enabled: bool = True
+    max_clusters_per_run: int = 40
+    max_articles_per_cluster: int = 2
+    max_pages_per_run: int = 50
+    request_timeout_seconds: float = 8.0
+    max_response_bytes: int = 2_000_000
+    max_extracted_chars: int = 6_000
+    minimum_extracted_chars: int = 300
+    minimum_story_evidence_score: float = 1.2
+    policies: tuple[ExtractionPolicyConfig, ...] = ()
+
+
+@dataclass(frozen=True)
 class QualityGateConfig:
     min_summary_chars: int = 80
     summary_duplicate_threshold: float = 0.85
@@ -52,6 +79,7 @@ class AgentConfig:
     max_articles: int
     formatting: FormattingConfig = field(default_factory=FormattingConfig)
     quality_gate: QualityGateConfig = field(default_factory=QualityGateConfig)
+    enrichment: EnrichmentConfig = field(default_factory=EnrichmentConfig)
 
 
 @dataclass(frozen=True)
@@ -61,6 +89,12 @@ class Article:
     source: str
     published_at: datetime
     summary: str = ""
+    canonical_url: str = ""
+    feed_content: str = ""
+    extracted_text: str = ""
+    enrichment_status: EnrichmentStatus = "not_attempted"
+    enrichment_error_code: str = ""
+    evidence_score: float = 0.0
     reputation: float = 0.7
     feed_categories: tuple[CategoryName, ...] = ()
     feed_source_type: str = "general"
@@ -68,7 +102,11 @@ class Article:
 
     @property
     def text(self) -> str:
-        return f"{self.title}. {self.summary}".strip()
+        return f"{self.title}. {self.best_available_text}".strip()
+
+    @property
+    def best_available_text(self) -> str:
+        return self.extracted_text or self.feed_content or self.summary
 
 
 @dataclass
@@ -94,6 +132,7 @@ class StoryCluster:
     confidence: str = ""
     skip_reason: str = ""
     content_quality_penalty: float = 0.0
+    evidence_score: float = 0.0
 
     @property
     def sources(self) -> list[str]:
@@ -113,9 +152,9 @@ class StoryCluster:
 
     @property
     def representative_summary(self) -> str:
-        for article in sorted(self.articles, key=lambda item: item.reputation, reverse=True):
-            if article.summary:
-                return article.summary
+        for article in sorted(self.articles, key=lambda item: (item.evidence_score, item.reputation), reverse=True):
+            if article.best_available_text:
+                return article.best_available_text
         return self.title
 
     @property
@@ -136,7 +175,7 @@ class StoryCluster:
     def merged_text(self) -> str:
         samples = []
         for article in self.articles[:5]:
-            samples.append(f"{article.source}: {article.title} {article.summary}".strip())
+            samples.append(f"{article.source}: {article.title} {article.best_available_text}".strip())
         return "\n".join(samples)
 
 
@@ -154,6 +193,21 @@ class BriefingParagraph:
     paragraph: str
     sources: tuple[str, ...]
     urls: tuple[str, ...] = ()
+    draft_status: DraftStatus = "llm"
+    draft_error_code: str = ""
+
+
+@dataclass(frozen=True)
+class PipelineDiagnostics:
+    articles_fetched: int = 0
+    pages_attempted: int = 0
+    pages_extracted: int = 0
+    pages_blocked: int = 0
+    pages_failed: int = 0
+    feed_content_articles: int = 0
+    llm_drafts: int = 0
+    fallback_drafts: int = 0
+    fallback_story_ids: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)

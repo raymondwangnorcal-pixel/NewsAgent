@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from news_agent.config import DEFAULT_CONFIG_PATH, load_config
-from news_agent.models import QualityGateConfig
+from news_agent.models import EnrichmentConfig, ExtractionPolicyConfig, QualityGateConfig
 
 
 def test_load_config_defaults_quality_gate_when_section_absent() -> None:
@@ -41,3 +41,27 @@ def test_load_config_parses_explicit_quality_gate_section(tmp_path: Path) -> Non
         max_content_quality_penalty=3.0,
         low_content_quality_skip_threshold=1.5,
     )
+
+
+def test_load_config_parses_enrichment_and_extraction_policies(tmp_path: Path) -> None:
+    toml_path = tmp_path / "sources.toml"
+    toml_path.write_text(
+        """
+        [enrichment]
+        enabled = true
+        max_pages_per_run = 12
+        minimum_story_evidence_score = 2.25
+
+        [[extraction_policies]]
+        id = "example"
+        allowed_domains = ["Example.COM"]
+        policy = "article_text"
+        """,
+        encoding="utf-8",
+    )
+
+    loaded = load_config(toml_path).enrichment
+
+    assert loaded.max_pages_per_run == 12
+    assert loaded.minimum_story_evidence_score == 2.25
+    assert loaded.policies == (ExtractionPolicyConfig("example", ("example.com",), "article_text"),)

@@ -4,7 +4,10 @@ import os
 import tomllib
 from pathlib import Path
 
-from news_agent.models import AgentConfig, CategoryConfig, FeedConfig, FormattingConfig, QualityGateConfig
+from news_agent.models import (
+    AgentConfig, CategoryConfig, EnrichmentConfig, ExtractionPolicyConfig,
+    FeedConfig, FormattingConfig, QualityGateConfig,
+)
 
 
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[2] / "config" / "sources.toml"
@@ -22,6 +25,7 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
     raw = tomllib.loads(path.read_text(encoding="utf-8"))
     settings = raw.get("settings", {})
     quality_gate_settings = raw.get("quality_gate", {})
+    enrichment_settings = raw.get("enrichment", {})
     feeds = tuple(
         FeedConfig(
             name=item["name"],
@@ -102,6 +106,25 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
                     "BRIEFING_QUALITY_GATE_LOW_CONTENT_QUALITY_SKIP_THRESHOLD",
                     quality_gate_settings.get("low_content_quality_skip_threshold", 1.0),
                 )
+            ),
+        ),
+        enrichment=EnrichmentConfig(
+            enabled=parse_bool(enrichment_settings.get("enabled"), default=True),
+            max_clusters_per_run=int(enrichment_settings.get("max_clusters_per_run", 40)),
+            max_articles_per_cluster=int(enrichment_settings.get("max_articles_per_cluster", 2)),
+            max_pages_per_run=int(enrichment_settings.get("max_pages_per_run", 50)),
+            request_timeout_seconds=float(enrichment_settings.get("request_timeout_seconds", 8)),
+            max_response_bytes=int(enrichment_settings.get("max_response_bytes", 2_000_000)),
+            max_extracted_chars=int(enrichment_settings.get("max_extracted_chars", 6_000)),
+            minimum_extracted_chars=int(enrichment_settings.get("minimum_extracted_chars", 300)),
+            minimum_story_evidence_score=float(enrichment_settings.get("minimum_story_evidence_score", 1.2)),
+            policies=tuple(
+                ExtractionPolicyConfig(
+                    id=str(item["id"]),
+                    allowed_domains=tuple(str(domain).casefold() for domain in item.get("allowed_domains", ())),
+                    policy=item.get("policy", "disabled"),
+                )
+                for item in raw.get("extraction_policies", ())
             ),
         ),
     )

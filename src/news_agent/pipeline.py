@@ -21,6 +21,8 @@ from news_agent.classify import (
 from news_agent.cluster import cluster_articles
 from news_agent.config import load_config
 from news_agent.draft import DraftCandidate, draft_paragraphs
+from news_agent.enrichment import enrich_clusters
+from news_agent.evidence import apply_cluster_evidence_scores, rank_articles_by_evidence
 from news_agent.fetch import fetch_all_feeds
 from news_agent.history import DEFAULT_HISTORY_PATH, apply_history, save_story_history
 from news_agent.models import (
@@ -30,6 +32,7 @@ from news_agent.models import (
     BriefingSection,
     CategoryAssignment,
     QualityGateConfig,
+    PipelineDiagnostics,
     StoryCluster,
 )
 from news_agent.quality_gate import (
@@ -81,6 +84,7 @@ class PipelineContext:
     quality_gate_log_path: Path | None = None
     category_assignments: dict[str, CategoryAssignment] = field(default_factory=dict)
     category_assignments_log_path: Path | None = None
+    diagnostics: PipelineDiagnostics = field(default_factory=PipelineDiagnostics)
 
 
 @dataclass(frozen=True)
@@ -92,6 +96,7 @@ class BriefingBuildResult:
     quality_gate_rejections: tuple[tuple[Article, str], ...] = ()
     quality_gate_log_path: Path | None = None
     category_assignments_log_path: Path | None = None
+    diagnostics: PipelineDiagnostics = field(default_factory=PipelineDiagnostics)
 
 
 @dataclass(frozen=True)
@@ -170,6 +175,23 @@ def apply_category_assignments(
             cluster.category = assignment.category
 
 
+def apply_evidence_gate(clusters: list[StoryCluster], minimum_score: float) -> None:
+    for cluster in clusters:
+        if not cluster.skip_reason and cluster.evidence_score < minimum_score:
+            cluster.skip_reason = "insufficient story context"
+
+
+def _flatten_cluster_articles(clusters: list[StoryCluster]) -> list[Article]:
+    seen: set[int] = set()
+    articles: list[Article] = []
+    for cluster in clusters:
+        for article in cluster.articles:
+            if id(article) not in seen:
+                articles.append(article)
+                seen.add(id(article))
+    return articles
+
+
 async def collect_pipeline_context(
     config: AgentConfig | None = None,
     watchlist_entries: tuple[WatchlistEntry, ...] = (),
@@ -183,8 +205,22 @@ async def collect_pipeline_context(
     resolved_mode = resolve_openai_mode(openai_mode=openai_mode)
     articles = await fetch_all_feeds(config.feeds, config.lookback_hours, config.max_articles)
 
+    # Run a cheap title/feed-content pass first, then spend page requests only on
+    # plausible finalists. Final quality decisions happen after enrichment.
+    preliminary_articles = rank_articles_by_evidence(articles)
+    preliminary_clusters = cluster_articles(preliminary_articles)
+    apply_cluster_evidence_scores(preliminary_clusters)
+    preliminary_clusters = score_clusters(preliminary_clusters, config, watchlist_entries=watchlist_entries)
+    preliminary_clusters.sort(key=lambda item: item.total_score, reverse=True)
+    enriched_clusters, enrichment_stats = await asyncio.to_thread(
+        enrich_clusters,
+        preliminary_clusters,
+        config.enrichment,
+    )
+    enriched_articles = _flatten_cluster_articles(enriched_clusters)
+
     quality_gate_config = _resolve_quality_gate_config(config)
-    survivors, hard_rejections, ambiguous_articles = apply_quality_gate(list(articles), quality_gate_config)
+    survivors, hard_rejections, ambiguous_articles = apply_quality_gate(enriched_articles, quality_gate_config)
 
     if ambiguous_articles and resolved_mode != "off":
         survivors = _apply_ambiguous_verdicts(survivors, ambiguous_articles, quality_gate_config)
@@ -192,13 +228,16 @@ async def collect_pipeline_context(
     resolved_quality_gate_log_path = quality_gate_log_path or default_quality_gate_rejections_path()
     write_quality_gate_rejections(hard_rejections, resolved_quality_gate_log_path)
 
-    clusters = score_clusters(cluster_articles(survivors), config, watchlist_entries=watchlist_entries)
+    clusters = cluster_articles(survivors)
+    apply_cluster_evidence_scores(clusters)
+    clusters = score_clusters(clusters, config, watchlist_entries=watchlist_entries)
     apply_history(clusters, history_path, ignore_history=ignore_history)
     clusters.sort(key=lambda item: item.total_score, reverse=True)
 
     candidates = select_classification_candidates(clusters)
     assignments = classify_clusters(candidates, openai_mode=resolved_mode)
     apply_category_assignments(candidates, assignments)
+    apply_evidence_gate(clusters, config.enrichment.minimum_story_evidence_score)
     resolved_category_assignments_log_path = category_assignments_log_path or default_category_assignments_path()
     write_category_assignments(assignments, resolved_category_assignments_log_path)
 
@@ -212,6 +251,14 @@ async def collect_pipeline_context(
         quality_gate_log_path=resolved_quality_gate_log_path,
         category_assignments=assignments,
         category_assignments_log_path=resolved_category_assignments_log_path,
+        diagnostics=PipelineDiagnostics(
+            articles_fetched=len(articles),
+            pages_attempted=enrichment_stats.pages_attempted,
+            pages_extracted=enrichment_stats.pages_extracted,
+            pages_blocked=enrichment_stats.pages_blocked,
+            pages_failed=enrichment_stats.pages_failed,
+            feed_content_articles=sum(bool(article.feed_content) for article in articles),
+        ),
     )
 
 
@@ -304,6 +351,7 @@ def build_draft_candidates(
             articles = tuple(article for article in cluster.articles if article.url not in outlier_urls) or tuple(
                 cluster.articles
             )
+            articles = tuple(rank_articles_by_evidence(articles))
             candidates.append(
                 DraftCandidate(story_id=cluster.key, category=category, title=cluster.title, articles=articles)
             )
@@ -382,6 +430,12 @@ async def build_briefing_result(
         quality_gate_rejections=context.quality_gate_rejections,
         quality_gate_log_path=context.quality_gate_log_path,
         category_assignments_log_path=context.category_assignments_log_path,
+        diagnostics=replace(
+            context.diagnostics,
+            llm_drafts=sum(paragraph.draft_status == "llm" for paragraph in paragraphs),
+            fallback_drafts=sum(paragraph.draft_status != "llm" for paragraph in paragraphs),
+            fallback_story_ids=tuple(paragraph.story_id for paragraph in paragraphs if paragraph.draft_status != "llm"),
+        ),
     )
 
 

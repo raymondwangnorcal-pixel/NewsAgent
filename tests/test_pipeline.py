@@ -103,6 +103,18 @@ def test_apply_category_assignments_leaves_unassigned_clusters_uncategorized() -
     assert story.category == ""
 
 
+def test_apply_evidence_gate_excludes_context_poor_story() -> None:
+    thin = cluster("thin", "Headline only")
+    thin.evidence_score = 0.8
+    rich = cluster("rich", "Substantive highlight")
+    rich.evidence_score = 3.0
+
+    pipeline.apply_evidence_gate([thin, rich], minimum_score=1.6)
+
+    assert thin.skip_reason == "insufficient story context"
+    assert rich.skip_reason == ""
+
+
 # --- select_unique_category_clusters: structural dedup ----------------------------
 
 

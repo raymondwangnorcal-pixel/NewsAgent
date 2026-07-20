@@ -7,6 +7,82 @@ max_sources_per_story = 3
 include_links_sms = false
 include_links_telegram = false
 
+[enrichment]
+enabled = true
+max_clusters_per_run = 40
+max_articles_per_cluster = 2
+max_pages_per_run = 50
+request_timeout_seconds = 8
+max_response_bytes = 2000000
+max_extracted_chars = 6000
+minimum_extracted_chars = 300
+minimum_story_evidence_score = 1.2
+
+[[extraction_policies]]
+id = "bbc"
+allowed_domains = ["bbc.com", "bbc.co.uk"]
+policy = "article_text"
+
+[[extraction_policies]]
+id = "npr"
+allowed_domains = ["npr.org"]
+policy = "article_text"
+
+[[extraction_policies]]
+id = "cnbc"
+allowed_domains = ["cnbc.com"]
+policy = "article_text"
+
+[[extraction_policies]]
+id = "marketwatch"
+allowed_domains = ["marketwatch.com"]
+policy = "article_text"
+
+[[extraction_policies]]
+id = "techcrunch"
+allowed_domains = ["techcrunch.com"]
+policy = "article_text"
+
+[[extraction_policies]]
+id = "the-verge"
+allowed_domains = ["theverge.com"]
+policy = "article_text"
+
+[[extraction_policies]]
+id = "axios"
+allowed_domains = ["axios.com"]
+policy = "article_text"
+
+[[extraction_policies]]
+id = "espn"
+allowed_domains = ["espn.com"]
+policy = "article_text"
+
+[[extraction_policies]]
+id = "variety"
+allowed_domains = ["variety.com"]
+policy = "article_text"
+
+[[extraction_policies]]
+id = "nytimes"
+allowed_domains = ["nytimes.com"]
+policy = "metadata_only"
+
+[[extraction_policies]]
+id = "washington-post"
+allowed_domains = ["washingtonpost.com"]
+policy = "metadata_only"
+
+[[extraction_policies]]
+id = "reuters"
+allowed_domains = ["reuters.com"]
+policy = "article_text"
+
+[[extraction_policies]]
+id = "ap"
+allowed_domains = ["apnews.com"]
+policy = "article_text"
+
 [[feeds]]
 name = "BBC World"
 url = "https://feeds.bbci.co.uk/news/world/rss.xml"

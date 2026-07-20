@@ -91,7 +91,7 @@ def _cluster_payload(clusters: list[StoryCluster]) -> str:
                         "url": article.url,
                         "source": article.source,
                         "title": _truncate(article.title, 200),
-                        "summary": _truncate(article.summary, 400),
+                        "summary": _truncate(article.best_available_text, 600),
                     }
                     for article in cluster.articles[:ARTICLES_PER_CLUSTER_SAMPLE]
                 ],

@@ -11,8 +11,10 @@ A scheduled AI briefing agent that gathers signals from reputable news sources e
 The agent is intentionally pipeline-shaped instead of chat-shaped:
 
 ```text
-RSS/news inputs -> article normalization -> duplicate clustering -> category scoring
--> watchlist/source/history checks -> stock mentions + market mover detection
+RSS/news inputs -> rich feed parsing -> preliminary clustering/ranking
+-> bounded policy-controlled article enrichment -> evidence scoring and context gate
+-> final clustering/category scoring -> watchlist/source/history checks
+-> stock mentions + market mover detection
 -> OpenAI structured briefing or deterministic fallback -> NotificationSender
 -> Telegram now, SMS later
 ```
@@ -81,6 +83,7 @@ news-briefing --watchlist config/watchlist.json
 news-briefing --history-path data/story_history.json
 news-briefing --ignore-history
 news-briefing --show-skipped
+news-briefing --show-diagnostics
 news-briefing --format sms
 news-briefing --format telegram
 news-briefing --format console
@@ -297,7 +300,9 @@ Omitted stories: 0
 ## Notes
 
 - Telegram messages are sent as one header plus five separate briefing messages. Long messages are split safely before sending.
-- The agent does not scrape paywalled article bodies. It uses headlines, summaries, timestamps, and source names from configured feeds.
+- The agent reads rich RSS/Atom content and selectively extracts article text only from explicitly permitted domains. It does not bypass paywalls, authentication, or bot protection; blocked pages fall back to feed evidence.
+- Likely finalists are enriched within configured request limits, then rescored. Stories below the minimum evidence threshold are excluded as `insufficient story context` rather than padded from a headline.
+- Drafting failures are visible through `--show-diagnostics` and a stderr warning; every paragraph records whether it came from the model or a deterministic fallback.
 - For best results, keep a mix of wire services, national outlets, finance outlets, tech outlets, international outlets, and culture/sports sources.
 
 ## Phase 4 SMS

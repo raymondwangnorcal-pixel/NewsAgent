@@ -1,1862 +1,6 @@
 {
   "stories": [
     {
-      "canonical_headline": "Apple sues OpenAI alleging trade secret theft, says scheme was 'at every level'",
-      "category": "global",
-      "cluster_id": "33c43ee9ff3102f3",
-      "first_seen_time": "2026-07-10T22:01:19.985024+00:00",
-      "keywords": [
-        "2024",
-        "alleging",
-        "apple",
-        "chatgpt",
-        "companies",
-        "entered",
-        "every",
-        "high",
-        "integrated",
-        "iphone",
-        "level",
-        "openai",
-        "operating",
-        "partnership",
-        "profile",
-        "scheme",
-        "secret",
-        "sues",
-        "system",
-        "theft",
-        "trade",
-        "when"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "New sources or details since 2026-07-10.",
-      "sources": [
-        "CNBC Top News",
-        "Axios"
-      ],
-      "summary": "The two companies entered into a high-profile partnership in 2024 when ChatGPT was integrated into the iPhone's operating system."
-    },
-    {
-      "canonical_headline": "Apple accuses OpenAI, and former design star Jony Ive's io Products firm, of stealing hardware trade secrets in blockbuster lawsuit",
-      "category": "global",
-      "cluster_id": "c4a29dc1a39c1eac",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "accuses",
-        "accusing",
-        "apple",
-        "blockbuster",
-        "chatgpt",
-        "design",
-        "files",
-        "firm",
-        "former",
-        "hardware",
-        "jony",
-        "lawsuit",
-        "maker",
-        "openai",
-        "products",
-        "secrets",
-        "star",
-        "stealing",
-        "trade"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "AP News",
-        "Fortune",
-        "Al Jazeera"
-      ],
-      "summary": "Apple files lawsuit accusing ChatGPT maker OpenAI of stealing trade secrets AP News"
-    },
-    {
-      "canonical_headline": "Apple sues OpenAI, its employees claiming theft of trade secrets",
-      "category": "global",
-      "cluster_id": "45be32d3965cce9f",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "apple",
-        "business",
-        "claiming",
-        "core",
-        "employees",
-        "friday",
-        "hardware",
-        "lawsuit",
-        "nascent",
-        "openai",
-        "rotten",
-        "secrets",
-        "sues",
-        "that",
-        "theft",
-        "trade"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "BBC World",
-        "BBC"
-      ],
-      "summary": "Apple said in a Friday lawsuit that OpenAI\u2019s nascent hardware business is \u201crotten to its core.\u201d"
-    },
-    {
-      "canonical_headline": "Meta removes controversial AI feature on Instagram after backlash",
-      "category": "business_tech",
-      "cluster_id": "4b59318e68e651c3",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "available",
-        "backlash",
-        "blog",
-        "company",
-        "content",
-        "control",
-        "controversial",
-        "could",
-        "creative",
-        "feature",
-        "feedback",
-        "give",
-        "heard",
-        "instagram",
-        "intent",
-        "longer",
-        "mark",
-        "meta",
-        "missed",
-        "people",
-        "post",
-        "provide",
-        "public",
-        "referenced",
-        "removes",
-        "that",
-        "their",
-        "this",
-        "tool",
-        "useful",
-        "whether"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "TechCrunch",
-        "The New York Times"
-      ],
-      "summary": "\"Our intent was to provide a useful creative tool and to give people control over whether their public content could be referenced in this way,\" the company said in a blog post. \"We've heard the feedback that this feature missed the mark, so it's no longer available.\""
-    },
-    {
-      "canonical_headline": "Meta pulls new AI image feature after days of backlash",
-      "category": "business_tech",
-      "cluster_id": "cf77c6d711011eaf",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "alter",
-        "backlash",
-        "blowback",
-        "content",
-        "days",
-        "drew",
-        "feature",
-        "image",
-        "instagram",
-        "meta",
-        "people",
-        "pulls",
-        "release",
-        "swift",
-        "that",
-        "this",
-        "week"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "BBC World",
-        "Reuters"
-      ],
-      "summary": "Meta's release this week of an AI feature that let people alter Instagram content drew swift blowback."
-    },
-    {
-      "canonical_headline": "Market Sets Up, 5 Stocks Near Buy Points; Big Earnings Ahead",
-      "category": "finance",
-      "cluster_id": "a9f2be8e2d0c0bb7",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "ahead",
-        "business",
-        "daily",
-        "earnings",
-        "investor",
-        "market",
-        "near",
-        "points",
-        "sets",
-        "stocks"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "New sources or details since 2026-07-10.",
-      "sources": [
-        "Investor's Business Daily"
-      ],
-      "summary": "Market Sets Up, 5 Stocks Near Buy Points; Big Earnings Ahead Investor's Business Daily"
-    },
-    {
-      "canonical_headline": "Trump officials sought ways to sidestep election agency before firings, sources say",
-      "category": "global",
-      "cluster_id": "24528131730901ee",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "agency",
-        "before",
-        "election",
-        "firings",
-        "officials",
-        "reuters",
-        "sidestep",
-        "sought",
-        "sources",
-        "trump",
-        "ways"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Reuters",
-        "The Japan Times"
-      ],
-      "summary": "Trump officials sought ways to sidestep election agency before firings, sources say Reuters"
-    },
-    {
-      "canonical_headline": "Feds threaten Rhode Island\u2019s top election official with criminal charges if noncitizens vote",
-      "category": "global",
-      "cluster_id": "b25082576e9fa824",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "charges",
-        "criminal",
-        "current",
-        "election",
-        "feds",
-        "island",
-        "noncitizens",
-        "official",
-        "rhode",
-        "threaten",
-        "vote"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Rhode Island Current"
-      ],
-      "summary": "Feds threaten Rhode Island\u2019s top election official with criminal charges if noncitizens vote Rhode Island Current"
-    },
-    {
-      "canonical_headline": "Remarks by Under Secretary of War for Policy Elbridge Colby at the Conference of Defense M",
-      "category": "domestic",
-      "cluster_id": "411d5c3e771556ed",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "colby",
-        "conference",
-        "defense",
-        "department",
-        "elbridge",
-        "policy",
-        "remarks",
-        "secretary",
-        "under"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "U.S. Department of War (.gov)"
-      ],
-      "summary": "Remarks by Under Secretary of War for Policy Elbridge Colby at the Conference of Defense M U.S. Department of War (.gov)"
-    },
-    {
-      "canonical_headline": "Trump administration ties states' anti-terrorism grants to election security",
-      "category": "domestic",
-      "cluster_id": "05d17adf81b2f044",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "administration",
-        "anti",
-        "election",
-        "grants",
-        "reuters",
-        "security",
-        "states",
-        "terrorism",
-        "ties",
-        "trump"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Reuters"
-      ],
-      "summary": "Trump administration ties states' anti-terrorism grants to election security Reuters"
-    },
-    {
-      "canonical_headline": "American Benefits Council Urges Supreme Court to Reject ERISA Claims Based Solely on Fund Underperformance",
-      "category": "domestic",
-      "cluster_id": "393a8dd130693443",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "american",
-        "based",
-        "benefits",
-        "claims",
-        "council",
-        "court",
-        "erisa",
-        "fund",
-        "plansponsor",
-        "reject",
-        "solely",
-        "supreme",
-        "underperformance",
-        "urges"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "plansponsor"
-      ],
-      "summary": "American Benefits Council Urges Supreme Court to Reject ERISA Claims Based Solely on Fund Underperformance plansponsor"
-    },
-    {
-      "canonical_headline": "Wisconsin Supreme Court says unborn 'patients' are owed informed consent",
-      "category": "domestic",
-      "cluster_id": "c4b4095dd80d36ff",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "consent",
-        "court",
-        "courthouse",
-        "informed",
-        "owed",
-        "patients",
-        "supreme",
-        "unborn",
-        "wisconsin"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Courthouse News"
-      ],
-      "summary": "Wisconsin Supreme Court says unborn 'patients' are owed informed consent Courthouse News"
-    },
-    {
-      "canonical_headline": "White Sox Trade Jacob Gonzalez, Brandon Eisert to Pittsburgh Pirates",
-      "category": "global",
-      "cluster_id": "22c1b9cd53702e5c",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "35th",
-        "brandon",
-        "eisert",
-        "gonzalez",
-        "jacob",
-        "pirates",
-        "pittsburgh",
-        "trade",
-        "white"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Sox On 35th",
-        "MLB Trade Rumors"
-      ],
-      "summary": "White Sox Trade Jacob Gonzalez, Brandon Eisert to Pittsburgh Pirates Sox On 35th"
-    },
-    {
-      "canonical_headline": "Apple sues OpenAI, alleging the AI company stole trade secrets",
-      "category": "global",
-      "cluster_id": "6160d3ee6a2b3860",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "alleging",
-        "apple",
-        "company",
-        "openai",
-        "post",
-        "secrets",
-        "stole",
-        "sues",
-        "trade",
-        "washington"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "The Washington Post",
-        "WSJ"
-      ],
-      "summary": "Apple sues OpenAI, alleging the AI company stole trade secrets The Washington Post"
-    },
-    {
-      "canonical_headline": "Ukraine war briefing: Zelenskyy creates \u2018long-range impact\u2019 command to strike Russian energy sector",
-      "category": "global",
-      "cluster_id": "4dbaf8eac60f061e",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "command",
-        "creates",
-        "energy",
-        "guardian",
-        "impact",
-        "long",
-        "range",
-        "russian",
-        "sector",
-        "strike",
-        "ukraine",
-        "zelenskyy"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "The Guardian"
-      ],
-      "summary": "Ukraine war briefing: Zelenskyy creates \u2018long-range impact\u2019 command to strike Russian energy sector The Guardian"
-    },
-    {
-      "canonical_headline": "Clip: Will the Iran conflict spin out of control after Trump says ceasefire is over?",
-      "category": "global",
-      "cluster_id": "58a0dd6e75d0f99d",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "ceasefire",
-        "clip",
-        "conflict",
-        "control",
-        "iran",
-        "spin",
-        "trump",
-        "will"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "PBS"
-      ],
-      "summary": "Clip: Will the Iran conflict spin out of control after Trump says ceasefire is over? PBS"
-    },
-    {
-      "canonical_headline": "Allemand\u2019s DUI lawyer may face sanctions, indirect contempt finding for missing July 8 hearing",
-      "category": "global",
-      "cluster_id": "0bf4da51608b714b",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "allemand",
-        "city",
-        "contempt",
-        "face",
-        "finding",
-        "hearing",
-        "indirect",
-        "july",
-        "lawyer",
-        "missing",
-        "sanctions"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Oil City News"
-      ],
-      "summary": "Allemand\u2019s DUI lawyer may face sanctions, indirect contempt finding for missing July 8 hearing Oil City News"
-    },
-    {
-      "canonical_headline": "New attacks raise questions about what comes next in the Iran war",
-      "category": "global",
-      "cluster_id": "7f9056a6b3716283",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "about",
-        "attacks",
-        "comes",
-        "iran",
-        "next",
-        "questions",
-        "raise",
-        "wbal"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "WBAL-TV"
-      ],
-      "summary": "New attacks raise questions about what comes next in the Iran war WBAL-TV"
-    },
-    {
-      "canonical_headline": "How to watch the 2026 Genesis Scottish Open: Streaming options for Round 3",
-      "category": "culture",
-      "cluster_id": "612ab69014ba239b",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "2026",
-        "championship",
-        "genesis",
-        "isco",
-        "open",
-        "options",
-        "round",
-        "scottish",
-        "streaming",
-        "times",
-        "york"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "The New York Times"
-      ],
-      "summary": "How to watch the 2026 ISCO Championship: Streaming options for Round 3 The New York Times"
-    },
-    {
-      "canonical_headline": "Oregon D.A. Drops Motion to Delay Paramount-Warner Bros. Merger",
-      "category": "business_tech",
-      "cluster_id": "0ac9ea843d6ba7c8",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "according",
-        "attorney",
-        "billion",
-        "bros",
-        "california",
-        "circuit",
-        "close",
-        "closing",
-        "could",
-        "county",
-        "court",
-        "deal",
-        "delay",
-        "drops",
-        "filing",
-        "friday",
-        "general",
-        "including",
-        "investigating",
-        "july",
-        "merger",
-        "motion",
-        "multnomah",
-        "office",
-        "oregon",
-        "paramount",
-        "portland",
-        "several",
-        "soon",
-        "states",
-        "submitted",
-        "though",
-        "warner",
-        "whether",
-        "withdrawn"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Variety"
-      ],
-      "summary": "The Oregon attorney general\u2019s office has withdrawn its motion to delay the closing of the Paramount-Warner Bros. merger, according to a filing submitted Friday in the Multnomah County Circuit Court in Portland, Ore. The deal could close as soon as July 22, though several states, including Oregon and California, are investigating whether the $111 billion [\u2026]"
-    },
-    {
-      "canonical_headline": "Cineverse Buys Horror-Comedy \u2018Portal to Hell\u2019 (EXCLUSIVE)",
-      "category": "culture",
-      "cluster_id": "469d536b09e8ee13",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "acquired",
-        "ahead",
-        "bess",
-        "bloody",
-        "buys",
-        "cineverse",
-        "comedy",
-        "david",
-        "debut",
-        "diabolical",
-        "digital",
-        "disgusting",
-        "division",
-        "exclusive",
-        "expected",
-        "feature",
-        "frightfest",
-        "hell",
-        "holland",
-        "horror",
-        "keith",
-        "kind",
-        "limited",
-        "monkeys",
-        "portal",
-        "release",
-        "richard",
-        "rights",
-        "rollout",
-        "romina",
-        "slamdance",
-        "streaming",
-        "summer",
-        "theatrical",
-        "thing",
-        "this",
-        "trey",
-        "woody"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Variety"
-      ],
-      "summary": "Cineverse and its horror division Bloody Disgusting have acquired U.S. VOD and streaming rights to \u201cPortal to Hell,\u201d the Slamdance and Frightfest debut feature from Woody Bess. A limited theatrical rollout is expected ahead of Cineverse\u2019s digital release this summer. Trey Holland (\u201cThe Diabolical\u201d), Romina D\u2019Ugo (\u201c12 Monkeys\u201d), Keith David (\u201cThe Thing\u201d), and Richard Kind [\u2026]"
-    },
-    {
-      "canonical_headline": "How to watch Braves vs. Cardinals: TV channel and streaming options for July 10",
-      "category": "culture",
-      "cluster_id": "2b0994ec9825e805",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "braves",
-        "cardinals",
-        "channel",
-        "july",
-        "options",
-        "streaming",
-        "times",
-        "york"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "The New York Times"
-      ],
-      "summary": "How to watch Braves vs. Cardinals: TV channel and streaming options for July 10 The New York Times"
-    },
-    {
-      "canonical_headline": "How to watch Sky vs. Sparks: TV channel and streaming options for July 10",
-      "category": "culture",
-      "cluster_id": "0502019d95610d3f",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "channel",
-        "cubs",
-        "july",
-        "options",
-        "reds",
-        "sparks",
-        "streaming",
-        "times",
-        "york"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "The New York Times"
-      ],
-      "summary": "How to watch Cubs vs. Reds: TV channel and streaming options for July 10 The New York Times"
-    },
-    {
-      "canonical_headline": "Meta turns off the Instagram feature that let users make AI deepfakes of public accounts",
-      "category": "business_tech",
-      "cluster_id": "7cedb0af0038bdf2",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "account",
-        "accounts",
-        "announced",
-        "backlash",
-        "based",
-        "content",
-        "could",
-        "creations",
-        "deepfakes",
-        "feature",
-        "following",
-        "generate",
-        "images",
-        "instagram",
-        "just",
-        "make",
-        "meant",
-        "meta",
-        "originally",
-        "owner",
-        "permission",
-        "public",
-        "significant",
-        "tagging",
-        "that",
-        "them",
-        "this",
-        "turning",
-        "turns",
-        "used",
-        "users",
-        "week",
-        "without"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "The Verge"
-      ],
-      "summary": "Following significant backlash, Meta is turning off the feature it announced this week that let users generate AI images based on content from public Instagram accounts just by tagging them. The feature, as originally set up, meant that content from any public Instagram account could be used in AI creations without the account owner's permission. [\u2026]"
-    },
-    {
-      "canonical_headline": "Lyft (LYFT) Stock Looks Cheap On Earnings But Weak On Returns",
-      "category": "finance",
-      "cluster_id": "dcbabe8048cf4372",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "cheap",
-        "earnings",
-        "finance",
-        "looks",
-        "lyft",
-        "returns",
-        "stock",
-        "weak",
-        "yahoo"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Yahoo Finance",
-        "Yahoo! Finance Canada"
-      ],
-      "summary": "Lyft (LYFT) Stock Looks Cheap On Earnings But Weak On Returns Yahoo Finance"
-    },
-    {
-      "canonical_headline": "Investment expert draws attention to \u2018insane\u2019 percentage tech stocks occupy in the market",
-      "category": "finance",
-      "cluster_id": "cee390702d1b9a45",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "attention",
-        "business",
-        "draws",
-        "expert",
-        "insane",
-        "investment",
-        "market",
-        "occupy",
-        "percentage",
-        "stocks",
-        "tech"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Fox Business"
-      ],
-      "summary": "Investment expert draws attention to \u2018insane\u2019 percentage tech stocks occupy in the market Fox Business"
-    },
-    {
-      "canonical_headline": "Equity Residential (EQR) Skips Earnings Call As AvalonBay Merger Takes Center Stage",
-      "category": "finance",
-      "cluster_id": "3d1d33721730eb66",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "avalonbay",
-        "call",
-        "center",
-        "earnings",
-        "equity",
-        "finance",
-        "merger",
-        "residential",
-        "skips",
-        "stage",
-        "takes",
-        "yahoo"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Yahoo Finance"
-      ],
-      "summary": "Equity Residential (EQR) Skips Earnings Call As AvalonBay Merger Takes Center Stage Yahoo Finance"
-    },
-    {
-      "canonical_headline": "Wall Street ends higher as investors turn to earnings season",
-      "category": "finance",
-      "cluster_id": "88cc72c947d479d3",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "earnings",
-        "ends",
-        "higher",
-        "investors",
-        "reuters",
-        "season",
-        "street",
-        "turn",
-        "wall"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "New sources or details since 2026-07-10.",
-      "sources": [
-        "Reuters"
-      ],
-      "summary": "Wall Street ends higher as investors turn to earnings season Reuters"
-    },
-    {
-      "canonical_headline": "L3Harris (LHX) Stock Looks Discounted On Cash Flow But Fair On Earnings",
-      "category": "finance",
-      "cluster_id": "f6606cf9de9ec3ed",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "cash",
-        "discounted",
-        "earnings",
-        "fair",
-        "finance",
-        "flow",
-        "l3harris",
-        "looks",
-        "stock",
-        "yahoo"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Yahoo Finance"
-      ],
-      "summary": "L3Harris (LHX) Stock Looks Discounted On Cash Flow But Fair On Earnings Yahoo Finance"
-    },
-    {
-      "canonical_headline": "Forced to wait his turn, Marine Le Pen's deputy Bardella returns to the shadows",
-      "category": "global",
-      "cluster_id": "0bc7f85951bc50c1",
-      "first_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "keywords": [
-        "bardella",
-        "been",
-        "deputy",
-        "forced",
-        "france",
-        "groomed",
-        "hard",
-        "jordan",
-        "leader",
-        "longer",
-        "marine",
-        "next",
-        "returns",
-        "right",
-        "shadows",
-        "success",
-        "thirty",
-        "turn",
-        "wait",
-        "will",
-        "year"
-      ],
-      "last_seen_time": "2026-07-11T03:52:29.034224+00:00",
-      "last_update_note": "",
-      "sources": [
-        "BBC World"
-      ],
-      "summary": "Thirty-year-old Jordan Bardella had been groomed for success as France's next hard-right leader. He will now have to wait longer."
-    },
-    {
-      "canonical_headline": "5 Top AI Stocks Investors Own on Robinhood",
-      "category": "business_tech",
-      "cluster_id": "cee96a5177f5e506",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "fool",
-        "investors",
-        "motley",
-        "robinhood",
-        "stocks"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "The Motley Fool",
-        "Yahoo Finance"
-      ],
-      "summary": "5 Top AI Stocks Investors Own on Robinhood The Motley Fool"
-    },
-    {
-      "canonical_headline": "U.S. launches new Iran strikes after IRGC declares Strait of Hormuz \"closed\"",
-      "category": "domestic",
-      "cluster_id": "6e17f14ca0e02a68",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "ability",
-        "according",
-        "added",
-        "administration",
-        "again",
-        "against",
-        "aimed",
-        "allowed",
-        "american",
-        "another",
-        "approval",
-        "approve",
-        "area",
-        "attack",
-        "attacks",
-        "back",
-        "badly",
-        "been",
-        "before",
-        "began",
-        "between",
-        "both",
-        "briefed",
-        "cargo",
-        "centcom",
-        "central",
-        "change",
-        "check",
-        "civilian",
-        "claimed",
-        "closed",
-        "comes",
-        "command",
-        "commercial",
-        "comply",
-        "concluded",
-        "condition",
-        "container",
-        "continue",
-        "continuing",
-        "corps",
-        "cost",
-        "could",
-        "countries",
-        "course",
-        "crew",
-        "cycle",
-        "cyprus",
-        "damage",
-        "damaged",
-        "declared",
-        "declares",
-        "degrade",
-        "delegation",
-        "demanded",
-        "described",
-        "diplomat",
-        "diplomats",
-        "discussions",
-        "driving",
-        "drone",
-        "during",
-        "earlier",
-        "engine",
-        "exchange",
-        "facilities",
-        "failed",
-        "fighting",
-        "fire",
-        "fired",
-        "flagged",
-        "following",
-        "freely",
-        "friday",
-        "fully",
-        "further",
-        "given",
-        "guarantee",
-        "guard",
-        "halting",
-        "heavy",
-        "hormuz",
-        "hours",
-        "imposing",
-        "incident",
-        "instead",
-        "internal",
-        "interventions",
-        "iran",
-        "iranian",
-        "irgc",
-        "islamic",
-        "journey",
-        "lanes",
-        "last",
-        "launch",
-        "launched",
-        "launchers",
-        "launches",
-        "left",
-        "mariners",
-        "marked",
-        "matters",
-        "member",
-        "memorandum",
-        "military",
-        "missile",
-        "missing",
-        "month",
-        "muscat",
-        "near",
-        "negotiations",
-        "notice",
-        "official",
-        "oman",
-        "omani",
-        "onboard",
-        "opportunity",
-        "pass",
-        "passage",
-        "place",
-        "play",
-        "please",
-        "prior",
-        "proposal",
-        "proposed",
-        "publicly",
-        "radars",
-        "regional",
-        "renewed",
-        "reopen",
-        "reopening",
-        "requirement",
-        "resolving",
-        "response",
-        "restoring",
-        "restrictions",
-        "revolutionary",
-        "room",
-        "round",
-        "route",
-        "rules",
-        "safe",
-        "saturday",
-        "several",
-        "ship",
-        "shipping",
-        "ships",
-        "shot",
-        "significant",
-        "sites",
-        "southern",
-        "standoff",
-        "state",
-        "statement",
-        "states",
-        "storage",
-        "story",
-        "strait",
-        "strikes",
-        "struck",
-        "suffering",
-        "surface",
-        "surveillance",
-        "talks",
-        "targeting",
-        "targets",
-        "tehran",
-        "that",
-        "third",
-        "this",
-        "threatens",
-        "through",
-        "took",
-        "transiting",
-        "trump",
-        "unable",
-        "unauthorized",
-        "under",
-        "understanding",
-        "united",
-        "until",
-        "vessels",
-        "warned",
-        "warning",
-        "waters",
-        "week",
-        "were",
-        "will",
-        "without",
-        "would",
-        "zoom"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Axios"
-      ],
-      "summary": "The U.S. military launched a new round of strikes against Iranian targets near the Strait of Hormuz on Saturday in response to an IRGC missile attack that left a commercial cargo ship badly damaged. U.S. Central Command (CENTCOM) said the strikes began at 7:15 p.m. ET and marked the third round of U.S. attacks on Iran this week. Why it matters: The renewed exchange of fire further threatens last month's U.S.-Iran memorandum of understanding (MOU), and comes hours after regional diplomats concluded negotiations aimed at resolving the standoff over the Strait of Hormuz. The Trump administration had demanded Friday that Iran publicly guarantee safe passage through the strait, a key U.S. condition for halting the cycle of fighting between the two countries. Instead, the Islamic Revolutionary Guard Corps (IRGC) struck a commercial cargo ship and declared the strait \"closed until further notice.\" Driving the news: CENTCOM said in a statement that the Cyprus-flagged container ship was unable to continue its journey after suffering an onboard fire and significant engine-room damage. A civilian crew member is missing. In response, the U.S. launched strikes targeting Iranian air and surface-surveillance radars, missile and drone storage facilities, missile and drone launch sites, and surface-to-air missile launchers, a U.S. official said. \"The United States is imposing a heavy cost by continuing to degrade Iran's ability to attack civilian mariners and commercial ships freely transiting the strait,\" CENTCOM said. CENTCOM added that Iran had been given \"yet another opportunity\" to comply with the MOU after earlier attacks on commercial vessels and had again failed to do so. State of play: The IRGC claimed it had warned several ships not to use what it described as an unauthorized route through the strait, and fired a \"warning shot\" after the cargo ship failed to change course. \"Following this incident ... the Strait of Hormuz will be closed until further notice and until the end of the American interventions in this area, and no vessels will be allowed to pass through it,\" the IRGC said. Zoom in: Oman proposed fully reopening both shipping lanes through the Strait of Hormuz during Saturday's talks, according to a diplomat briefed on the negotiations. Under the proposal, the southern route through Omani waters would reopen without any requirement for prior approval, restoring the rules that were in place before the war, the diplomat said. Iran's delegation could not get approve for the proposal in Muscat and took it back to Tehran for further internal discussions, according to the diplomat. The commercial cargo ship struck by the IRGC was transiting the southern route that Oman had proposed reopening without restrictions, according to the U.S. official. This story is breaking news. Please check back for updates."
-    },
-    {
-      "canonical_headline": "Artificial Intelligence (AI) Stocks Have Crushed the Broader Market in 2026. Here Are 2 Top Stocks to Buy Before They Soar Higher This Earnings Season and Beyond",
-      "category": "finance",
-      "cluster_id": "a3ff35bdde0d736b",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "2026",
-        "artificial",
-        "before",
-        "beyond",
-        "broader",
-        "crushed",
-        "earnings",
-        "finance",
-        "higher",
-        "intelligence",
-        "market",
-        "season",
-        "soar",
-        "stocks",
-        "they",
-        "this",
-        "yahoo"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Yahoo Finance"
-      ],
-      "summary": "Artificial Intelligence (AI) Stocks Have Crushed the Broader Market in 2026. Here Are 2 Top Stocks to Buy Before They Soar Higher This Earnings Season and Beyond Yahoo Finance"
-    },
-    {
-      "canonical_headline": "Dow Jones Futures: Market Ready To Go? Nvidia, Micron, Sandisk Near Buy Points With Big Earnings Due",
-      "category": "finance",
-      "cluster_id": "39bb1560f464b936",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "business",
-        "daily",
-        "earnings",
-        "futures",
-        "investor",
-        "jones",
-        "market",
-        "micron",
-        "near",
-        "nvidia",
-        "points",
-        "ready",
-        "sandisk"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Investor's Business Daily"
-      ],
-      "summary": "Dow Jones Futures: Market Ready To Go? Nvidia, Micron, Sandisk Near Buy Points With Big Earnings Due Investor's Business Daily"
-    },
-    {
-      "canonical_headline": "OpenAI loses another C-suite executive ahead of IPO",
-      "category": "business_tech",
-      "cluster_id": "b776a999f970ff30",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "ahead",
-        "another",
-        "executive",
-        "finance",
-        "loses",
-        "openai",
-        "singapore",
-        "suite",
-        "yahoo"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Yahoo Finance Singapore"
-      ],
-      "summary": "OpenAI loses another C-suite executive ahead of IPO Yahoo Finance Singapore"
-    },
-    {
-      "canonical_headline": "US launches fresh strikes as Iran closes Strait of Hormuz",
-      "category": "business_tech",
-      "cluster_id": "470cbd68e7b99256",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "attack",
-        "closes",
-        "critical",
-        "cyrpus",
-        "flagged",
-        "follow",
-        "fresh",
-        "hormuz",
-        "iran",
-        "launches",
-        "strait",
-        "strikes",
-        "through",
-        "travelling",
-        "vessel",
-        "waterway"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "BBC World"
-      ],
-      "summary": "The strikes follow an attack on a Cyrpus-flagged vessel travelling through the critical waterway."
-    },
-    {
-      "canonical_headline": "Warsh and US Inflation Will Set Tone for July Fed Decision",
-      "category": "finance",
-      "cluster_id": "865b81e120c9efd2",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "bloomberg",
-        "decision",
-        "inflation",
-        "july",
-        "tone",
-        "warsh",
-        "will"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Bloomberg.com"
-      ],
-      "summary": "Warsh and US Inflation Will Set Tone for July Fed Decision Bloomberg.com"
-    },
-    {
-      "canonical_headline": "3 US Utility Stocks Investors Are Watching As Inflation And Tariffs Bite",
-      "category": "finance",
-      "cluster_id": "7fe202d42cf36986",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "bite",
-        "inflation",
-        "investors",
-        "simplywall",
-        "stocks",
-        "tariffs",
-        "utility",
-        "watching"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "simplywall.st"
-      ],
-      "summary": "3 US Utility Stocks Investors Are Watching As Inflation And Tariffs Bite simplywall.st"
-    },
-    {
-      "canonical_headline": "Kansans Will Vote on an Elected Supreme Court. The Target: Abortion.",
-      "category": "domestic",
-      "cluster_id": "f4c737b9ee5b9904",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "abortion",
-        "court",
-        "elected",
-        "kansans",
-        "supreme",
-        "target",
-        "times",
-        "vote",
-        "will",
-        "york"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "The New York Times"
-      ],
-      "summary": "Kansans Will Vote on an Elected Supreme Court. The Target: Abortion. The New York Times"
-    },
-    {
-      "canonical_headline": "Trump threatens to 'decimate' Iran if it tries to kill him, as Treasury sanctions alleged Iranian financier",
-      "category": "global",
-      "cluster_id": "0c0f0e43c3691a03",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "alleged",
-        "assassinate",
-        "carries",
-        "decimate",
-        "financier",
-        "iran",
-        "iranian",
-        "kill",
-        "loaded",
-        "locked",
-        "missiles",
-        "president",
-        "sanctions",
-        "threatens",
-        "threats",
-        "treasury",
-        "tries",
-        "trump",
-        "will"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "CNBC Top News"
-      ],
-      "summary": "Trump says 1,000 missiles are \"locked and loaded\" and will hit Iran if it carries out its threats to assassinate the U.S. president."
-    },
-    {
-      "canonical_headline": "Sample ballots available for Aug. 25 runoff primary election",
-      "category": "domestic",
-      "cluster_id": "1bf694b920ebbddf",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "available",
-        "ballots",
-        "banner",
-        "duncan",
-        "election",
-        "primary",
-        "runoff",
-        "sample"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Duncan Banner"
-      ],
-      "summary": "Sample ballots available for Aug. 25 runoff primary election Duncan Banner"
-    },
-    {
-      "canonical_headline": "Alachua County School Board candidates face off in Democratic Party forum ahead of Aug. 18 election",
-      "category": "global",
-      "cluster_id": "14d3f6c34186972c",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "ahead",
-        "alachua",
-        "board",
-        "candidates",
-        "county",
-        "democratic",
-        "election",
-        "face",
-        "forum",
-        "party",
-        "school",
-        "wcjb"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "WCJB"
-      ],
-      "summary": "Alachua County School Board candidates face off in Democratic Party forum ahead of Aug. 18 election WCJB"
-    },
-    {
-      "canonical_headline": "Holocaust survivor, Korean War veteran turns 100 in Hendersonville",
-      "category": "global",
-      "cluster_id": "dc51f945ec08d30d",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "hendersonville",
-        "holocaust",
-        "korean",
-        "survivor",
-        "turns",
-        "veteran",
-        "wlos"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "WLOS",
-        "North Country Now"
-      ],
-      "summary": "Holocaust survivor, Korean War veteran turns 100 in Hendersonville WLOS"
-    },
-    {
-      "canonical_headline": "Warriors Wing Hasn't Heard from Team Amid Trade Rumors",
-      "category": "global",
-      "cluster_id": "0af3928d6c2cc39c",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "hasn",
-        "heard",
-        "illustrated",
-        "rumors",
-        "sports",
-        "team",
-        "trade",
-        "warriors",
-        "wing"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Sports Illustrated"
-      ],
-      "summary": "Warriors Wing Hasn't Heard from Team Amid Trade Rumors Sports Illustrated"
-    },
-    {
-      "canonical_headline": "World War II veteran celebrates 106th birthday in Little Rock",
-      "category": "global",
-      "cluster_id": "83e62cd4dca62a1e",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "106th",
-        "arkansas",
-        "birthday",
-        "celebrates",
-        "little",
-        "rock",
-        "thv11",
-        "veteran",
-        "world"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "thv11.com"
-      ],
-      "summary": "Arkansas World War II veteran celebrates 106th birthday thv11.com"
-    },
-    {
-      "canonical_headline": "NY Rangers Trade Pitch Lands Sabres 51-Point Forward",
-      "category": "global",
-      "cluster_id": "ad70a1de8687f80a",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "forward",
-        "lands",
-        "pitch",
-        "point",
-        "rangers",
-        "sabres",
-        "sports",
-        "trade",
-        "yahoo"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Yahoo Sports"
-      ],
-      "summary": "NY Rangers Trade Pitch Lands Sabres 51-Point Forward Yahoo Sports"
-    },
-    {
-      "canonical_headline": "Michael Porter Jr. Trade Rumors: Warriors, Pistons, Suns Emerge If Nets Extension Talks Collapse",
-      "category": "global",
-      "cluster_id": "abfe390ae6205daa",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "collapse",
-        "emerge",
-        "extension",
-        "michael",
-        "nets",
-        "pistons",
-        "porter",
-        "rumors",
-        "sports",
-        "suns",
-        "talks",
-        "trade",
-        "warriors",
-        "yahoo"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Yahoo Sports"
-      ],
-      "summary": "Michael Porter Jr. Trade Rumors: Warriors, Pistons, Suns Emerge If Nets Extension Talks Collapse Yahoo Sports"
-    },
-    {
-      "canonical_headline": "BorgWarner (BWA) Gains Attention After Earnings Beats As Fair Value Debate Builds",
-      "category": "finance",
-      "cluster_id": "5d4d97bed263574b",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "attention",
-        "beats",
-        "borgwarner",
-        "builds",
-        "debate",
-        "earnings",
-        "fair",
-        "finance",
-        "gains",
-        "value",
-        "yahoo"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Yahoo Finance UK"
-      ],
-      "summary": "BorgWarner (BWA) Gains Attention After Earnings Beats As Fair Value Debate Builds Yahoo Finance UK"
-    },
-    {
-      "canonical_headline": "Meet the Tennessee Sports Hall of Fame 2026 class from Saturday's ceremony",
-      "category": "culture",
-      "cluster_id": "ca9ef36d3334159b",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "2026",
-        "ceremony",
-        "class",
-        "fame",
-        "hall",
-        "meet",
-        "saturday",
-        "sports",
-        "tennessee",
-        "yahoo"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Yahoo Sports",
-        "The Tennessean"
-      ],
-      "summary": "Meet the Tennessee Sports Hall of Fame 2026 class from Saturday's ceremony Yahoo Sports"
-    },
-    {
-      "canonical_headline": "After years of teasing, the viral Nopia synth is \u2018basically finished\u2019",
-      "category": "culture",
-      "cluster_id": "cf628dfe8a47567c",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "2023",
-        "almost",
-        "back",
-        "basically",
-        "bring",
-        "brought",
-        "corner",
-        "creators",
-        "depth",
-        "finished",
-        "fire",
-        "first",
-        "gear",
-        "glimpse",
-        "grieco",
-        "internet",
-        "launching",
-        "look",
-        "market",
-        "martin",
-        "music",
-        "musicradar",
-        "nopia",
-        "offices",
-        "ready",
-        "revealed",
-        "setting",
-        "synth",
-        "teasing",
-        "that",
-        "viral",
-        "will",
-        "years"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "The Verge"
-      ],
-      "summary": "After setting the music gear corner of the internet on fire back in 2023 with the first glimpse at the Nopia, creators Martin Grieco and Roc\u00edo Gal are almost ready to bring it to market. The duo brought it to the MusicRadar offices for an in-depth first look and revealed that it will be launching [\u2026]"
-    },
-    {
-      "canonical_headline": "Palestinian aid worker who organized World Cup screenings killed in Israeli strike",
-      "category": "global",
-      "cluster_id": "2e4b5e6b20ca550a",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "airstrike",
-        "beloved",
-        "gaza",
-        "israeli",
-        "killed",
-        "mohammed",
-        "mourning",
-        "organized",
-        "palestinian",
-        "palestinians",
-        "route",
-        "screening",
-        "screenings",
-        "strike",
-        "wahidi",
-        "which",
-        "while",
-        "worker",
-        "world"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "NPR News"
-      ],
-      "summary": "Palestinians are mourning Mohammed al-Wahidi, a beloved aid worker in Gaza. He was killed by as Israeli airstrike while en route to a World Cup screening which he organized."
-    },
-    {
-      "canonical_headline": "Emmy Nominations Roundtable: \u2018The Pitt\u2019 and \u2018Hacks\u2019 Dominate, But \u2018Widow\u2019s Bay\u2019 and \u2018Pluribus\u2019 Are Waiting in the Wings",
-      "category": "global",
-      "cluster_id": "6b668bfe7a08c136",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "comedy",
-        "consecutive",
-        "dancing",
-        "dominate",
-        "drama",
-        "drought",
-        "emmy",
-        "emmys",
-        "ever",
-        "expect",
-        "hacks",
-        "half",
-        "happened",
-        "hargitay",
-        "heading",
-        "host",
-        "mariska",
-        "most",
-        "nomination",
-        "nominations",
-        "noms",
-        "pitt",
-        "pluribus",
-        "questions",
-        "record",
-        "roundtable",
-        "second",
-        "shoo",
-        "stars",
-        "those",
-        "toward",
-        "waiting",
-        "widow",
-        "wings",
-        "year"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Variety"
-      ],
-      "summary": "At 25 noms, is \u201cThe Pitt\u201d heading toward its second consecutive drama win? In breaking the record for most comedy noms ever, is \u201cHacks\u201d a shoo-in? What happened to \u201cHalf Man\u201d? How did \u201cDancing With the Stars\u201d end its ten-year nomination drought? What can we expect from Emmys host Mariska Hargitay? Those questions, and a [\u2026]"
-    },
-    {
-      "canonical_headline": "Crypto News: Pepeto DeFi Exchange Nears Launch Following Audit Completion and Final Testing Phase",
-      "category": "finance",
-      "cluster_id": "e9124f3939b25190",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "audit",
-        "businessinsider",
-        "completion",
-        "crypto",
-        "defi",
-        "exchange",
-        "final",
-        "following",
-        "launch",
-        "markets",
-        "nears",
-        "pepeto",
-        "phase",
-        "testing"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "markets.businessinsider.com"
-      ],
-      "summary": "Crypto News: Pepeto DeFi Exchange Nears Launch Following Audit Completion and Final Testing Phase markets.businessinsider.com"
-    },
-    {
-      "canonical_headline": "How to watch Astros vs. Rangers: TV channel and streaming options for July 11",
-      "category": "culture",
-      "cluster_id": "120ed82996282a85",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "aces",
-        "astros",
-        "channel",
-        "july",
-        "mercury",
-        "options",
-        "rangers",
-        "streaming",
-        "times",
-        "york"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "The New York Times"
-      ],
-      "summary": "How to watch Mercury vs. Aces: TV channel and streaming options for July 11 The New York Times"
-    },
-    {
-      "canonical_headline": "2 Beaten-Down Stocks That Still Aren't Worth Buying",
-      "category": "finance",
-      "cluster_id": "9822c2cf7e89119a",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "aren",
-        "beaten",
-        "buying",
-        "down",
-        "finance",
-        "still",
-        "stocks",
-        "that",
-        "worth",
-        "yahoo"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Yahoo Finance"
-      ],
-      "summary": "2 Beaten-Down Stocks That Still Aren't Worth Buying Yahoo Finance"
-    },
-    {
-      "canonical_headline": "3 Stocks Worth Holding Through Any Market Condition",
-      "category": "finance",
-      "cluster_id": "d22a65cb891f03ce",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "condition",
-        "fool",
-        "holding",
-        "market",
-        "motley",
-        "stocks",
-        "through",
-        "worth"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "The Motley Fool"
-      ],
-      "summary": "3 Stocks Worth Holding Through Any Market Condition The Motley Fool"
-    },
-    {
-      "canonical_headline": "Weathernews (TSE:4825) Stock Earnings Growth And Higher Margins Reinforce Steady-Service Narrative",
-      "category": "finance",
-      "cluster_id": "9bdf01f7d37ce72c",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "4825",
-        "earnings",
-        "growth",
-        "higher",
-        "margins",
-        "narrative",
-        "reinforce",
-        "service",
-        "simplywall",
-        "steady",
-        "stock",
-        "weathernews"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "simplywall.st"
-      ],
-      "summary": "Weathernews (TSE:4825) Stock Earnings Growth And Higher Margins Reinforce Steady-Service Narrative simplywall.st"
-    },
-    {
-      "canonical_headline": "Smart Reads of the Week: Bonus Dividends, Singapore AI Stocks, and Passive Income Ideas",
-      "category": "finance",
-      "cluster_id": "e9d9bf0ddb9dea68",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "bonus",
-        "dividends",
-        "finance",
-        "ideas",
-        "income",
-        "passive",
-        "reads",
-        "singapore",
-        "smart",
-        "stocks",
-        "week",
-        "yahoo"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Yahoo Finance Singapore"
-      ],
-      "summary": "Smart Reads of the Week: Bonus Dividends, Singapore AI Stocks, and Passive Income Ideas Yahoo Finance Singapore"
-    },
-    {
-      "canonical_headline": "Lowe's Companies (LOW) Could Be 20% Below Fair Value On Its Earnings Update",
-      "category": "finance",
-      "cluster_id": "61008e5822cec3a5",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "below",
-        "companies",
-        "could",
-        "earnings",
-        "fair",
-        "finance",
-        "lowe",
-        "update",
-        "value",
-        "yahoo"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "Yahoo Finance"
-      ],
-      "summary": "Lowe's Companies (LOW) Could Be 20% Below Fair Value On Its Earnings Update Yahoo Finance"
-    },
-    {
-      "canonical_headline": "Analyst Optimism Ahead Of Earnings Might Change The Case For Investing In PagSeguro Digital (PAGS)",
-      "category": "finance",
-      "cluster_id": "779bc96814fad2b6",
-      "first_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "keywords": [
-        "ahead",
-        "analyst",
-        "case",
-        "change",
-        "digital",
-        "earnings",
-        "investing",
-        "might",
-        "optimism",
-        "pags",
-        "pagseguro",
-        "simplywall"
-      ],
-      "last_seen_time": "2026-07-12T00:18:43.374955+00:00",
-      "last_update_note": "",
-      "sources": [
-        "simplywall.st"
-      ],
-      "summary": "Analyst Optimism Ahead Of Earnings Might Change The Case For Investing In PagSeguro Digital (PAGS) simplywall.st"
-    },
-    {
       "canonical_headline": "Applications close in 48 hours \u2014 here\u2019s everything Australian founders need to know about Stripe x Startup Battlefield",
       "category": "business_tech",
       "cluster_id": "ebd089ee76dfa85e",
@@ -2663,6 +807,572 @@
         "Statesboro Herald"
       ],
       "summary": "Bulloch County staff scrubbing data center, crypto mining possibilities from zoning regs Statesboro Herald"
+    },
+    {
+      "canonical_headline": "Canada and Taiwan Build New Bridges Across AI, Advanced Therapeutics and Precision Health",
+      "category": "business_tech",
+      "cluster_id": "c77259555ad22129",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "across",
+        "advanced",
+        "apac",
+        "biopharma",
+        "bridges",
+        "build",
+        "canada",
+        "health",
+        "precision",
+        "taiwan",
+        "therapeutics"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "BioPharma APAC"
+      ],
+      "summary": "Canada and Taiwan Build New Bridges Across AI, Advanced Therapeutics and Precision Health BioPharma APAC"
+    },
+    {
+      "canonical_headline": "How AI Could Bring Down Governments",
+      "category": "business_tech",
+      "cluster_id": "193a0bb737036569",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "bloomberg",
+        "bring",
+        "could",
+        "down",
+        "governments"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Bloomberg.com"
+      ],
+      "summary": "How AI Could Bring Down Governments Bloomberg.com"
+    },
+    {
+      "canonical_headline": "To survive China\u2019s cost-conscious market, global brands embrace AI and robots",
+      "category": "business_tech",
+      "cluster_id": "51357a452e0fc257",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "brands",
+        "china",
+        "conscious",
+        "cost",
+        "embrace",
+        "global",
+        "market",
+        "morning",
+        "post",
+        "robots",
+        "south",
+        "survive"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "South China Morning Post"
+      ],
+      "summary": "To survive China\u2019s cost-conscious market, global brands embrace AI and robots South China Morning Post"
+    },
+    {
+      "canonical_headline": "New charter school would blend AI, STEM with Moorish history",
+      "category": "business_tech",
+      "cluster_id": "8f759e082fe00556",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "albuquerque",
+        "blend",
+        "charter",
+        "history",
+        "journal",
+        "moorish",
+        "school",
+        "stem",
+        "would"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Albuquerque Journal"
+      ],
+      "summary": "New charter school would blend AI, STEM with Moorish history Albuquerque Journal"
+    },
+    {
+      "canonical_headline": "Bank of America Promotes Execs to Champion AI and Crypto",
+      "category": "business_tech",
+      "cluster_id": "c9d64c063befac7e",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "america",
+        "bank",
+        "champion",
+        "crypto",
+        "execs",
+        "promotes",
+        "pymnts"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "PYMNTS.com"
+      ],
+      "summary": "Bank of America Promotes Execs to Champion AI and Crypto PYMNTS.com"
+    },
+    {
+      "canonical_headline": "ASSISTments releases free Claude connector and plans premium AI tier for fall",
+      "category": "business_tech",
+      "cluster_id": "06fddf728a75bf13",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "assistments",
+        "claude",
+        "connector",
+        "edtech",
+        "fall",
+        "free",
+        "innovation",
+        "plans",
+        "premium",
+        "releases",
+        "tier"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "EdTech Innovation Hub"
+      ],
+      "summary": "ASSISTments releases free Claude connector and plans premium AI tier for fall EdTech Innovation Hub"
+    },
+    {
+      "canonical_headline": "Supreme Court Rules No Delay Compensation for Late Construction Start",
+      "category": "domestic",
+      "cluster_id": "15a3a2d99d08a9fa",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "compensation",
+        "construction",
+        "court",
+        "daily",
+        "delay",
+        "economic",
+        "late",
+        "rules",
+        "seoul",
+        "start",
+        "supreme"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Seoul Economic Daily"
+      ],
+      "summary": "Supreme Court Rules No Delay Compensation for Late Construction Start Seoul Economic Daily"
+    },
+    {
+      "canonical_headline": "DUCKETT WARRANT: Appeal filed to Florida Supreme Court",
+      "category": "domestic",
+      "cluster_id": "73d7240a6cf69000",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "appeal",
+        "court",
+        "death",
+        "duckett",
+        "filed",
+        "florida",
+        "penalty",
+        "supreme",
+        "tracking",
+        "warrant"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Tracking Florida's Death Penalty"
+      ],
+      "summary": "DUCKETT WARRANT: Appeal filed to Florida Supreme Court Tracking Florida's Death Penalty"
+    },
+    {
+      "canonical_headline": "Trump-dominated Supreme Court is more divided than ever",
+      "category": "domestic",
+      "cluster_id": "882231a105694943",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "court",
+        "divided",
+        "dominated",
+        "ever",
+        "more",
+        "supreme",
+        "than",
+        "trump"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "AOL.com"
+      ],
+      "summary": "Trump-dominated Supreme Court is more divided than ever AOL.com"
+    },
+    {
+      "canonical_headline": "Lu Dort headed to Hawks, Zaccharie Risacher to Mavericks in 3-team trade",
+      "category": "global",
+      "cluster_id": "d26e93ffb3e6f5b1",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "dort",
+        "hawks",
+        "headed",
+        "hoops",
+        "mavericks",
+        "risacher",
+        "rumors",
+        "team",
+        "three",
+        "trade",
+        "zaccharie"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Hoops Rumors",
+        "The New York Times"
+      ],
+      "summary": "Dort To Hawks, Risacher To Mavericks In Three-Team Trade Hoops Rumors"
+    },
+    {
+      "canonical_headline": "U.S. teeters on return to all-out war with Iran after more troops killed",
+      "category": "global",
+      "cluster_id": "a8bbf710f36e3db4",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "iran",
+        "killed",
+        "more",
+        "post",
+        "return",
+        "teeters",
+        "troops",
+        "washington"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "The Washington Post"
+      ],
+      "summary": "U.S. teeters on return to all-out war with Iran after more troops killed The Washington Post"
+    },
+    {
+      "canonical_headline": "Here\u2019s what you need to know to vote in the August primary election in Milwaukee",
+      "category": "global",
+      "cluster_id": "2f671cd4d80c3809",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "august",
+        "election",
+        "know",
+        "milwaukee",
+        "need",
+        "neighborhood",
+        "primary",
+        "service",
+        "vote"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Milwaukee Neighborhood News Service"
+      ],
+      "summary": "Here\u2019s what you need to know to vote in the August primary election in Milwaukee Milwaukee Neighborhood News Service"
+    },
+    {
+      "canonical_headline": "2026 primary election ballots in the mail; ballot drop box locations announced",
+      "category": "global",
+      "cluster_id": "ec080c2a28d27db8",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "2026",
+        "announced",
+        "ballot",
+        "ballots",
+        "drop",
+        "election",
+        "kauai",
+        "locations",
+        "mail",
+        "primary"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Kauai Now"
+      ],
+      "summary": "2026 primary election ballots in the mail; ballot drop box locations announced Kauai Now"
+    },
+    {
+      "canonical_headline": "\u2018Everyone's afraid to die\u2019: Struggle to recruit soldiers in Ukraine turns violent",
+      "category": "global",
+      "cluster_id": "9f25bc74f1fb4ec5",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "afraid",
+        "against",
+        "aggression",
+        "become",
+        "everyone",
+        "increasingly",
+        "officers",
+        "police",
+        "recruit",
+        "recruitment",
+        "soldiers",
+        "struggle",
+        "threatening",
+        "turns",
+        "ukraine",
+        "violent"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "BBC World"
+      ],
+      "summary": "Aggression against recruitment officers has become increasingly threatening, police say."
+    },
+    {
+      "canonical_headline": "This farmer wanted to quit the cocaine industry - he couldn't",
+      "category": "global",
+      "cluster_id": "cdc4811d7d62417b",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "cocaine",
+        "farmer",
+        "industry",
+        "quit",
+        "this",
+        "wanted"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "BBC World"
+      ],
+      "summary": "Colombians who grow cocaine's raw material bemoan a lack of support to help them switch crops."
+    },
+    {
+      "canonical_headline": "Thunder trade Lu Dort to Hawks in 3-team deal",
+      "category": "culture",
+      "cluster_id": "97edaab928eba8b5",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "deal",
+        "dort",
+        "hawks",
+        "team",
+        "thunder",
+        "trade"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "NBA.com",
+        "ESPN Top Headlines"
+      ],
+      "summary": "Thunder trade Lu Dort to Hawks in 3-team deal NBA.com"
+    },
+    {
+      "canonical_headline": "Cards exec to appeal gambling policy suspension",
+      "category": "culture",
+      "cluster_id": "633b266272660868",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "appeal",
+        "appealing",
+        "attorney",
+        "cardinals",
+        "cards",
+        "exec",
+        "executive",
+        "gambling",
+        "gold",
+        "indefinite",
+        "personnel",
+        "policy",
+        "ryan",
+        "suspension",
+        "violating"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "ESPN Top Headlines"
+      ],
+      "summary": "Cardinals personnel executive Ryan Gold is appealing an indefinite suspension for violating the NFL's gambling policy, his attorney said."
+    },
+    {
+      "canonical_headline": "Microsoft Stock Earnings: The One Key Commentary I Am Looking For (NASDAQ:MSFT)",
+      "category": "finance",
+      "cluster_id": "6a0084fa438224c5",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "alpha",
+        "commentary",
+        "earnings",
+        "looking",
+        "microsoft",
+        "msft",
+        "nasdaq",
+        "seeking",
+        "stock"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Seeking Alpha"
+      ],
+      "summary": "Microsoft Stock Earnings: The One Key Commentary I Am Looking For (NASDAQ:MSFT) Seeking Alpha"
+    },
+    {
+      "canonical_headline": "Oil prices surge, stock futures flat as fighting between U.S. and Iran intensifies",
+      "category": "finance",
+      "cluster_id": "ced476da9a3250e2",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "await",
+        "between",
+        "changed",
+        "earnings",
+        "east",
+        "escalation",
+        "fighting",
+        "flat",
+        "futures",
+        "index",
+        "intensifies",
+        "investors",
+        "iran",
+        "little",
+        "middle",
+        "prices",
+        "rose",
+        "stock",
+        "sunday",
+        "surge",
+        "tech",
+        "this",
+        "week",
+        "were",
+        "while"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "MarketWatch Top Stories"
+      ],
+      "summary": "Oil prices rose while U.S stock-index futures were little changed on Sunday, amid an escalation of fighting in the Middle East and as investors await key tech earnings this week."
+    },
+    {
+      "canonical_headline": "Should You Buy $1,000 Worth of SpaceX Stock Before Its First Earnings Report?",
+      "category": "finance",
+      "cluster_id": "d7d4830a62ad3e3f",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "before",
+        "earnings",
+        "first",
+        "fool",
+        "motley",
+        "should",
+        "spacex",
+        "stock",
+        "worth"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "The Motley Fool"
+      ],
+      "summary": "Should You Buy $1,000 Worth of SpaceX Stock Before Its First Earnings Report? The Motley Fool"
+    },
+    {
+      "canonical_headline": "Anthropic's Potential $1.2 Trillion IPO Could Make This Stock a Major Beneficiary",
+      "category": "finance",
+      "cluster_id": "c0b6637166c74171",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "anthropic",
+        "beneficiary",
+        "could",
+        "finance",
+        "major",
+        "make",
+        "potential",
+        "stock",
+        "this",
+        "trillion",
+        "yahoo"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Yahoo Finance"
+      ],
+      "summary": "Anthropic's Potential $1.2 Trillion IPO Could Make This Stock a Major Beneficiary Yahoo Finance"
+    },
+    {
+      "canonical_headline": "Prediction: These Will Be the 2 Best Nuclear Energy Stocks to Buy for the Next 5 Years",
+      "category": "finance",
+      "cluster_id": "e1380cc288edc9a4",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "best",
+        "energy",
+        "finance",
+        "next",
+        "nuclear",
+        "prediction",
+        "stocks",
+        "these",
+        "will",
+        "yahoo",
+        "years"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Yahoo Finance"
+      ],
+      "summary": "Prediction: These Will Be the 2 Best Nuclear Energy Stocks to Buy for the Next 5 Years Yahoo Finance"
+    },
+    {
+      "canonical_headline": "Which Crypto Casino is the Best in 2026? Top Bitcoin Casinos Revealed -Complete Guide",
+      "category": "finance",
+      "cluster_id": "ccb5e920e1f514a4",
+      "first_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "keywords": [
+        "2026",
+        "best",
+        "bitcoin",
+        "casino",
+        "casinos",
+        "complete",
+        "crypto",
+        "guide",
+        "muddy",
+        "revealed",
+        "river",
+        "which"
+      ],
+      "last_seen_time": "2026-07-20T00:39:43.962834+00:00",
+      "last_update_note": "",
+      "sources": [
+        "Muddy River News"
+      ],
+      "summary": "Which Crypto Casino is the Best in 2026? Top Bitcoin Casinos Revealed -Complete Guide Muddy River News"
     }
   ]
 }

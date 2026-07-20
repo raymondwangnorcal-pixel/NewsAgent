@@ -92,11 +92,12 @@ def triggered_heuristics(article: Article, config: QualityGateConfig) -> list[st
     """Return the names of the soft-scoring heuristics this article trips."""
 
     triggers: list[str] = []
-    if _is_thin_summary(article.summary, config.min_summary_chars):
+    evidence = article.best_available_text
+    if _is_thin_summary(evidence, config.min_summary_chars):
         triggers.append("thin_summary")
     if _is_teaser_title(article.title):
         triggers.append("teaser_title")
-    if _is_catalystless_stock_tip(article.title, article.summary):
+    if _is_catalystless_stock_tip(article.title, evidence):
         triggers.append("catalystless_stock_tip")
     return triggers
 
@@ -132,9 +133,10 @@ def _is_duplicate_of_title(title: str, summary: str, threshold: float) -> bool:
 def hard_reject_reason(article: Article, config: QualityGateConfig) -> str | None:
     """Return a rejection reason string if the article is near-certain junk, else None."""
 
-    if _is_empty_summary(article.summary):
+    evidence = article.best_available_text
+    if _is_empty_summary(evidence):
         return "empty_summary"
-    if _is_duplicate_of_title(article.title, article.summary, config.summary_duplicate_threshold):
+    if _is_duplicate_of_title(article.title, evidence, config.summary_duplicate_threshold):
         return "summary_duplicates_title"
     return None
 
@@ -261,7 +263,7 @@ def _judge_user_content(articles: list[Article]) -> str:
             {
                 "url": article.url,
                 "title": _truncate(article.title),
-                "summary": _truncate(article.summary),
+                "summary": _truncate(article.best_available_text),
             }
             for article in articles
         ]

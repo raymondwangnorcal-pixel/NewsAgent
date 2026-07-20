@@ -84,6 +84,7 @@ def score_clusters(
             + cluster.quality_score
             + cluster.source_balance_score
             + cluster.watchlist_score
+            + min(2.0, cluster.evidence_score * 0.4)
             - cluster.content_quality_penalty
         )
         if source_count >= 2:

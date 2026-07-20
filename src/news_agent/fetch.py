@@ -73,6 +73,26 @@ def _child_text(node: ET.Element, names: tuple[str, ...]) -> str:
     return ""
 
 
+def _local_name(tag: str) -> str:
+    return tag.rsplit("}", 1)[-1].casefold()
+
+
+def _content_candidates(node: ET.Element) -> list[str]:
+    candidates: list[str] = []
+    for child in node.iter():
+        if _local_name(child.tag) not in {"description", "summary", "content", "encoded"}:
+            continue
+        value = _clean_text(" ".join(child.itertext()))
+        if value and value not in candidates:
+            candidates.append(value)
+    return candidates
+
+
+def _select_feed_content(title: str, candidates: list[str]) -> str:
+    substantive = [value for value in candidates if value.casefold() != title.casefold()]
+    return max(substantive, key=len, default="")
+
+
 def _child_link(node: ET.Element) -> str:
     link = _child_text(node, ("link", f"{ATOM_NS}link"))
     if link:
@@ -122,7 +142,9 @@ def parse_feed(xml_text: str, feed: FeedConfig) -> list[Article]:
         if not _is_acceptable_title(raw_title):
             continue
         title = _clean_title(raw_title, source)
+        content_candidates = _content_candidates(node)
         summary = _child_text(node, ("description", "summary", f"{ATOM_NS}summary", f"{ATOM_NS}content"))
+        feed_content = _select_feed_content(title, content_candidates)
         published_raw = _child_text(
             node,
             ("pubDate", "published", "updated", f"{ATOM_NS}published", f"{ATOM_NS}updated"),
@@ -135,6 +157,8 @@ def parse_feed(xml_text: str, feed: FeedConfig) -> list[Article]:
                     source=source,
                     published_at=_parse_datetime(published_raw),
                     summary=summary,
+                    feed_content=feed_content,
+                    enrichment_status="feed_content" if feed_content else "not_attempted",
                     reputation=feed.reputation,
                     feed_categories=feed.categories,
                     feed_source_type=feed.source_type,

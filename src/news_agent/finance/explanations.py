@@ -74,7 +74,9 @@ def explain_mover(mover: MarketMover, articles: list[Article]) -> MarketMover:
         for article in articles
         if article_mentions_mover(article, mover) and recency_hours(article) <= 48
     ]
-    candidates.sort(key=lambda article: (causal_score(article), article.reputation, -recency_hours(article)), reverse=True)
+    # Preserve feed order when causal strength and reputation tie. Comparing
+    # sub-second construction timestamps made source attribution nondeterministic.
+    candidates.sort(key=lambda article: (causal_score(article), article.reputation), reverse=True)
     reason_sources: list[str] = []
     for article in candidates:
         if causal_score(article) <= 0:

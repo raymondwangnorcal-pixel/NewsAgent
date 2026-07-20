@@ -259,6 +259,8 @@ def test_draft_degrades_to_fallback_on_exception(monkeypatch: pytest.MonkeyPatch
 
     assert len(results) == 1
     assert "Details about the event" in results[0].paragraph
+    assert results[0].draft_status == "fallback_error"
+    assert results[0].draft_error_code == "draft_api_error"
 
 
 def test_draft_degrades_to_fallback_on_malformed_json(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -287,6 +289,8 @@ def test_draft_partial_response_fills_gap_with_fallback(monkeypatch: pytest.Monk
     by_id = {result.story_id: result for result in results}
     assert by_id["covered"].paragraph == "LLM wrote this paragraph."
     assert "Fallback text for this one" in by_id["uncovered"].paragraph
+    assert by_id["covered"].draft_status == "llm"
+    assert by_id["uncovered"].draft_status == "fallback_missing"
 
 
 def test_draft_empty_paragraph_string_falls_back() -> None:

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from datetime import date
 from pathlib import Path
 
@@ -26,6 +27,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--history-path", type=Path, default=DEFAULT_HISTORY_PATH, help="Story history JSON path.")
     parser.add_argument("--ignore-history", action="store_true", help="Do not suppress stories seen in history.")
     parser.add_argument("--show-skipped", action="store_true", help="Print skipped-story audit output.")
+    parser.add_argument("--show-diagnostics", action="store_true", help="Print enrichment and drafting diagnostics.")
     parser.add_argument("--alerts", action="store_true", help="Run breaking-news alert mode instead of the briefing.")
     parser.add_argument("--alert-config", type=Path, default=DEFAULT_ALERT_CONFIG_PATH, help="Alert config JSON path.")
     parser.add_argument(
@@ -132,6 +134,13 @@ def main(argv: list[str] | None = None) -> None:
     options = FormatOptions.from_config(config.formatting, mode=format_mode)
     formatted_messages = format_briefing_previews(result.briefings, options=options)
     messages = [message.text for message in formatted_messages]
+    diagnostics = getattr(result, "diagnostics", None)
+    if diagnostics is not None and getattr(diagnostics, "fallback_drafts", 0):
+        print(
+            f"Warning: {diagnostics.fallback_drafts}/"
+            f"{diagnostics.fallback_drafts + diagnostics.llm_drafts} stories used deterministic fallback.",
+            file=sys.stderr,
+        )
 
     if args.dry_run:
         if format_mode == "console":
@@ -150,6 +159,8 @@ def main(argv: list[str] | None = None) -> None:
             print_quality_gate_rejections(getattr(result, "quality_gate_rejections", ()))
             print()
             print(format_skipped_table(result.skipped_stories))
+        if args.show_diagnostics:
+            print_diagnostics(diagnostics)
         return
 
     try:
@@ -166,6 +177,24 @@ def main(argv: list[str] | None = None) -> None:
         print_quality_gate_rejections(getattr(result, "quality_gate_rejections", ()))
         print()
         print(format_skipped_table(result.skipped_stories))
+    if args.show_diagnostics:
+        print_diagnostics(diagnostics)
+
+
+def print_diagnostics(diagnostics: object) -> None:
+    if diagnostics is None:
+        print("Diagnostics unavailable.")
+        return
+    print()
+    print("Pipeline diagnostics")
+    print(f"Articles fetched: {getattr(diagnostics, 'articles_fetched', 0)}")
+    print(f"Rich feed entries: {getattr(diagnostics, 'feed_content_articles', 0)}")
+    print(f"Pages attempted: {getattr(diagnostics, 'pages_attempted', 0)}")
+    print(f"Pages extracted: {getattr(diagnostics, 'pages_extracted', 0)}")
+    print(f"Pages blocked: {getattr(diagnostics, 'pages_blocked', 0)}")
+    print(f"Pages failed/thin: {getattr(diagnostics, 'pages_failed', 0)}")
+    print(f"LLM drafts: {getattr(diagnostics, 'llm_drafts', 0)}")
+    print(f"Fallback drafts: {getattr(diagnostics, 'fallback_drafts', 0)}")
 
 
 def print_quality_gate_rejections(quality_gate_rejections: object) -> None:
