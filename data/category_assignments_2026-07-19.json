@@ -1,0 +1,302 @@
+[
+  {
+    "category": "finance",
+    "cluster_id": "beyond just look market plenty stocks tech this",
+    "outlier_urls": [],
+    "rationale": "This is a market-focused assessment of which stocks are performing, fitting Finance because its significance is asset performance and investment conditions."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "accelerating arizona buildout capitalize cfo factory megatrend tsmc",
+    "outlier_urls": [],
+    "rationale": "TSMC's accelerated Arizona fab expansion is a company capacity and semiconductor-industry development driven by AI demand."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "east escalates fighting middle oil tops",
+    "outlier_urls": [],
+    "rationale": "The central development is Brent crude rising above $90 and the resulting gasoline and inflation implications, which is a commodity-price story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "deal dort hawks team thunder trade",
+    "outlier_urls": [],
+    "rationale": "The three-team NBA player trade is a major professional-sports transaction, which belongs in Culture + Media."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "boots conflict escalates ground iran options war weighs",
+    "outlier_urls": [],
+    "rationale": "The focus is on whether the U.S. government will deploy ground forces, which the guidelines place in U.S. News when centered on an American military decision."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "commentary earnings key looking microsoft msft nasdaq one",
+    "outlier_urls": [],
+    "rationale": "This is an investor-oriented analysis of Microsoft earnings and stock-relevant commentary, making markets and investment the primary significance."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "aoc change channels hope message obama",
+    "outlier_urls": [],
+    "rationale": "Rep. Ocasio-Cortez's campaign messaging and possible presidential ambitions are U.S. electoral politics."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "ball blasts dean official openai pentagon top",
+    "outlier_urls": [],
+    "rationale": "The dispute concerns OpenAI, AI regulation, and the company's government relationship, fitting technology and regulation primarily affecting a company."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "between fighting flat futures intensifies iran oil prices",
+    "outlier_urls": [],
+    "rationale": "The story centers on oil-price gains and flat U.S. stock futures as market reactions to the Iran conflict."
+  },
+  {
+    "category": "global",
+    "cluster_id": "attack finds iran jordan member military remains service",
+    "outlier_urls": [],
+    "rationale": "The report concerns casualties from an Iranian attack in Jordan and Iraq amid an international conflict, rather than a U.S. policy decision."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "all iran killed more out return teeters troops",
+    "outlier_urls": [],
+    "rationale": "The central question is whether the United States will return to full-scale war with Iran, emphasizing the U.S. government's military course."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "anthropic beneficiary could ipo major make potential stock",
+    "outlier_urls": [],
+    "rationale": "A potential $1.2 trillion IPO and its implications for a beneficiary stock are investment and valuation matters."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "covid inflation monetary phenomenon post was",
+    "outlier_urls": [],
+    "rationale": "The article's subject is post-pandemic inflation and its monetary causes, which is macroeconomic and monetary-policy analysis."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "2026 best bitcoin casino casinos complete crypto guide",
+    "outlier_urls": [],
+    "rationale": "This is a consumer gambling guide centered on crypto casinos, which is primarily an entertainment and consumer-culture topic."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "across advanced bridges build canada health precision taiwan",
+    "outlier_urls": [],
+    "rationale": "The Canada-Taiwan collaboration is focused on AI, advanced therapeutics, and precision-health innovation, placing it in technology and biotech development."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "alphabet earnings intel tesla this week",
+    "outlier_urls": [],
+    "rationale": "The upcoming corporate earnings calendar is framed for investors and market expectations, so Finance is the primary category."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "2026 aurelia call cash earnings flow metals posts",
+    "outlier_urls": [],
+    "rationale": "Aurelia Metals' quarterly cash-flow results are an earnings and company-financial-performance story."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "earnings gets group harder heads ignore radian rdn",
+    "outlier_urls": [],
+    "rationale": "The story evaluates Radian Group's valuation heading into earnings, making it an investment analysis rather than an operating-company story."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "bring could down governments",
+    "outlier_urls": [],
+    "rationale": "The article examines the potential societal and governmental effects of AI, with the technology itself as the central subject."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "000 before buy earnings first should spacex stock",
+    "outlier_urls": [],
+    "rationale": "Whether to buy SpaceX stock before earnings is explicitly an investor and equity-valuation question."
+  },
+  {
+    "category": "global",
+    "cluster_id": "afraid die everyone recruit soldiers struggle turns ukraine",
+    "outlier_urls": [],
+    "rationale": "Ukraine's increasingly violent military recruitment struggle is a development within an ongoing foreign war."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "appeal cards exec gambling policy suspension",
+    "outlier_urls": [],
+    "rationale": "An NFL executive's appeal of a gambling-policy suspension is a professional-sports controversy."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "2026 champion crowns cup final football photos spain",
+    "outlier_urls": [],
+    "rationale": "Spain's World Cup final victory is a major sports result."
+  },
+  {
+    "category": "global",
+    "cluster_id": "american casualties consecutive hits iran mount night ninth",
+    "outlier_urls": [],
+    "rationale": "The report centers on continuing U.S. strikes in Iran and casualties in the conflict, which are battlefield and international developments."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "bieber bts colourful cup half justin madonna perform",
+    "outlier_urls": [],
+    "rationale": "The World Cup halftime performances by major musicians and celebrity attendance are entertainment and cultural-event coverage."
+  },
+  {
+    "category": "global",
+    "cluster_id": "cocaine couldn farmer industry quit this wanted",
+    "outlier_urls": [],
+    "rationale": "The account of Colombian coca growers unable to transition crops concerns an important social and economic problem outside the United States."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "flash floods hits jersey rain torrential triggering york",
+    "outlier_urls": [],
+    "rationale": "Flash flooding affecting New York and New Jersey is a U.S. emergency and infrastructure-disruption story."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "2026 bloom candidates court meet position state supreme",
+    "outlier_urls": [],
+    "rationale": "A candidate profile for the Washington State Supreme Court is a U.S. state election and legal-government story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "champion cup cut gets irs just million spain",
+    "outlier_urls": [],
+    "rationale": "The central event is Spain's World Cup win and its prize money, so this remains a sports story despite the tax angle."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "america bank champion crypto execs promotes",
+    "outlier_urls": [],
+    "rationale": "Bank of America's executive promotions to advance AI and crypto are a corporate leadership and strategy development."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "cyclical industry most revolution takes world",
+    "outlier_urls": [],
+    "rationale": "The story concerns AI transforming an industry, fitting coverage of technology and how industries operate."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "colorado court defies ideolo lgbtq mandate supreme",
+    "outlier_urls": [],
+    "rationale": "A Colorado policy dispute involving Supreme Court precedent and LGBTQ mandates is a U.S. law and state-policy story."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "2026 announced ballot ballots box drop election locations",
+    "outlier_urls": [],
+    "rationale": "Mailing primary-election ballots and announcing drop-box locations are U.S. election-administration developments."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "bellwether frenzy korean reuters stocks trusty turned",
+    "outlier_urls": [],
+    "rationale": "The change in Korean stocks' role amid an AI investment frenzy is principally a market-performance story."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "darlings everyday investors mag seven",
+    "outlier_urls": [],
+    "rationale": "Retail investors shifting from the Magnificent Seven to other AI equities is an investment-flow and stock-market trend."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "china chip constraints despite makes moonshot waves",
+    "outlier_urls": [],
+    "rationale": "Moonshot AI's progress despite Chinese chip constraints is an AI-company and semiconductor-technology development."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "futures killed mixed three troops",
+    "outlier_urls": [],
+    "rationale": "The headline foregrounds mixed futures, making the immediate significance a market reaction even though troop deaths supply the context."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "demand focus fresh masks other putting smoke spurs",
+    "outlier_urls": [],
+    "rationale": "The article is framed around which stocks may benefit from wildfire-driven mask demand, making it an equity-market story."
+  },
+  {
+    "category": "global",
+    "cluster_id": "compensation construction court delay late rules start supreme",
+    "outlier_urls": [],
+    "rationale": "A foreign supreme court's construction-compensation ruling is an important legal and policy development outside the United States."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "also bow debuts future heated real rivalry rolling",
+    "outlier_urls": [],
+    "rationale": "Future's No. 1 Billboard album debut and other chart entries are music-industry and popular-culture coverage."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "2027 bpo enabled entire staff teleperformance wants",
+    "outlier_urls": [],
+    "rationale": "Teleperformance's plan to make its BPO workforce AI-enabled is a company operational and technology-adoption development, which belongs in Business + Tech."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "appeal court duckett filed florida supreme warrant",
+    "outlier_urls": [],
+    "rationale": "An appeal to the Florida Supreme Court concerning a death-penalty warrant is a U.S. legal and criminal-justice story, covered by U.S. News."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "court divided dominated ever more supreme than trump",
+    "outlier_urls": [],
+    "rationale": "The story centers on the U.S. Supreme Court and domestic political divisions surrounding it, which the U.S. News guidelines explicitly include."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "cup final messi played poorly wha world",
+    "outlier_urls": [],
+    "rationale": "Messi's performance in a World Cup final is a major sports result and commentary story, placing it in Culture + Media."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "587m affleck ben filmmaking netflix paid startup",
+    "outlier_urls": [],
+    "rationale": "Netflix's $587 million acquisition of an AI filmmaking startup is chiefly a corporate-strategy and technology-industry development, so it belongs in Business + Tech."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "barrel conflict cross iran oil prices widens",
+    "outlier_urls": [],
+    "rationale": "The central significance is oil crossing $90 a barrel because of the widening conflict, a commodity-price move and market reaction covered by Finance."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "assistments claude connector fall free plans premium releases",
+    "outlier_urls": [],
+    "rationale": "ASSISTments' Claude integration and planned premium AI tier are new software-product and business-model developments, which belong in Business + Tech."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "bets big firm holtec ipo modular nuclear reactors",
+    "outlier_urls": [],
+    "rationale": "Because the story is framed around Holtec's IPO, its primary significance is a public-market financing event, which belongs in Finance."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "conflict escalates iran launches ninth strikes wave",
+    "outlier_urls": [],
+    "rationale": "The focus is the U.S. government's launch of another wave of strikes, and the guidelines place U.S. military actions centered on the American decision in U.S. News."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "499 canada commits deal defends engine ford million",
+    "outlier_urls": [],
+    "rationale": "Ford's commitment to invest in a Canadian engine plant is a company investment and industrial-operations story, placing it in Business + Tech."
+  }
+]
