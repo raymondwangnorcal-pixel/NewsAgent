@@ -143,6 +143,28 @@ def test_cli_openai_mode_choices_reject_polish(capsys: pytest.CaptureFixture[str
     assert "invalid choice: 'polish'" in capsys.readouterr().err
 
 
+def test_no_openai_drafting_alias_selects_classify_only(monkeypatch: pytest.MonkeyPatch, tmp_path) -> None:
+    monkeypatch.chdir(tmp_path)
+    calls: dict[str, object] = {}
+
+    def fake_build(**kwargs: object) -> object:
+        calls.update(kwargs)
+        return SimpleNamespace(briefings=sample_briefings(), skipped_stories=[], skipped_log_path=Path("x"), source_debug_lines=())
+
+    monkeypatch.setattr(cli, "build_briefing_result_sync", fake_build)
+
+    cli.main(["--dry-run", "--no-openai-drafting"])
+
+    assert calls["openai_mode"] == "classify-only"
+
+
+def test_conflicting_openai_aliases_are_rejected(capsys: pytest.CaptureFixture[str]) -> None:
+    with pytest.raises(SystemExit):
+        cli.main(["--dry-run", "--no-openai", "--no-openai-drafting"])
+
+    assert "cannot be used together" in capsys.readouterr().err
+
+
 def test_cli_dry_run_can_print_telegram_format(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:
     monkeypatch.chdir(tmp_path)
     monkeypatch.setattr(

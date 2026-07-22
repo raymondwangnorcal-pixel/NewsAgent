@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 from dataclasses import dataclass, field, replace
 from pathlib import Path
-from typing import Literal
+from collections import Counter
 
 from news_agent.alerts import (
     DEFAULT_ALERT_CONFIG_PATH,
@@ -14,6 +14,7 @@ from news_agent.alerts import (
     load_alert_config,
 )
 from news_agent.classify import (
+    CATEGORY_NAMES,
     classify_clusters,
     default_category_assignments_path,
     write_category_assignments,
@@ -21,7 +22,7 @@ from news_agent.classify import (
 from news_agent.cluster import cluster_articles
 from news_agent.config import load_config
 from news_agent.draft import DraftCandidate, draft_paragraphs
-from news_agent.enrichment import enrich_clusters
+from news_agent.enrichment import enrich_clusters, select_enrichment_clusters
 from news_agent.evidence import apply_cluster_evidence_scores, rank_articles_by_evidence
 from news_agent.fetch import fetch_all_feeds
 from news_agent.history import DEFAULT_HISTORY_PATH, apply_history, save_story_history
@@ -31,6 +32,8 @@ from news_agent.models import (
     BriefingParagraph,
     BriefingSection,
     CategoryAssignment,
+    OpenAICapabilities,
+    OpenAIMode,
     QualityGateConfig,
     PipelineDiagnostics,
     StoryCluster,
@@ -41,14 +44,12 @@ from news_agent.quality_gate import (
     judge_ambiguous_articles,
     write_quality_gate_rejections,
 )
-from news_agent.scoring import score_clusters, top_for_category
+from news_agent.scoring import score_clusters, top_for_category, top_for_culture
 from news_agent.skipped_log import SkippedStory, build_skipped_stories, default_skipped_path, write_skipped_log
 from news_agent.source_balance import source_distribution_label
 from news_agent.stocks import build_stock_snapshot
 from news_agent.watchlist import DEFAULT_WATCHLIST_PATH, WatchlistEntry, load_watchlist
 
-
-OpenAIMode = Literal["full", "off"]
 
 CATEGORY_LIMITS = {
     "business_tech": 6,
@@ -62,9 +63,12 @@ CATEGORY_LIMITS = {
 # so importance-ranking (category-agnostic) doesn't starve a naturally-lower-scoring
 # category before classification even runs -- e.g. Culture+Media during a week
 # dominated by conflict/finance-market-reaction stories.
-CLASSIFICATION_POOL_SIZE = 50
+GLOBAL_CLASSIFICATION_POOL_SIZE = 30
+CATEGORY_CLASSIFICATION_RESERVE = 10
+MAX_CLASSIFICATION_POOL_SIZE = 80
 
 FINANCE_LEAD_TICKER_COUNT = 7
+MINIMUM_STORIES_PER_CATEGORY = 4
 
 
 def story_identity(cluster: StoryCluster) -> str:
@@ -73,6 +77,42 @@ def story_identity(cluster: StoryCluster) -> str:
     if cluster.urls:
         return cluster.urls[0].split("?", 1)[0]
     return cluster.title.casefold()
+
+
+def cluster_feed_hints(cluster: StoryCluster) -> tuple[str, ...]:
+    hints = {category for article in cluster.articles for category in article.feed_categories}
+    return tuple(category for category in CATEGORY_NAMES if category in hints)
+
+
+def _empty_category_counts(include_unclassified: bool = False) -> dict[str, int]:
+    counts = {category: 0 for category in CATEGORY_NAMES}
+    if include_unclassified:
+        counts["unclassified"] = 0
+    return counts
+
+
+def count_articles_by_feed_hint(articles: list[Article]) -> dict[str, int]:
+    counts = _empty_category_counts()
+    for article in articles:
+        for category in CATEGORY_NAMES:
+            counts[category] += int(category in article.feed_categories)
+    return counts
+
+
+def count_clusters_by_feed_hint(clusters: list[StoryCluster]) -> dict[str, int]:
+    counts = _empty_category_counts()
+    for cluster in clusters:
+        for category in cluster_feed_hints(cluster):
+            counts[category] += 1
+    return counts
+
+
+def count_clusters_by_category(clusters: list[StoryCluster]) -> dict[str, int]:
+    counts = _empty_category_counts(include_unclassified=True)
+    for cluster in clusters:
+        key = cluster.category if cluster.category in CATEGORY_NAMES else "unclassified"
+        counts[key] += 1
+    return counts
 
 
 @dataclass(frozen=True)
@@ -149,15 +189,44 @@ def _apply_ambiguous_verdicts(
 
 def select_classification_candidates(
     clusters: list[StoryCluster],
-    pool_size: int = CLASSIFICATION_POOL_SIZE,
+    pool_size: int | None = None,
+    minimum_evidence_score: float = 0.0,
 ) -> list[StoryCluster]:
-    """Bounded, category-agnostic top-N by importance score. Sized well above the
-    number of stories that will actually publish so a dominant topic can't crowd
-    out every candidate for a naturally-lower-scoring category before the
-    guideline-driven classifier ever gets a chance to weigh in."""
-    eligible = [cluster for cluster in clusters if not cluster.skip_reason]
+    """Global-first classification pool with evidence-gated category reserves."""
+    eligible = [
+        cluster for cluster in clusters
+        if not cluster.skip_reason and cluster.evidence_score >= minimum_evidence_score
+    ]
     ranked = sorted(eligible, key=lambda item: item.total_score, reverse=True)
-    return ranked[:pool_size]
+    if pool_size is not None:
+        return ranked[:pool_size]
+    selected = ranked[:GLOBAL_CLASSIFICATION_POOL_SIZE]
+    selected_ids = {story_identity(cluster) for cluster in selected}
+    coverage = Counter(category for cluster in selected for category in cluster_feed_hints(cluster))
+    queues = {
+        category: [cluster for cluster in ranked if category in cluster_feed_hints(cluster)]
+        for category in CATEGORY_NAMES
+    }
+    positions = {category: 0 for category in CATEGORY_NAMES}
+    while len(selected) < MAX_CLASSIFICATION_POOL_SIZE:
+        progressed = False
+        for category in CATEGORY_NAMES:
+            if coverage[category] >= CATEGORY_CLASSIFICATION_RESERVE:
+                continue
+            queue = queues[category]
+            while positions[category] < len(queue) and story_identity(queue[positions[category]]) in selected_ids:
+                positions[category] += 1
+            if positions[category] >= len(queue):
+                continue
+            cluster = queue[positions[category]]
+            positions[category] += 1
+            selected.append(cluster)
+            selected_ids.add(story_identity(cluster))
+            coverage.update(cluster_feed_hints(cluster))
+            progressed = True
+        if not progressed:
+            break
+    return selected
 
 
 def apply_category_assignments(
@@ -173,12 +242,86 @@ def apply_category_assignments(
         assignment = assignments.get(cluster.key)
         if assignment is not None:
             cluster.category = assignment.category
+            cluster.culture_lane = assignment.culture_lane if assignment.category == "culture" else ""
 
 
 def apply_evidence_gate(clusters: list[StoryCluster], minimum_score: float) -> None:
     for cluster in clusters:
         if not cluster.skip_reason and cluster.evidence_score < minimum_score:
             cluster.skip_reason = "insufficient story context"
+
+
+def select_backfill_candidates(
+    clusters: list[StoryCluster],
+    initial_candidates: list[StoryCluster],
+    underfilled_categories: list[str],
+    minimum_evidence_score: float,
+    per_category_limit: int = 10,
+) -> list[StoryCluster]:
+    initial_ids = {story_identity(cluster) for cluster in initial_candidates}
+    selected: list[StoryCluster] = []
+    selected_ids: set[str] = set()
+    ranked = sorted(clusters, key=lambda item: item.total_score, reverse=True)
+    for category in underfilled_categories:
+        category_candidates = [
+            cluster for cluster in ranked
+            if story_identity(cluster) not in initial_ids
+            and not cluster.skip_reason
+            and cluster.evidence_score >= minimum_evidence_score
+            and category in cluster_feed_hints(cluster)
+        ][:per_category_limit]
+        for cluster in category_candidates:
+            identity = story_identity(cluster)
+            if identity in selected_ids:
+                continue
+            selected.append(cluster)
+            selected_ids.add(identity)
+    return selected
+
+
+def category_story_target(category: str, max_culture_stories: int) -> int:
+    if category == "culture":
+        return min(MINIMUM_STORIES_PER_CATEGORY, max_culture_stories)
+    return MINIMUM_STORIES_PER_CATEGORY
+
+
+def underfilled_categories(
+    selected: dict[str, list[StoryCluster]],
+    max_culture_stories: int,
+) -> list[str]:
+    return [
+        category
+        for category in CATEGORY_NAMES
+        if len(selected[category]) < category_story_target(category, max_culture_stories)
+    ]
+
+
+def underfilled_reasons_by_category(
+    clusters: list[StoryCluster],
+    selected: dict[str, list[StoryCluster]],
+    history_suppressed: list[StoryCluster],
+    minimum_evidence_score: float,
+    max_culture_stories: int,
+) -> dict[str, str]:
+    reasons: dict[str, str] = {}
+    for category in CATEGORY_NAMES:
+        target = category_story_target(category, max_culture_stories)
+        if len(selected[category]) >= target:
+            reasons[category] = ""
+            continue
+        eligible_hints = [
+            cluster for cluster in clusters
+            if category in cluster_feed_hints(cluster) and cluster.evidence_score >= minimum_evidence_score
+        ]
+        if category == "culture" and len([cluster for cluster in eligible_hints if cluster.category == category]) >= target:
+            reasons[category] = "source_diversity_cap"
+        elif any(category in cluster_feed_hints(cluster) for cluster in history_suppressed):
+            reasons[category] = "history_suppressed_candidates"
+        elif len(eligible_hints) >= 4:
+            reasons[category] = "classification_moved_candidates_elsewhere"
+        else:
+            reasons[category] = "not_enough_evidence_qualified_candidates"
+    return reasons
 
 
 def _flatten_cluster_articles(clusters: list[StoryCluster]) -> list[Article]:
@@ -203,6 +346,7 @@ async def collect_pipeline_context(
 ) -> PipelineContext:
     config = config or load_config()
     resolved_mode = resolve_openai_mode(openai_mode=openai_mode)
+    capabilities = openai_capabilities(resolved_mode)
     articles = await fetch_all_feeds(config.feeds, config.lookback_hours, config.max_articles)
 
     # Run a cheap title/feed-content pass first, then spend page requests only on
@@ -212,6 +356,7 @@ async def collect_pipeline_context(
     apply_cluster_evidence_scores(preliminary_clusters)
     preliminary_clusters = score_clusters(preliminary_clusters, config, watchlist_entries=watchlist_entries)
     preliminary_clusters.sort(key=lambda item: item.total_score, reverse=True)
+    enrichment_selection = select_enrichment_clusters(preliminary_clusters, config.enrichment)
     enriched_clusters, enrichment_stats = await asyncio.to_thread(
         enrich_clusters,
         preliminary_clusters,
@@ -222,7 +367,7 @@ async def collect_pipeline_context(
     quality_gate_config = _resolve_quality_gate_config(config)
     survivors, hard_rejections, ambiguous_articles = apply_quality_gate(enriched_articles, quality_gate_config)
 
-    if ambiguous_articles and resolved_mode != "off":
+    if ambiguous_articles and capabilities.judge_quality:
         survivors = _apply_ambiguous_verdicts(survivors, ambiguous_articles, quality_gate_config)
 
     resolved_quality_gate_log_path = quality_gate_log_path or default_quality_gate_rejections_path()
@@ -234,14 +379,41 @@ async def collect_pipeline_context(
     apply_history(clusters, history_path, ignore_history=ignore_history)
     clusters.sort(key=lambda item: item.total_score, reverse=True)
 
-    candidates = select_classification_candidates(clusters)
-    assignments = classify_clusters(candidates, openai_mode=resolved_mode)
+    minimum_evidence = config.enrichment.minimum_story_evidence_score
+    apply_evidence_gate(clusters, minimum_evidence)
+    candidates = select_classification_candidates(clusters, minimum_evidence_score=minimum_evidence)
+    assignments = classify_clusters(candidates, use_openai=capabilities.classify)
     apply_category_assignments(candidates, assignments)
-    apply_evidence_gate(clusters, config.enrichment.minimum_story_evidence_score)
+
+    provisional = select_unique_category_clusters(
+        clusters,
+        minimum_evidence_score=minimum_evidence,
+        max_culture_stories=config.max_culture_stories,
+    )
+    underfilled = underfilled_categories(provisional, config.max_culture_stories)
+    backfill = select_backfill_candidates(clusters, candidates, underfilled, minimum_evidence)
+    if backfill:
+        backfill_assignments = classify_clusters(backfill, use_openai=capabilities.classify)
+        assignments.update(backfill_assignments)
+        apply_category_assignments(backfill, backfill_assignments)
     resolved_category_assignments_log_path = category_assignments_log_path or default_category_assignments_path()
     write_category_assignments(assignments, resolved_category_assignments_log_path)
 
-    category_clusters = select_unique_category_clusters(clusters)
+    category_clusters = select_unique_category_clusters(
+        clusters,
+        minimum_evidence_score=minimum_evidence,
+        max_culture_stories=config.max_culture_stories,
+    )
+    history_suppressed = [cluster for cluster in clusters if "stale/repeated" in cluster.skip_reason]
+    insufficient = [cluster for cluster in clusters if cluster.skip_reason == "insufficient story context"]
+    selected_counts = {category: len(category_clusters[category]) for category in CATEGORY_NAMES}
+    underfilled_reasons = underfilled_reasons_by_category(
+        clusters,
+        category_clusters,
+        history_suppressed,
+        minimum_evidence,
+        config.max_culture_stories,
+    )
     stock_snapshot = await build_stock_snapshot(articles, watchlist_entries)
     return PipelineContext(
         category_clusters=category_clusters,
@@ -258,6 +430,19 @@ async def collect_pipeline_context(
             pages_blocked=enrichment_stats.pages_blocked,
             pages_failed=enrichment_stats.pages_failed,
             feed_content_articles=sum(bool(article.feed_content) for article in articles),
+            fetched_articles_by_feed_hint=count_articles_by_feed_hint(articles),
+            preliminary_clusters_by_feed_hint=count_clusters_by_feed_hint(preliminary_clusters),
+            enrichment_clusters_by_feed_hint=count_clusters_by_feed_hint(enrichment_selection),
+            classification_pool_by_feed_hint=count_clusters_by_feed_hint(candidates),
+            history_suppressed_by_feed_hint=count_clusters_by_feed_hint(history_suppressed),
+            insufficient_context_by_feed_hint=count_clusters_by_feed_hint(insufficient),
+            classified_clusters_by_category=count_clusters_by_category(candidates + backfill),
+            backfill_candidates_by_category={
+                category: sum(category in cluster_feed_hints(cluster) for cluster in backfill)
+                for category in CATEGORY_NAMES
+            },
+            selected_stories_by_category=selected_counts,
+            underfilled_reason_by_category=underfilled_reasons,
         ),
     )
 
@@ -268,6 +453,14 @@ def resolve_openai_mode(use_openai: bool | None = None, openai_mode: OpenAIMode 
     if use_openai is False:
         return "off"
     return "full"
+
+
+def openai_capabilities(mode: OpenAIMode) -> OpenAICapabilities:
+    if mode == "full":
+        return OpenAICapabilities(judge_quality=True, classify=True, draft=True)
+    if mode == "classify-only":
+        return OpenAICapabilities(judge_quality=True, classify=True, draft=False)
+    return OpenAICapabilities(judge_quality=False, classify=False, draft=False)
 
 
 async def build_briefings(
@@ -309,11 +502,25 @@ def selected_clusters(category_clusters: dict[str, list[StoryCluster]]) -> list[
     return selected
 
 
-def select_unique_category_clusters(clusters: list[StoryCluster]) -> dict[str, list[StoryCluster]]:
+def select_unique_category_clusters(
+    clusters: list[StoryCluster],
+    minimum_evidence_score: float = 0.0,
+    max_culture_stories: int = CATEGORY_LIMITS["culture"],
+) -> dict[str, list[StoryCluster]]:
     # Cross-category duplication is structurally prevented upstream: classify_clusters
     # assigns exactly one category per cluster, so there's no "first category to claim
     # it wins" tiebreak to do here anymore -- just cap each category independently.
-    return {category: top_for_category(clusters, category, limit) for category, limit in CATEGORY_LIMITS.items()}
+    selected = {
+        category: top_for_category(clusters, category, limit)
+        for category, limit in CATEGORY_LIMITS.items()
+        if category != "culture"
+    }
+    selected["culture"] = top_for_culture(
+        clusters,
+        limit=max_culture_stories,
+        minimum_evidence_score=minimum_evidence_score,
+    )
+    return {category: selected[category] for category in CATEGORY_LIMITS}
 
 
 def source_debug_lines(category_clusters: dict[str, list[StoryCluster]]) -> tuple[str, ...]:
@@ -408,7 +615,8 @@ async def build_briefing_result(
     )
 
     draft_candidates = build_draft_candidates(context.category_clusters, context.category_assignments)
-    paragraphs = draft_paragraphs(draft_candidates, openai_mode=mode)
+    capabilities = openai_capabilities(mode)
+    paragraphs = draft_paragraphs(draft_candidates, use_openai=capabilities.draft)
     briefings = build_briefing_sections(paragraphs, config, context.stock_snapshot)
 
     selected = selected_clusters(context.category_clusters)

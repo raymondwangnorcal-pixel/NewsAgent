@@ -65,3 +65,27 @@ def test_load_config_parses_enrichment_and_extraction_policies(tmp_path: Path) -
     assert loaded.max_pages_per_run == 12
     assert loaded.minimum_story_evidence_score == 2.25
     assert loaded.policies == (ExtractionPolicyConfig("example", ("example.com",), "article_text"),)
+
+
+def test_default_config_culture_feeds_have_lanes_and_policies() -> None:
+    config = load_config(DEFAULT_CONFIG_PATH)
+    culture_feeds = [feed for feed in config.feeds if "culture" in feed.categories and feed.source_type != "aggregator"]
+    policy_domains = {domain for policy in config.enrichment.policies for domain in policy.allowed_domains}
+
+    assert all(feed.culture_lane for feed in culture_feeds)
+    assert {"film_tv", "music", "sports", "gaming"}.issubset({feed.culture_lane for feed in culture_feeds})
+    for feed in culture_feeds:
+        domain = feed.url.split("/", 3)[2].removeprefix("www.")
+        assert domain in policy_domains
+
+
+def test_default_config_has_overlapping_film_tv_sources() -> None:
+    config = load_config(DEFAULT_CONFIG_PATH)
+
+    assert sum(feed.culture_lane == "film_tv" for feed in config.feeds) >= 3
+
+
+def test_default_config_hard_limits_culture_to_three_stories() -> None:
+    config = load_config(DEFAULT_CONFIG_PATH)
+
+    assert config.max_culture_stories == 3

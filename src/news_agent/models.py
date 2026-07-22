@@ -6,6 +6,8 @@ from typing import Literal
 
 
 CategoryName = str
+CultureLane = Literal["", "film_tv", "music", "sports", "gaming", "media_creators", "internet_culture"]
+OpenAIMode = Literal["full", "classify-only", "off"]
 EnrichmentStatus = Literal[
     "not_attempted", "feed_content", "extracted", "metadata_only",
     "not_permitted", "blocked", "failed", "too_thin",
@@ -23,6 +25,7 @@ class FeedConfig:
     region: str = "global"
     quality_weight: float = 1.0
     political_leaning: str = ""
+    culture_lane: CultureLane = ""
 
 
 @dataclass(frozen=True)
@@ -50,7 +53,9 @@ class ExtractionPolicyConfig:
 @dataclass(frozen=True)
 class EnrichmentConfig:
     enabled: bool = True
-    max_clusters_per_run: int = 40
+    max_clusters_per_run: int = 60
+    global_cluster_slots: int = 20
+    reserved_clusters_per_category: int = 8
     max_articles_per_cluster: int = 2
     max_pages_per_run: int = 50
     request_timeout_seconds: float = 8.0
@@ -77,6 +82,7 @@ class AgentConfig:
     categories: dict[CategoryName, CategoryConfig]
     lookback_hours: int
     max_articles: int
+    max_culture_stories: int = 6
     formatting: FormattingConfig = field(default_factory=FormattingConfig)
     quality_gate: QualityGateConfig = field(default_factory=QualityGateConfig)
     enrichment: EnrichmentConfig = field(default_factory=EnrichmentConfig)
@@ -98,6 +104,8 @@ class Article:
     reputation: float = 0.7
     feed_categories: tuple[CategoryName, ...] = ()
     feed_source_type: str = "general"
+    feed_culture_lane: CultureLane = ""
+    feed_timestamp_valid: bool = True
     content_quality_penalty: float = 0.0
 
     @property
@@ -115,6 +123,7 @@ class StoryCluster:
     title: str
     articles: list[Article] = field(default_factory=list)
     category: CategoryName = ""
+    culture_lane: CultureLane = ""
     """Set once by the classification stage (news_agent.classify) -- exactly one
     category per cluster, never a keyword-derived score dict. Empty string means
     not yet classified or classified as not fitting any category."""
@@ -184,6 +193,14 @@ class CategoryAssignment:
     category: CategoryName
     rationale: str
     outlier_urls: tuple[str, ...] = ()
+    culture_lane: CultureLane = ""
+
+
+@dataclass(frozen=True)
+class OpenAICapabilities:
+    judge_quality: bool
+    classify: bool
+    draft: bool
 
 
 @dataclass(frozen=True)
@@ -208,6 +225,16 @@ class PipelineDiagnostics:
     llm_drafts: int = 0
     fallback_drafts: int = 0
     fallback_story_ids: tuple[str, ...] = ()
+    fetched_articles_by_feed_hint: dict[str, int] = field(default_factory=dict)
+    preliminary_clusters_by_feed_hint: dict[str, int] = field(default_factory=dict)
+    enrichment_clusters_by_feed_hint: dict[str, int] = field(default_factory=dict)
+    classification_pool_by_feed_hint: dict[str, int] = field(default_factory=dict)
+    history_suppressed_by_feed_hint: dict[str, int] = field(default_factory=dict)
+    insufficient_context_by_feed_hint: dict[str, int] = field(default_factory=dict)
+    classified_clusters_by_category: dict[str, int] = field(default_factory=dict)
+    backfill_candidates_by_category: dict[str, int] = field(default_factory=dict)
+    selected_stories_by_category: dict[str, int] = field(default_factory=dict)
+    underfilled_reason_by_category: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)

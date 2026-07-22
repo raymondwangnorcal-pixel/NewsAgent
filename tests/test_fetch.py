@@ -10,6 +10,7 @@ def feed() -> FeedConfig:
         url="https://example.com/feed",
         reputation=0.7,
         categories=("culture",),
+        culture_lane="internet_culture",
     )
 
 
@@ -60,3 +61,24 @@ def test_parse_feed_reads_nested_atom_xhtml() -> None:
 
     assert "First substantive paragraph" in article.feed_content
     assert "Second contextual paragraph" in article.feed_content
+
+
+def test_parse_feed_copies_culture_lane() -> None:
+    xml = """<rss><channel><item><title>Culture report</title>
+    <link>https://example.com/culture</link><description>A substantive report.</description>
+    </item></channel></rss>"""
+
+    article = parse_feed(xml, feed())[0]
+
+    assert article.feed_culture_lane == "internet_culture"
+    assert article.feed_timestamp_valid is False
+
+
+def test_parse_feed_marks_valid_feed_timestamp() -> None:
+    xml = """<rss><channel><item><title>Timestamped report</title>
+    <link>https://example.com/timestamped</link><description>A report.</description>
+    <pubDate>Tue, 21 Jul 2026 12:00:00 GMT</pubDate></item></channel></rss>"""
+
+    article = parse_feed(xml, feed())[0]
+
+    assert article.feed_timestamp_valid is True

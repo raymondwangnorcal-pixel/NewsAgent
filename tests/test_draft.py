@@ -304,6 +304,17 @@ def test_draft_empty_paragraph_string_falls_back() -> None:
     assert results[0].paragraph.strip() != ""
 
 
+def test_use_openai_false_skips_drafting_even_when_mode_defaults_full(monkeypatch: pytest.MonkeyPatch) -> None:
+    candidate = make_candidate(articles=[make_article(summary="Fallback source detail.")])
+    fake_responses = FakeResponses(error=AssertionError("drafting must be disabled"))
+    install_fake_openai(monkeypatch, fake_responses)
+
+    results = draft_paragraphs([candidate], use_openai=False)
+
+    assert results[0].draft_status == "fallback_disabled"
+    assert fake_responses.calls == []
+
+
 # --- Batching --------------------------------------------------------------------------
 
 

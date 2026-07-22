@@ -13,8 +13,11 @@ def config(policy: str = "article_text") -> EnrichmentConfig:
     )
 
 
-def article(url: str = "https://example.com/story") -> Article:
-    return Article(title="A story", url=url, source="Example", published_at=datetime.now(timezone.utc), summary="Short summary")
+def article(url: str = "https://example.com/story", categories: tuple[str, ...] = ()) -> Article:
+    return Article(
+        title="A story", url=url, source="Example", published_at=datetime.now(timezone.utc),
+        summary="Short summary", feed_categories=categories,
+    )
 
 
 def test_enrich_article_extracts_json_ld_body_when_extractor_unavailable(monkeypatch) -> None:
@@ -72,3 +75,28 @@ def test_enrich_clusters_replaces_original_article_with_enriched_result(monkeypa
 
     assert clusters[0].articles[0].enrichment_status == "extracted"
     assert stats.pages_extracted == 1
+
+
+def test_enrichment_selection_reserves_category_coverage() -> None:
+    config_value = EnrichmentConfig(
+        global_cluster_slots=1,
+        reserved_clusters_per_category=2,
+        max_clusters_per_run=10,
+        policies=config().policies,
+    )
+    finance = [StoryCluster(key=f"f{i}", title="Finance", articles=[article(categories=("finance",))], total_score=20-i) for i in range(3)]
+    culture = [StoryCluster(key=f"c{i}", title="Culture", articles=[article(categories=("culture",))], total_score=10-i) for i in range(2)]
+
+    selected = enrichment.select_enrichment_clusters([*finance, *culture], config_value)
+
+    assert sum("culture" in enrichment._cluster_feed_hints(item) for item in selected) == 2
+
+
+def test_enrichment_scheduler_skips_aggregator_without_spending_budget() -> None:
+    direct = article("https://example.com/direct")
+    aggregator = article("https://news.google.com/rss/articles/abc")
+    story = StoryCluster(key="story", title="Story", articles=[aggregator, direct])
+
+    selected = enrichment.schedule_enrichment_articles([story], config())
+
+    assert [item.url for item in selected] == [direct.url]

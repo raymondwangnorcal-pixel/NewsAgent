@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 
 from news_agent.models import AgentConfig, Article, StoryCluster
-from news_agent.scoring import score_clusters, top_for_category
+from news_agent.scoring import score_clusters, top_for_category, top_for_culture
 from news_agent.cluster import cluster_articles
 from news_agent.skipped_log import skip_reason
 
@@ -159,6 +159,41 @@ def test_single_article_cluster_penalty_equals_article_penalty() -> None:
     scored = score_clusters([cluster], config)
 
     assert scored[0].content_quality_penalty == clear_bad_weight
+
+
+def _culture_story(key: str, source: str, lane: str, score: float, evidence: float = 2.0) -> StoryCluster:
+    story = StoryCluster(
+        key=key,
+        title=key,
+        category="culture",
+        culture_lane=lane,  # type: ignore[arg-type]
+        total_score=score,
+        evidence_score=evidence,
+        articles=[_article(f"https://example.com/{key}", penalty=0.0, source=source)],
+    )
+    return story
+
+
+def test_culture_selector_prefers_lanes_and_hard_caps_source() -> None:
+    stories = [
+        _culture_story("film-1", "Publisher A", "film_tv", 10),
+        _culture_story("film-2", "Publisher A", "film_tv", 9),
+        _culture_story("film-3", "Publisher A", "film_tv", 8),
+        _culture_story("music", "Publisher B", "music", 7),
+        _culture_story("sports", "Publisher C", "sports", 6),
+        _culture_story("gaming", "Publisher D", "gaming", 5),
+    ]
+
+    selected = top_for_culture(stories)
+
+    assert len({story.culture_lane for story in selected}) >= 3
+    assert sum(story.sources[0] == "Publisher A" for story in selected) == 2
+
+
+def test_culture_selector_never_uses_below_threshold_story() -> None:
+    thin = _culture_story("thin", "Publisher", "music", 100, evidence=1.19)
+
+    assert top_for_culture([thin], minimum_evidence_score=1.2) == []
 
 
 def test_one_bad_one_clean_article_moderately_dilutes_penalty() -> None:

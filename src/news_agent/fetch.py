@@ -50,19 +50,23 @@ def _clean_text(value: str | None) -> str:
     return re.sub(r"\s+", " ", value).strip()
 
 
-def _parse_datetime(value: str | None) -> datetime:
+def _parse_datetime_with_validity(value: str | None) -> tuple[datetime, bool]:
     if not value:
-        return datetime.now(timezone.utc)
+        return datetime.now(timezone.utc), False
     try:
         parsed = parsedate_to_datetime(value)
     except (TypeError, ValueError):
         try:
             parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
         except ValueError:
-            return datetime.now(timezone.utc)
+            return datetime.now(timezone.utc), False
     if parsed.tzinfo is None:
-        return parsed.replace(tzinfo=timezone.utc)
-    return parsed.astimezone(timezone.utc)
+        return parsed.replace(tzinfo=timezone.utc), True
+    return parsed.astimezone(timezone.utc), True
+
+
+def _parse_datetime(value: str | None) -> datetime:
+    return _parse_datetime_with_validity(value)[0]
 
 
 def _child_text(node: ET.Element, names: tuple[str, ...]) -> str:
@@ -149,19 +153,22 @@ def parse_feed(xml_text: str, feed: FeedConfig) -> list[Article]:
             node,
             ("pubDate", "published", "updated", f"{ATOM_NS}published", f"{ATOM_NS}updated"),
         )
+        published_at, timestamp_valid = _parse_datetime_with_validity(published_raw)
         if title and url:
             articles.append(
                 Article(
                     title=title,
                     url=url,
                     source=source,
-                    published_at=_parse_datetime(published_raw),
+                    published_at=published_at,
                     summary=summary,
                     feed_content=feed_content,
                     enrichment_status="feed_content" if feed_content else "not_attempted",
                     reputation=feed.reputation,
                     feed_categories=feed.categories,
                     feed_source_type=feed.source_type,
+                    feed_culture_lane=feed.culture_lane,
+                    feed_timestamp_valid=timestamp_valid,
                 )
             )
     return articles

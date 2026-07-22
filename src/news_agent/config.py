@@ -11,6 +11,7 @@ from news_agent.models import (
 
 
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[2] / "config" / "sources.toml"
+ALLOWED_CULTURE_LANES = {"", "film_tv", "music", "sports", "gaming", "media_creators", "internet_culture"}
 
 
 def parse_bool(value: object, default: bool = False) -> bool:
@@ -19,6 +20,20 @@ def parse_bool(value: object, default: bool = False) -> bool:
     if isinstance(value, bool):
         return value
     return str(value).strip().lower() in {"1", "true", "yes", "on"}
+
+
+def parse_culture_lane(value: object) -> str:
+    lane = str(value or "")
+    if lane not in ALLOWED_CULTURE_LANES:
+        raise ValueError(f"Unsupported culture_lane: {lane}")
+    return lane
+
+
+def parse_nonnegative_int(value: object, setting_name: str) -> int:
+    parsed = int(value)
+    if parsed < 0:
+        raise ValueError(f"{setting_name} must be non-negative")
+    return parsed
 
 
 def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
@@ -36,6 +51,7 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
             region=item.get("region", "global"),
             quality_weight=float(item.get("quality_weight", item.get("reputation", 0.7))),
             political_leaning=item.get("political_leaning", ""),
+            culture_lane=parse_culture_lane(item.get("culture_lane", "")),  # type: ignore[arg-type]
         )
         for item in raw.get("feeds", [])
     )
@@ -48,6 +64,10 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
         categories=categories,
         lookback_hours=int(os.getenv("BRIEFING_LOOKBACK_HOURS", settings.get("lookback_hours", 30))),
         max_articles=int(os.getenv("BRIEFING_MAX_ARTICLES", settings.get("max_articles", 240))),
+        max_culture_stories=parse_nonnegative_int(
+            os.getenv("BRIEFING_MAX_CULTURE_STORIES", settings.get("max_culture_stories", 6)),
+            "max_culture_stories",
+        ),
         formatting=FormattingConfig(
             max_chars_per_message_sms=int(
                 os.getenv("BRIEFING_MAX_CHARS_PER_MESSAGE_SMS", settings.get("max_chars_per_message_sms", 1400))
@@ -110,7 +130,9 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
         ),
         enrichment=EnrichmentConfig(
             enabled=parse_bool(enrichment_settings.get("enabled"), default=True),
-            max_clusters_per_run=int(enrichment_settings.get("max_clusters_per_run", 40)),
+            max_clusters_per_run=int(enrichment_settings.get("max_clusters_per_run", 60)),
+            global_cluster_slots=int(enrichment_settings.get("global_cluster_slots", 20)),
+            reserved_clusters_per_category=int(enrichment_settings.get("reserved_clusters_per_category", 8)),
             max_articles_per_cluster=int(enrichment_settings.get("max_articles_per_cluster", 2)),
             max_pages_per_run=int(enrichment_settings.get("max_pages_per_run", 50)),
             request_timeout_seconds=float(enrichment_settings.get("request_timeout_seconds", 8)),

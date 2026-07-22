@@ -1,6 +1,7 @@
 [settings]
 lookback_hours = 30
 max_articles = 240
+max_culture_stories = 3
 max_chars_per_message_sms = 1400
 max_stories_per_category_sms = 5
 max_sources_per_story = 3
@@ -9,7 +10,9 @@ include_links_telegram = false
 
 [enrichment]
 enabled = true
-max_clusters_per_run = 40
+max_clusters_per_run = 60
+global_cluster_slots = 20
+reserved_clusters_per_category = 8
 max_articles_per_cluster = 2
 max_pages_per_run = 50
 request_timeout_seconds = 8
@@ -61,6 +64,26 @@ policy = "article_text"
 [[extraction_policies]]
 id = "variety"
 allowed_domains = ["variety.com"]
+policy = "article_text"
+
+[[extraction_policies]]
+id = "hollywood-reporter"
+allowed_domains = ["hollywoodreporter.com"]
+policy = "article_text"
+
+[[extraction_policies]]
+id = "deadline"
+allowed_domains = ["deadline.com"]
+policy = "article_text"
+
+[[extraction_policies]]
+id = "billboard"
+allowed_domains = ["billboard.com"]
+policy = "article_text"
+
+[[extraction_policies]]
+id = "polygon"
+allowed_domains = ["polygon.com"]
 policy = "article_text"
 
 [[extraction_policies]]
@@ -133,7 +156,8 @@ name = "The Verge"
 url = "https://www.theverge.com/rss/index.xml"
 reputation = 0.8
 categories = ["business_tech", "culture"]
-source_type = "tech"
+source_type = "mixed_tech_culture"
+culture_lane = "gaming"
 region = "U.S."
 quality_weight = 0.8
 
@@ -152,6 +176,7 @@ url = "https://www.espn.com/espn/rss/news"
 reputation = 0.7
 categories = ["culture"]
 source_type = "culture"
+culture_lane = "sports"
 region = "U.S."
 quality_weight = 0.7
 
@@ -161,6 +186,47 @@ url = "https://variety.com/feed/"
 reputation = 0.75
 categories = ["culture"]
 source_type = "culture"
+culture_lane = "film_tv"
+region = "U.S."
+quality_weight = 0.75
+
+[[feeds]]
+name = "The Hollywood Reporter"
+url = "https://www.hollywoodreporter.com/feed/"
+reputation = 0.8
+categories = ["culture"]
+source_type = "culture"
+culture_lane = "film_tv"
+region = "U.S."
+quality_weight = 0.8
+
+[[feeds]]
+name = "Deadline"
+url = "https://deadline.com/feed/"
+reputation = 0.8
+categories = ["culture"]
+source_type = "culture"
+culture_lane = "film_tv"
+region = "U.S."
+quality_weight = 0.8
+
+[[feeds]]
+name = "Billboard"
+url = "https://www.billboard.com/feed/"
+reputation = 0.8
+categories = ["culture"]
+source_type = "culture"
+culture_lane = "music"
+region = "U.S."
+quality_weight = 0.8
+
+[[feeds]]
+name = "Polygon"
+url = "https://www.polygon.com/rss/index.xml"
+reputation = 0.75
+categories = ["culture"]
+source_type = "culture"
+culture_lane = "gaming"
 region = "U.S."
 quality_weight = 0.75
 

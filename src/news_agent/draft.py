@@ -245,6 +245,7 @@ def draft_paragraphs(
     candidates: list[DraftCandidate],
     openai_mode: str = "full",
     model: str | None = None,
+    use_openai: bool | None = None,
 ) -> list[BriefingParagraph]:
     """Single entry point for the drafting stage.
 
@@ -257,7 +258,8 @@ def draft_paragraphs(
         return []
 
     outcome = DraftBatchOutcome({})
-    if openai_mode != "off":
+    enabled = openai_mode != "off" if use_openai is None else use_openai
+    if enabled:
         outcome = _draft_paragraphs_llm(candidates, model)
 
     results: list[BriefingParagraph] = []
@@ -268,7 +270,7 @@ def draft_paragraphs(
             error_code = ""
         else:
             paragraph_text = _extractive_paragraph(candidate)
-            if openai_mode == "off":
+            if not enabled:
                 draft_status = "fallback_disabled"
                 error_code = "openai_disabled"
             elif candidate.story_id in outcome.failed_story_ids:

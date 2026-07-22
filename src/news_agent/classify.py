@@ -9,12 +9,24 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from news_agent.models import CategoryAssignment, CategoryName, StoryCluster
+from news_agent.models import CategoryAssignment, CategoryName, CultureLane, StoryCluster
 
 
 DEFAULT_GUIDELINES_PATH = Path(__file__).resolve().parents[2] / "docs" / "category-guidelines.md"
 DEFAULT_CATEGORY_LOG_DIR = Path("data")
 CATEGORY_NAMES: tuple[CategoryName, ...] = ("business_tech", "domestic", "global", "culture", "finance")
+CULTURE_LANES: tuple[CultureLane, ...] = (
+    "film_tv", "music", "sports", "gaming", "media_creators", "internet_culture",
+)
+SOURCE_TYPE_CATEGORY_PREFERENCES: dict[str, tuple[CategoryName, ...]] = {
+    "business": ("business_tech",),
+    "tech": ("business_tech",),
+    "domestic": ("domestic",),
+    "global": ("global",),
+    "culture": ("culture",),
+    "finance": ("finance",),
+    "mixed_tech_culture": ("business_tech", "culture"),
+}
 CLASSIFY_BATCH_SIZE = 40
 CLUSTER_TEXT_TRUNCATE_CHARS = 600
 ARTICLES_PER_CLUSTER_SAMPLE = 5
@@ -41,8 +53,9 @@ CLASSIFY_SCHEMA: dict[str, Any] = {
                     "category": {"type": "string", "enum": [*CATEGORY_NAMES, ""]},
                     "rationale": {"type": "string"},
                     "outlier_urls": {"type": "array", "items": {"type": "string"}},
+                    "culture_lane": {"type": "string", "enum": ["", *CULTURE_LANES]},
                 },
-                "required": ["cluster_id", "category", "rationale", "outlier_urls"],
+                "required": ["cluster_id", "category", "rationale", "outlier_urls", "culture_lane"],
             },
         }
     },
@@ -68,7 +81,9 @@ def _classify_system_prompt(guidelines: str) -> str:
         "story (for example, two unrelated developments about the same company were grouped "
         "together by mistake), list the URLs of the articles that do not belong in outlier_urls "
         "so they can be excluded before drafting. If a cluster genuinely does not fit any of the "
-        "five categories, return an empty string for category. Give a one-sentence rationale for "
+        "five categories, return an empty string for category. For Culture, return exactly one "
+        f"culture_lane from: {', '.join(CULTURE_LANES)} when supported, otherwise an empty string. "
+        "Return an empty culture_lane for every non-Culture assignment. Give a one-sentence rationale for "
         "every assignment that cites the specific guideline reason, not just the category name."
     )
 
@@ -151,7 +166,8 @@ def _classify_clusters_llm(clusters: list[StoryCluster], model: str | None = Non
             logger.warning("classify: LLM call failed for a chunk of %d clusters", len(chunk), exc_info=True)
             continue
 
-        chunk_keys = {cluster.key for cluster in chunk}
+        chunk_by_key = {cluster.key: cluster for cluster in chunk}
+        chunk_keys = set(chunk_by_key)
         for entry in data.get("assignments", []):
             cluster_id = entry.get("cluster_id")
             category = entry.get("category")
@@ -161,9 +177,28 @@ def _classify_clusters_llm(clusters: list[StoryCluster], model: str | None = Non
                 category=category,
                 rationale=str(entry.get("rationale", "")),
                 outlier_urls=tuple(entry.get("outlier_urls") or ()),
+                culture_lane=_normalize_lane(category, str(entry.get("culture_lane", "")), chunk_by_key[cluster_id]),
             )
 
     return assignments
+
+
+def _fallback_lane(cluster: StoryCluster) -> CultureLane:
+    votes: Counter[str] = Counter(
+        article.feed_culture_lane for article in cluster.articles if article.feed_culture_lane in CULTURE_LANES
+    )
+    if not votes:
+        return ""
+    maximum = max(votes.values())
+    return next(lane for lane in CULTURE_LANES if votes.get(lane, 0) == maximum)
+
+
+def _normalize_lane(category: str, lane: str, cluster: StoryCluster) -> CultureLane:
+    if category != "culture":
+        return ""
+    if lane in CULTURE_LANES:
+        return lane  # type: ignore[return-value]
+    return _fallback_lane(cluster)
 
 
 def classify_clusters_fallback(clusters: list[StoryCluster]) -> dict[str, CategoryAssignment]:
@@ -175,15 +210,31 @@ def classify_clusters_fallback(clusters: list[StoryCluster]) -> dict[str, Catego
     visible rather than a silent equal-quality substitute.
     """
     results: dict[str, CategoryAssignment] = {}
+    assignment_counts: Counter[str] = Counter()
+    category_order = {category: index for index, category in enumerate(CATEGORY_NAMES)}
     for cluster in clusters:
         votes: Counter[str] = Counter()
         for article in cluster.articles:
             votes.update(article.feed_categories)
         if votes:
-            category, _count = votes.most_common(1)[0]
+            maximum = max(votes.values())
+            tied = [category for category in CATEGORY_NAMES if votes.get(category, 0) == maximum]
+            source_preferences: Counter[str] = Counter()
+            for article in cluster.articles:
+                for category in SOURCE_TYPE_CATEGORY_PREFERENCES.get(article.feed_source_type, ()):
+                    if category in tied:
+                        source_preferences[category] += 1
+            if source_preferences:
+                preferred_max = max(source_preferences.values())
+                preferred = [category for category in tied if source_preferences.get(category, 0) == preferred_max]
+                if preferred:
+                    tied = preferred
+            category = min(tied, key=lambda item: (assignment_counts[item], category_order[item]))
+            assignment_counts[category] += 1
             results[cluster.key] = CategoryAssignment(
                 category=category,
                 rationale="degraded mode: feed-tag heuristic (OpenAI unavailable), not guideline-reviewed",
+                culture_lane=_fallback_lane(cluster) if category == "culture" else "",
             )
         else:
             results[cluster.key] = CategoryAssignment(
@@ -197,6 +248,7 @@ def classify_clusters(
     clusters: list[StoryCluster],
     openai_mode: str = "full",
     model: str | None = None,
+    use_openai: bool | None = None,
 ) -> dict[str, CategoryAssignment]:
     """Single entry point for the classification stage.
 
@@ -209,7 +261,8 @@ def classify_clusters(
     if not clusters:
         return {}
 
-    if openai_mode == "off":
+    enabled = openai_mode != "off" if use_openai is None else use_openai
+    if not enabled:
         return classify_clusters_fallback(clusters)
 
     assignments = _classify_clusters_llm(clusters, model)
@@ -236,6 +289,7 @@ def write_category_assignments(
             "category": assignment.category,
             "rationale": assignment.rationale,
             "outlier_urls": list(assignment.outlier_urls),
+            "culture_lane": assignment.culture_lane,
         }
         for cluster_id, assignment in assignments.items()
     ]

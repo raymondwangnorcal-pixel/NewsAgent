@@ -8,6 +8,7 @@ import socket
 import urllib.error
 import urllib.parse
 import urllib.request
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, replace
 from html.parser import HTMLParser
@@ -16,6 +17,7 @@ from typing import Callable
 from news_agent.evidence import rank_articles_by_evidence
 from news_agent.fetch import USER_AGENT, _ssl_context
 from news_agent.models import Article, EnrichmentConfig, EnrichmentStatus, ExtractionPolicyConfig, StoryCluster
+from news_agent.classify import CATEGORY_NAMES
 
 
 logger = logging.getLogger(__name__)
@@ -246,16 +248,8 @@ def enrich_clusters(
     if not config.enabled:
         return clusters, EnrichmentStats()
     attempts = extracted = blocked = failed = 0
-    selected: list[Article] = []
-    for cluster in clusters[: config.max_clusters_per_run]:
-        ranked = rank_articles_by_evidence(cluster.articles)
-        for article in ranked[: config.max_articles_per_cluster]:
-            if len(selected) >= config.max_pages_per_run:
-                break
-            if policy_for_url(article.url, config) is None and _hostname(article.url) not in AGGREGATOR_DOMAINS:
-                continue
-            if article.url not in {item.url for item in selected}:
-                selected.append(article)
+    selected_clusters = select_enrichment_clusters(clusters, config)
+    selected = schedule_enrichment_articles(selected_clusters, config)
 
     enriched_by_url: dict[str, Article] = {}
     attempts = len(selected)
@@ -271,3 +265,64 @@ def enrich_clusters(
     for cluster in clusters:
         cluster.articles = [enriched_by_url.get(article.url, article) for article in cluster.articles]
     return clusters, EnrichmentStats(attempts, extracted, blocked, failed)
+
+
+def _cluster_feed_hints(cluster: StoryCluster) -> tuple[str, ...]:
+    values = {category for article in cluster.articles for category in article.feed_categories}
+    return tuple(category for category in CATEGORY_NAMES if category in values)
+
+
+def select_enrichment_clusters(clusters: list[StoryCluster], config: EnrichmentConfig) -> list[StoryCluster]:
+    ranked = sorted(clusters, key=lambda item: item.total_score, reverse=True)
+    selected = ranked[: config.global_cluster_slots]
+    selected_ids = {id(cluster) for cluster in selected}
+    coverage = Counter(category for cluster in selected for category in _cluster_feed_hints(cluster))
+    queues = {
+        category: [cluster for cluster in ranked if id(cluster) not in selected_ids and category in _cluster_feed_hints(cluster)]
+        for category in CATEGORY_NAMES
+    }
+    positions = {category: 0 for category in CATEGORY_NAMES}
+    while len(selected) < config.max_clusters_per_run:
+        progressed = False
+        for category in CATEGORY_NAMES:
+            if coverage[category] >= config.reserved_clusters_per_category:
+                continue
+            queue = queues[category]
+            while positions[category] < len(queue) and id(queue[positions[category]]) in selected_ids:
+                positions[category] += 1
+            if positions[category] >= len(queue):
+                continue
+            cluster = queue[positions[category]]
+            positions[category] += 1
+            selected.append(cluster)
+            selected_ids.add(id(cluster))
+            coverage.update(_cluster_feed_hints(cluster))
+            progressed = True
+            if len(selected) >= config.max_clusters_per_run:
+                break
+        if not progressed:
+            break
+    return selected
+
+
+def schedule_enrichment_articles(clusters: list[StoryCluster], config: EnrichmentConfig) -> list[Article]:
+    selected: list[Article] = []
+    selected_urls: set[str] = set()
+    ranked_by_cluster = [rank_articles_by_evidence(cluster.articles) for cluster in clusters]
+    for article_index in range(config.max_articles_per_cluster):
+        for ranked in ranked_by_cluster:
+            permitted = [
+                article for article in ranked
+                if _hostname(article.url) not in AGGREGATOR_DOMAINS
+                and (policy := policy_for_url(article.url, config)) is not None
+                and policy.policy != "disabled"
+            ]
+            if article_index >= len(permitted):
+                continue
+            article = permitted[article_index]
+            if article.url not in selected_urls:
+                selected.append(article)
+                selected_urls.add(article.url)
+            if len(selected) >= config.max_pages_per_run:
+                return selected
+    return selected

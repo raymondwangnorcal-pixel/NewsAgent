@@ -120,3 +120,60 @@ def top_for_category(clusters: list[StoryCluster], category: str, limit: int) ->
             break
         selected.append(cluster)
     return selected
+
+
+def top_for_culture(
+    clusters: list[StoryCluster],
+    limit: int = 6,
+    minimum: int = 4,
+    minimum_evidence_score: float = 1.2,
+) -> list[StoryCluster]:
+    """Select substantive Culture highlights with hard publisher/lane caps."""
+    eligible = sorted(
+        (
+            cluster for cluster in clusters
+            if cluster.category == "culture"
+            and not cluster.skip_reason
+            and cluster.evidence_score >= minimum_evidence_score
+        ),
+        key=lambda item: item.total_score,
+        reverse=True,
+    )
+    selected: list[StoryCluster] = []
+    selected_ids: set[int] = set()
+    source_counts: dict[str, int] = {}
+    lane_counts: dict[str, int] = {}
+
+    def add(cluster: StoryCluster, lane_cap: int) -> bool:
+        source = cluster.sources[0] if cluster.sources else "unknown"
+        lane = cluster.culture_lane
+        if source_counts.get(source, 0) >= 2 or lane_counts.get(lane, 0) >= lane_cap:
+            return False
+        selected.append(cluster)
+        selected_ids.add(id(cluster))
+        source_counts[source] = source_counts.get(source, 0) + 1
+        lane_counts[lane] = lane_counts.get(lane, 0) + 1
+        return True
+
+    # Diversity first: at most one story from each known lane.
+    for cluster in eligible:
+        if len(selected) >= limit:
+            break
+        if cluster.culture_lane and lane_counts.get(cluster.culture_lane, 0) == 0:
+            add(cluster, lane_cap=1)
+
+    # Balanced fill keeps the preferred two-per-lane limit.
+    for cluster in eligible:
+        if len(selected) >= limit:
+            break
+        if id(cluster) not in selected_ids:
+            add(cluster, lane_cap=2)
+
+    # Only to reach the minimum, relax the lane preference to the hard cap of 3.
+    if len(selected) < minimum:
+        for cluster in eligible:
+            if len(selected) >= min(minimum, limit):
+                break
+            if id(cluster) not in selected_ids:
+                add(cluster, lane_cap=3)
+    return selected

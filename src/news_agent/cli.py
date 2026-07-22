@@ -58,11 +58,11 @@ def main(argv: list[str] | None = None) -> None:
     )
     parser.add_argument(
         "--openai-mode",
-        choices=("full", "off"),
+        choices=("full", "classify-only", "off"),
         default="full",
         help=(
-            "Choose OpenAI usage: full drafts paragraphs and classifies categories with the "
-            "LLM, off uses only deterministic extractive fallbacks for both."
+            "Choose OpenAI usage: full judges/classifies/drafts; classify-only judges and "
+            "classifies but uses extractive drafts; off makes no OpenAI calls."
         ),
     )
     parser.add_argument(
@@ -70,7 +70,15 @@ def main(argv: list[str] | None = None) -> None:
         action="store_true",
         help="Alias for --openai-mode off.",
     )
+    parser.add_argument(
+        "--no-openai-drafting",
+        action="store_true",
+        help="Alias for --openai-mode classify-only.",
+    )
     args = parser.parse_args(argv)
+
+    if args.no_openai and args.no_openai_drafting:
+        parser.error("--no-openai and --no-openai-drafting cannot be used together")
 
     if args.test_telegram:
         try:
@@ -122,7 +130,9 @@ def main(argv: list[str] | None = None) -> None:
         print(f"Sent {sent_count} alert message(s).")
         return
 
-    openai_mode: OpenAIMode = "off" if args.no_openai else args.openai_mode
+    openai_mode: OpenAIMode = (
+        "off" if args.no_openai else "classify-only" if args.no_openai_drafting else args.openai_mode
+    )
     result = build_briefing_result_sync(
         openai_mode=openai_mode,
         config=config,
@@ -195,6 +205,24 @@ def print_diagnostics(diagnostics: object) -> None:
     print(f"Pages failed/thin: {getattr(diagnostics, 'pages_failed', 0)}")
     print(f"LLM drafts: {getattr(diagnostics, 'llm_drafts', 0)}")
     print(f"Fallback drafts: {getattr(diagnostics, 'fallback_drafts', 0)}")
+    print("Feed-hint pipeline")
+    for field_name in (
+        "fetched_articles_by_feed_hint",
+        "preliminary_clusters_by_feed_hint",
+        "enrichment_clusters_by_feed_hint",
+        "classification_pool_by_feed_hint",
+        "history_suppressed_by_feed_hint",
+        "insufficient_context_by_feed_hint",
+    ):
+        print(f"{field_name}: {getattr(diagnostics, field_name, {})}")
+    print("Classified results")
+    for field_name in (
+        "classified_clusters_by_category",
+        "backfill_candidates_by_category",
+        "selected_stories_by_category",
+        "underfilled_reason_by_category",
+    ):
+        print(f"{field_name}: {getattr(diagnostics, field_name, {})}")
 
 
 def print_quality_gate_rejections(quality_gate_rejections: object) -> None:

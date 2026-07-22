@@ -9,6 +9,7 @@ import pytest
 
 from news_agent.classify import (
     CATEGORY_NAMES,
+    CLASSIFY_SCHEMA,
     classify_clusters,
     classify_clusters_fallback,
     default_category_assignments_path,
@@ -25,6 +26,8 @@ def make_article(
     url: str = "https://example.com/story",
     source: str = "Example News",
     feed_categories: tuple[str, ...] = (),
+    feed_source_type: str = "general",
+    feed_culture_lane: str = "",
 ) -> Article:
     return Article(
         title=title,
@@ -33,6 +36,8 @@ def make_article(
         published_at=datetime.now(timezone.utc),
         summary=summary,
         feed_categories=feed_categories,
+        feed_source_type=feed_source_type,
+        feed_culture_lane=feed_culture_lane,
     )
 
 
@@ -563,7 +568,10 @@ def test_write_category_assignments_creates_parent_dirs(tmp_path: Path) -> None:
 
     assert nested_path.exists()
     data = json.loads(nested_path.read_text(encoding="utf-8"))
-    assert data == [{"cluster_id": "story-1", "category": "finance", "rationale": "test", "outlier_urls": []}]
+    assert data == [{
+        "cluster_id": "story-1", "category": "finance", "culture_lane": "",
+        "rationale": "test", "outlier_urls": [],
+    }]
 
 
 def test_default_category_assignments_path_uses_todays_date() -> None:
@@ -575,3 +583,42 @@ def test_default_category_assignments_path_uses_todays_date() -> None:
 
 def test_category_names_has_exactly_five_categories() -> None:
     assert len(CATEGORY_NAMES) == 5
+
+
+def test_fallback_source_type_breaks_equal_feed_vote() -> None:
+    story = make_cluster("tie", "A story", [
+        make_article(feed_categories=("business_tech", "culture"), feed_source_type="culture"),
+    ])
+
+    result = classify_clusters_fallback([story])
+
+    assert result["tie"].category == "culture"
+
+
+def test_fallback_balance_breaks_only_remaining_true_tie() -> None:
+    stories = [
+        make_cluster(f"tie-{index}", f"Story {index}", [
+            make_article(feed_categories=("business_tech", "culture"), feed_source_type="mixed_tech_culture")
+        ])
+        for index in range(2)
+    ]
+
+    result = classify_clusters_fallback(stories)
+
+    assert [result[story.key].category for story in stories] == ["business_tech", "culture"]
+
+
+def test_fallback_lane_uses_feed_lane_vote() -> None:
+    story = make_cluster("lane", "A film", [
+        make_article(feed_categories=("culture",), feed_source_type="culture", feed_culture_lane="film_tv")
+    ])
+
+    result = classify_clusters_fallback([story])
+
+    assert result["lane"].culture_lane == "film_tv"
+
+
+def test_strict_classifier_schema_requires_lane_for_every_assignment() -> None:
+    item_schema = CLASSIFY_SCHEMA["properties"]["assignments"]["items"]
+
+    assert "culture_lane" in item_schema["required"]

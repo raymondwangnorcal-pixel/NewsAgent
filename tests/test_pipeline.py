@@ -48,6 +48,21 @@ def make_article(
     )
 
 
+def hinted_cluster(key: str, category: str, score: float, evidence: float = 2.0) -> StoryCluster:
+    story = cluster(key, key, total_score=score)
+    story.evidence_score = evidence
+    story.articles = [Article(
+        title=key,
+        url=f"https://example.com/{key}",
+        source="Example",
+        published_at=datetime.now(timezone.utc),
+        summary="A substantive summary with enough facts and context for classification.",
+        feed_categories=(category,),
+        evidence_score=evidence,
+    )]
+    return story
+
+
 def _patch_fetch_and_stock(monkeypatch: pytest.MonkeyPatch, articles: list[Article]) -> None:
     async def fake_fetch_all_feeds(*args: object, **kwargs: object) -> list[Article]:
         return articles
@@ -81,6 +96,51 @@ def test_select_classification_candidates_excludes_skipped_clusters() -> None:
     candidates = pipeline.select_classification_candidates([keep, skipped], pool_size=50)
 
     assert candidates == [keep]
+
+
+def test_cluster_feed_hints_uses_union_and_canonical_order() -> None:
+    story = hinted_cluster("dual", "culture", 10)
+    story.articles.append(Article(
+        title="dual", url="https://example.com/dual-2", source="Other",
+        published_at=datetime.now(timezone.utc), feed_categories=("business_tech",),
+    ))
+
+    assert pipeline.cluster_feed_hints(story) == ("business_tech", "culture")
+
+
+def test_classification_pool_reserves_evidence_qualified_culture_candidates() -> None:
+    finance = [hinted_cluster(f"finance-{i}", "finance", 200 - i) for i in range(40)]
+    culture = [hinted_cluster(f"culture-{i}", "culture", 100 - i) for i in range(12)]
+    thin = hinted_cluster("culture-thin", "culture", 500, evidence=0.5)
+
+    selected = pipeline.select_classification_candidates(
+        [thin, *finance, *culture], minimum_evidence_score=1.2,
+    )
+
+    assert sum("culture" in pipeline.cluster_feed_hints(item) for item in selected) == 10
+    assert thin not in selected
+
+
+def test_openai_capability_matrix() -> None:
+    assert pipeline.openai_capabilities("full") == pipeline.OpenAICapabilities(True, True, True)
+    assert pipeline.openai_capabilities("classify-only") == pipeline.OpenAICapabilities(True, True, False)
+    assert pipeline.openai_capabilities("off") == pipeline.OpenAICapabilities(False, False, False)
+
+
+def test_backfill_uses_matching_hints_and_deduplicates() -> None:
+    initial = [hinted_cluster("initial", "finance", 10)]
+    dual = hinted_cluster("dual-backfill", "culture", 9)
+    dual.articles[0] = Article(
+        title="dual", url="https://example.com/dual", source="Example",
+        published_at=datetime.now(timezone.utc), summary="Substantive reporting.",
+        feed_categories=("culture", "business_tech"), evidence_score=2.0,
+    )
+
+    result = pipeline.select_backfill_candidates(
+        [*initial, dual], initial, ["business_tech", "culture"], 1.2,
+    )
+
+    assert result == [dual]
 
 
 # --- Category assignment application ----------------------------------------------
@@ -139,6 +199,45 @@ def test_select_unique_category_clusters_respects_per_category_limit() -> None:
     selected = pipeline.select_unique_category_clusters(clusters)
 
     assert len(selected["finance"]) == pipeline.CATEGORY_LIMITS["finance"]
+
+
+def test_select_unique_category_clusters_hard_limits_culture_to_configured_count() -> None:
+    lanes = ("film_tv", "music", "sports", "gaming")
+    clusters = []
+    for index, lane in enumerate(lanes):
+        story = hinted_cluster(f"culture-{index}", "culture", 10 - index)
+        story.category = "culture"
+        story.culture_lane = lane  # type: ignore[assignment]
+        story.articles[0] = Article(
+            title=story.title,
+            url=f"https://example.com/culture-{index}",
+            source=f"Publisher {index}",
+            published_at=datetime.now(timezone.utc),
+            summary="A substantive culture story with enough verified context to publish.",
+            feed_categories=("culture",),
+            evidence_score=2.0,
+        )
+        clusters.append(story)
+
+    selected = pipeline.select_unique_category_clusters(
+        clusters,
+        minimum_evidence_score=1.2,
+        max_culture_stories=3,
+    )
+
+    assert len(selected["culture"]) == 3
+
+
+def test_three_culture_stories_are_not_underfilled_when_the_hard_limit_is_three() -> None:
+    selected = {category: [] for category in pipeline.CATEGORY_LIMITS}
+    selected["culture"] = [cluster(f"culture-{index}", f"Culture {index}") for index in range(3)]
+
+    assert pipeline.underfilled_categories(selected, max_culture_stories=3) == [
+        "business_tech",
+        "domestic",
+        "global",
+        "finance",
+    ]
 
 
 def test_selected_clusters_deduplicates_by_story_identity() -> None:
@@ -336,9 +435,10 @@ def test_collect_pipeline_context_off_mode_never_calls_classify_llm(
         )
     )
 
-    # off mode -> classify_clusters_fallback only, every cluster gets *some*
-    # assignment (possibly "" if no feed-tag signal), never a crash.
-    assert len(context.category_assignments) == len(context.all_clusters)
+    # Evidence filtering now precedes classification, so this thin cluster never
+    # consumes a classification slot in off mode.
+    assert context.category_assignments == {}
+    assert context.all_clusters[0].skip_reason == "insufficient story context"
 
 
 def test_collect_pipeline_context_writes_category_assignments_log(
@@ -381,7 +481,7 @@ def test_collect_pipeline_context_applies_llm_verdicts_to_ambiguous_articles(
         return {thin_article.url: "good"}
 
     monkeypatch.setattr(pipeline, "judge_ambiguous_articles", fake_judge)
-    monkeypatch.setattr(pipeline, "classify_clusters", lambda candidates, openai_mode: {})
+    monkeypatch.setattr(pipeline, "classify_clusters", lambda candidates, **kwargs: {})
 
     context = asyncio.run(
         pipeline.collect_pipeline_context(
