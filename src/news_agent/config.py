@@ -5,8 +5,9 @@ import tomllib
 from pathlib import Path
 
 from news_agent.models import (
-    AgentConfig, CategoryConfig, EnrichmentConfig, ExtractionPolicyConfig,
-    FeedConfig, FormattingConfig, QualityGateConfig,
+    AgentConfig, CategoryConfig, CategorySelectionLimit, DEFAULT_CATEGORY_FETCH_RESERVES,
+    DEFAULT_CATEGORY_SELECTION_LIMITS, EnrichmentConfig, ExtractionPolicyConfig, FeedConfig,
+    FormattingConfig, ImportanceConfig, QualityGateConfig,
 )
 
 
@@ -41,6 +42,10 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
     settings = raw.get("settings", {})
     quality_gate_settings = raw.get("quality_gate", {})
     enrichment_settings = raw.get("enrichment", {})
+    fetch_reserve_settings = raw.get("fetch_reserves", DEFAULT_CATEGORY_FETCH_RESERVES)
+    importance_settings = raw.get("importance", {})
+    selection_settings = raw.get("selection", {})
+    selection_limit_settings = raw.get("selection_limits", {})
     feeds = tuple(
         FeedConfig(
             name=item["name"],
@@ -59,15 +64,70 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
         name: CategoryConfig(name=name, label=item["label"])
         for name, item in raw.get("categories", {}).items()
     }
+    max_articles = int(os.getenv("BRIEFING_MAX_ARTICLES", settings.get("max_articles", 240)))
+    category_fetch_reserves = {
+        category: parse_nonnegative_int(fetch_reserve_settings.get(category, 0), f"fetch_reserves.{category}")
+        for category in DEFAULT_CATEGORY_FETCH_RESERVES
+    }
+    if sum(category_fetch_reserves.values()) > max_articles:
+        raise ValueError("category fetch reserves cannot exceed max_articles")
+    importance = ImportanceConfig(
+        enabled=parse_bool(importance_settings.get("enabled"), default=True),
+        logistic_midpoint=float(importance_settings.get("logistic_midpoint", 12.0)),
+        logistic_steepness=float(importance_settings.get("logistic_steepness", 0.30)),
+        llm_weight=float(importance_settings.get("llm_weight", 0.65)),
+        clamp_down=float(importance_settings.get("clamp_down", 25.0)),
+        clamp_up=float(importance_settings.get("clamp_up", 100.0)),
+        deck_target=int(importance_settings.get("deck_target", 25)),
+        big_day_importance_threshold=float(importance_settings.get("big_day_importance_threshold", 70.0)),
+        big_day_requires_corroboration=parse_bool(
+            importance_settings.get("big_day_requires_corroboration"), default=True
+        ),
+        calibration_version=str(
+            importance_settings.get("calibration_version", "total-score-v1-2026-07-21")
+        ),
+    )
+    limits = {
+        category: CategorySelectionLimit(
+            floor=int(selection_limit_settings.get(category, {}).get("floor", default.floor)),
+            ceiling=int(selection_limit_settings.get(category, {}).get("ceiling", default.ceiling)),
+            big_day_max=int(selection_limit_settings.get(category, {}).get("big_day_max", default.big_day_max)),
+        )
+        for category, default in DEFAULT_CATEGORY_SELECTION_LIMITS.items()
+    }
+    if set(selection_limit_settings) not in (set(), set(DEFAULT_CATEGORY_SELECTION_LIMITS)):
+        raise ValueError("selection_limits must contain exactly the configured categories")
+    if importance.logistic_steepness <= 0:
+        raise ValueError("importance.logistic_steepness must be positive")
+    if not 0 <= importance.llm_weight <= 1:
+        raise ValueError("importance.llm_weight must be between 0 and 1")
+    if not 0 <= importance.clamp_down <= 100 or not 0 <= importance.clamp_up <= 100:
+        raise ValueError("importance clamps must be between 0 and 100")
+    if not 0 <= importance.big_day_importance_threshold <= 100:
+        raise ValueError("importance.big_day_importance_threshold must be between 0 and 100")
+    if importance.deck_target < 1:
+        raise ValueError("importance.deck_target must be positive")
+    for category, limit in limits.items():
+        if limit.floor < 0 or not limit.floor <= limit.ceiling <= limit.big_day_max:
+            raise ValueError(f"invalid selection limits for {category}")
+    if sum(limit.floor for limit in limits.values()) > importance.deck_target:
+        raise ValueError("selection floors cannot exceed deck target")
+    if importance.deck_target > sum(limit.ceiling for limit in limits.values()):
+        raise ValueError("deck target cannot exceed normal category ceiling capacity")
+    max_per_source = int(selection_settings.get("max_per_source_per_category", 2))
+    big_day_source_cap = int(selection_settings.get("big_day_source_cap", 3))
+    if max_per_source < 1 or big_day_source_cap < max_per_source:
+        raise ValueError("selection source caps are invalid")
     return AgentConfig(
         feeds=feeds,
         categories=categories,
         lookback_hours=int(os.getenv("BRIEFING_LOOKBACK_HOURS", settings.get("lookback_hours", 30))),
-        max_articles=int(os.getenv("BRIEFING_MAX_ARTICLES", settings.get("max_articles", 240))),
-        max_culture_stories=parse_nonnegative_int(
-            os.getenv("BRIEFING_MAX_CULTURE_STORIES", settings.get("max_culture_stories", 6)),
-            "max_culture_stories",
-        ),
+        max_articles=max_articles,
+        category_fetch_reserves=category_fetch_reserves,
+        importance=importance,
+        category_selection_limits=limits,
+        max_per_source_per_category=max_per_source,
+        big_day_source_cap=big_day_source_cap,
         formatting=FormattingConfig(
             max_chars_per_message_sms=int(
                 os.getenv("BRIEFING_MAX_CHARS_PER_MESSAGE_SMS", settings.get("max_chars_per_message_sms", 1400))

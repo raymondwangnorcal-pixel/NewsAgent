@@ -85,6 +85,8 @@ def install_fake_openai(monkeypatch: pytest.MonkeyPatch, fake_responses: FakeRes
 
 
 def assignment_payload(entries: list[dict]) -> str:
+    for entry in entries:
+        entry.setdefault("importance", 50)
     return json.dumps({"assignments": entries})
 
 
@@ -570,7 +572,7 @@ def test_write_category_assignments_creates_parent_dirs(tmp_path: Path) -> None:
     data = json.loads(nested_path.read_text(encoding="utf-8"))
     assert data == [{
         "cluster_id": "story-1", "category": "finance", "culture_lane": "",
-        "rationale": "test", "outlier_urls": [],
+        "rationale": "test", "outlier_urls": [], "llm_importance": None,
     }]
 
 
@@ -616,9 +618,14 @@ def test_fallback_lane_uses_feed_lane_vote() -> None:
     result = classify_clusters_fallback([story])
 
     assert result["lane"].culture_lane == "film_tv"
+    assert result["lane"].llm_importance is None
 
 
-def test_strict_classifier_schema_requires_lane_for_every_assignment() -> None:
+def test_strict_classifier_schema_requires_lane_and_bounded_importance() -> None:
     item_schema = CLASSIFY_SCHEMA["properties"]["assignments"]["items"]
 
     assert "culture_lane" in item_schema["required"]
+    assert "importance" in item_schema["required"]
+    assert item_schema["properties"]["importance"] == {
+        "type": "integer", "minimum": 0, "maximum": 100,
+    }

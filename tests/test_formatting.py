@@ -168,6 +168,37 @@ def test_sms_story_limit_caps_visible_stories() -> None:
     assert message.omitted_count == 5
 
 
+def test_sms_truncation_drops_lowest_importance_story_first() -> None:
+    paragraphs = (
+        paragraph(story_id="high", text="HIGH importance story stays first."),
+        paragraph(story_id="middle", text="MIDDLE importance story stays second."),
+        paragraph(story_id="low", text="LOW importance story " + "adds detail " * 40 + "at the tail."),
+    )
+    options = FormatOptions(mode="sms", max_stories_per_category_sms=6, max_chars_per_message_sms=180)
+
+    message = format_category_message(section(paragraphs=paragraphs), options=options)
+
+    assert message.omitted_count == 1
+    assert "HIGH importance" in message.text
+    assert "MIDDLE importance" in message.text
+    assert "LOW importance" not in message.text
+    assert message.text.index("HIGH importance") < message.text.index("MIDDLE importance")
+
+
+def test_all_channels_share_presentation_order() -> None:
+    paragraphs = (
+        paragraph(story_id="high", text="HIGH importance story."),
+        paragraph(story_id="middle", text="MIDDLE importance story."),
+        paragraph(story_id="low", text="LOW importance story."),
+    )
+    briefing = section(paragraphs=paragraphs)
+
+    for mode in ("sms", "telegram", "console"):
+        options = FormatOptions(mode=mode, max_chars_per_message_sms=4000, max_stories_per_category_sms=6)
+        text = format_category_message(briefing, options=options).text
+        assert text.index("HIGH importance") < text.index("MIDDLE importance") < text.index("LOW importance")
+
+
 # --- Empty category ------------------------------------------------------------------------
 
 

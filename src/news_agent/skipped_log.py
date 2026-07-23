@@ -17,6 +17,7 @@ class SkippedStory:
     headline: str
     category_candidate: str
     score: float
+    importance: float
     reason_skipped: str
     source_names: tuple[str, ...]
     url: str
@@ -72,6 +73,7 @@ def build_skipped_stories(
                 headline=cluster.title,
                 category_candidate=category,
                 score=round(cluster.total_score, 2),
+                importance=round(cluster.importance, 2),
                 reason_skipped=reason,
                 source_names=tuple(cluster.sources),
                 url=cluster.urls[0] if cluster.urls else "",
@@ -79,7 +81,7 @@ def build_skipped_stories(
                 watchlist_match=cluster.watchlist_matches,
             )
         )
-    skipped.sort(key=lambda item: item.score, reverse=True)
+    skipped.sort(key=lambda item: (item.importance, item.score), reverse=True)
     return skipped
 
 
@@ -91,6 +93,7 @@ def write_skipped_log(skipped: list[SkippedStory], path: Path | None = None) -> 
             "headline": item.headline,
             "category_candidate": item.category_candidate,
             "score": item.score,
+            "importance": item.importance,
             "reason_skipped": item.reason_skipped,
             "source_names": list(item.source_names),
             "url": item.url,
@@ -106,10 +109,11 @@ def write_skipped_log(skipped: list[SkippedStory], path: Path | None = None) -> 
 def format_skipped_table(skipped: list[SkippedStory], limit: int = 20) -> str:
     if not skipped:
         return "No skipped stories logged."
-    lines = ["Skipped stories", "score | category | reason | headline | watchlist"]
+    lines = ["Skipped stories", "score | category | reason | headline | importance | watchlist"]
     for item in skipped[:limit]:
         watchlist = ", ".join(item.watchlist_match) if item.watchlist_match else "-"
         lines.append(
-            f"{item.score:.2f} | {item.category_candidate} | {item.reason_skipped} | {item.headline} | {watchlist}"
+            f"{item.score:.2f} | {item.category_candidate} | {item.reason_skipped} | "
+            f"{item.headline} | {item.importance:.2f} | {watchlist}"
         )
     return "\n".join(lines)

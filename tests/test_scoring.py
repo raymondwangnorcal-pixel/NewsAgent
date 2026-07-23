@@ -2,8 +2,16 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from news_agent.models import AgentConfig, Article, StoryCluster
-from news_agent.scoring import score_clusters, top_for_category, top_for_culture
+from news_agent.models import AgentConfig, Article, CategoryAssignment, ImportanceConfig, StoryCluster
+from news_agent.scoring import (
+    CultureSelectionState,
+    SourceCapState,
+    apply_importance,
+    can_add_culture,
+    importance_from_total_score,
+    record_culture_selection,
+    score_clusters,
+)
 from news_agent.cluster import cluster_articles
 from news_agent.skipped_log import skip_reason
 
@@ -27,44 +35,6 @@ def _article(url: str, *, penalty: float, source: str = "Some Source") -> Articl
         reputation=0.8,
         content_quality_penalty=penalty,
     )
-
-
-def test_top_for_category_selects_by_assigned_category_not_score() -> None:
-    # Category assignment now happens once, upstream, via news_agent.classify --
-    # score_clusters no longer computes any per-category score at all.
-    config = _basic_config()
-    finance_cluster = cluster_articles(
-        [
-            Article(
-                title="Fed decision lifts stocks as inflation cools",
-                url="https://example.com/fed",
-                source="Reuters",
-                published_at=datetime.now(timezone.utc),
-                summary="Investors expect interest rate cuts after new inflation data.",
-                reputation=1.0,
-            )
-        ]
-    )[0]
-    culture_cluster = cluster_articles(
-        [
-            Article(
-                title="A major film breaks box-office records",
-                url="https://example.com/film",
-                source="Variety",
-                published_at=datetime.now(timezone.utc),
-                summary="The film topped the weekend box office by a wide margin.",
-                reputation=1.0,
-            )
-        ]
-    )[0]
-    finance_cluster.category = "finance"
-    culture_cluster.category = "culture"
-
-    clusters = score_clusters([finance_cluster, culture_cluster], config)
-
-    assert top_for_category(clusters, "finance", 1)[0].title == "Fed decision lifts stocks as inflation cools"
-    assert top_for_category(clusters, "culture", 1)[0].title == "A major film breaks box-office records"
-    assert not any(c.category == "finance" for c in top_for_category(clusters, "culture", 5))
 
 
 def test_high_quality_confirmation_beats_low_quality_repetition() -> None:
@@ -110,43 +80,6 @@ def test_high_quality_confirmation_beats_low_quality_repetition() -> None:
     assert "Supreme Court" in clusters[0].title or "Federal policy" in clusters[0].title
 
 
-def test_top_for_category_limits_single_source_overrepresentation() -> None:
-    config = _basic_config()
-    clusters = []
-    for index in range(4):
-        item = cluster_articles(
-            [
-                Article(
-                    title=f"Market story {index}",
-                    url=f"https://example.com/{index}",
-                    source="Same Source",
-                    published_at=datetime.now(timezone.utc),
-                    reputation=0.8,
-                )
-            ]
-        )[0]
-        item.category = "finance"
-        clusters.append(item)
-    diverse = cluster_articles(
-        [
-            Article(
-                title="Market story from another source",
-                url="https://example.com/diverse",
-                source="Other Source",
-                published_at=datetime.now(timezone.utc),
-                reputation=0.8,
-            )
-        ]
-    )[0]
-    diverse.category = "finance"
-    clusters.append(diverse)
-
-    scored = score_clusters(clusters, config)
-    selected = top_for_category(scored, "finance", 3)
-
-    assert any(cluster.sources == ["Other Source"] for cluster in selected)
-
-
 def test_single_article_cluster_penalty_equals_article_penalty() -> None:
     config = _basic_config()
     clear_bad_weight = config.quality_gate.clear_bad_penalty_weight
@@ -159,41 +92,6 @@ def test_single_article_cluster_penalty_equals_article_penalty() -> None:
     scored = score_clusters([cluster], config)
 
     assert scored[0].content_quality_penalty == clear_bad_weight
-
-
-def _culture_story(key: str, source: str, lane: str, score: float, evidence: float = 2.0) -> StoryCluster:
-    story = StoryCluster(
-        key=key,
-        title=key,
-        category="culture",
-        culture_lane=lane,  # type: ignore[arg-type]
-        total_score=score,
-        evidence_score=evidence,
-        articles=[_article(f"https://example.com/{key}", penalty=0.0, source=source)],
-    )
-    return story
-
-
-def test_culture_selector_prefers_lanes_and_hard_caps_source() -> None:
-    stories = [
-        _culture_story("film-1", "Publisher A", "film_tv", 10),
-        _culture_story("film-2", "Publisher A", "film_tv", 9),
-        _culture_story("film-3", "Publisher A", "film_tv", 8),
-        _culture_story("music", "Publisher B", "music", 7),
-        _culture_story("sports", "Publisher C", "sports", 6),
-        _culture_story("gaming", "Publisher D", "gaming", 5),
-    ]
-
-    selected = top_for_culture(stories)
-
-    assert len({story.culture_lane for story in selected}) >= 3
-    assert sum(story.sources[0] == "Publisher A" for story in selected) == 2
-
-
-def test_culture_selector_never_uses_below_threshold_story() -> None:
-    thin = _culture_story("thin", "Publisher", "music", 100, evidence=1.19)
-
-    assert top_for_culture([thin], minimum_evidence_score=1.2) == []
 
 
 def test_one_bad_one_clean_article_moderately_dilutes_penalty() -> None:
@@ -314,3 +212,78 @@ def test_max_penalty_cluster_is_downranked_and_flagged_not_dropped() -> None:
     assert reason
     if max_penalty >= config.quality_gate.low_content_quality_skip_threshold:
         assert reason == "low content quality"
+
+
+def test_deterministic_importance_uses_configured_logistic_midpoint() -> None:
+    config = ImportanceConfig(logistic_midpoint=12.0, logistic_steepness=0.30)
+
+    assert importance_from_total_score(12.0, config) == 50.0
+    assert importance_from_total_score(20.0, config) > importance_from_total_score(10.0, config)
+
+
+def test_apply_importance_preserves_zero_as_a_valid_llm_grade() -> None:
+    story = StoryCluster(key="story", title="Story", total_score=30.0)
+    config = ImportanceConfig(llm_weight=1.0, clamp_down=100.0)
+
+    apply_importance(
+        [story],
+        {"story": CategoryAssignment(category="global", rationale="routine", llm_importance=0)},
+        config,
+    )
+
+    assert story.importance == 0.0
+
+
+def test_apply_importance_limits_only_large_downward_llm_disagreement() -> None:
+    story = StoryCluster(key="story", title="Story", total_score=20.0)
+    config = ImportanceConfig(llm_weight=1.0, clamp_down=25.0, clamp_up=100.0)
+    deterministic = importance_from_total_score(story.total_score, config)
+
+    apply_importance(
+        [story],
+        {"story": CategoryAssignment(category="global", rationale="low", llm_importance=0)},
+        config,
+    )
+
+    assert story.importance == deterministic - 25.0
+
+
+def test_disabled_importance_sets_all_stories_to_zero() -> None:
+    story = StoryCluster(key="story", title="Story", total_score=30.0, importance=88.0)
+
+    apply_importance([story], {}, ImportanceConfig(enabled=False))
+
+    assert story.importance == 0.0
+
+
+def test_source_cap_state_tracks_sources_per_category() -> None:
+    state = SourceCapState()
+    state.record("finance", "Reuters")
+    state.record("finance", "Reuters")
+    state.record("global", "Reuters")
+
+    assert state.held("finance", "Reuters") == 2
+    assert state.held("global", "Reuters") == 1
+
+
+def test_culture_state_enforces_hard_source_and_lane_caps() -> None:
+    state = CultureSelectionState()
+    first = StoryCluster(
+        key="first", title="First", category="culture", culture_lane="music",
+        articles=[_article("https://example.com/first", penalty=0, source="Publisher")],
+    )
+    second = StoryCluster(
+        key="second", title="Second", category="culture", culture_lane="music",
+        articles=[_article("https://example.com/second", penalty=0, source="Publisher")],
+    )
+    third = StoryCluster(
+        key="third", title="Third", category="culture", culture_lane="sports",
+        articles=[_article("https://example.com/third", penalty=0, source="Publisher")],
+    )
+
+    assert can_add_culture(first, state, lane_cap=1)
+    record_culture_selection(first, state)
+    assert not can_add_culture(second, state, lane_cap=1)
+    assert can_add_culture(second, state, lane_cap=2)
+    record_culture_selection(second, state)
+    assert not can_add_culture(third, state, lane_cap=3)

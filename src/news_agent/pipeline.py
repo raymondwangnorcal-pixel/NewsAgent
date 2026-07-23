@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import statistics
 from dataclasses import dataclass, field, replace
 from pathlib import Path
 from collections import Counter
@@ -32,6 +33,7 @@ from news_agent.models import (
     BriefingParagraph,
     BriefingSection,
     CategoryAssignment,
+    CategorySelectionLimit,
     OpenAICapabilities,
     OpenAIMode,
     QualityGateConfig,
@@ -44,20 +46,20 @@ from news_agent.quality_gate import (
     judge_ambiguous_articles,
     write_quality_gate_rejections,
 )
-from news_agent.scoring import score_clusters, top_for_category, top_for_culture
+from news_agent.scoring import (
+    CultureSelectionState,
+    SourceCapState,
+    apply_importance,
+    can_add_culture,
+    importance_from_total_score,
+    record_culture_selection,
+    score_clusters,
+)
 from news_agent.skipped_log import SkippedStory, build_skipped_stories, default_skipped_path, write_skipped_log
 from news_agent.source_balance import source_distribution_label
 from news_agent.stocks import build_stock_snapshot
 from news_agent.watchlist import DEFAULT_WATCHLIST_PATH, WatchlistEntry, load_watchlist
 
-
-CATEGORY_LIMITS = {
-    "business_tech": 6,
-    "domestic": 6,
-    "global": 6,
-    "culture": 6,
-    "finance": 6,
-}
 
 # Materially larger than the ~30 stories that actually publish (5 categories x 6),
 # so importance-ranking (category-agnostic) doesn't starve a naturally-lower-scoring
@@ -68,9 +70,6 @@ CATEGORY_CLASSIFICATION_RESERVE = 10
 MAX_CLASSIFICATION_POOL_SIZE = 80
 
 FINANCE_LEAD_TICKER_COUNT = 7
-MINIMUM_STORIES_PER_CATEGORY = 4
-
-
 def story_identity(cluster: StoryCluster) -> str:
     if cluster.key:
         return cluster.key
@@ -143,6 +142,184 @@ class BriefingBuildResult:
 class AlertBuildResult:
     alerts: list[NewsAlert]
     alert_history_path: Path
+
+
+@dataclass(frozen=True)
+class SelectionResult:
+    category_clusters: dict[str, list[StoryCluster]]
+    floor_selected_by_category: dict[str, int]
+    remainder_selected_by_category: dict[str, int]
+    big_day_selected_by_category: dict[str, int]
+    source_cap_relaxed_by_category: dict[str, int]
+
+    @property
+    def selected_count(self) -> int:
+        return sum(len(items) for items in self.category_clusters.values())
+
+
+def _selection_key(cluster: StoryCluster) -> tuple[float, float, float, str]:
+    return (
+        -cluster.importance,
+        -cluster.total_score,
+        -cluster.latest_published_at.timestamp(),
+        story_identity(cluster),
+    )
+
+
+def _primary_source(cluster: StoryCluster) -> str:
+    return cluster.sources[0] if cluster.sources else "unknown"
+
+
+def select_importance_deck(
+    clusters: list[StoryCluster],
+    config: AgentConfig,
+    minimum_evidence_score: float = 0.0,
+) -> SelectionResult:
+    """Allocate a hard-sized deck through category floors, remainder, then big-day slots."""
+    eligible = sorted(
+        (
+            cluster for cluster in clusters
+            if cluster.category in CATEGORY_NAMES
+            and not cluster.skip_reason
+            and cluster.evidence_score >= minimum_evidence_score
+        ),
+        key=_selection_key,
+    )
+    selected = {category: [] for category in CATEGORY_NAMES}
+    selected_ids: set[str] = set()
+    source_state = SourceCapState()
+    culture_state = CultureSelectionState(source_caps=source_state)
+    floor_counts = _empty_category_counts()
+    remainder_counts = _empty_category_counts()
+    big_day_counts = _empty_category_counts()
+    source_relaxations = _empty_category_counts()
+
+    def add(cluster: StoryCluster, phase_counts: dict[str, int], relaxed: bool = False) -> None:
+        category = cluster.category
+        selected[category].append(cluster)
+        selected_ids.add(story_identity(cluster))
+        if category == "culture":
+            record_culture_selection(cluster, culture_state)
+        else:
+            source_state.record(category, _primary_source(cluster))
+        phase_counts[category] += 1
+        if relaxed:
+            source_relaxations[category] += 1
+
+    # Phase 1: guarantee each category's configured editorial floor. Culture gets
+    # a lane-diversity pass first; non-Culture source caps relax only if necessary.
+    for category in CATEGORY_NAMES:
+        limit = config.category_selection_limits[category]
+        category_items = [cluster for cluster in eligible if cluster.category == category]
+        if category == "culture":
+            for lane_cap in (1, 2):
+                for cluster in category_items:
+                    if len(selected[category]) >= limit.floor:
+                        break
+                    if story_identity(cluster) not in selected_ids and can_add_culture(cluster, culture_state, lane_cap):
+                        add(cluster, floor_counts)
+                if len(selected[category]) >= limit.floor:
+                    break
+            continue
+        for cluster in category_items:
+            if len(selected[category]) >= limit.floor:
+                break
+            source = _primary_source(cluster)
+            if source_state.held(category, source) < config.max_per_source_per_category:
+                add(cluster, floor_counts)
+        if len(selected[category]) < limit.floor:
+            for cluster in category_items:
+                if len(selected[category]) >= limit.floor:
+                    break
+                if story_identity(cluster) not in selected_ids:
+                    add(cluster, floor_counts, relaxed=True)
+
+    # Phase 2: rank all remaining stories together. Over-cap non-Culture stories
+    # are deferred, then admitted only if the deck would otherwise remain short.
+    deferred: list[StoryCluster] = []
+    for cluster in eligible:
+        if len(selected_ids) >= config.importance.deck_target:
+            break
+        identity = story_identity(cluster)
+        category = cluster.category
+        limit = config.category_selection_limits[category]
+        if identity in selected_ids or len(selected[category]) >= limit.ceiling:
+            continue
+        if category == "culture":
+            if can_add_culture(cluster, culture_state, lane_cap=2):
+                add(cluster, remainder_counts)
+            continue
+        if source_state.held(category, _primary_source(cluster)) >= config.max_per_source_per_category:
+            deferred.append(cluster)
+            continue
+        add(cluster, remainder_counts)
+    for cluster in deferred:
+        if len(selected_ids) >= config.importance.deck_target:
+            break
+        identity = story_identity(cluster)
+        category = cluster.category
+        if identity in selected_ids or len(selected[category]) >= config.category_selection_limits[category].ceiling:
+            continue
+        add(cluster, remainder_counts, relaxed=True)
+
+    # Phase 3: a category may take a sixth story only on a genuinely consequential
+    # day. LLM-only elevation requires multiple sources, and source/lane hard caps
+    # remain in force.
+    for cluster in eligible:
+        if len(selected_ids) >= config.importance.deck_target:
+            break
+        identity = story_identity(cluster)
+        category = cluster.category
+        limit = config.category_selection_limits[category]
+        if (
+            identity in selected_ids
+            or len(selected[category]) >= limit.big_day_max
+            or cluster.importance < config.importance.big_day_importance_threshold
+        ):
+            continue
+        deterministic = importance_from_total_score(cluster.total_score, config.importance)
+        if (
+            config.importance.big_day_requires_corroboration
+            and deterministic < config.importance.big_day_importance_threshold
+            and cluster.source_count < 2
+        ):
+            continue
+        if category == "culture":
+            if not can_add_culture(cluster, culture_state, lane_cap=3):
+                continue
+        elif source_state.held(category, _primary_source(cluster)) >= config.big_day_source_cap:
+            continue
+        add(cluster, big_day_counts)
+
+    # Keep the pre-presentation total-score order through drafting so changing
+    # display rank cannot perturb the ordering of the OpenAI prompt batch.
+    drafting_order = {
+        category: sorted(items, key=lambda cluster: cluster.total_score, reverse=True)
+        for category, items in selected.items()
+    }
+    return SelectionResult(drafting_order, floor_counts, remainder_counts, big_day_counts, source_relaxations)
+
+
+def order_paragraphs_for_presentation(
+    paragraphs: list[BriefingParagraph],
+    category_clusters: dict[str, list[StoryCluster]],
+) -> list[BriefingParagraph]:
+    """Apply importance display order after drafting without changing draft inputs."""
+    category_order = {category: index for index, category in enumerate(CATEGORY_NAMES)}
+    importance_rank = {
+        (category, cluster.key): rank
+        for category, clusters in category_clusters.items()
+        for rank, cluster in enumerate(sorted(clusters, key=_selection_key))
+    }
+    indexed = list(enumerate(paragraphs))
+    indexed.sort(
+        key=lambda item: (
+            category_order.get(item[1].category, len(category_order)),
+            importance_rank.get((item[1].category, item[1].story_id), len(paragraphs)),
+            item[0],
+        )
+    )
+    return [paragraph for _, paragraph in indexed]
 
 
 async def collect_and_rank(config: AgentConfig | None = None) -> dict[str, list[StoryCluster]]:
@@ -279,20 +456,14 @@ def select_backfill_candidates(
     return selected
 
 
-def category_story_target(category: str, max_culture_stories: int) -> int:
-    if category == "culture":
-        return min(MINIMUM_STORIES_PER_CATEGORY, max_culture_stories)
-    return MINIMUM_STORIES_PER_CATEGORY
-
-
 def underfilled_categories(
     selected: dict[str, list[StoryCluster]],
-    max_culture_stories: int,
+    limits: dict[str, CategorySelectionLimit],
 ) -> list[str]:
     return [
         category
         for category in CATEGORY_NAMES
-        if len(selected[category]) < category_story_target(category, max_culture_stories)
+        if len(selected[category]) < limits[category].floor
     ]
 
 
@@ -301,11 +472,11 @@ def underfilled_reasons_by_category(
     selected: dict[str, list[StoryCluster]],
     history_suppressed: list[StoryCluster],
     minimum_evidence_score: float,
-    max_culture_stories: int,
+    limits: dict[str, CategorySelectionLimit],
 ) -> dict[str, str]:
     reasons: dict[str, str] = {}
     for category in CATEGORY_NAMES:
-        target = category_story_target(category, max_culture_stories)
+        target = limits[category].floor
         if len(selected[category]) >= target:
             reasons[category] = ""
             continue
@@ -322,6 +493,48 @@ def underfilled_reasons_by_category(
         else:
             reasons[category] = "not_enough_evidence_qualified_candidates"
     return reasons
+
+
+def importance_summary_by_category(clusters: list[StoryCluster]) -> dict[str, dict[str, float | int]]:
+    summaries: dict[str, dict[str, float | int]] = {}
+    for category in CATEGORY_NAMES:
+        values = [cluster.importance for cluster in clusters if cluster.category == category and not cluster.skip_reason]
+        summaries[category] = {
+            "count": len(values),
+            "min": round(min(values), 2) if values else 0.0,
+            "median": round(statistics.median(values), 2) if values else 0.0,
+            "max": round(max(values), 2) if values else 0.0,
+        }
+    return summaries
+
+
+def deck_underfilled_reason(result: SelectionResult, clusters: list[StoryCluster], config: AgentConfig) -> str:
+    if result.selected_count >= config.importance.deck_target:
+        return ""
+    remaining = [
+        cluster for cluster in clusters
+        if cluster.category in CATEGORY_NAMES and not cluster.skip_reason
+        and story_identity(cluster) not in {
+            story_identity(item) for items in result.category_clusters.values() for item in items
+        }
+    ]
+    if not remaining:
+        return "not_enough_qualified_candidates"
+    big_day_eligible = [
+        cluster for cluster in remaining
+        if cluster.importance >= config.importance.big_day_importance_threshold
+    ]
+    if not big_day_eligible:
+        return "importance_below_big_day_threshold"
+    culture_sources = Counter(_primary_source(cluster) for cluster in result.category_clusters["culture"])
+    culture_lanes = Counter(cluster.culture_lane for cluster in result.category_clusters["culture"])
+    if any(
+        cluster.category == "culture"
+        and (culture_sources[_primary_source(cluster)] >= 2 or culture_lanes[cluster.culture_lane] >= 3)
+        for cluster in big_day_eligible
+    ):
+        return "culture_diversity_caps"
+    return "not_enough_qualified_candidates"
 
 
 def _flatten_cluster_articles(clusters: list[StoryCluster]) -> list[Article]:
@@ -347,7 +560,12 @@ async def collect_pipeline_context(
     config = config or load_config()
     resolved_mode = resolve_openai_mode(openai_mode=openai_mode)
     capabilities = openai_capabilities(resolved_mode)
-    articles = await fetch_all_feeds(config.feeds, config.lookback_hours, config.max_articles)
+    articles = await fetch_all_feeds(
+        config.feeds,
+        config.lookback_hours,
+        config.max_articles,
+        config.category_fetch_reserves,
+    )
 
     # Run a cheap title/feed-content pass first, then spend page requests only on
     # plausible finalists. Final quality decisions happen after enrichment.
@@ -384,26 +602,21 @@ async def collect_pipeline_context(
     candidates = select_classification_candidates(clusters, minimum_evidence_score=minimum_evidence)
     assignments = classify_clusters(candidates, use_openai=capabilities.classify)
     apply_category_assignments(candidates, assignments)
+    apply_importance(candidates, assignments, config.importance)
 
-    provisional = select_unique_category_clusters(
-        clusters,
-        minimum_evidence_score=minimum_evidence,
-        max_culture_stories=config.max_culture_stories,
-    )
-    underfilled = underfilled_categories(provisional, config.max_culture_stories)
+    provisional_result = select_importance_deck(clusters, config, minimum_evidence)
+    underfilled = underfilled_categories(provisional_result.category_clusters, config.category_selection_limits)
     backfill = select_backfill_candidates(clusters, candidates, underfilled, minimum_evidence)
     if backfill:
         backfill_assignments = classify_clusters(backfill, use_openai=capabilities.classify)
         assignments.update(backfill_assignments)
         apply_category_assignments(backfill, backfill_assignments)
+        apply_importance(backfill, backfill_assignments, config.importance)
     resolved_category_assignments_log_path = category_assignments_log_path or default_category_assignments_path()
     write_category_assignments(assignments, resolved_category_assignments_log_path)
 
-    category_clusters = select_unique_category_clusters(
-        clusters,
-        minimum_evidence_score=minimum_evidence,
-        max_culture_stories=config.max_culture_stories,
-    )
+    selection_result = select_importance_deck(clusters, config, minimum_evidence)
+    category_clusters = selection_result.category_clusters
     history_suppressed = [cluster for cluster in clusters if "stale/repeated" in cluster.skip_reason]
     insufficient = [cluster for cluster in clusters if cluster.skip_reason == "insufficient story context"]
     selected_counts = {category: len(category_clusters[category]) for category in CATEGORY_NAMES}
@@ -412,7 +625,7 @@ async def collect_pipeline_context(
         category_clusters,
         history_suppressed,
         minimum_evidence,
-        config.max_culture_stories,
+        config.category_selection_limits,
     )
     stock_snapshot = await build_stock_snapshot(articles, watchlist_entries)
     return PipelineContext(
@@ -443,6 +656,14 @@ async def collect_pipeline_context(
             },
             selected_stories_by_category=selected_counts,
             underfilled_reason_by_category=underfilled_reasons,
+            importance_by_category=importance_summary_by_category(candidates + backfill),
+            floor_selected_by_category=selection_result.floor_selected_by_category,
+            remainder_selected_by_category=selection_result.remainder_selected_by_category,
+            big_day_selected_by_category=selection_result.big_day_selected_by_category,
+            source_cap_relaxed_by_category=selection_result.source_cap_relaxed_by_category,
+            deck_target=config.importance.deck_target,
+            deck_selected=selection_result.selected_count,
+            deck_underfilled_reason=deck_underfilled_reason(selection_result, clusters, config),
         ),
     )
 
@@ -502,27 +723,6 @@ def selected_clusters(category_clusters: dict[str, list[StoryCluster]]) -> list[
     return selected
 
 
-def select_unique_category_clusters(
-    clusters: list[StoryCluster],
-    minimum_evidence_score: float = 0.0,
-    max_culture_stories: int = CATEGORY_LIMITS["culture"],
-) -> dict[str, list[StoryCluster]]:
-    # Cross-category duplication is structurally prevented upstream: classify_clusters
-    # assigns exactly one category per cluster, so there's no "first category to claim
-    # it wins" tiebreak to do here anymore -- just cap each category independently.
-    selected = {
-        category: top_for_category(clusters, category, limit)
-        for category, limit in CATEGORY_LIMITS.items()
-        if category != "culture"
-    }
-    selected["culture"] = top_for_culture(
-        clusters,
-        limit=max_culture_stories,
-        minimum_evidence_score=minimum_evidence_score,
-    )
-    return {category: selected[category] for category in CATEGORY_LIMITS}
-
-
 def source_debug_lines(category_clusters: dict[str, list[StoryCluster]]) -> tuple[str, ...]:
     lines: list[str] = []
     for category, clusters in category_clusters.items():
@@ -570,12 +770,12 @@ def build_briefing_sections(
     config: AgentConfig,
     stock_snapshot: object,
 ) -> list[BriefingSection]:
-    by_category: dict[str, list[BriefingParagraph]] = {name: [] for name in CATEGORY_LIMITS}
+    by_category: dict[str, list[BriefingParagraph]] = {name: [] for name in CATEGORY_NAMES}
     for paragraph in paragraphs:
         by_category.setdefault(paragraph.category, []).append(paragraph)
 
     sections: list[BriefingSection] = []
-    for category in CATEGORY_LIMITS:
+    for category in CATEGORY_NAMES:
         label = config.categories[category].label if category in config.categories else category
         lead_lines = _finance_lead_lines(stock_snapshot) if category == "finance" else ()
         sections.append(
@@ -616,8 +816,9 @@ async def build_briefing_result(
 
     draft_candidates = build_draft_candidates(context.category_clusters, context.category_assignments)
     capabilities = openai_capabilities(mode)
-    paragraphs = draft_paragraphs(draft_candidates, use_openai=capabilities.draft)
-    briefings = build_briefing_sections(paragraphs, config, context.stock_snapshot)
+    drafted_paragraphs = draft_paragraphs(draft_candidates, use_openai=capabilities.draft)
+    presentation_paragraphs = order_paragraphs_for_presentation(drafted_paragraphs, context.category_clusters)
+    briefings = build_briefing_sections(presentation_paragraphs, config, context.stock_snapshot)
 
     selected = selected_clusters(context.category_clusters)
     if persist_history and not ignore_history:
@@ -640,9 +841,11 @@ async def build_briefing_result(
         category_assignments_log_path=context.category_assignments_log_path,
         diagnostics=replace(
             context.diagnostics,
-            llm_drafts=sum(paragraph.draft_status == "llm" for paragraph in paragraphs),
-            fallback_drafts=sum(paragraph.draft_status != "llm" for paragraph in paragraphs),
-            fallback_story_ids=tuple(paragraph.story_id for paragraph in paragraphs if paragraph.draft_status != "llm"),
+            llm_drafts=sum(paragraph.draft_status == "llm" for paragraph in drafted_paragraphs),
+            fallback_drafts=sum(paragraph.draft_status != "llm" for paragraph in drafted_paragraphs),
+            fallback_story_ids=tuple(
+                paragraph.story_id for paragraph in drafted_paragraphs if paragraph.draft_status != "llm"
+            ),
         ),
     )
 

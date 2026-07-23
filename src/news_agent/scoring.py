@@ -2,9 +2,10 @@ from __future__ import annotations
 
 import math
 import re
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 
-from news_agent.models import AgentConfig, StoryCluster
+from news_agent.models import AgentConfig, CategoryAssignment, ImportanceConfig, StoryCluster
 from news_agent.source_balance import cluster_quality_score, source_balance_score
 from news_agent.watchlist import WatchlistEntry, match_cluster_watchlist, watchlist_score
 
@@ -23,6 +24,68 @@ FORWARD_LOOKING_TERMS = {
 }
 
 _TERM_PATTERN_CACHE: dict[str, re.Pattern[str]] = {}
+
+
+@dataclass
+class SourceCapState:
+    counts: dict[tuple[str, str], int] = field(default_factory=dict)
+
+    def held(self, category: str, source: str) -> int:
+        return self.counts.get((category, source), 0)
+
+    def record(self, category: str, source: str) -> None:
+        self.counts[(category, source)] = self.held(category, source) + 1
+
+
+@dataclass
+class CultureSelectionState:
+    source_caps: SourceCapState = field(default_factory=SourceCapState)
+    lane_counts: dict[str, int] = field(default_factory=dict)
+
+
+def _primary_source(cluster: StoryCluster) -> str:
+    return cluster.sources[0] if cluster.sources else "unknown"
+
+
+def can_add_culture(cluster: StoryCluster, state: CultureSelectionState, lane_cap: int) -> bool:
+    return (
+        state.source_caps.held("culture", _primary_source(cluster)) < 2
+        and state.lane_counts.get(cluster.culture_lane, 0) < lane_cap
+    )
+
+
+def record_culture_selection(cluster: StoryCluster, state: CultureSelectionState) -> None:
+    state.source_caps.record("culture", _primary_source(cluster))
+    state.lane_counts[cluster.culture_lane] = state.lane_counts.get(cluster.culture_lane, 0) + 1
+
+
+def top_for_culture(
+    clusters: list[StoryCluster],
+    limit: int = 6,
+    minimum: int = 4,
+    minimum_evidence_score: float = 1.2,
+) -> list[StoryCluster]:
+    """Compatibility wrapper using the selector's shared Culture constraints."""
+    eligible = sorted(
+        (
+            cluster for cluster in clusters
+            if cluster.category == "culture" and not cluster.skip_reason
+            and cluster.evidence_score >= minimum_evidence_score
+        ),
+        key=lambda item: (-item.importance, -item.total_score),
+    )
+    selected: list[StoryCluster] = []
+    state = CultureSelectionState()
+    selected_ids: set[str] = set()
+    for lane_cap, target in ((1, limit), (2, limit), (3, min(minimum, limit))):
+        for cluster in eligible:
+            if len(selected) >= target:
+                break
+            if cluster.key not in selected_ids and can_add_culture(cluster, state, lane_cap):
+                selected.append(cluster)
+                selected_ids.add(cluster.key)
+                record_culture_selection(cluster, state)
+    return selected
 
 
 def _term_pattern(term: str) -> re.Pattern[str]:
@@ -95,85 +158,28 @@ def score_clusters(
     return clusters
 
 
-def top_for_category(clusters: list[StoryCluster], category: str, limit: int) -> list[StoryCluster]:
-    # Category is set once, upstream, by news_agent.classify's guideline-driven LLM
-    # judgment -- an exact match here, not a keyword score threshold. Duplication
-    # across categories is structurally prevented by that single-assignment design
-    # rather than resolved by a claim-order tiebreak.
-    eligible = [cluster for cluster in clusters if cluster.category == category and not cluster.skip_reason]
-    eligible.sort(key=lambda item: item.total_score, reverse=True)
-    selected: list[StoryCluster] = []
-    source_counts: dict[str, int] = {}
-    max_per_source = max(2, limit // 2)
-    deferred: list[StoryCluster] = []
-    for cluster in eligible:
-        primary_source = cluster.sources[0] if cluster.sources else "unknown"
-        if source_counts.get(primary_source, 0) >= max_per_source:
-            deferred.append(cluster)
-            continue
-        selected.append(cluster)
-        source_counts[primary_source] = source_counts.get(primary_source, 0) + 1
-        if len(selected) == limit:
-            return selected
-    for cluster in deferred:
-        if len(selected) == limit:
-            break
-        selected.append(cluster)
-    return selected
+def importance_from_total_score(total_score: float, config: ImportanceConfig) -> float:
+    """Map the legacy score onto a stable 0-100 deterministic importance scale."""
+    exponent = -config.logistic_steepness * (total_score - config.logistic_midpoint)
+    return 100.0 / (1.0 + math.exp(max(-700.0, min(700.0, exponent))))
 
 
-def top_for_culture(
+def apply_importance(
     clusters: list[StoryCluster],
-    limit: int = 6,
-    minimum: int = 4,
-    minimum_evidence_score: float = 1.2,
-) -> list[StoryCluster]:
-    """Select substantive Culture highlights with hard publisher/lane caps."""
-    eligible = sorted(
-        (
-            cluster for cluster in clusters
-            if cluster.category == "culture"
-            and not cluster.skip_reason
-            and cluster.evidence_score >= minimum_evidence_score
-        ),
-        key=lambda item: item.total_score,
-        reverse=True,
-    )
-    selected: list[StoryCluster] = []
-    selected_ids: set[int] = set()
-    source_counts: dict[str, int] = {}
-    lane_counts: dict[str, int] = {}
-
-    def add(cluster: StoryCluster, lane_cap: int) -> bool:
-        source = cluster.sources[0] if cluster.sources else "unknown"
-        lane = cluster.culture_lane
-        if source_counts.get(source, 0) >= 2 or lane_counts.get(lane, 0) >= lane_cap:
-            return False
-        selected.append(cluster)
-        selected_ids.add(id(cluster))
-        source_counts[source] = source_counts.get(source, 0) + 1
-        lane_counts[lane] = lane_counts.get(lane, 0) + 1
-        return True
-
-    # Diversity first: at most one story from each known lane.
-    for cluster in eligible:
-        if len(selected) >= limit:
-            break
-        if cluster.culture_lane and lane_counts.get(cluster.culture_lane, 0) == 0:
-            add(cluster, lane_cap=1)
-
-    # Balanced fill keeps the preferred two-per-lane limit.
-    for cluster in eligible:
-        if len(selected) >= limit:
-            break
-        if id(cluster) not in selected_ids:
-            add(cluster, lane_cap=2)
-
-    # Only to reach the minimum, relax the lane preference to the hard cap of 3.
-    if len(selected) < minimum:
-        for cluster in eligible:
-            if len(selected) >= min(minimum, limit):
-                break
-            if id(cluster) not in selected_ids:
-                add(cluster, lane_cap=3)
-    return selected
+    assignments: dict[str, CategoryAssignment],
+    config: ImportanceConfig,
+) -> None:
+    for cluster in clusters:
+        if not config.enabled:
+            cluster.importance = 0.0
+            continue
+        deterministic = importance_from_total_score(cluster.total_score, config)
+        assignment = assignments.get(cluster.key)
+        llm_value = assignment.llm_importance if assignment is not None else None
+        if llm_value is None:
+            cluster.importance = deterministic
+            continue
+        blended = deterministic * (1.0 - config.llm_weight) + llm_value * config.llm_weight
+        lower = max(0.0, deterministic - config.clamp_down)
+        upper = min(100.0, deterministic + config.clamp_up)
+        cluster.importance = max(lower, min(upper, blended))

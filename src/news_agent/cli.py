@@ -221,8 +221,18 @@ def print_diagnostics(diagnostics: object) -> None:
         "backfill_candidates_by_category",
         "selected_stories_by_category",
         "underfilled_reason_by_category",
+        "importance_by_category",
+        "floor_selected_by_category",
+        "remainder_selected_by_category",
+        "big_day_selected_by_category",
+        "source_cap_relaxed_by_category",
     ):
         print(f"{field_name}: {getattr(diagnostics, field_name, {})}")
+    print(
+        "Deck: "
+        f"{getattr(diagnostics, 'deck_selected', 0)}/{getattr(diagnostics, 'deck_target', 0)} "
+        f"({getattr(diagnostics, 'deck_underfilled_reason', '') or 'full'})"
+    )
 
 
 def print_quality_gate_rejections(quality_gate_rejections: object) -> None:

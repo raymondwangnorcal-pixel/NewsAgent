@@ -1,7 +1,9 @@
 from __future__ import annotations
 
-from news_agent.fetch import parse_feed
-from news_agent.models import FeedConfig
+from datetime import datetime, timedelta, timezone
+
+from news_agent.fetch import parse_feed, select_articles_with_category_reserves
+from news_agent.models import Article, FeedConfig
 
 
 def feed() -> FeedConfig:
@@ -82,3 +84,51 @@ def test_parse_feed_marks_valid_feed_timestamp() -> None:
     article = parse_feed(xml, feed())[0]
 
     assert article.feed_timestamp_valid is True
+
+
+def _article(key: str, minutes_old: int, categories: tuple[str, ...]) -> Article:
+    return Article(
+        title=key,
+        url=f"https://example.com/{key}",
+        source="Example",
+        published_at=datetime.now(timezone.utc) - timedelta(minutes=minutes_old),
+        feed_categories=categories,
+    )
+
+
+def test_fetch_selection_reserves_categories_before_global_recency_cutoff() -> None:
+    reserves = {"business_tech": 2, "domestic": 2, "global": 2, "finance": 2, "culture": 1}
+    newest_culture = [_article(f"culture-{index}", index, ("culture",)) for index in range(10)]
+    reserved = [
+        *[_article(f"business-{index}", 20 + index, ("business_tech",)) for index in range(2)],
+        *[_article(f"domestic-{index}", 30 + index, ("domestic",)) for index in range(2)],
+        *[_article(f"global-{index}", 40 + index, ("global",)) for index in range(2)],
+        *[_article(f"finance-{index}", 50 + index, ("finance",)) for index in range(2)],
+    ]
+
+    selected = select_articles_with_category_reserves([*newest_culture, *reserved], 12, reserves)
+
+    assert len(selected) == 12
+    for category, minimum in reserves.items():
+        assert sum(category in article.feed_categories for article in selected) >= minimum
+
+
+def test_fetch_selection_dual_tag_article_counts_twice_but_returns_once() -> None:
+    dual = _article("dual", 1, ("business_tech", "culture"))
+
+    selected = select_articles_with_category_reserves(
+        [dual, _article("other", 2, ())],
+        2,
+        {"business_tech": 1, "culture": 1},
+    )
+
+    assert selected.count(dual) == 1
+    assert len(selected) == 2
+
+
+def test_fetch_selection_releases_unfilled_reserve_to_global_remainder() -> None:
+    articles = [_article(f"general-{index}", index, ()) for index in range(5)]
+
+    selected = select_articles_with_category_reserves(articles, 3, {"domestic": 3})
+
+    assert [article.title for article in selected] == ["general-0", "general-1", "general-2"]

@@ -8,7 +8,7 @@ from types import SimpleNamespace
 import pytest
 
 from news_agent import cli
-from news_agent.models import Article, BriefingParagraph, BriefingSection
+from news_agent.models import Article, BriefingParagraph, BriefingSection, PipelineDiagnostics
 
 
 def sample_briefings() -> list[BriefingSection]:
@@ -216,3 +216,19 @@ def test_cli_show_skipped_prints_quality_gate_rejections(monkeypatch: pytest.Mon
     assert "empty_summary" in output
     assert "Content-free teaser headline" in output
     assert "Wire Service" in output
+
+
+def test_cli_prints_importance_phase_diagnostics(capsys: pytest.CaptureFixture[str]) -> None:
+    cli.print_diagnostics(PipelineDiagnostics(
+        floor_selected_by_category={"culture": 2},
+        remainder_selected_by_category={"culture": 3},
+        big_day_selected_by_category={"culture": 1},
+        deck_target=25,
+        deck_selected=25,
+    ))
+
+    output = capsys.readouterr().out
+    assert "floor_selected_by_category: {'culture': 2}" in output
+    assert "remainder_selected_by_category: {'culture': 3}" in output
+    assert "big_day_selected_by_category: {'culture': 1}" in output
+    assert "Deck: 25/25 (full)" in output

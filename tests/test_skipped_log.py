@@ -35,6 +35,20 @@ def test_skipped_stories_include_reason_sources_url_and_watchlist(tmp_path) -> N
     assert data[0]["source_names"] == ["TechCrunch"]
     assert data[0]["url"] == "https://example.com/ai"
     assert data[0]["watchlist_match"] == ["AI"]
+    assert data[0]["importance"] == 0.0
+
+
+def test_skipped_log_sorts_by_importance_before_legacy_score() -> None:
+    high_score = _multi_source_cluster("high-score", "High score", content_quality_penalty=0)
+    high_score.total_score = 99
+    high_score.importance = 20
+    important = _multi_source_cluster("important", "Important", content_quality_penalty=0)
+    important.total_score = 1
+    important.importance = 80
+
+    skipped = build_skipped_stories([high_score, important], selected_clusters=[])
+
+    assert [item.headline for item in skipped] == ["Important", "High score"]
 
 
 def _single_source_cluster(key: str, title: str, *, quality_score: float, content_quality_penalty: float) -> StoryCluster:

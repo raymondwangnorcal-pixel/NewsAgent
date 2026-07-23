@@ -1,0 +1,36 @@
+[
+  {"title":"Tariffs raise national fuel costs","category":"business_tech","total_score":16.0,"evidence_score":2.0,"primary_source":"Business Wire","culture_lane":"","llm_importance":80,"expected_final_importance_band":"70-89","source_count":2},
+  {"title":"Ordinary product launch","category":"business_tech","total_score":8.0,"evidence_score":2.0,"primary_source":"Business Wire","culture_lane":"","llm_importance":30,"expected_final_importance_band":"20-39","source_count":1},
+  {"title":"Quiet standards decision transforms an industry","category":"business_tech","total_score":6.1,"evidence_score":2.0,"primary_source":"Business Wire","culture_lane":"","llm_importance":100,"expected_final_importance_band":"70-89","source_count":2},
+  {"title":"Legitimate zero-importance trade item","category":"business_tech","total_score":8.0,"evidence_score":2.0,"primary_source":"Business Wire","culture_lane":"","llm_importance":0,"expected_final_importance_band":"0-19","source_count":1},
+  {"title":"Business grade unavailable","category":"business_tech","total_score":12.0,"evidence_score":2.0,"primary_source":"Independent Journal","culture_lane":"","llm_importance":null,"expected_final_importance_band":"40-59","source_count":1},
+  {"title":"Regional software expansion","category":"business_tech","total_score":10.0,"evidence_score":2.0,"primary_source":"Tech Daily","culture_lane":"","llm_importance":40,"expected_final_importance_band":"20-39","source_count":1},
+
+  {"title":"Major constitutional ruling","category":"domestic","total_score":16.0,"evidence_score":2.0,"primary_source":"Court News","culture_lane":"","llm_importance":78,"expected_final_importance_band":"70-89","source_count":2},
+  {"title":"Equal tie candidate alpha","category":"domestic","total_score":12.0,"evidence_score":2.0,"primary_source":"National Desk A","culture_lane":"","llm_importance":50,"expected_final_importance_band":"40-59","source_count":1},
+  {"title":"Equal tie candidate beta","category":"domestic","total_score":12.0,"evidence_score":2.0,"primary_source":"National Desk B","culture_lane":"","llm_importance":50,"expected_final_importance_band":"40-59","source_count":1},
+  {"title":"Routine agency update","category":"domestic","total_score":9.0,"evidence_score":2.0,"primary_source":"National Desk C","culture_lane":"","llm_importance":25,"expected_final_importance_band":"20-39","source_count":1},
+  {"title":"State infrastructure vote","category":"domestic","total_score":11.0,"evidence_score":2.0,"primary_source":"National Desk D","culture_lane":"","llm_importance":45,"expected_final_importance_band":"40-59","source_count":1},
+  {"title":"Federal deadline approaches","category":"domestic","total_score":13.0,"evidence_score":2.0,"primary_source":"National Desk E","culture_lane":"","llm_importance":55,"expected_final_importance_band":"40-59","source_count":1},
+
+  {"title":"War escalation threatens neighboring states","category":"global","total_score":20.0,"evidence_score":2.0,"primary_source":"World Wire","culture_lane":"","llm_importance":100,"expected_final_importance_band":"90-100","source_count":3},
+  {"title":"Single-source diplomatic rupture","category":"global","total_score":14.0,"evidence_score":2.0,"primary_source":"World Wire","culture_lane":"","llm_importance":90,"expected_final_importance_band":"80-89","source_count":1},
+  {"title":"Corroborated diplomatic rupture","category":"global","total_score":14.0,"evidence_score":2.0,"primary_source":"Global Journal","culture_lane":"","llm_importance":90,"expected_final_importance_band":"80-89","source_count":2},
+  {"title":"Foreign cabinet reshuffle","category":"global","total_score":10.0,"evidence_score":2.0,"primary_source":"World Desk A","culture_lane":"","llm_importance":35,"expected_final_importance_band":"20-39","source_count":1},
+  {"title":"Cross-border transport agreement","category":"global","total_score":11.0,"evidence_score":2.0,"primary_source":"World Desk B","culture_lane":"","llm_importance":42,"expected_final_importance_band":"40-59","source_count":1},
+  {"title":"Regional election scheduled","category":"global","total_score":9.0,"evidence_score":2.0,"primary_source":"World Desk C","culture_lane":"","llm_importance":30,"expected_final_importance_band":"20-39","source_count":1},
+
+  {"title":"Market-moving earnings surprise","category":"finance","total_score":14.0,"evidence_score":2.0,"primary_source":"Market Wire","culture_lane":"","llm_importance":65,"expected_final_importance_band":"60-79","source_count":2},
+  {"title":"Central bank shocks bond market","category":"finance","total_score":18.0,"evidence_score":2.0,"primary_source":"Market Journal","culture_lane":"","llm_importance":85,"expected_final_importance_band":"80-89","source_count":2},
+  {"title":"Thin analyst note one","category":"finance","total_score":12.0,"evidence_score":0.8,"primary_source":"Market Wire","culture_lane":"","llm_importance":50,"expected_final_importance_band":"40-59","source_count":1},
+  {"title":"Thin analyst note two","category":"finance","total_score":11.0,"evidence_score":0.8,"primary_source":"Market Wire","culture_lane":"","llm_importance":45,"expected_final_importance_band":"40-59","source_count":1},
+  {"title":"Thin analyst note three","category":"finance","total_score":10.0,"evidence_score":0.8,"primary_source":"Market Wire","culture_lane":"","llm_importance":40,"expected_final_importance_band":"20-39","source_count":1},
+  {"title":"Thin analyst note four","category":"finance","total_score":9.0,"evidence_score":0.8,"primary_source":"Market Wire","culture_lane":"","llm_importance":35,"expected_final_importance_band":"20-39","source_count":1},
+
+  {"title":"Scheduled movie release","category":"culture","total_score":8.0,"evidence_score":2.0,"primary_source":"Culture Publisher","culture_lane":"film_tv","llm_importance":30,"expected_final_importance_band":"20-39","source_count":1},
+  {"title":"Film festival awards announced","category":"culture","total_score":11.0,"evidence_score":2.0,"primary_source":"Culture Publisher","culture_lane":"film_tv","llm_importance":45,"expected_final_importance_band":"40-59","source_count":1},
+  {"title":"Streaming series renewal","category":"culture","total_score":10.0,"evidence_score":2.0,"primary_source":"Culture Publisher","culture_lane":"film_tv","llm_importance":40,"expected_final_importance_band":"20-39","source_count":1},
+  {"title":"Major album surprise release","category":"culture","total_score":13.0,"evidence_score":2.0,"primary_source":"Music Desk","culture_lane":"music","llm_importance":62,"expected_final_importance_band":"60-79","source_count":2},
+  {"title":"Championship changes league economics","category":"culture","total_score":14.0,"evidence_score":2.0,"primary_source":"Sports Desk","culture_lane":"sports","llm_importance":65,"expected_final_importance_band":"60-79","source_count":2},
+  {"title":"Game studio announces sequel","category":"culture","total_score":9.0,"evidence_score":2.0,"primary_source":"Gaming Desk","culture_lane":"gaming","llm_importance":35,"expected_final_importance_band":"20-39","source_count":1}
+]

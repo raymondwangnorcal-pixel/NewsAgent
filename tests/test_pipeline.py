@@ -2,11 +2,13 @@ from __future__ import annotations
 
 import asyncio
 import json
-from datetime import datetime, timezone
+from dataclasses import replace
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
 import news_agent.pipeline as pipeline
+from news_agent.draft import DraftCandidate
 from news_agent.models import (
     AgentConfig,
     Article,
@@ -175,15 +177,15 @@ def test_apply_evidence_gate_excludes_context_poor_story() -> None:
     assert rich.skip_reason == ""
 
 
-# --- select_unique_category_clusters: structural dedup ----------------------------
+# --- importance deck selection ----------------------------------------------------
 
 
-def test_select_unique_category_clusters_each_story_in_exactly_one_category() -> None:
+def test_select_importance_deck_places_each_story_in_exactly_one_category() -> None:
     business = cluster("nvidia-export", "Nvidia falls on export restrictions", total_score=20, category="business_tech")
     finance = cluster("fed-rates", "Fed rate outlook moves markets", total_score=18, category="finance")
     global_story = cluster("global-conflict", "Conflict escalates overseas", total_score=17, category="global")
 
-    selected = pipeline.select_unique_category_clusters([business, finance, global_story])
+    selected = pipeline.select_importance_deck([business, finance, global_story], minimal_config()).category_clusters
 
     assert business in selected["business_tech"]
     assert business not in selected["finance"]
@@ -191,17 +193,17 @@ def test_select_unique_category_clusters_each_story_in_exactly_one_category() ->
     assert set(selected) == {"business_tech", "domestic", "global", "culture", "finance"}
 
 
-def test_select_unique_category_clusters_respects_per_category_limit() -> None:
+def test_select_importance_deck_respects_normal_category_ceiling() -> None:
     clusters = [
         cluster(f"finance-{i}", f"Finance story {i}", total_score=float(10 - i), category="finance") for i in range(10)
     ]
 
-    selected = pipeline.select_unique_category_clusters(clusters)
+    selected = pipeline.select_importance_deck(clusters, minimal_config()).category_clusters
 
-    assert len(selected["finance"]) == pipeline.CATEGORY_LIMITS["finance"]
+    assert len(selected["finance"]) == 5
 
 
-def test_select_unique_category_clusters_hard_limits_culture_to_configured_count() -> None:
+def test_select_importance_deck_keeps_culture_lane_diversity() -> None:
     lanes = ("film_tv", "music", "sports", "gaming")
     clusters = []
     for index, lane in enumerate(lanes):
@@ -219,25 +221,214 @@ def test_select_unique_category_clusters_hard_limits_culture_to_configured_count
         )
         clusters.append(story)
 
-    selected = pipeline.select_unique_category_clusters(
-        clusters,
-        minimum_evidence_score=1.2,
-        max_culture_stories=3,
-    )
+    selected = pipeline.select_importance_deck(clusters, minimal_config(), minimum_evidence_score=1.2).category_clusters
 
-    assert len(selected["culture"]) == 3
+    assert len(selected["culture"]) == 4
+    assert len({story.culture_lane for story in selected["culture"][:2]}) == 2
 
 
-def test_three_culture_stories_are_not_underfilled_when_the_hard_limit_is_three() -> None:
-    selected = {category: [] for category in pipeline.CATEGORY_LIMITS}
-    selected["culture"] = [cluster(f"culture-{index}", f"Culture {index}") for index in range(3)]
+def test_two_culture_stories_meet_the_configured_floor() -> None:
+    config = minimal_config()
+    selected = {category: [] for category in pipeline.CATEGORY_NAMES}
+    selected["culture"] = [cluster(f"culture-{index}", f"Culture {index}") for index in range(2)]
 
-    assert pipeline.underfilled_categories(selected, max_culture_stories=3) == [
+    assert pipeline.underfilled_categories(selected, config.category_selection_limits) == [
         "business_tech",
         "domestic",
         "global",
         "finance",
     ]
+
+
+def test_floor_relaxes_non_culture_source_cap_only_as_needed() -> None:
+    stories = []
+    for index in range(3):
+        story = cluster(f"finance-{index}", f"Finance {index}", 20 - index, category="finance")
+        story.articles = [make_article(story.title, f"https://example.com/{index}", "Substantive context", "Reuters")]
+        stories.append(story)
+
+    result = pipeline.select_importance_deck(stories, minimal_config())
+
+    assert len(result.category_clusters["finance"]) == 3
+    assert result.source_cap_relaxed_by_category["finance"] == 1
+
+
+def test_big_day_phase_never_exceeds_deck_target_or_category_maximum() -> None:
+    stories: list[StoryCluster] = []
+    for category in ("business_tech", "domestic", "global", "finance"):
+        for index in range(6):
+            story = cluster(f"{category}-{index}", f"{category} {index}", 30 - index, category=category)
+            story.importance = 90 - index
+            story.articles = [make_article(
+                story.title, f"https://{category}-{index}.example/story", "Substantive context", f"Source {index}"
+            )]
+            stories.append(story)
+    culture = cluster("culture-only", "Culture only", 20, category="culture")
+    culture.importance = 80
+    culture.culture_lane = "music"
+    culture.articles = [make_article("Culture only", "https://culture.example/story", "Context", "Culture Source")]
+    stories.append(culture)
+
+    result = pipeline.select_importance_deck(stories, minimal_config())
+
+    assert result.selected_count == 25
+    assert all(len(items) <= 6 for items in result.category_clusters.values())
+    assert sum(result.big_day_selected_by_category.values()) == 4
+
+
+def test_llm_only_big_day_elevation_requires_corroboration() -> None:
+    config = minimal_config()
+    stories: list[StoryCluster] = []
+    for category in pipeline.CATEGORY_NAMES:
+        count = 6 if category != "culture" else 1
+        for index in range(count):
+            story = cluster(f"{category}-{index}", f"{category} {index}", 12.0, category=category)
+            story.importance = 90.0
+            story.culture_lane = "music" if category == "culture" else ""
+            story.articles = [make_article(
+                story.title, f"https://{category}-{index}.example/story", "Context", f"Source {index}"
+            )]
+            if category == "business_tech" and index == 0:
+                story.articles.append(make_article(
+                    story.title,
+                    "https://corroborator.example/story",
+                    "Independent corroboration",
+                    "Corroborating Source",
+                ))
+            stories.append(story)
+
+    result = pipeline.select_importance_deck(stories, config)
+
+    assert result.selected_count == 22
+    assert result.big_day_selected_by_category["business_tech"] == 1
+    assert sum(result.big_day_selected_by_category.values()) == 1
+
+
+def _ordered_story(
+    key: str,
+    *,
+    importance: float,
+    total_score: float,
+    published_at: datetime,
+) -> StoryCluster:
+    story = cluster(key, key, total_score=total_score, category="finance")
+    story.importance = importance
+    story.articles = [Article(
+        title=key,
+        url=f"https://example.com/{key}",
+        source=f"Source {key}",
+        published_at=published_at,
+        summary="Substantive context for deterministic presentation ordering.",
+    )]
+    return story
+
+
+def _drafted_paragraph(story: StoryCluster) -> BriefingParagraph:
+    return BriefingParagraph(
+        story_id=story.key,
+        category=story.category,
+        paragraph=f"Draft for {story.key}.",
+        sources=tuple(story.sources),
+    )
+
+
+def test_presentation_order_ranks_by_importance_not_total_score() -> None:
+    now = datetime(2026, 7, 22, tzinfo=timezone.utc)
+    important = _ordered_story("important", importance=90, total_score=10, published_at=now)
+    high_legacy_score = _ordered_story("legacy", importance=40, total_score=30, published_at=now)
+
+    result = pipeline.select_importance_deck([high_legacy_score, important], minimal_config())
+    draft_order = result.category_clusters["finance"]
+    presentation = pipeline.order_paragraphs_for_presentation(
+        [_drafted_paragraph(story) for story in draft_order],
+        result.category_clusters,
+    )
+
+    assert draft_order == [high_legacy_score, important]
+    assert [paragraph.story_id for paragraph in presentation] == ["important", "legacy"]
+
+
+def test_presentation_order_ties_break_by_total_score_then_recency_then_identity() -> None:
+    now = datetime(2026, 7, 22, tzinfo=timezone.utc)
+    stories = [
+        _ordered_story("beta", importance=70, total_score=11, published_at=now - timedelta(hours=1)),
+        _ordered_story("recent", importance=70, total_score=11, published_at=now),
+        _ordered_story("score-wins", importance=70, total_score=12, published_at=now - timedelta(days=1)),
+        _ordered_story("alpha", importance=70, total_score=11, published_at=now - timedelta(hours=1)),
+    ]
+
+    result = pipeline.select_importance_deck(stories, minimal_config())
+    presentation = pipeline.order_paragraphs_for_presentation(
+        [_drafted_paragraph(story) for story in result.category_clusters["finance"]],
+        result.category_clusters,
+    )
+
+    assert [paragraph.story_id for paragraph in presentation] == [
+        "score-wins", "recent", "alpha", "beta",
+    ]
+
+
+def test_presentation_order_matches_total_score_when_importance_disabled() -> None:
+    now = datetime(2026, 7, 22, tzinfo=timezone.utc)
+    config = minimal_config()
+    config = replace(config, importance=replace(config.importance, enabled=False))
+    stories = [
+        _ordered_story("middle", importance=0, total_score=20, published_at=now),
+        _ordered_story("highest", importance=0, total_score=30, published_at=now),
+        _ordered_story("lowest", importance=0, total_score=10, published_at=now),
+    ]
+
+    result = pipeline.select_importance_deck(stories, config)
+    presentation = pipeline.order_paragraphs_for_presentation(
+        [_drafted_paragraph(story) for story in result.category_clusters["finance"]],
+        result.category_clusters,
+    )
+
+    assert [paragraph.story_id for paragraph in presentation] == ["highest", "middle", "lowest"]
+
+
+def test_build_result_reorders_only_after_drafting(monkeypatch: pytest.MonkeyPatch, tmp_path) -> None:
+    now = datetime(2026, 7, 22, tzinfo=timezone.utc)
+    important = _ordered_story("important", importance=90, total_score=10, published_at=now)
+    high_legacy_score = _ordered_story("legacy", importance=40, total_score=30, published_at=now)
+    category_clusters = {category: [] for category in pipeline.CATEGORY_NAMES}
+    category_clusters["finance"] = [high_legacy_score, important]
+    context = pipeline.PipelineContext(
+        category_clusters=category_clusters,
+        stock_snapshot=StockSnapshot(news_mentions=(), mega_caps=(), quotes={}),
+        all_clusters=[high_legacy_score, important],
+    )
+    drafted_ids: list[str] = []
+
+    async def fake_collect(*args: object, **kwargs: object) -> pipeline.PipelineContext:
+        return context
+
+    def fake_draft(candidates: list[DraftCandidate], **kwargs: object) -> list[BriefingParagraph]:
+        drafted_ids.extend(candidate.story_id for candidate in candidates)
+        return [
+            BriefingParagraph(
+                story_id=candidate.story_id,
+                category=candidate.category,
+                paragraph=f"Draft for {candidate.story_id}.",
+                sources=(),
+            )
+            for candidate in candidates
+        ]
+
+    monkeypatch.setattr(pipeline, "collect_pipeline_context", fake_collect)
+    monkeypatch.setattr(pipeline, "draft_paragraphs", fake_draft)
+
+    result = asyncio.run(pipeline.build_briefing_result(
+        config=minimal_config(),
+        openai_mode="off",
+        watchlist_path=None,
+        persist_history=False,
+        skipped_log_path=tmp_path / "skipped.json",
+    ))
+
+    finance = next(section for section in result.briefings if section.category == "finance")
+    assert drafted_ids == ["legacy", "important"]
+    assert [paragraph.story_id for paragraph in finance.paragraphs] == ["important", "legacy"]
 
 
 def test_selected_clusters_deduplicates_by_story_identity() -> None:
@@ -568,7 +759,7 @@ def test_build_briefing_result_end_to_end_off_mode(monkeypatch: pytest.MonkeyPat
 
     assert isinstance(result.briefings, list)
     assert all(isinstance(section, BriefingSection) for section in result.briefings)
-    assert {section.category for section in result.briefings} == set(pipeline.CATEGORY_LIMITS)
+    assert {section.category for section in result.briefings} == set(pipeline.CATEGORY_NAMES)
     # off mode -> classify_clusters_fallback with no feed_categories signal ->
     # category "" -> the article doesn't land in any of the 5 sections, but the
     # pipeline still runs end-to-end without crashing and every section exists.

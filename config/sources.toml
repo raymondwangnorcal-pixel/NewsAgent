@@ -1,12 +1,59 @@
 [settings]
 lookback_hours = 30
 max_articles = 240
-max_culture_stories = 3
 max_chars_per_message_sms = 1400
-max_stories_per_category_sms = 5
+max_stories_per_category_sms = 6
 max_sources_per_story = 3
 include_links_sms = false
 include_links_telegram = false
+
+[fetch_reserves]
+business_tech = 40
+domestic = 40
+global = 40
+finance = 40
+culture = 30
+
+[importance]
+enabled = true
+logistic_midpoint = 12.0
+logistic_steepness = 0.30
+llm_weight = 0.65
+clamp_down = 25.0
+clamp_up = 100.0
+deck_target = 25
+big_day_importance_threshold = 70.0
+big_day_requires_corroboration = true
+calibration_version = "total-score-v1-2026-07-21"
+
+[selection]
+max_per_source_per_category = 2
+big_day_source_cap = 3
+
+[selection_limits.business_tech]
+floor = 3
+ceiling = 5
+big_day_max = 6
+
+[selection_limits.domestic]
+floor = 3
+ceiling = 5
+big_day_max = 6
+
+[selection_limits.global]
+floor = 3
+ceiling = 5
+big_day_max = 6
+
+[selection_limits.finance]
+floor = 3
+ceiling = 5
+big_day_max = 6
+
+[selection_limits.culture]
+floor = 2
+ceiling = 5
+big_day_max = 6
 
 [enrichment]
 enabled = true

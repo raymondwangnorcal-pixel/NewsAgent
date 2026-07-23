@@ -54,8 +54,9 @@ CLASSIFY_SCHEMA: dict[str, Any] = {
                     "rationale": {"type": "string"},
                     "outlier_urls": {"type": "array", "items": {"type": "string"}},
                     "culture_lane": {"type": "string", "enum": ["", *CULTURE_LANES]},
+                    "importance": {"type": "integer", "minimum": 0, "maximum": 100},
                 },
-                "required": ["cluster_id", "category", "rationale", "outlier_urls", "culture_lane"],
+                "required": ["cluster_id", "category", "rationale", "outlier_urls", "culture_lane", "importance"],
             },
         }
     },
@@ -83,7 +84,10 @@ def _classify_system_prompt(guidelines: str) -> str:
         "so they can be excluded before drafting. If a cluster genuinely does not fit any of the "
         "five categories, return an empty string for category. For Culture, return exactly one "
         f"culture_lane from: {', '.join(CULTURE_LANES)} when supported, otherwise an empty string. "
-        "Return an empty culture_lane for every non-Culture assignment. Give a one-sentence rationale for "
+        "Return an empty culture_lane for every non-Culture assignment. Also score editorial importance "
+        "from 0 to 100: 0-19 routine or narrow, 20-39 notable, 40-59 broadly consequential, "
+        "60-79 major, and 80-100 exceptional or historic. Judge real-world consequence, reach, "
+        "durability, and corroboration rather than click appeal. Give a one-sentence rationale for "
         "every assignment that cites the specific guideline reason, not just the category name."
     )
 
@@ -178,6 +182,7 @@ def _classify_clusters_llm(clusters: list[StoryCluster], model: str | None = Non
                 rationale=str(entry.get("rationale", "")),
                 outlier_urls=tuple(entry.get("outlier_urls") or ()),
                 culture_lane=_normalize_lane(category, str(entry.get("culture_lane", "")), chunk_by_key[cluster_id]),
+                llm_importance=(int(entry["importance"]) if entry.get("importance") is not None else None),
             )
 
     return assignments
@@ -290,6 +295,7 @@ def write_category_assignments(
             "rationale": assignment.rationale,
             "outlier_urls": list(assignment.outlier_urls),
             "culture_lane": assignment.culture_lane,
+            "llm_importance": assignment.llm_importance,
         }
         for cluster_id, assignment in assignments.items()
     ]

@@ -6,6 +6,13 @@ from typing import Literal
 
 
 CategoryName = str
+DEFAULT_CATEGORY_FETCH_RESERVES: dict[CategoryName, int] = {
+    "business_tech": 40,
+    "domestic": 40,
+    "global": 40,
+    "finance": 40,
+    "culture": 30,
+}
 CultureLane = Literal["", "film_tv", "music", "sports", "gaming", "media_creators", "internet_culture"]
 OpenAIMode = Literal["full", "classify-only", "off"]
 EnrichmentStatus = Literal[
@@ -77,12 +84,50 @@ class QualityGateConfig:
 
 
 @dataclass(frozen=True)
+class CategorySelectionLimit:
+    floor: int
+    ceiling: int
+    big_day_max: int
+
+
+DEFAULT_CATEGORY_SELECTION_LIMITS: dict[CategoryName, CategorySelectionLimit] = {
+    "business_tech": CategorySelectionLimit(3, 5, 6),
+    "domestic": CategorySelectionLimit(3, 5, 6),
+    "global": CategorySelectionLimit(3, 5, 6),
+    "finance": CategorySelectionLimit(3, 5, 6),
+    "culture": CategorySelectionLimit(2, 5, 6),
+}
+
+
+@dataclass(frozen=True)
+class ImportanceConfig:
+    enabled: bool = True
+    logistic_midpoint: float = 12.0
+    logistic_steepness: float = 0.30
+    llm_weight: float = 0.65
+    clamp_down: float = 25.0
+    clamp_up: float = 100.0
+    deck_target: int = 25
+    big_day_importance_threshold: float = 70.0
+    big_day_requires_corroboration: bool = True
+    calibration_version: str = "total-score-v1-2026-07-21"
+
+
+@dataclass(frozen=True)
 class AgentConfig:
     feeds: tuple[FeedConfig, ...]
     categories: dict[CategoryName, CategoryConfig]
     lookback_hours: int
     max_articles: int
-    max_culture_stories: int = 6
+    category_fetch_reserves: dict[CategoryName, int] = field(
+        default_factory=lambda: dict(DEFAULT_CATEGORY_FETCH_RESERVES)
+    )
+    importance: ImportanceConfig = field(default_factory=ImportanceConfig)
+    category_selection_limits: dict[CategoryName, CategorySelectionLimit] = field(
+        default_factory=lambda: dict(DEFAULT_CATEGORY_SELECTION_LIMITS)
+    )
+    max_per_source_per_category: int = 2
+    big_day_source_cap: int = 3
     formatting: FormattingConfig = field(default_factory=FormattingConfig)
     quality_gate: QualityGateConfig = field(default_factory=QualityGateConfig)
     enrichment: EnrichmentConfig = field(default_factory=EnrichmentConfig)
@@ -134,6 +179,7 @@ class StoryCluster:
     source_balance_score: float = 0.0
     watchlist_score: float = 0.0
     total_score: float = 0.0
+    importance: float = 0.0
     why_it_matters: str = ""
     watchlist_matches: tuple[str, ...] = ()
     is_update: bool = False
@@ -194,6 +240,7 @@ class CategoryAssignment:
     rationale: str
     outlier_urls: tuple[str, ...] = ()
     culture_lane: CultureLane = ""
+    llm_importance: int | None = None
 
 
 @dataclass(frozen=True)
@@ -235,6 +282,14 @@ class PipelineDiagnostics:
     backfill_candidates_by_category: dict[str, int] = field(default_factory=dict)
     selected_stories_by_category: dict[str, int] = field(default_factory=dict)
     underfilled_reason_by_category: dict[str, str] = field(default_factory=dict)
+    importance_by_category: dict[str, dict[str, float | int]] = field(default_factory=dict)
+    floor_selected_by_category: dict[str, int] = field(default_factory=dict)
+    remainder_selected_by_category: dict[str, int] = field(default_factory=dict)
+    big_day_selected_by_category: dict[str, int] = field(default_factory=dict)
+    source_cap_relaxed_by_category: dict[str, int] = field(default_factory=dict)
+    deck_target: int = 0
+    deck_selected: int = 0
+    deck_underfilled_reason: str = ""
 
 
 @dataclass(frozen=True)

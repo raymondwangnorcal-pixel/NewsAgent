@@ -1,11 +1,42 @@
 from __future__ import annotations
 
-from news_agent.models import BriefingParagraph, BriefingSection, CategoryAssignment
+from news_agent.models import (
+    BriefingParagraph,
+    BriefingSection,
+    CategoryAssignment,
+    ImportanceConfig,
+    PipelineDiagnostics,
+)
 
 
 def test_category_assignment_defaults() -> None:
     assignment = CategoryAssignment(category="finance", rationale="Market-moving story.")
     assert assignment.outlier_urls == ()
+
+
+def test_default_importance_config_matches_locked_values() -> None:
+    assert ImportanceConfig() == ImportanceConfig(
+        enabled=True,
+        logistic_midpoint=12.0,
+        logistic_steepness=0.30,
+        llm_weight=0.65,
+        clamp_down=25.0,
+        clamp_up=100.0,
+        deck_target=25,
+        big_day_importance_threshold=70.0,
+        big_day_requires_corroboration=True,
+        calibration_version="total-score-v1-2026-07-21",
+    )
+
+
+def test_pipeline_diagnostics_construct_with_partial_kwargs() -> None:
+    empty = PipelineDiagnostics()
+    partial = PipelineDiagnostics(articles_fetched=3)
+
+    assert empty.importance_by_category == {}
+    assert partial.floor_selected_by_category == {}
+    assert partial.deck_target == 0
+    assert partial.deck_underfilled_reason == ""
 
 
 def test_category_assignment_can_carry_outlier_urls() -> None:

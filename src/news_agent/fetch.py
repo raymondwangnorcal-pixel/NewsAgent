@@ -9,10 +9,11 @@ import urllib.error
 import urllib.request
 import unicodedata
 import xml.etree.ElementTree as ET
+from collections import Counter
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 
-from news_agent.models import Article, FeedConfig
+from news_agent.models import Article, CategoryName, FeedConfig
 
 
 USER_AGENT = "morning-news-agent/0.1 (+https://example.local)"
@@ -187,10 +188,70 @@ def fetch_feed(feed: FeedConfig, timeout_seconds: float = 12.0) -> list[Article]
         return []
 
 
-async def fetch_all_feeds(feeds: tuple[FeedConfig, ...], lookback_hours: int, max_articles: int) -> list[Article]:
+async def fetch_all_feeds(
+    feeds: tuple[FeedConfig, ...],
+    lookback_hours: int,
+    max_articles: int,
+    category_reserves: dict[CategoryName, int] | None = None,
+) -> list[Article]:
     cutoff = datetime.now(timezone.utc) - timedelta(hours=lookback_hours)
     tasks = [asyncio.to_thread(fetch_feed, feed) for feed in feeds]
     results = await asyncio.gather(*tasks)
     articles = [article for batch in results for article in batch if article.published_at >= cutoff]
-    articles.sort(key=lambda item: item.published_at, reverse=True)
-    return articles[:max_articles]
+    return select_articles_with_category_reserves(articles, max_articles, category_reserves)
+
+
+def select_articles_with_category_reserves(
+    articles: list[Article],
+    max_articles: int,
+    category_reserves: dict[CategoryName, int] | None = None,
+) -> list[Article]:
+    """Reserve pre-cutoff capacity per feed hint, then fill by recency.
+
+    A dual-tagged article satisfies every applicable reserve but is returned
+    only once. Categories with fewer available articles contribute everything
+    they have; their unused capacity remains available to the global fill.
+    """
+    if max_articles <= 0:
+        return []
+    ranked = sorted(articles, key=lambda item: item.published_at, reverse=True)
+    reserves = category_reserves or {}
+    categories = tuple(reserves)
+    queues = {
+        category: [article for article in ranked if category in article.feed_categories]
+        for category in categories
+    }
+    positions = {category: 0 for category in categories}
+    coverage: Counter[str] = Counter()
+    selected: list[Article] = []
+    selected_ids: set[int] = set()
+
+    while len(selected) < max_articles:
+        progressed = False
+        for category in categories:
+            if coverage[category] >= reserves[category]:
+                continue
+            queue = queues[category]
+            while positions[category] < len(queue) and id(queue[positions[category]]) in selected_ids:
+                positions[category] += 1
+            if positions[category] >= len(queue):
+                continue
+            article = queue[positions[category]]
+            positions[category] += 1
+            selected.append(article)
+            selected_ids.add(id(article))
+            coverage.update(category for category in categories if category in article.feed_categories)
+            progressed = True
+            if len(selected) >= max_articles:
+                break
+        if not progressed:
+            break
+
+    for article in ranked:
+        if len(selected) >= max_articles:
+            break
+        if id(article) not in selected_ids:
+            selected.append(article)
+            selected_ids.add(id(article))
+    selected.sort(key=lambda item: item.published_at, reverse=True)
+    return selected
