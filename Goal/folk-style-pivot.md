@@ -1,10 +1,10 @@
-# NewsAgent: Folk-Style Delivery and Assistant Pivot
+# NewsAgent: Folk-Style Messaging and Assistant Pivot
 
 ## Objective
 
-Evolve NewsAgent from a one-way daily news text into a low-cost, conversational personal news assistant. It should send one curated briefing each morning and let each subscriber reply in the same channel for one-to-one explanations, deeper context, preference changes, and limited live-news questions.
+Evolve NewsAgent from a one-way daily news text into a low-cost, conversational personal news assistant. It should send one curated briefing each morning through messaging or push channels and let each subscriber reply in the same channel for one-to-one explanations, deeper context, preference changes, and limited live-news questions.
 
-The product should feel like a familiar contact in a user's existing inbox rather than a generic newsletter.
+The product should feel like a familiar contact on a user's phone rather than a generic broadcast feed. The separate personalized email-newsletter product is documented in [`mobile-split-email.md`](mobile-split-email.md) and is not a delivery channel for this Folk-style product.
 
 ## Original Message Format and SMS Economics
 
@@ -78,14 +78,13 @@ Do not attempt to put the whole edition into SMS. Generate the full edition once
 | Channel | Delivery format | Marginal cost | Role |
 |---|---|---:|---|
 | Telegram | Full edition in chat | Near $0 | Best initial chat-native channel |
-| Email | Full formatted edition | Near $0 | Universal full-digest fallback |
 | Mobile/web push | Short alert + deep link | Near $0 | Best iMessage-like app experience |
 | WhatsApp Business | Teaser/template + link | Low but not zero | Optional channel; needs opt-in/template compliance |
 | Telnyx SMS | Short teaser + link | About $0.23-$0.27/user/month for one segment daily | Paid fallback/add-on |
 
 Suggested onboarding prompt:
 
-> Where should NewsAgent meet you each morning? Telegram, Email, NewsAgent app notifications, or Text message (+$1.50/month).
+> Where should NewsAgent meet you each morning? Telegram, NewsAgent app notifications, or Text message (+$1.50/month).
 
 ### Recommended SMS
 
@@ -93,7 +92,7 @@ Use one concise GSM-safe message plus a branded link:
 
 > NewsAgent: Markets rose after earnings, AI spending accelerated, and ceasefire talks resumed. Your full 5-minute briefing: na.example/today
 
-Full stories live on the briefing page and in free/near-free channels.
+Full stories live on the private briefing page and in free/near-free messaging channels.
 
 ## Folk-Style Conversational Assistant
 
@@ -132,7 +131,7 @@ stories
   id, edition_id, section, title, blurb, context, source_urls, tags
 
 users
-  id, email, timezone, preferred_delivery_time, plan
+  id, timezone, preferred_delivery_time, plan
 
 delivery_channels
   id, user_id, channel, address_or_chat_id, opted_in, verified, enabled
@@ -153,7 +152,7 @@ messages
 - Make questions about the current/recent curated edition included.
 - Limit or meter expensive live-web-research questions.
 - Keep SMS replies concise or route detailed answers to the briefing link.
-- Offer Telegram/email/push as the included full-content experience.
+- Offer Telegram and push/web briefing access as the included full-content experience.
 - Consider annual billing for SMS users to reduce fixed payment-processing fees.
 
 ## iMessage and Folk
@@ -170,14 +169,32 @@ Implications for NewsAgent:
 - Daily distribution to many subscribers carries a greater risk of throttling/blocking than a personal conversational assistant.
 - Obtain explicit user consent and maintain opt-out/suppression handling regardless of the channel.
 
-The reliable version of the product does not depend on iMessage: Telegram, email, push, WhatsApp, and Telnyx SMS all use the same conversation/assistant backend.
+The reliable version of the product does not depend on iMessage: Telegram, push, WhatsApp, and Telnyx SMS all use the same conversation/assistant backend.
+
+## Subscriber Website
+
+The Folk-style product includes an authenticated website that acts as a control
+center and the destination for full daily briefings. It is not an email
+newsletter surface.
+
+The website should let subscribers:
+
+- Enable or disable Telegram, SMS, push, and future supported messaging channels.
+- Set a timezone, delivery days, and preferred delivery time.
+- Choose enabled sections, topics, exclusions, and message verbosity.
+- Pause and resume delivery, manage consent, and view channel opt-in status.
+- Open private current and recent briefing pages from a message link.
+
+The website and inbound conversational commands must update the same
+preferences. For example, "Only send tech and finance tomorrow" in Telegram
+should change the same settings a subscriber can edit on the website.
 
 ## Build Order
 
 1. Refactor the existing daily generation pipeline to persist structured editions and sources.
 2. Add a private daily briefing page and stable daily URL.
-3. Add Telegram bot delivery and inbound-reply handling.
-4. Add email delivery and user delivery preferences.
+3. Add the subscriber website and shared delivery-preference controls.
+4. Add Telegram bot delivery and inbound-reply handling.
 5. Add the one-to-one retrieval assistant grounded in saved editions.
 6. Add Telnyx 10DLC as a paid SMS teaser/link channel.
 7. Add iOS/PWA push notifications.
