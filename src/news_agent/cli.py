@@ -75,6 +75,22 @@ def main(argv: list[str] | None = None) -> None:
         action="store_true",
         help="Alias for --openai-mode classify-only.",
     )
+    compression_group = parser.add_mutually_exclusive_group()
+    compression_group.add_argument(
+        "--compress",
+        dest="compression_override",
+        action="store_const",
+        const=True,
+        default=None,
+        help="Enable the post-draft concise compression pass for this run.",
+    )
+    compression_group.add_argument(
+        "--no-compress",
+        dest="compression_override",
+        action="store_const",
+        const=False,
+        help="Disable the post-draft concise compression pass for this run.",
+    )
     args = parser.parse_args(argv)
 
     if args.no_openai and args.no_openai_drafting:
@@ -96,7 +112,13 @@ def main(argv: list[str] | None = None) -> None:
     if not args.dry_run and not args.send:
         parser.error("Choose --dry-run, --send, or --test-telegram.")
 
-    config = load_config(args.config)
+    try:
+        config = load_config(
+            args.config,
+            compression_enabled_override=args.compression_override,
+        )
+    except ValueError as exc:
+        parser.error(str(exc))
     format_mode = resolve_format_mode(args.format, args.dry_run, args.channel)
 
     if args.alerts:
@@ -205,6 +227,22 @@ def print_diagnostics(diagnostics: object) -> None:
     print(f"Pages failed/thin: {getattr(diagnostics, 'pages_failed', 0)}")
     print(f"LLM drafts: {getattr(diagnostics, 'llm_drafts', 0)}")
     print(f"Fallback drafts: {getattr(diagnostics, 'fallback_drafts', 0)}")
+    print(f"Drafting input tokens: {getattr(diagnostics, 'drafting_input_tokens', 0)}")
+    print(f"Drafting output tokens: {getattr(diagnostics, 'drafting_output_tokens', 0)}")
+    print(f"Drafting cost: ${getattr(diagnostics, 'drafting_cost_usd', 0.0):.6f}")
+    print(f"Drafting budget exhausted: {getattr(diagnostics, 'drafting_budget_exhausted', False)}")
+    print(f"Compressed paragraphs: {getattr(diagnostics, 'compressed_count', 0)}")
+    print(f"Compression statuses: {getattr(diagnostics, 'compression_status_counts', {})}")
+    print(f"Median compression ratio: {getattr(diagnostics, 'median_compression_ratio', 0.0):.1%}")
+    print(f"Compression guard failures: {getattr(diagnostics, 'guard_failures', 0)}")
+    print(f"Compression entity warnings: {getattr(diagnostics, 'entity_warnings', 0)}")
+    print(f"Compression cost: ${getattr(diagnostics, 'compression_cost_usd', 0.0):.6f}")
+    print(f"Compression budget exhausted: {getattr(diagnostics, 'compression_budget_exhausted', False)}")
+    print(f"Total OpenAI input tokens: {getattr(diagnostics, 'openai_input_tokens', 0)}")
+    print(f"Total OpenAI output tokens: {getattr(diagnostics, 'openai_output_tokens', 0)}")
+    print(f"Total OpenAI cost: ${getattr(diagnostics, 'openai_cost_usd', 0.0):.6f}")
+    print(f"OpenAI cost by stage: {getattr(diagnostics, 'openai_cost_by_stage', {})}")
+    print(f"Overall OpenAI budget exhausted: {getattr(diagnostics, 'openai_budget_exhausted', False)}")
     print("Feed-hint pipeline")
     for field_name in (
         "fetched_articles_by_feed_hint",

@@ -20,6 +20,16 @@ EnrichmentStatus = Literal[
     "not_permitted", "blocked", "failed", "too_thin",
 ]
 DraftStatus = Literal["llm", "fallback_disabled", "fallback_error", "fallback_missing"]
+CompressionStatus = Literal[
+    "compressed",
+    "kept_original_no_gain",
+    "kept_original_guard_failed",
+    "kept_original_error",
+    "kept_original_budget_exhausted",
+    "skipped_short",
+    "skipped_fallback_draft",
+    "disabled",
+]
 
 
 @dataclass(frozen=True)
@@ -114,6 +124,32 @@ class ImportanceConfig:
 
 
 @dataclass(frozen=True)
+class OpenAICostConfig:
+    enabled: bool = True
+    model: str = "gpt-5.6-terra"
+    max_cost_usd_per_run: float = 1.00
+    input_cost_usd_per_million_tokens: float = 2.50
+    output_cost_usd_per_million_tokens: float = 15.00
+
+
+@dataclass(frozen=True)
+class DraftingConfig:
+    model: str = "gpt-5.6-terra"
+    max_output_tokens_per_batch: int = 6000
+
+
+@dataclass(frozen=True)
+class CompressionConfig:
+    enabled: bool = False
+    model: str = "gpt-5.6-terra"
+    min_words_to_compress: int = 40
+    min_words_floor: int = 20
+    compress_fallback_drafts: bool = False
+    guard_entities: bool = True
+    max_output_tokens_per_batch: int = 1200
+
+
+@dataclass(frozen=True)
 class AgentConfig:
     feeds: tuple[FeedConfig, ...]
     categories: dict[CategoryName, CategoryConfig]
@@ -123,9 +159,12 @@ class AgentConfig:
         default_factory=lambda: dict(DEFAULT_CATEGORY_FETCH_RESERVES)
     )
     importance: ImportanceConfig = field(default_factory=ImportanceConfig)
+    openai_costs: OpenAICostConfig = field(default_factory=OpenAICostConfig)
+    drafting: DraftingConfig = field(default_factory=DraftingConfig)
     category_selection_limits: dict[CategoryName, CategorySelectionLimit] = field(
         default_factory=lambda: dict(DEFAULT_CATEGORY_SELECTION_LIMITS)
     )
+    compression: CompressionConfig = field(default_factory=CompressionConfig)
     max_per_source_per_category: int = 2
     big_day_source_cap: int = 3
     formatting: FormattingConfig = field(default_factory=FormattingConfig)
@@ -259,6 +298,9 @@ class BriefingParagraph:
     urls: tuple[str, ...] = ()
     draft_status: DraftStatus = "llm"
     draft_error_code: str = ""
+    full_paragraph: str = ""
+    compression_status: CompressionStatus | str = ""
+    compression_ratio: float = 0.0
 
 
 @dataclass(frozen=True)
@@ -272,6 +314,10 @@ class PipelineDiagnostics:
     llm_drafts: int = 0
     fallback_drafts: int = 0
     fallback_story_ids: tuple[str, ...] = ()
+    drafting_input_tokens: int = 0
+    drafting_output_tokens: int = 0
+    drafting_cost_usd: float = 0.0
+    drafting_budget_exhausted: bool = False
     fetched_articles_by_feed_hint: dict[str, int] = field(default_factory=dict)
     preliminary_clusters_by_feed_hint: dict[str, int] = field(default_factory=dict)
     enrichment_clusters_by_feed_hint: dict[str, int] = field(default_factory=dict)
@@ -290,6 +336,18 @@ class PipelineDiagnostics:
     deck_target: int = 0
     deck_selected: int = 0
     deck_underfilled_reason: str = ""
+    compressed_count: int = 0
+    compression_status_counts: dict[str, int] = field(default_factory=dict)
+    median_compression_ratio: float = 0.0
+    guard_failures: int = 0
+    entity_warnings: int = 0
+    compression_cost_usd: float = 0.0
+    compression_budget_exhausted: bool = False
+    openai_input_tokens: int = 0
+    openai_output_tokens: int = 0
+    openai_cost_usd: float = 0.0
+    openai_budget_exhausted: bool = False
+    openai_cost_by_stage: dict[str, float] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)

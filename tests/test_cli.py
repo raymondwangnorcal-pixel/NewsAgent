@@ -8,6 +8,7 @@ from types import SimpleNamespace
 import pytest
 
 from news_agent import cli
+from news_agent.config import DEFAULT_CONFIG_PATH
 from news_agent.models import Article, BriefingParagraph, BriefingSection, PipelineDiagnostics
 
 
@@ -220,6 +221,15 @@ def test_cli_show_skipped_prints_quality_gate_rejections(monkeypatch: pytest.Mon
 
 def test_cli_prints_importance_phase_diagnostics(capsys: pytest.CaptureFixture[str]) -> None:
     cli.print_diagnostics(PipelineDiagnostics(
+        drafting_input_tokens=1_000,
+        drafting_output_tokens=200,
+        drafting_cost_usd=0.0055,
+        drafting_budget_exhausted=False,
+        openai_input_tokens=4_000,
+        openai_output_tokens=800,
+        openai_cost_usd=0.022,
+        openai_cost_by_stage={"classification": 0.0165, "drafting": 0.0055},
+        openai_budget_exhausted=False,
         floor_selected_by_category={"culture": 2},
         remainder_selected_by_category={"culture": 3},
         big_day_selected_by_category={"culture": 1},
@@ -231,4 +241,94 @@ def test_cli_prints_importance_phase_diagnostics(capsys: pytest.CaptureFixture[s
     assert "floor_selected_by_category: {'culture': 2}" in output
     assert "remainder_selected_by_category: {'culture': 3}" in output
     assert "big_day_selected_by_category: {'culture': 1}" in output
+    assert "Drafting input tokens: 1000" in output
+    assert "Drafting output tokens: 200" in output
+    assert "Drafting cost: $0.005500" in output
+    assert "Drafting budget exhausted: False" in output
+    assert "Total OpenAI input tokens: 4000" in output
+    assert "Total OpenAI output tokens: 800" in output
+    assert "Total OpenAI cost: $0.022000" in output
+    assert "OpenAI cost by stage: {'classification': 0.0165, 'drafting': 0.0055}" in output
+    assert "Overall OpenAI budget exhausted: False" in output
     assert "Deck: 25/25 (full)" in output
+
+
+def test_no_compress_flag_forces_off(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    monkeypatch.chdir(tmp_path)
+    seen: dict[str, object] = {}
+
+    def fake_build(**kwargs: object) -> object:
+        seen["config"] = kwargs["config"]
+        return SimpleNamespace(
+            briefings=sample_briefings(),
+            skipped_stories=[],
+            skipped_log_path=Path("skipped.json"),
+            source_debug_lines=(),
+        )
+
+    monkeypatch.setenv("BRIEFING_COMPRESSION", "true")
+    monkeypatch.setattr(cli, "build_briefing_result_sync", fake_build)
+
+    cli.main(["--dry-run", "--no-openai", "--no-compress"])
+
+    assert getattr(seen["config"], "compression").enabled is False
+
+
+def test_compress_flag_forces_on(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    config_path = tmp_path / "sources.toml"
+    config_path.write_text(
+        DEFAULT_CONFIG_PATH.read_text(encoding="utf-8"),
+        encoding="utf-8",
+    )
+    seen: dict[str, object] = {}
+
+    def fake_build(**kwargs: object) -> object:
+        seen["config"] = kwargs["config"]
+        return SimpleNamespace(
+            briefings=sample_briefings(),
+            skipped_stories=[],
+            skipped_log_path=Path("skipped.json"),
+            source_debug_lines=(),
+        )
+
+    monkeypatch.setenv("BRIEFING_COMPRESSION", "false")
+    monkeypatch.setattr(cli, "build_briefing_result_sync", fake_build)
+
+    cli.main(["--dry-run", "--no-openai", "--compress", "--config", str(config_path)])
+
+    assert getattr(seen["config"], "compression").enabled is True
+
+
+def test_compression_flags_are_mutually_exclusive(capsys: pytest.CaptureFixture[str]) -> None:
+    with pytest.raises(SystemExit):
+        cli.main(["--dry-run", "--compress", "--no-compress"])
+
+    assert "not allowed with argument" in capsys.readouterr().err
+
+
+def test_cli_rejects_unpriced_openai_configuration(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    config_path = tmp_path / "sources.toml"
+    config_path.write_text(
+        DEFAULT_CONFIG_PATH.read_text(encoding="utf-8").replace(
+            "input_cost_usd_per_million_tokens = 2.5\n"
+            "output_cost_usd_per_million_tokens = 15.0",
+            "input_cost_usd_per_million_tokens = 0.0\n"
+            "output_cost_usd_per_million_tokens = 0.0",
+            1,
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(SystemExit):
+        cli.main(["--dry-run", "--config", str(config_path)])
+
+    assert "requires positive input and output token prices" in capsys.readouterr().err

@@ -7,7 +7,8 @@ import re
 from dataclasses import dataclass
 from typing import Any
 
-from news_agent.models import Article, BriefingParagraph
+from news_agent.models import Article, BriefingParagraph, DraftingConfig, OpenAICostConfig
+from news_agent.openai_budget import OpenAIBudget, conservative_request_cost_usd
 
 
 DRAFT_BATCH_SIZE = 40
@@ -36,6 +37,19 @@ class DraftBatchOutcome:
     failed_story_ids: tuple[str, ...] = ()
     missing_story_ids: tuple[str, ...] = ()
     error_code: str = ""
+    input_tokens: int = 0
+    output_tokens: int = 0
+    cost_usd: float = 0.0
+    budget_exhausted: bool = False
+
+
+@dataclass(frozen=True)
+class DraftRunResult:
+    paragraphs: list[BriefingParagraph]
+    input_tokens: int = 0
+    output_tokens: int = 0
+    cost_usd: float = 0.0
+    budget_exhausted: bool = False
 
 
 DRAFT_SCHEMA: dict[str, Any] = {
@@ -137,7 +151,32 @@ def _chunk_candidates(candidates: list[DraftCandidate], size: int) -> list[list[
     return [candidates[index : index + size] for index in range(0, len(candidates), size)]
 
 
-def _draft_paragraphs_llm(candidates: list[DraftCandidate], model: str | None = None) -> DraftBatchOutcome:
+def _usage_value(usage: object, name: str) -> int:
+    if isinstance(usage, dict):
+        return int(usage.get(name, 0) or 0)
+    return int(getattr(usage, name, 0) or 0)
+
+
+def estimate_drafting_batch_cost_usd(
+    candidates: list[DraftCandidate],
+    config: DraftingConfig,
+    budget: OpenAIBudget,
+) -> float:
+    payload = _candidate_payload(candidates)
+    return conservative_request_cost_usd(
+        DRAFT_SYSTEM_PROMPT,
+        payload,
+        config.max_output_tokens_per_batch,
+        budget.config,
+    )
+
+
+def _draft_paragraphs_llm(
+    candidates: list[DraftCandidate],
+    model: str | None = None,
+    config: DraftingConfig | None = None,
+    budget: OpenAIBudget | None = None,
+) -> DraftBatchOutcome:
     """Batched LLM drafting with explicit failure and omission status.
 
     Never raises: any per-chunk failure is recorded in the outcome. Callers
@@ -153,13 +192,35 @@ def _draft_paragraphs_llm(candidates: list[DraftCandidate], model: str | None = 
         logger.warning("draft: openai package not installed, cannot run LLM drafting")
         return DraftBatchOutcome({}, tuple(candidate.story_id for candidate in candidates), error_code="openai_not_installed")
 
+    resolved_config = config or DraftingConfig()
+    resolved_budget = budget or OpenAIBudget(OpenAICostConfig())
+    selected_model = model or os.getenv("OPENAI_MODEL", resolved_config.model)
+    if selected_model != resolved_config.model or selected_model != resolved_budget.config.model:
+        logger.warning(
+            "draft: model %s does not match priced model %s",
+            selected_model,
+            resolved_config.model,
+        )
+        return DraftBatchOutcome(
+            {},
+            tuple(candidate.story_id for candidate in candidates),
+            error_code="draft_model_pricing_mismatch",
+        )
     client = OpenAI()
-    selected_model = model or os.getenv("OPENAI_MODEL", "gpt-5.5")
 
     paragraphs: dict[str, str] = {}
     failed_ids: list[str] = []
     saw_error = False
+    total_input_tokens = 0
+    total_output_tokens = 0
+    stage_cost_before = resolved_budget.cost_by_stage.get("drafting", 0.0)
+    budget_exhausted = False
     for chunk in _chunk_candidates(candidates, DRAFT_BATCH_SIZE):
+        estimate = estimate_drafting_batch_cost_usd(chunk, resolved_config, resolved_budget)
+        if not resolved_budget.can_start(estimate):
+            failed_ids.extend(candidate.story_id for candidate in chunk)
+            budget_exhausted = True
+            continue
         try:
             response = client.responses.create(
                 model=selected_model,
@@ -175,14 +236,31 @@ def _draft_paragraphs_llm(candidates: list[DraftCandidate], model: str | None = 
                         "schema": DRAFT_SCHEMA,
                     }
                 },
+                max_output_tokens=resolved_config.max_output_tokens_per_batch,
             )
-            data = json.loads(response.output_text)
         except Exception:
             logger.warning("draft: LLM call failed for a chunk of %d stories", len(chunk), exc_info=True)
             failed_ids.extend(candidate.story_id for candidate in chunk)
             saw_error = True
             continue
 
+        usage = getattr(response, "usage", None)
+        input_tokens = _usage_value(usage, "input_tokens")
+        output_tokens = _usage_value(usage, "output_tokens")
+        total_input_tokens += input_tokens
+        total_output_tokens += output_tokens
+        resolved_budget.record("drafting", input_tokens, output_tokens)
+        try:
+            data = json.loads(response.output_text)
+        except Exception:
+            logger.warning(
+                "draft: LLM returned malformed output for a chunk of %d stories",
+                len(chunk),
+                exc_info=True,
+            )
+            failed_ids.extend(candidate.story_id for candidate in chunk)
+            saw_error = True
+            continue
         chunk_ids = {candidate.story_id for candidate in chunk}
         for entry in data.get("paragraphs", []):
             story_id = entry.get("story_id")
@@ -196,7 +274,17 @@ def _draft_paragraphs_llm(candidates: list[DraftCandidate], model: str | None = 
         paragraphs,
         tuple(failed_ids),
         missing_ids,
-        "draft_api_error" if saw_error else "",
+        (
+            "draft_budget_exhausted"
+            if budget_exhausted
+            else "draft_api_error"
+            if saw_error
+            else ""
+        ),
+        total_input_tokens,
+        total_output_tokens,
+        resolved_budget.cost_by_stage.get("drafting", 0.0) - stage_cost_before,
+        budget_exhausted,
     )
 
 
@@ -241,12 +329,14 @@ def _extractive_paragraph(candidate: DraftCandidate) -> str:
     return truncated or text[:FALLBACK_PARAGRAPH_MAX_CHARS].rstrip()
 
 
-def draft_paragraphs(
+def draft_paragraphs_result(
     candidates: list[DraftCandidate],
     openai_mode: str = "full",
     model: str | None = None,
     use_openai: bool | None = None,
-) -> list[BriefingParagraph]:
+    config: DraftingConfig | None = None,
+    budget: OpenAIBudget | None = None,
+) -> DraftRunResult:
     """Single entry point for the drafting stage.
 
     Skips the LLM call entirely when there is nothing to draft. Runs one
@@ -255,12 +345,12 @@ def draft_paragraphs(
     produces a paragraph, never a silent omission.
     """
     if not candidates:
-        return []
+        return DraftRunResult([])
 
     outcome = DraftBatchOutcome({})
     enabled = openai_mode != "off" if use_openai is None else use_openai
     if enabled:
-        outcome = _draft_paragraphs_llm(candidates, model)
+        outcome = _draft_paragraphs_llm(candidates, model, config, budget)
 
     results: list[BriefingParagraph] = []
     for candidate in candidates:
@@ -290,4 +380,28 @@ def draft_paragraphs(
                 draft_error_code=error_code,
             )
         )
-    return results
+    return DraftRunResult(
+        results,
+        input_tokens=outcome.input_tokens,
+        output_tokens=outcome.output_tokens,
+        cost_usd=outcome.cost_usd,
+        budget_exhausted=outcome.budget_exhausted,
+    )
+
+
+def draft_paragraphs(
+    candidates: list[DraftCandidate],
+    openai_mode: str = "full",
+    model: str | None = None,
+    use_openai: bool | None = None,
+    config: DraftingConfig | None = None,
+    budget: OpenAIBudget | None = None,
+) -> list[BriefingParagraph]:
+    return draft_paragraphs_result(
+        candidates,
+        openai_mode=openai_mode,
+        model=model,
+        use_openai=use_openai,
+        config=config,
+        budget=budget,
+    ).paragraphs

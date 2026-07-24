@@ -9,7 +9,14 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from news_agent.models import CategoryAssignment, CategoryName, CultureLane, StoryCluster
+from news_agent.models import (
+    CategoryAssignment,
+    CategoryName,
+    CultureLane,
+    OpenAICostConfig,
+    StoryCluster,
+)
+from news_agent.openai_budget import OpenAIBudget, conservative_request_cost_usd
 
 
 DEFAULT_GUIDELINES_PATH = Path(__file__).resolve().parents[2] / "docs" / "category-guidelines.md"
@@ -28,6 +35,7 @@ SOURCE_TYPE_CATEGORY_PREFERENCES: dict[str, tuple[CategoryName, ...]] = {
     "mixed_tech_culture": ("business_tech", "culture"),
 }
 CLASSIFY_BATCH_SIZE = 40
+CLASSIFY_MAX_OUTPUT_TOKENS = 6000
 CLUSTER_TEXT_TRUNCATE_CHARS = 600
 ARTICLES_PER_CLUSTER_SAMPLE = 5
 
@@ -125,7 +133,17 @@ def _chunk_clusters(clusters: list[StoryCluster], size: int) -> list[list[StoryC
     return [clusters[index : index + size] for index in range(0, len(clusters), size)]
 
 
-def _classify_clusters_llm(clusters: list[StoryCluster], model: str | None = None) -> dict[str, CategoryAssignment]:
+def _usage_value(usage: object, name: str) -> int:
+    if isinstance(usage, dict):
+        return int(usage.get(name, 0) or 0)
+    return int(getattr(usage, name, 0) or 0)
+
+
+def _classify_clusters_llm(
+    clusters: list[StoryCluster],
+    model: str | None = None,
+    budget: OpenAIBudget | None = None,
+) -> dict[str, CategoryAssignment]:
     """Batched LLM classification. Returns cluster.key -> CategoryAssignment.
 
     Never raises: any per-chunk failure is swallowed and that chunk's clusters
@@ -143,18 +161,31 @@ def _classify_clusters_llm(clusters: list[StoryCluster], model: str | None = Non
         return {}
 
     client = OpenAI()
-    selected_model = model or os.getenv("OPENAI_MODEL", "gpt-5.5")
+    resolved_budget = budget or OpenAIBudget(OpenAICostConfig())
+    selected_model = model or os.getenv("OPENAI_MODEL", resolved_budget.config.model)
+    if selected_model != resolved_budget.config.model:
+        logger.warning("classify: selected model does not match the globally priced model")
+        return {}
     guidelines = load_category_guidelines()
     system_prompt = _classify_system_prompt(guidelines)
 
     assignments: dict[str, CategoryAssignment] = {}
     for chunk in _chunk_clusters(clusters, CLASSIFY_BATCH_SIZE):
+        payload = _cluster_payload(chunk)
+        estimate = conservative_request_cost_usd(
+            system_prompt,
+            payload,
+            CLASSIFY_MAX_OUTPUT_TOKENS,
+            resolved_budget.config,
+        )
+        if not resolved_budget.can_start(estimate):
+            continue
         try:
             response = client.responses.create(
                 model=selected_model,
                 input=[
                     {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": _cluster_payload(chunk)},
+                    {"role": "user", "content": payload},
                 ],
                 text={
                     "format": {
@@ -164,12 +195,23 @@ def _classify_clusters_llm(clusters: list[StoryCluster], model: str | None = Non
                         "schema": CLASSIFY_SCHEMA,
                     }
                 },
+                max_output_tokens=CLASSIFY_MAX_OUTPUT_TOKENS,
             )
-            data = json.loads(response.output_text)
         except Exception:
             logger.warning("classify: LLM call failed for a chunk of %d clusters", len(chunk), exc_info=True)
             continue
 
+        usage = getattr(response, "usage", None)
+        resolved_budget.record(
+            "classification",
+            _usage_value(usage, "input_tokens"),
+            _usage_value(usage, "output_tokens"),
+        )
+        try:
+            data = json.loads(response.output_text)
+        except Exception:
+            logger.warning("classify: malformed LLM output", exc_info=True)
+            continue
         chunk_by_key = {cluster.key: cluster for cluster in chunk}
         chunk_keys = set(chunk_by_key)
         for entry in data.get("assignments", []):
@@ -254,6 +296,7 @@ def classify_clusters(
     openai_mode: str = "full",
     model: str | None = None,
     use_openai: bool | None = None,
+    budget: OpenAIBudget | None = None,
 ) -> dict[str, CategoryAssignment]:
     """Single entry point for the classification stage.
 
@@ -270,7 +313,7 @@ def classify_clusters(
     if not enabled:
         return classify_clusters_fallback(clusters)
 
-    assignments = _classify_clusters_llm(clusters, model)
+    assignments = _classify_clusters_llm(clusters, model, budget)
     missing = [cluster for cluster in clusters if cluster.key not in assignments]
     if missing:
         assignments.update(classify_clusters_fallback(missing))

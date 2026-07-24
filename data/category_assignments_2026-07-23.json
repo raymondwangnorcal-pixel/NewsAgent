@@ -1,0 +1,250 @@
+[
+  {
+    "category": "finance",
+    "cluster_id": "cash china chipmaker debut drain fears largest memory",
+    "culture_lane": "",
+    "llm_importance": 55,
+    "outlier_urls": [],
+    "rationale": "The story's main significance is the $8.6 billion IPO's expected liquidity drain on Chinese equities, making it a markets and investment-flow story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "adds batman caped crusader joker matthew needham season",
+    "culture_lane": "film_tv",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "This is a television casting announcement for an upcoming animated series, which belongs in Culture + Media's film and TV coverage."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "decorator dies fatal golding kate maisel marvelous mary",
+    "culture_lane": "",
+    "llm_importance": 30,
+    "outlier_urls": [],
+    "rationale": "The central development is a fatal stabbing and police investigation in Queens, fitting U.S. News coverage of major crimes and public safety."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "bite core creeps higher inflation japan june low",
+    "culture_lane": "",
+    "llm_importance": 48,
+    "outlier_urls": [],
+    "rationale": "Japan's CPI reading is major economic data with implications for prices and monetary policy, squarely fitting Finance."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "amazon cracks down images law sellers use york",
+    "culture_lane": "",
+    "llm_importance": 32,
+    "outlier_urls": [],
+    "rationale": "Amazon's new seller requirements for AI-generated advertising images are a company platform-policy and technology-regulation development."
+  },
+  {
+    "category": "global",
+    "cluster_id": "babies happens indonesian now singapore them trafficked were",
+    "culture_lane": "",
+    "llm_importance": 42,
+    "outlier_urls": [],
+    "rationale": "The cross-border Indonesian-Singapore baby-trafficking case and the children's status are an international humanitarian and criminal-justice development."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "acting allman amc damn devon drama first hot",
+    "culture_lane": "film_tv",
+    "llm_importance": 15,
+    "outlier_urls": [],
+    "rationale": "The item is a casting announcement for AMC's scripted NASCAR drama, fitting Culture + Media's television coverage."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "abc affiliation channel gray louis media moving sinclair",
+    "culture_lane": "film_tv",
+    "llm_importance": 22,
+    "outlier_urls": [],
+    "rationale": "ABC's St. Louis affiliation change concerns television networks and media organizations, a Culture + Media topic."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "australia breakout crown judges meet next startup who",
+    "culture_lane": "",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "The story concerns a startup competition and early-stage companies, fitting Business + Tech's startup and venture ecosystem coverage."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "arirang bts every far performed song surprise tour",
+    "culture_lane": "music",
+    "llm_importance": 24,
+    "outlier_urls": [],
+    "rationale": "BTS's concert setlists and world tour performances are music-industry and fan-culture coverage."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "bang big comic con episode fails franchise makes",
+    "culture_lane": "film_tv",
+    "llm_importance": 20,
+    "outlier_urls": [],
+    "rationale": "Comic-Con announcements about a Big Bang Theory television spinoff are entertainment and television-franchise news."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "boy dna jackilyn martinez requests son soulja test",
+    "culture_lane": "music",
+    "llm_importance": 14,
+    "outlier_urls": [],
+    "rationale": "The story is a celebrity legal and personal controversy, which falls under Culture + Media's public-attention coverage."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "blind could day hours john leguizamo not odyssey",
+    "culture_lane": "film_tv",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "John Leguizamo discussing his performance in a theatrical film is film and entertainment coverage."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "big brother devens ends evicted eviction hoh houseguest",
+    "culture_lane": "film_tv",
+    "llm_importance": 10,
+    "outlier_urls": [],
+    "rationale": "A reality-TV episode eviction is a television entertainment development."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "challenges changed cole dutton everything had hauser making",
+    "culture_lane": "film_tv",
+    "llm_importance": 13,
+    "outlier_urls": [],
+    "rationale": "This is behind-the-scenes reporting on a scripted television franchise and its production."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "000 away given kids sick story toy toys",
+    "culture_lane": "film_tv",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "Disney's Toy Story 5 hospital screenings and charitable tie-in are connected to a major film franchise and entertainment outreach."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "bill college source sports summer this vote",
+    "culture_lane": "",
+    "llm_importance": 28,
+    "outlier_urls": [],
+    "rationale": "The expected Senate timing for the Protect College Sports Act is primarily a U.S. congressional legislative development."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "depp ebenezer grouchy johnny scrooge snowball throwing trailer",
+    "culture_lane": "film_tv",
+    "llm_importance": 22,
+    "outlier_urls": [],
+    "rationale": "The release of a trailer and Johnny Depp's casting in a feature film are film-industry entertainment news."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "changing composer eps ever fails messages packed save",
+    "culture_lane": "film_tv",
+    "llm_importance": 10,
+    "outlier_urls": [],
+    "rationale": "The report examines creative choices in a television spinoff's title sequence, fitting TV and media coverage."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "aftermath creators death fails premiere save shocking stars",
+    "culture_lane": "film_tv",
+    "llm_importance": 10,
+    "outlier_urls": [],
+    "rationale": "This is spoiler-focused reporting on a television premiere and its fictional storyline."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "different final finale format going island jama love",
+    "culture_lane": "film_tv",
+    "llm_importance": 15,
+    "outlier_urls": [],
+    "rationale": "A format change for Love Island UK's finale is a television-programming and entertainment story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "back comic con crashes depp ebenezer good hall",
+    "culture_lane": "film_tv",
+    "llm_importance": 20,
+    "outlier_urls": [],
+    "rationale": "Johnny Depp's Comic-Con appearance to promote a film trailer is entertainment and film publicity coverage."
+  },
+  {
+    "category": "global",
+    "cluster_id": "attacks conflict damage east economic fears global houthi",
+    "culture_lane": "",
+    "llm_importance": 62,
+    "outlier_urls": [],
+    "rationale": "Houthi threats against Saudi shipping concern a Middle East conflict and potential international geopolitical consequences."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "dozens forced imports imposes labour partners tariffs trade",
+    "culture_lane": "",
+    "llm_importance": 58,
+    "outlier_urls": [],
+    "rationale": "The focus is the U.S. government's decision to impose tariffs, making it a U.S. policy action rather than a market-movement story."
+  },
+  {
+    "category": "global",
+    "cluster_id": "cjp coming didn india modi movement protest see",
+    "culture_lane": "",
+    "llm_importance": 48,
+    "outlier_urls": [],
+    "rationale": "India's large youth protest movement is political unrest outside the United States, fitting Global News."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "flock men microdramas nights prime romance rule stories",
+    "culture_lane": "film_tv",
+    "llm_importance": 22,
+    "outlier_urls": [],
+    "rationale": "The report centers on changing viewing habits and growth in microdrama consumption, a Culture + Media consumer-behavior trend."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "157 500 advisers available bpc fda happens like",
+    "culture_lane": "",
+    "llm_importance": 36,
+    "outlier_urls": [],
+    "rationale": "FDA advisers' recommendation on the legal availability of compounded peptides is a U.S. federal health-regulatory policy development."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "another ceo gains intel lip quarter steam strong",
+    "culture_lane": "",
+    "llm_importance": 48,
+    "outlier_urls": [],
+    "rationale": "Intel's operational turnaround under its CEO and corporate performance are principally a company and semiconductor-industry story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "collier impact napheesa return will wnba",
+    "culture_lane": "sports",
+    "llm_importance": 22,
+    "outlier_urls": [],
+    "rationale": "Napheesa Collier's return and its effect on the Minnesota Lynx are professional sports coverage."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "chamber collide creepy drama fanaticism fantasia godhead gun",
+    "culture_lane": "film_tv",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "This is coverage of a new film and its festival presentation, fitting film and television culture reporting."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "cybersecurity guardrails impeding offensive researchers work",
+    "culture_lane": "",
+    "llm_importance": 35,
+    "outlier_urls": [],
+    "rationale": "AI safety guardrails' effects on cybersecurity research concern technology products, AI policy, and the cybersecurity industry."
+  }
+]

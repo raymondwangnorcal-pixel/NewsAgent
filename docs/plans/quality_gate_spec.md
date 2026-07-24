@@ -6,7 +6,7 @@ Repo: `morning-news-agent` (package `news_agent` under `src/news_agent`).
 
 Add a filter that runs **after articles are fetched and parsed, before clustering and scoring**. It rejects legitimate-looking but editorially empty teaser headlines (e.g. "Market Ready To Go?", "What To Know", "Buy Points", "How To", "Watch", "Top Picks") whose RSS description carries no actual reportable event. This is a distinct concern from spam/junk filtering — these are real articles from real feeds, they just don't say anything.
 
-Do not try to rewrite a vague title into news. If the RSS feed doesn't supply an actual fact, drop the article and let a stronger source (if any exists in the same fetch batch) carry the story instead. OpenAI polish mode may improve wording later in the pipeline, but it must never invent the missing event — this constraint should already hold given the existing `polish_system_prompt()` instruction not to add new facts, but call it out explicitly in review.
+Do not try to rewrite a vague title into news. If the RSS feed doesn't supply an actual fact, drop the article and let a stronger source (if any exists in the same fetch batch) carry the story instead. OpenAI drafting may improve wording later in the pipeline, but it must never invent the missing event; call that constraint out explicitly in review.
 
 ## Where it plugs in
 

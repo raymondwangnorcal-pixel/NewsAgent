@@ -26,6 +26,27 @@ big_day_importance_threshold = 70.0
 big_day_requires_corroboration = true
 calibration_version = "total-score-v1-2026-07-21"
 
+[openai_costs]
+enabled = true
+model = "gpt-5.6-terra"
+max_cost_usd_per_run = 1.00
+# Standard API pricing verified against OpenAI's gpt-5.6-terra model page on 2026-07-23.
+input_cost_usd_per_million_tokens = 2.5
+output_cost_usd_per_million_tokens = 15.0
+
+[drafting]
+model = "gpt-5.6-terra"
+max_output_tokens_per_batch = 6000
+
+[compression]
+enabled = true
+model = "gpt-5.6-terra"
+min_words_to_compress = 40
+min_words_floor = 20
+compress_fallback_drafts = false
+guard_entities = true
+max_output_tokens_per_batch = 1200
+
 [selection]
 max_per_source_per_category = 2
 big_day_source_cap = 3

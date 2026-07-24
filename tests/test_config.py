@@ -5,7 +5,15 @@ from pathlib import Path
 import pytest
 
 from news_agent.config import DEFAULT_CONFIG_PATH, load_config
-from news_agent.models import EnrichmentConfig, ExtractionPolicyConfig, QualityGateConfig
+from news_agent.models import (
+    BriefingParagraph,
+    CompressionConfig,
+    DraftingConfig,
+    EnrichmentConfig,
+    ExtractionPolicyConfig,
+    OpenAICostConfig,
+    QualityGateConfig,
+)
 
 
 def test_load_config_defaults_quality_gate_when_section_absent() -> None:
@@ -149,3 +157,165 @@ def test_config_rejects_deck_target_above_normal_capacity(tmp_path: Path) -> Non
 
 def test_sms_story_limit_allows_big_day_sixth_story() -> None:
     assert load_config(DEFAULT_CONFIG_PATH).formatting.max_stories_per_category_sms == 6
+
+
+def test_default_compression_config_matches_locked_values() -> None:
+    config = CompressionConfig()
+
+    assert config.enabled is False
+    assert config.model == "gpt-5.6-terra"
+    assert config.min_words_to_compress == 40
+    assert config.min_words_floor == 20
+    assert config.compress_fallback_drafts is False
+    assert config.guard_entities is True
+    assert config.max_output_tokens_per_batch == 1200
+    assert not hasattr(config, "target_words")
+
+
+def test_default_drafting_config_matches_locked_model_and_output_cap() -> None:
+    config = DraftingConfig()
+
+    assert config.model == "gpt-5.6-terra"
+    assert config.max_output_tokens_per_batch == 6000
+
+
+def test_default_openai_cost_config_has_verified_prices_and_one_dollar_cap() -> None:
+    config = OpenAICostConfig()
+
+    assert config.enabled is True
+    assert config.model == "gpt-5.6-terra"
+    assert config.max_cost_usd_per_run == 1.00
+    assert config.input_cost_usd_per_million_tokens == 2.50
+    assert config.output_cost_usd_per_million_tokens == 15.00
+
+
+@pytest.mark.parametrize(
+    ("old", "new"),
+    [
+        (
+            '[drafting]\nmodel = "gpt-5.6-terra"',
+            '[drafting]\nmodel = "gpt-5.6-sol"',
+        ),
+        ("max_output_tokens_per_batch = 6000", "max_output_tokens_per_batch = 0"),
+    ],
+)
+def test_config_rejects_invalid_drafting_settings(
+    tmp_path: Path,
+    old: str,
+    new: str,
+) -> None:
+    with pytest.raises(ValueError):
+        load_config(_write_config_variant(tmp_path, old, new))
+
+
+@pytest.mark.parametrize(
+    ("old", "new"),
+    [
+        ('[openai_costs]\nenabled = true', '[openai_costs]\nenabled = false'),
+        (
+            'enabled = true\nmodel = "gpt-5.6-terra"\nmax_cost_usd_per_run = 1.00',
+            'enabled = true\nmodel = "gpt-5.6-sol"\nmax_cost_usd_per_run = 1.00',
+        ),
+        ("max_cost_usd_per_run = 1.00", "max_cost_usd_per_run = 0.0"),
+        (
+            "input_cost_usd_per_million_tokens = 2.5\n"
+            "output_cost_usd_per_million_tokens = 15.0",
+            "input_cost_usd_per_million_tokens = 0.0\n"
+            "output_cost_usd_per_million_tokens = 15.0",
+        ),
+    ],
+)
+def test_config_rejects_invalid_openai_cost_settings(
+    tmp_path: Path,
+    old: str,
+    new: str,
+) -> None:
+    with pytest.raises(ValueError):
+        load_config(_write_config_variant(tmp_path, old, new))
+
+
+def test_checked_in_config_enables_all_openai_costs_with_one_shared_cap() -> None:
+    config = load_config(DEFAULT_CONFIG_PATH)
+
+    assert config.openai_costs.enabled is True
+    assert config.openai_costs.max_cost_usd_per_run == 1.0
+    assert config.openai_costs.input_cost_usd_per_million_tokens == 2.5
+    assert config.openai_costs.output_cost_usd_per_million_tokens == 15.0
+    assert config.compression.enabled is True
+
+
+def test_briefing_paragraph_compression_fields_default() -> None:
+    paragraph = BriefingParagraph(
+        story_id="story",
+        category="culture",
+        paragraph="Original.",
+        sources=("Example",),
+    )
+
+    assert paragraph.full_paragraph == ""
+    assert paragraph.compression_status == ""
+    assert paragraph.compression_ratio == 0.0
+
+
+@pytest.mark.parametrize(
+    ("old", "new"),
+    [
+        (
+            '[compression]\nenabled = true\nmodel = "gpt-5.6-terra"',
+            '[compression]\nenabled = true\nmodel = "gpt-5.6-sol"',
+        ),
+        ("min_words_to_compress = 40", "min_words_to_compress = 10"),
+        ("min_words_floor = 20", "min_words_floor = -1"),
+        ("max_output_tokens_per_batch = 1200", "max_output_tokens_per_batch = 0"),
+        ("compress_fallback_drafts = false", "compress_fallback_drafts = true"),
+        ("guard_entities = true", "guard_entities = false"),
+    ],
+)
+def test_config_rejects_invalid_compression_ranges(tmp_path: Path, old: str, new: str) -> None:
+    with pytest.raises(ValueError):
+        load_config(_write_config_variant(tmp_path, old, new))
+
+
+def test_live_openai_requires_nonzero_token_prices(tmp_path: Path) -> None:
+    path = _write_config_variant(
+        tmp_path,
+        "input_cost_usd_per_million_tokens = 2.5\n"
+        "output_cost_usd_per_million_tokens = 15.0",
+        "input_cost_usd_per_million_tokens = 0.0\n"
+        "output_cost_usd_per_million_tokens = 0.0",
+    )
+
+    with pytest.raises(ValueError, match="positive"):
+        load_config(path)
+
+
+@pytest.mark.parametrize(
+    ("value", "expected"),
+    [
+        ("1", True),
+        ("true", True),
+        ("yes", True),
+        ("0", False),
+        ("false", False),
+        ("no", False),
+        ("unexpected", True),
+    ],
+)
+def test_env_var_toggles_compression(
+    monkeypatch: pytest.MonkeyPatch,
+    value: str,
+    expected: bool,
+) -> None:
+    monkeypatch.setenv("BRIEFING_COMPRESSION", value)
+
+    assert load_config(DEFAULT_CONFIG_PATH).compression.enabled is expected
+
+
+def test_explicit_compression_override_has_precedence_over_env_and_toml(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("BRIEFING_COMPRESSION", "true")
+
+    loaded = load_config(DEFAULT_CONFIG_PATH, compression_enabled_override=False)
+
+    assert loaded.compression.enabled is False

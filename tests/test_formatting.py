@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from datetime import date
 
 from news_agent.formatting import (
@@ -197,6 +198,63 @@ def test_all_channels_share_presentation_order() -> None:
         options = FormatOptions(mode=mode, max_chars_per_message_sms=4000, max_stories_per_category_sms=6)
         text = format_category_message(briefing, options=options).text
         assert text.index("HIGH importance") < text.index("MIDDLE importance") < text.index("LOW importance")
+
+
+def test_same_compressed_paragraph_renders_for_every_channel() -> None:
+    compressed = paragraph(
+        text="Federal Reserve held rates at 5.25%, keeping borrowing costs high.",
+    )
+    compressed = replace(
+        compressed,
+        full_paragraph=(
+            "The Federal Reserve decided after a lengthy meeting to keep interest rates "
+            "unchanged at 5.25%, which means borrowing costs remain high."
+        ),
+        compression_status="compressed",
+        compression_ratio=0.35,
+    )
+    briefing = section(paragraphs=(compressed,))
+
+    for mode in ("sms", "telegram", "console"):
+        options = FormatOptions(mode=mode, max_chars_per_message_sms=4000)
+        text = format_category_message(briefing, options=options).text
+        assert compressed.paragraph in text
+        assert compressed.full_paragraph not in text
+
+
+def test_sms_fits_more_stories_after_compression() -> None:
+    originals = tuple(
+        paragraph(
+            story_id=f"story-{index}",
+            text=(
+                f"Story {index} reports an important development with substantial repeated "
+                "background and additional explanation that uses message space."
+            ),
+            sources=(),
+        )
+        for index in range(4)
+    )
+    compressed = tuple(
+        replace(
+            item,
+            paragraph=f"Story {index} reports an important development.",
+            full_paragraph=item.paragraph,
+            compression_status="compressed",
+            compression_ratio=0.6,
+        )
+        for index, item in enumerate(originals)
+    )
+    options = FormatOptions(
+        mode="sms",
+        max_chars_per_message_sms=260,
+        max_stories_per_category_sms=6,
+    )
+
+    original_message = format_category_message(section(paragraphs=originals), options=options)
+    compressed_message = format_category_message(section(paragraphs=compressed), options=options)
+
+    assert compressed_message.omitted_count < original_message.omitted_count
+    assert [item.story_id for item in compressed] == [item.story_id for item in originals]
 
 
 # --- Empty category ------------------------------------------------------------------------

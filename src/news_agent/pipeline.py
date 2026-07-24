@@ -21,8 +21,15 @@ from news_agent.classify import (
     write_category_assignments,
 )
 from news_agent.cluster import cluster_articles
+from news_agent.compress import CompressionRunResult, compress_paragraphs_result
+from news_agent.compression_audit import (
+    DEFAULT_COMPRESSION_AUDIT_DIR,
+    cleanup_compression_audits,
+    default_compression_audit_path,
+    write_compression_audit,
+)
 from news_agent.config import load_config
-from news_agent.draft import DraftCandidate, draft_paragraphs
+from news_agent.draft import DraftCandidate, DraftRunResult, draft_paragraphs_result
 from news_agent.enrichment import enrich_clusters, select_enrichment_clusters
 from news_agent.evidence import apply_cluster_evidence_scores, rank_articles_by_evidence
 from news_agent.fetch import fetch_all_feeds
@@ -35,11 +42,13 @@ from news_agent.models import (
     CategoryAssignment,
     CategorySelectionLimit,
     OpenAICapabilities,
+    OpenAICostConfig,
     OpenAIMode,
     QualityGateConfig,
     PipelineDiagnostics,
     StoryCluster,
 )
+from news_agent.openai_budget import OpenAIBudget
 from news_agent.quality_gate import (
     apply_quality_gate,
     default_quality_gate_rejections_path,
@@ -135,6 +144,7 @@ class BriefingBuildResult:
     quality_gate_rejections: tuple[tuple[Article, str], ...] = ()
     quality_gate_log_path: Path | None = None
     category_assignments_log_path: Path | None = None
+    compression_audit_path: Path | None = None
     diagnostics: PipelineDiagnostics = field(default_factory=PipelineDiagnostics)
 
 
@@ -343,8 +353,9 @@ def _apply_ambiguous_verdicts(
     survivors: list[Article],
     ambiguous_articles: list[Article],
     quality_gate_config: QualityGateConfig,
+    openai_budget: OpenAIBudget | None = None,
 ) -> list[Article]:
-    verdicts = judge_ambiguous_articles(ambiguous_articles)
+    verdicts = judge_ambiguous_articles(ambiguous_articles, budget=openai_budget)
     if not verdicts:
         return survivors
 
@@ -556,8 +567,12 @@ async def collect_pipeline_context(
     openai_mode: OpenAIMode | None = None,
     quality_gate_log_path: Path | None = None,
     category_assignments_log_path: Path | None = None,
+    openai_budget: OpenAIBudget | None = None,
 ) -> PipelineContext:
     config = config or load_config()
+    budget = openai_budget or OpenAIBudget(
+        getattr(config, "openai_costs", None) or OpenAICostConfig()
+    )
     resolved_mode = resolve_openai_mode(openai_mode=openai_mode)
     capabilities = openai_capabilities(resolved_mode)
     articles = await fetch_all_feeds(
@@ -586,7 +601,12 @@ async def collect_pipeline_context(
     survivors, hard_rejections, ambiguous_articles = apply_quality_gate(enriched_articles, quality_gate_config)
 
     if ambiguous_articles and capabilities.judge_quality:
-        survivors = _apply_ambiguous_verdicts(survivors, ambiguous_articles, quality_gate_config)
+        survivors = _apply_ambiguous_verdicts(
+            survivors,
+            ambiguous_articles,
+            quality_gate_config,
+            budget,
+        )
 
     resolved_quality_gate_log_path = quality_gate_log_path or default_quality_gate_rejections_path()
     write_quality_gate_rejections(hard_rejections, resolved_quality_gate_log_path)
@@ -600,7 +620,11 @@ async def collect_pipeline_context(
     minimum_evidence = config.enrichment.minimum_story_evidence_score
     apply_evidence_gate(clusters, minimum_evidence)
     candidates = select_classification_candidates(clusters, minimum_evidence_score=minimum_evidence)
-    assignments = classify_clusters(candidates, use_openai=capabilities.classify)
+    assignments = classify_clusters(
+        candidates,
+        use_openai=capabilities.classify,
+        budget=budget,
+    )
     apply_category_assignments(candidates, assignments)
     apply_importance(candidates, assignments, config.importance)
 
@@ -608,7 +632,11 @@ async def collect_pipeline_context(
     underfilled = underfilled_categories(provisional_result.category_clusters, config.category_selection_limits)
     backfill = select_backfill_candidates(clusters, candidates, underfilled, minimum_evidence)
     if backfill:
-        backfill_assignments = classify_clusters(backfill, use_openai=capabilities.classify)
+        backfill_assignments = classify_clusters(
+            backfill,
+            use_openai=capabilities.classify,
+            budget=budget,
+        )
         assignments.update(backfill_assignments)
         apply_category_assignments(backfill, backfill_assignments)
         apply_importance(backfill, backfill_assignments, config.importance)
@@ -664,6 +692,14 @@ async def collect_pipeline_context(
             deck_target=config.importance.deck_target,
             deck_selected=selection_result.selected_count,
             deck_underfilled_reason=deck_underfilled_reason(selection_result, clusters, config),
+            openai_input_tokens=budget.input_tokens,
+            openai_output_tokens=budget.output_tokens,
+            openai_cost_usd=round(budget.cost_usd, 6),
+            openai_budget_exhausted=budget.exhausted,
+            openai_cost_by_stage={
+                stage: round(cost, 6)
+                for stage, cost in budget.cost_by_stage.items()
+            },
         ),
     )
 
@@ -695,6 +731,7 @@ async def build_briefings(
     skipped_log_path: Path | None = None,
     quality_gate_log_path: Path | None = None,
     category_assignments_log_path: Path | None = None,
+    compression_audit_dir: Path = DEFAULT_COMPRESSION_AUDIT_DIR,
 ) -> list[BriefingSection]:
     result = await build_briefing_result(
         use_openai=use_openai,
@@ -707,6 +744,7 @@ async def build_briefings(
         skipped_log_path=skipped_log_path,
         quality_gate_log_path=quality_gate_log_path,
         category_assignments_log_path=category_assignments_log_path,
+        compression_audit_dir=compression_audit_dir,
     )
     return result.briefings
 
@@ -799,10 +837,12 @@ async def build_briefing_result(
     skipped_log_path: Path | None = None,
     quality_gate_log_path: Path | None = None,
     category_assignments_log_path: Path | None = None,
+    compression_audit_dir: Path = DEFAULT_COMPRESSION_AUDIT_DIR,
     persist_history: bool = True,
 ) -> BriefingBuildResult:
     config = config or load_config()
     mode = resolve_openai_mode(use_openai=use_openai, openai_mode=openai_mode)
+    openai_budget = OpenAIBudget(config.openai_costs)
     watchlist_entries = load_watchlist(watchlist_path) if watchlist_path is not None else ()
     context = await collect_pipeline_context(
         config,
@@ -812,12 +852,36 @@ async def build_briefing_result(
         openai_mode=mode,
         quality_gate_log_path=quality_gate_log_path,
         category_assignments_log_path=category_assignments_log_path,
+        openai_budget=openai_budget,
     )
 
     draft_candidates = build_draft_candidates(context.category_clusters, context.category_assignments)
     capabilities = openai_capabilities(mode)
-    drafted_paragraphs = draft_paragraphs(draft_candidates, use_openai=capabilities.draft)
-    presentation_paragraphs = order_paragraphs_for_presentation(drafted_paragraphs, context.category_clusters)
+    drafting_result: DraftRunResult = draft_paragraphs_result(
+        draft_candidates,
+        use_openai=capabilities.draft,
+        config=config.drafting,
+        budget=openai_budget,
+    )
+    drafted_paragraphs = drafting_result.paragraphs
+    compression_result: CompressionRunResult = compress_paragraphs_result(
+        drafted_paragraphs,
+        config.compression,
+        use_openai=capabilities.draft,
+        budget=openai_budget,
+    )
+    compressed_paragraphs = compression_result.paragraphs
+    compression_audit_path: Path | None = None
+    cleanup_compression_audits(compression_audit_dir)
+    if config.compression.enabled and capabilities.draft:
+        compression_audit_path = write_compression_audit(
+            compressed_paragraphs,
+            draft_candidates,
+            compression_result,
+            config.compression,
+            path=default_compression_audit_path(compression_audit_dir),
+        )
+    presentation_paragraphs = order_paragraphs_for_presentation(compressed_paragraphs, context.category_clusters)
     briefings = build_briefing_sections(presentation_paragraphs, config, context.stock_snapshot)
 
     selected = selected_clusters(context.category_clusters)
@@ -839,6 +903,7 @@ async def build_briefing_result(
         quality_gate_rejections=context.quality_gate_rejections,
         quality_gate_log_path=context.quality_gate_log_path,
         category_assignments_log_path=context.category_assignments_log_path,
+        compression_audit_path=compression_audit_path,
         diagnostics=replace(
             context.diagnostics,
             llm_drafts=sum(paragraph.draft_status == "llm" for paragraph in drafted_paragraphs),
@@ -846,6 +911,41 @@ async def build_briefing_result(
             fallback_story_ids=tuple(
                 paragraph.story_id for paragraph in drafted_paragraphs if paragraph.draft_status != "llm"
             ),
+            drafting_input_tokens=drafting_result.input_tokens,
+            drafting_output_tokens=drafting_result.output_tokens,
+            drafting_cost_usd=round(drafting_result.cost_usd, 6),
+            drafting_budget_exhausted=drafting_result.budget_exhausted,
+            compressed_count=sum(
+                paragraph.compression_status == "compressed" for paragraph in compressed_paragraphs
+            ),
+            compression_status_counts=dict(
+                Counter(paragraph.compression_status for paragraph in compressed_paragraphs)
+            ),
+            median_compression_ratio=round(
+                statistics.median(
+                    paragraph.compression_ratio
+                    for paragraph in compressed_paragraphs
+                    if paragraph.compression_status == "compressed"
+                ),
+                4,
+            )
+            if any(paragraph.compression_status == "compressed" for paragraph in compressed_paragraphs)
+            else 0.0,
+            guard_failures=sum(
+                paragraph.compression_status == "kept_original_guard_failed"
+                for paragraph in compressed_paragraphs
+            ),
+            entity_warnings=compression_result.entity_warnings,
+            compression_cost_usd=round(compression_result.cost_usd, 6),
+            compression_budget_exhausted=compression_result.budget_exhausted,
+            openai_input_tokens=openai_budget.input_tokens,
+            openai_output_tokens=openai_budget.output_tokens,
+            openai_cost_usd=round(openai_budget.cost_usd, 6),
+            openai_budget_exhausted=openai_budget.exhausted,
+            openai_cost_by_stage={
+                stage: round(cost, 6)
+                for stage, cost in openai_budget.cost_by_stage.items()
+            },
         ),
     )
 
@@ -861,6 +961,7 @@ def build_briefings_sync(
     skipped_log_path: Path | None = None,
     quality_gate_log_path: Path | None = None,
     category_assignments_log_path: Path | None = None,
+    compression_audit_dir: Path = DEFAULT_COMPRESSION_AUDIT_DIR,
 ) -> list[BriefingSection]:
     return asyncio.run(
         build_briefings(
@@ -874,6 +975,7 @@ def build_briefings_sync(
             skipped_log_path=skipped_log_path,
             quality_gate_log_path=quality_gate_log_path,
             category_assignments_log_path=category_assignments_log_path,
+            compression_audit_dir=compression_audit_dir,
         )
     )
 
@@ -888,6 +990,7 @@ def build_briefing_result_sync(
     skipped_log_path: Path | None = None,
     quality_gate_log_path: Path | None = None,
     category_assignments_log_path: Path | None = None,
+    compression_audit_dir: Path = DEFAULT_COMPRESSION_AUDIT_DIR,
     persist_history: bool = True,
 ) -> BriefingBuildResult:
     return asyncio.run(
@@ -901,6 +1004,7 @@ def build_briefing_result_sync(
             skipped_log_path=skipped_log_path,
             quality_gate_log_path=quality_gate_log_path,
             category_assignments_log_path=category_assignments_log_path,
+            compression_audit_dir=compression_audit_dir,
             persist_history=persist_history,
         )
     )

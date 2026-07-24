@@ -2,12 +2,20 @@ from __future__ import annotations
 
 import json
 import sys
+from dataclasses import replace
 from datetime import datetime, timezone
+from types import SimpleNamespace
 
 import pytest
 
-from news_agent.draft import DRAFT_SYSTEM_PROMPT, DraftCandidate, draft_paragraphs
-from news_agent.models import Article
+from news_agent.draft import (
+    DRAFT_SYSTEM_PROMPT,
+    DraftCandidate,
+    draft_paragraphs,
+    draft_paragraphs_result,
+)
+from news_agent.models import Article, DraftingConfig, OpenAICostConfig
+from news_agent.openai_budget import OpenAIBudget
 
 
 def make_article(
@@ -44,14 +52,31 @@ def make_candidate(
 
 
 class FakeResponse:
-    def __init__(self, output_text: str) -> None:
+    def __init__(
+        self,
+        output_text: str,
+        input_tokens: int = 0,
+        output_tokens: int = 0,
+    ) -> None:
         self.output_text = output_text
+        self.usage = SimpleNamespace(
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+        )
 
 
 class FakeResponses:
-    def __init__(self, outputs: list[str] | None = None, error: Exception | None = None) -> None:
+    def __init__(
+        self,
+        outputs: list[str] | None = None,
+        error: Exception | None = None,
+        input_tokens: int = 0,
+        output_tokens: int = 0,
+    ) -> None:
         self._outputs = outputs or []
         self._error = error
+        self._input_tokens = input_tokens
+        self._output_tokens = output_tokens
         self.calls: list[dict] = []
 
     def create(self, **kwargs):
@@ -60,7 +85,11 @@ class FakeResponses:
             raise self._error
         index = len(self.calls) - 1
         output_text = self._outputs[index] if index < len(self._outputs) else self._outputs[-1]
-        return FakeResponse(output_text)
+        return FakeResponse(
+            output_text,
+            input_tokens=self._input_tokens,
+            output_tokens=self._output_tokens,
+        )
 
 
 class FakeOpenAI:
@@ -275,6 +304,25 @@ def test_draft_degrades_to_fallback_on_malformed_json(monkeypatch: pytest.Monkey
     assert "Details about the event" in results[0].paragraph
 
 
+def test_malformed_draft_output_still_records_billed_usage(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    candidate = make_candidate()
+    fake_responses = FakeResponses(
+        outputs=["not valid json {{{"],
+        input_tokens=500,
+        output_tokens=100,
+    )
+    install_fake_openai(monkeypatch, fake_responses)
+
+    result = draft_paragraphs_result([candidate], config=DraftingConfig())
+
+    assert result.paragraphs[0].draft_status == "fallback_error"
+    assert result.input_tokens == 500
+    assert result.output_tokens == 100
+    assert result.cost_usd == pytest.approx(0.00275)
+
+
 def test_draft_partial_response_fills_gap_with_fallback(monkeypatch: pytest.MonkeyPatch) -> None:
     covered = make_candidate(story_id="covered", articles=[make_article(title="Covered story")])
     uncovered_article = make_article(title="Uncovered event", summary="Fallback text for this one.")
@@ -332,3 +380,54 @@ def test_draft_chunks_batches_over_forty_candidates(monkeypatch: pytest.MonkeyPa
 
     assert len(fake_responses.calls) == 3
     assert len(results) == 85
+
+
+def test_drafting_records_usage_cost_and_output_cap(monkeypatch: pytest.MonkeyPatch) -> None:
+    candidate = make_candidate()
+    fake_responses = FakeResponses(
+        outputs=[
+            paragraph_payload(
+                [{"story_id": "story-1", "paragraph": "A concise drafted paragraph."}]
+            )
+        ],
+        input_tokens=1_000,
+        output_tokens=200,
+    )
+    install_fake_openai(monkeypatch, fake_responses)
+
+    result = draft_paragraphs_result(
+        [candidate],
+        config=DraftingConfig(),
+    )
+
+    assert result.input_tokens == 1_000
+    assert result.output_tokens == 200
+    assert result.cost_usd == pytest.approx(0.0055)
+    assert result.budget_exhausted is False
+    assert fake_responses.calls[0]["model"] == "gpt-5.6-terra"
+    assert fake_responses.calls[0]["max_output_tokens"] == 6000
+
+
+def test_drafting_budget_exhaustion_uses_fallback_without_api_call(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    candidate = make_candidate(
+        articles=[make_article(summary="Fallback source text remains available.")]
+    )
+    fake_responses = FakeResponses(error=AssertionError("API should not be called"))
+    install_fake_openai(monkeypatch, fake_responses)
+    config = DraftingConfig()
+
+    result = draft_paragraphs_result(
+        [candidate],
+        config=config,
+        budget=OpenAIBudget(
+            replace(OpenAICostConfig(), max_cost_usd_per_run=0.000001)
+        ),
+    )
+
+    assert result.budget_exhausted is True
+    assert result.cost_usd == 0.0
+    assert result.paragraphs[0].draft_status == "fallback_error"
+    assert result.paragraphs[0].draft_error_code == "draft_budget_exhausted"
+    assert fake_responses.calls == []

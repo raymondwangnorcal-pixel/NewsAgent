@@ -403,9 +403,9 @@ def test_build_result_reorders_only_after_drafting(monkeypatch: pytest.MonkeyPat
     async def fake_collect(*args: object, **kwargs: object) -> pipeline.PipelineContext:
         return context
 
-    def fake_draft(candidates: list[DraftCandidate], **kwargs: object) -> list[BriefingParagraph]:
+    def fake_draft(candidates: list[DraftCandidate], **kwargs: object) -> pipeline.DraftRunResult:
         drafted_ids.extend(candidate.story_id for candidate in candidates)
-        return [
+        return pipeline.DraftRunResult([
             BriefingParagraph(
                 story_id=candidate.story_id,
                 category=candidate.category,
@@ -413,10 +413,10 @@ def test_build_result_reorders_only_after_drafting(monkeypatch: pytest.MonkeyPat
                 sources=(),
             )
             for candidate in candidates
-        ]
+        ])
 
     monkeypatch.setattr(pipeline, "collect_pipeline_context", fake_collect)
-    monkeypatch.setattr(pipeline, "draft_paragraphs", fake_draft)
+    monkeypatch.setattr(pipeline, "draft_paragraphs_result", fake_draft)
 
     result = asyncio.run(pipeline.build_briefing_result(
         config=minimal_config(),
@@ -429,6 +429,110 @@ def test_build_result_reorders_only_after_drafting(monkeypatch: pytest.MonkeyPat
     finance = next(section for section in result.briefings if section.category == "finance")
     assert drafted_ids == ["legacy", "important"]
     assert [paragraph.story_id for paragraph in finance.paragraphs] == ["important", "legacy"]
+
+
+def test_pipeline_compresses_between_drafting_and_presentation_order(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path,
+) -> None:
+    now = datetime(2026, 7, 22, tzinfo=timezone.utc)
+    important = _ordered_story("important", importance=90, total_score=10, published_at=now)
+    high_legacy_score = _ordered_story("legacy", importance=40, total_score=30, published_at=now)
+    category_clusters = {category: [] for category in pipeline.CATEGORY_NAMES}
+    category_clusters["finance"] = [high_legacy_score, important]
+    context = pipeline.PipelineContext(
+        category_clusters=category_clusters,
+        stock_snapshot=StockSnapshot(news_mentions=(), mega_caps=(), quotes={}),
+        all_clusters=[high_legacy_score, important],
+    )
+    stage_events: list[tuple[str, list[str]]] = []
+    budget_ids: list[int] = []
+
+    async def fake_collect(*args: object, **kwargs: object) -> pipeline.PipelineContext:
+        budget = kwargs["openai_budget"]
+        budget_ids.append(id(budget))
+        budget.record("quality_judging", 100, 10)
+        budget.record("classification", 200, 20)
+        return context
+
+    def fake_draft(candidates: list[DraftCandidate], **kwargs: object) -> pipeline.DraftRunResult:
+        budget = kwargs["budget"]
+        budget_ids.append(id(budget))
+        budget.record("drafting", 100, 50)
+        stage_events.append(("draft", [candidate.story_id for candidate in candidates]))
+        return pipeline.DraftRunResult([
+            BriefingParagraph(
+                story_id=candidate.story_id,
+                category=candidate.category,
+                paragraph=f"Full draft for {candidate.story_id}.",
+                sources=(),
+            )
+            for candidate in candidates
+        ], input_tokens=100, output_tokens=50, cost_usd=0.00175)
+
+    def fake_compress(
+        paragraphs: list[BriefingParagraph],
+        *args: object,
+        **kwargs: object,
+    ) -> pipeline.CompressionRunResult:
+        budget = kwargs["budget"]
+        budget_ids.append(id(budget))
+        budget.record("compression", 20, 10)
+        stage_events.append(("compress", [paragraph.story_id for paragraph in paragraphs]))
+        compressed = [
+            replace(
+                paragraph,
+                full_paragraph=paragraph.paragraph,
+                paragraph=f"Short {paragraph.story_id}.",
+                compression_status="compressed",
+                compression_ratio=0.5,
+            )
+            for paragraph in paragraphs
+        ]
+        return pipeline.CompressionRunResult(
+            compressed,
+            input_tokens=20,
+            output_tokens=10,
+            cost_usd=0.001,
+        )
+
+    monkeypatch.setattr(pipeline, "collect_pipeline_context", fake_collect)
+    monkeypatch.setattr(pipeline, "draft_paragraphs_result", fake_draft)
+    monkeypatch.setattr(pipeline, "compress_paragraphs_result", fake_compress)
+
+    result = asyncio.run(pipeline.build_briefing_result(
+        config=minimal_config(),
+        openai_mode="full",
+        watchlist_path=None,
+        persist_history=False,
+        skipped_log_path=tmp_path / "skipped.json",
+    ))
+
+    finance = next(section for section in result.briefings if section.category == "finance")
+    assert stage_events == [
+        ("draft", ["legacy", "important"]),
+        ("compress", ["legacy", "important"]),
+    ]
+    assert len(set(budget_ids)) == 1
+    assert [paragraph.story_id for paragraph in finance.paragraphs] == ["important", "legacy"]
+    assert [paragraph.paragraph for paragraph in finance.paragraphs] == [
+        "Short important.",
+        "Short legacy.",
+    ]
+    assert result.diagnostics.compressed_count == 2
+    assert result.diagnostics.drafting_input_tokens == 100
+    assert result.diagnostics.drafting_output_tokens == 50
+    assert result.diagnostics.drafting_cost_usd == 0.00175
+    assert result.diagnostics.compression_status_counts == {"compressed": 2}
+    assert result.diagnostics.median_compression_ratio == 0.5
+    assert result.diagnostics.openai_cost_usd == pytest.approx(0.0024)
+    assert set(result.diagnostics.openai_cost_by_stage) == {
+        "quality_judging",
+        "classification",
+        "drafting",
+        "compression",
+    }
+    assert result.diagnostics.compression_cost_usd == 0.001
 
 
 def test_selected_clusters_deduplicates_by_story_identity() -> None:
@@ -667,7 +771,11 @@ def test_collect_pipeline_context_applies_llm_verdicts_to_ambiguous_articles(
     )
     _patch_fetch_and_stock(monkeypatch, [thin_article])
 
-    def fake_judge(articles: list[Article], model: str | None = None) -> dict[str, str]:
+    def fake_judge(
+        articles: list[Article],
+        model: str | None = None,
+        **kwargs: object,
+    ) -> dict[str, str]:
         assert [a.url for a in articles] == [thin_article.url]
         return {thin_article.url: "good"}
 

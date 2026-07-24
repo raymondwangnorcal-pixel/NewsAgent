@@ -5,9 +5,9 @@ import tomllib
 from pathlib import Path
 
 from news_agent.models import (
-    AgentConfig, CategoryConfig, CategorySelectionLimit, DEFAULT_CATEGORY_FETCH_RESERVES,
-    DEFAULT_CATEGORY_SELECTION_LIMITS, EnrichmentConfig, ExtractionPolicyConfig, FeedConfig,
-    FormattingConfig, ImportanceConfig, QualityGateConfig,
+    AgentConfig, CategoryConfig, CategorySelectionLimit, CompressionConfig, DEFAULT_CATEGORY_FETCH_RESERVES,
+    DEFAULT_CATEGORY_SELECTION_LIMITS, DraftingConfig, EnrichmentConfig, ExtractionPolicyConfig, FeedConfig,
+    FormattingConfig, ImportanceConfig, OpenAICostConfig, QualityGateConfig,
 )
 
 
@@ -21,6 +21,17 @@ def parse_bool(value: object, default: bool = False) -> bool:
     if isinstance(value, bool):
         return value
     return str(value).strip().lower() in {"1", "true", "yes", "on"}
+
+
+def parse_bool_override(value: object, default: bool) -> bool:
+    if value is None:
+        return default
+    normalized = str(value).strip().lower()
+    if normalized in {"1", "true", "yes", "on"}:
+        return True
+    if normalized in {"0", "false", "no", "off"}:
+        return False
+    return default
 
 
 def parse_culture_lane(value: object) -> str:
@@ -37,13 +48,55 @@ def parse_nonnegative_int(value: object, setting_name: str) -> int:
     return parsed
 
 
-def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
+def validate_compression_config(config: CompressionConfig) -> None:
+    if config.model != "gpt-5.6-terra":
+        raise ValueError("compression.model must be gpt-5.6-terra")
+    if config.min_words_floor < 0 or config.min_words_to_compress < 0:
+        raise ValueError("compression word limits must be non-negative")
+    if config.min_words_to_compress < config.min_words_floor:
+        raise ValueError("compression.min_words_to_compress must be at least min_words_floor")
+    if config.max_output_tokens_per_batch <= 0:
+        raise ValueError("compression.max_output_tokens_per_batch must be positive")
+    if config.compress_fallback_drafts:
+        raise ValueError("compression.compress_fallback_drafts must remain false")
+    if not config.guard_entities:
+        raise ValueError("compression.guard_entities must remain true")
+
+
+def validate_drafting_config(config: DraftingConfig) -> None:
+    if config.model != "gpt-5.6-terra":
+        raise ValueError("drafting.model must be gpt-5.6-terra")
+    if config.max_output_tokens_per_batch <= 0:
+        raise ValueError("drafting.max_output_tokens_per_batch must be positive")
+
+
+def validate_openai_cost_config(config: OpenAICostConfig) -> None:
+    if not config.enabled:
+        raise ValueError("openai_costs.enabled must remain true")
+    if config.model != "gpt-5.6-terra":
+        raise ValueError("openai_costs.model must be gpt-5.6-terra")
+    if config.max_cost_usd_per_run <= 0:
+        raise ValueError("openai_costs.max_cost_usd_per_run must be positive")
+    if (
+        config.input_cost_usd_per_million_tokens <= 0
+        or config.output_cost_usd_per_million_tokens <= 0
+    ):
+        raise ValueError("openai_costs requires positive input and output token prices")
+
+
+def load_config(
+    path: Path = DEFAULT_CONFIG_PATH,
+    compression_enabled_override: bool | None = None,
+) -> AgentConfig:
     raw = tomllib.loads(path.read_text(encoding="utf-8"))
     settings = raw.get("settings", {})
     quality_gate_settings = raw.get("quality_gate", {})
     enrichment_settings = raw.get("enrichment", {})
     fetch_reserve_settings = raw.get("fetch_reserves", DEFAULT_CATEGORY_FETCH_RESERVES)
     importance_settings = raw.get("importance", {})
+    openai_cost_settings = raw.get("openai_costs", {})
+    drafting_settings = raw.get("drafting", {})
+    compression_settings = raw.get("compression", {})
     selection_settings = raw.get("selection", {})
     selection_limit_settings = raw.get("selection_limits", {})
     feeds = tuple(
@@ -87,6 +140,45 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
             importance_settings.get("calibration_version", "total-score-v1-2026-07-21")
         ),
     )
+    openai_costs = OpenAICostConfig(
+        enabled=parse_bool(openai_cost_settings.get("enabled"), default=True),
+        model=str(openai_cost_settings.get("model", "gpt-5.6-terra")),
+        max_cost_usd_per_run=float(
+            openai_cost_settings.get("max_cost_usd_per_run", 1.00)
+        ),
+        input_cost_usd_per_million_tokens=float(
+            openai_cost_settings.get("input_cost_usd_per_million_tokens", 2.50)
+        ),
+        output_cost_usd_per_million_tokens=float(
+            openai_cost_settings.get("output_cost_usd_per_million_tokens", 15.00)
+        ),
+    )
+    validate_openai_cost_config(openai_costs)
+    drafting = DraftingConfig(
+        model=str(drafting_settings.get("model", "gpt-5.6-terra")),
+        max_output_tokens_per_batch=int(
+            drafting_settings.get("max_output_tokens_per_batch", 6000)
+        ),
+    )
+    validate_drafting_config(drafting)
+    compression_enabled = parse_bool_override(
+        os.getenv("BRIEFING_COMPRESSION"),
+        parse_bool(compression_settings.get("enabled"), default=False),
+    )
+    if compression_enabled_override is not None:
+        compression_enabled = compression_enabled_override
+    compression = CompressionConfig(
+        enabled=compression_enabled,
+        model=str(compression_settings.get("model", "gpt-5.6-terra")),
+        min_words_to_compress=int(compression_settings.get("min_words_to_compress", 40)),
+        min_words_floor=int(compression_settings.get("min_words_floor", 20)),
+        compress_fallback_drafts=parse_bool(
+            compression_settings.get("compress_fallback_drafts"), default=False
+        ),
+        guard_entities=parse_bool(compression_settings.get("guard_entities"), default=True),
+        max_output_tokens_per_batch=int(compression_settings.get("max_output_tokens_per_batch", 1200)),
+    )
+    validate_compression_config(compression)
     limits = {
         category: CategorySelectionLimit(
             floor=int(selection_limit_settings.get(category, {}).get("floor", default.floor)),
@@ -125,6 +217,9 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> AgentConfig:
         max_articles=max_articles,
         category_fetch_reserves=category_fetch_reserves,
         importance=importance,
+        openai_costs=openai_costs,
+        drafting=drafting,
+        compression=compression,
         category_selection_limits=limits,
         max_per_source_per_category=max_per_source,
         big_day_source_cap=big_day_source_cap,

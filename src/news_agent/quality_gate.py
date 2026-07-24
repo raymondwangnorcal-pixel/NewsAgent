@@ -9,7 +9,8 @@ from pathlib import Path
 from typing import Any
 
 from news_agent.cluster import jaccard, tokenize
-from news_agent.models import Article, QualityGateConfig
+from news_agent.models import Article, OpenAICostConfig, QualityGateConfig
+from news_agent.openai_budget import OpenAIBudget, conservative_request_cost_usd
 
 
 DEFAULT_QUALITY_GATE_REJECTIONS_DIR = Path("data")
@@ -213,6 +214,7 @@ def write_quality_gate_rejections(
 # --- Task D: batched LLM fallback for ambiguous verdicts ---------------------
 
 AMBIGUOUS_JUDGE_BATCH_SIZE = 40
+AMBIGUOUS_JUDGE_MAX_OUTPUT_TOKENS = 2000
 ARTICLE_TEXT_TRUNCATE_CHARS = 300
 
 JUDGE_VERDICT_SCHEMA: dict[str, Any] = {
@@ -275,7 +277,17 @@ def _chunk_articles(articles: list[Article], size: int) -> list[list[Article]]:
     return [articles[index : index + size] for index in range(0, len(articles), size)]
 
 
-def judge_ambiguous_articles(articles: list[Article], model: str | None = None) -> dict[str, str]:
+def _usage_value(usage: object, name: str) -> int:
+    if isinstance(usage, dict):
+        return int(usage.get(name, 0) or 0)
+    return int(getattr(usage, name, 0) or 0)
+
+
+def judge_ambiguous_articles(
+    articles: list[Article],
+    model: str | None = None,
+    budget: OpenAIBudget | None = None,
+) -> dict[str, str]:
     """Batched LLM fallback for regex-ambiguous articles.
 
     Returns a dict of url -> "good"/"junk". Missing URLs mean the judge
@@ -295,16 +307,29 @@ def judge_ambiguous_articles(articles: list[Article], model: str | None = None) 
         return {}
 
     client = OpenAI()
-    selected_model = model or os.getenv("OPENAI_MODEL", "gpt-5.5")
+    resolved_budget = budget or OpenAIBudget(OpenAICostConfig())
+    selected_model = model or os.getenv("OPENAI_MODEL", resolved_budget.config.model)
+    if selected_model != resolved_budget.config.model:
+        return {}
+    system_prompt = _judge_system_prompt()
 
     verdicts: dict[str, str] = {}
     for chunk in _chunk_articles(articles, AMBIGUOUS_JUDGE_BATCH_SIZE):
+        payload = _judge_user_content(chunk)
+        estimate = conservative_request_cost_usd(
+            system_prompt,
+            payload,
+            AMBIGUOUS_JUDGE_MAX_OUTPUT_TOKENS,
+            resolved_budget.config,
+        )
+        if not resolved_budget.can_start(estimate):
+            continue
         try:
             response = client.responses.create(
                 model=selected_model,
                 input=[
-                    {"role": "system", "content": _judge_system_prompt()},
-                    {"role": "user", "content": _judge_user_content(chunk)},
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": payload},
                 ],
                 text={
                     "format": {
@@ -314,11 +339,21 @@ def judge_ambiguous_articles(articles: list[Article], model: str | None = None) 
                         "schema": JUDGE_VERDICT_SCHEMA,
                     }
                 },
+                max_output_tokens=AMBIGUOUS_JUDGE_MAX_OUTPUT_TOKENS,
             )
-            data = json.loads(response.output_text)
         except Exception:
             continue
 
+        usage = getattr(response, "usage", None)
+        resolved_budget.record(
+            "quality_judging",
+            _usage_value(usage, "input_tokens"),
+            _usage_value(usage, "output_tokens"),
+        )
+        try:
+            data = json.loads(response.output_text)
+        except Exception:
+            continue
         for entry in data.get("verdicts", []):
             url = entry.get("url")
             verdict = entry.get("verdict")

@@ -35,7 +35,7 @@ Fill in `.env`, then run:
 news-briefing --dry-run
 news-briefing --dry-run --no-openai --show-skipped
 news-briefing --dry-run --format console --brief
-news-briefing --dry-run --openai-mode polish
+news-briefing --dry-run --openai-mode full
 news-briefing --test-telegram
 news-briefing --send
 news-briefing --send --no-openai
@@ -49,8 +49,16 @@ Required for AI summarization:
 
 ```text
 OPENAI_API_KEY=...
-OPENAI_MODEL=gpt-5.4-mini
+OPENAI_MODEL=gpt-5.6-terra
 ```
+
+Quality judging, classification/importance, drafting, and compression use the
+standard `gpt-5.6-terra` rates configured in `config/sources.toml`. They share
+one $1.00 ceiling for the entire run. Before each API batch, the pipeline
+reserves enough room for its maximum response; if that batch would exceed the
+remaining allowance, it uses the stage's deterministic fallback instead. With
+`--show-diagnostics`, the CLI reports total usage and cost, a per-stage cost
+breakdown, and whether the shared budget was exhausted.
 
 Required for Phase 1 Telegram delivery:
 
@@ -69,6 +77,7 @@ BRIEFING_MAX_ARTICLES=240
 BRIEFING_TIMEZONE=America/New_York
 BRIEFING_MEGA_CAP_TICKERS=AAPL,MSFT,NVDA,TSLA,AMZN,META,GOOGL
 BRIEFING_CA_BUNDLE=/etc/ssl/cert.pem
+BRIEFING_COMPRESSION=true
 BRIEFING_MAX_CHARS_PER_MESSAGE_SMS=1400
 BRIEFING_MAX_STORIES_PER_CATEGORY_SMS=5
 BRIEFING_MAX_SOURCES_PER_STORY=3
@@ -142,18 +151,18 @@ For a cheaper pipeline check that still sends to Telegram:
 news-briefing --send --no-openai
 ```
 
-For a lower-cost OpenAI-backed briefing, use polish mode. It builds a local
-fallback draft first, then sends only that compact draft to OpenAI for final
-rewriting:
+To use OpenAI for quality judging and classification/importance while keeping
+drafting and compression deterministic, use classify-only mode:
 
 ```bash
-news-briefing --send --openai-mode polish
+news-briefing --send --openai-mode classify-only
 ```
 
 OpenAI modes:
 
 - `full`: send ranked article context to OpenAI for the full briefing
-- `polish`: build the local fallback draft, then send only the draft to OpenAI
+- `classify-only`: use OpenAI for quality judging and classification/importance,
+  then use deterministic fallback prose
 - `off`: use deterministic fallback summaries only; same as `--no-openai`
 
 Do not put the Telegram bot token in source code, tests, README examples, or committed files. It belongs only in local `.env` or a secret manager.
