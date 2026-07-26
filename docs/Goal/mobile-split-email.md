@@ -1,5 +1,9 @@
 # NewsAgent: Conversational Delivery and Personalized Email Digest
 
+> **Status:** Superseded for V1 implementation by
+> [email-restructuring.md](../plans/email-restructuring.md). This document
+> remains the long-term product vision only.
+
 ## Purpose
 
 NewsAgent is being extended from a single daily briefing pipeline into two
