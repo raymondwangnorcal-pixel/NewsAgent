@@ -1,0 +1,242 @@
+[
+  {
+    "category": "culture",
+    "cluster_id": "ghost gosling marvel movie rider ryan star",
+    "culture_lane": "film_tv",
+    "llm_importance": 45,
+    "outlier_urls": [],
+    "rationale": "This is an entertainment casting and franchise-release announcement, which the guidelines place in Culture + Media."
+  },
+  {
+    "category": "global",
+    "cluster_id": "000 300 flee france more spain than wildfires",
+    "culture_lane": "",
+    "llm_importance": 62,
+    "outlier_urls": [],
+    "rationale": "Mass evacuations and an emergency caused by wildfires in France and Spain are an important natural-disaster development outside the United States."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "building iconic pay this would york you",
+    "culture_lane": "",
+    "llm_importance": 24,
+    "outlier_urls": [],
+    "rationale": "The story centers on a prominent New York building's redevelopment into ultra-luxury housing, making it primarily a U.S. urban and housing-society feature rather than a markets story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "comic con ghost gosling marvel panel rider ryan",
+    "culture_lane": "film_tv",
+    "llm_importance": 45,
+    "outlier_urls": [],
+    "rationale": "Marvel's confirmation that Ryan Gosling will play Ghost Rider is a major film-franchise casting announcement covered by Culture + Media."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "carrie date drops horrifying king october release series",
+    "culture_lane": "film_tv",
+    "llm_importance": 28,
+    "outlier_urls": [],
+    "rationale": "The teaser and release plan for a Stephen King television adaptation are an entertainment release announcement."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "cena find john matchbox movie nuclear races trailer",
+    "culture_lane": "film_tv",
+    "llm_importance": 22,
+    "outlier_urls": [],
+    "rationale": "This is a trailer debut and streaming-release announcement for a feature film, fitting Culture + Media's film coverage."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "accuses amazon bros executives illegally lawsuit poaching warner",
+    "culture_lane": "",
+    "llm_importance": 34,
+    "outlier_urls": [],
+    "rationale": "Warner Bros.' lawsuit alleging Amazon illegally recruited contracted executives concerns competition and operations between major media companies."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "annual cast culkin devil family guy halloween holiday",
+    "culture_lane": "film_tv",
+    "llm_importance": 20,
+    "outlier_urls": [],
+    "rationale": "The renewal of Hulu holiday specials and Kieran Culkin's guest casting are television-programming developments."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "aclu award bruce colin honored kaepernick springsteen",
+    "culture_lane": "music",
+    "llm_importance": 26,
+    "outlier_urls": [],
+    "rationale": "The ACLU honor recognizes Springsteen and Kaepernick's cultural and public influence, rather than a government-policy action."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "antonoff brings fest folk guests hayley jack jenny",
+    "culture_lane": "music",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "Hayley Williams' guest-filled Newport Folk Festival performance is a music-event story."
+  },
+  {
+    "category": "global",
+    "cluster_id": "crowd dead event germany injured lgbtq one plows",
+    "culture_lane": "",
+    "llm_importance": 46,
+    "outlier_urls": [],
+    "rationale": "A fatal vehicle attack at a public event in Germany is a major public-safety development outside the United States."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "bay burn character comic con copy creator every",
+    "culture_lane": "film_tv",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "A creator's Comic-Con discussion of a television show's development is entertainment-media coverage."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "buy can collab cook demon hunters instant kpop",
+    "culture_lane": "music",
+    "llm_importance": 16,
+    "outlier_urls": [],
+    "rationale": "The branded ramen collaboration reflects a film property's merchandising and wider popular-cultural reach."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "carrie date flanagan mike prime release series teaser",
+    "culture_lane": "film_tv",
+    "llm_importance": 28,
+    "outlier_urls": [],
+    "rationale": "Prime Video's teaser and premiere-date announcement for its Carrie adaptation is a television release story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "cameroonian label notorious own prison record",
+    "culture_lane": "music",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "The story focuses on music-making and a prison's unusual record-label culture in Cameroon."
+  },
+  {
+    "category": "global",
+    "cluster_id": "000 200 fires flee force france homes more",
+    "culture_lane": "",
+    "llm_importance": 60,
+    "outlier_urls": [],
+    "rationale": "The France and Spain fires and mass evacuations are a consequential natural-disaster story outside the United States."
+  },
+  {
+    "category": "global",
+    "cluster_id": "became children italian overweight pasta pizza potatoes protein",
+    "culture_lane": "",
+    "llm_importance": 32,
+    "outlier_urls": [],
+    "rationale": "Italian childhood obesity is an overseas public-health and social-development story, fitting Global News."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "alex eala everyday fall filipinos hit love made",
+    "culture_lane": "sports",
+    "llm_importance": 25,
+    "outlier_urls": [],
+    "rationale": "The story examines how tennis player Alex Eala's Wimbledon success is changing sports participation and attention in the Philippines."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "reasons uswnt will wome won",
+    "culture_lane": "sports",
+    "llm_importance": 20,
+    "outlier_urls": [],
+    "rationale": "An analysis of the U.S. women's national team's World Cup prospects is sports coverage."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "ana big brings broadway cast cinema creator event",
+    "culture_lane": "film_tv",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "The theatrical-screen adaptation of Hadestown and comments from its original cast and creator are film and performing-arts coverage."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "awards bergholm fantasia festival film hanna honor international",
+    "culture_lane": "film_tv",
+    "llm_importance": 16,
+    "outlier_urls": [],
+    "rationale": "The Fantasia festival's film awards are a cultural-event and cinema-industry result."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "christopher comedy direct nolan romantic terrified would",
+    "culture_lane": "film_tv",
+    "llm_importance": 14,
+    "outlier_urls": [],
+    "rationale": "Christopher Nolan's comments about possible future genres are filmmaker and entertainment-news coverage."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "all camps key let nfl preview quest training",
+    "culture_lane": "sports",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "A preview of NFL training camps and roster decisions is sports coverage."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "bullpen cautiou ohtani session skips stays",
+    "culture_lane": "sports",
+    "llm_importance": 24,
+    "outlier_urls": [],
+    "rationale": "Shohei Ohtani's injury-management update is a sports personnel and competition story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "condescending defensive dismissive stakeh",
+    "culture_lane": "sports",
+    "llm_importance": 37,
+    "outlier_urls": [],
+    "rationale": "Questions over the WNBA commissioner's leadership are a major sports-league governance controversy."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "joshua knockdowns kos prenga survives",
+    "culture_lane": "sports",
+    "llm_importance": 28,
+    "outlier_urls": [],
+    "rationale": "Anthony Joshua's knockout victory is a professional boxing result, which belongs in sports coverage."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "caught hacker humiliated makers never spyware was who",
+    "culture_lane": "",
+    "llm_importance": 25,
+    "outlier_urls": [],
+    "rationale": "The profile concerns hacking and commercial government-spyware makers, a cybersecurity and technology-industry subject."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "agen free power rankings stack teams",
+    "culture_lane": "sports",
+    "llm_importance": 16,
+    "outlier_urls": [],
+    "rationale": "NBA post-free-agency team rankings are sports analysis."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "2026 belt carlos class hof introducing",
+    "culture_lane": "sports",
+    "llm_importance": 28,
+    "outlier_urls": [],
+    "rationale": "Baseball Hall of Fame inductions are a major sports honor and event."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "agent came decision down lebron wire",
+    "culture_lane": "sports",
+    "llm_importance": 48,
+    "outlier_urls": [],
+    "rationale": "LeBron James' decision to join the Sixers is a high-profile player-movement story in professional basketball."
+  }
+]

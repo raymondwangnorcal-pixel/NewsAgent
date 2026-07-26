@@ -127,6 +127,16 @@ of the three 1a reason codes for the latter. This is what lets Step 2 tell
 "this watchlist story was thin" apart from "this watchlist story lost a rank
 race" apart from "`AI` matched incidentally inside an unrelated headline."
 
+For a cluster with multiple feed-hint categories, the record also persists the
+full per-category reserve provenance: each eligible category's queue position,
+reserve capacity, and whether it was selected, exhausted, or bypassed because
+the cluster had already been claimed. Do not reduce this state to one ambiguous
+`category_reserve_exhausted` label.
+
+Audit files contain metadata only (identity, headline, source count, scores,
+matches, and reservation state), never extracted article text or credentials.
+Store them under `data/` and remove files older than 30 days.
+
 **1c. Aggregate counters**, derived from the same boundary, still land in
 `PipelineDiagnostics` for `--show-diagnostics` (all defaulted, following the
 existing frozen-dataclass convention):
@@ -166,11 +176,11 @@ cannot guarantee.
 
 Use two data sources together:
 
-1. **Primary — replayed fixture runs.** Capture 3–5 frozen cluster snapshots
-   (one per sampled day already on disk under `data/skipped_stories_*.json`,
-   reconstructed from the same articles where possible) and replay them
-   under both `--openai-mode off` and `--openai-mode full` to get
-   repeatable, comparable counts and audit records.
+1. **Primary — replayed fixture runs.** Capture 3–5 full, sanitized cluster
+   snapshots prospectively from new dry runs, then replay them under both
+   `--openai-mode off` and `--openai-mode full` to get repeatable, comparable
+   counts and audit records. Existing skipped-story logs remain useful for
+   identifying examples but cannot be reconstructed into faithful fixtures.
 2. **Secondary — fresh live runs**, still collected (`--ignore-history
    --show-diagnostics`, no `--send`) as a confirmatory check that the
    replayed pattern still holds under live conditions, but never as the sole
@@ -218,10 +228,12 @@ Do not lower `minimum_story_evidence_score` globally (it protects every
 category, not just watchlist stories). Instead, add a narrower,
 separately-configured floor `watchlist_minimum_story_evidence_score` (default
 equal to `minimum_story_evidence_score`, i.e. a no-op until deliberately
-tuned) that `apply_evidence_gate()` checks only for clusters with a nonempty
-`watchlist_matches` restricted to terms that passed Step 2's precision
-review. This keeps the general evidence bar untouched and makes any
-relaxation explicit, scoped, and auditable — never a blanket loosening.
+tuned) plus an explicit checked-in `watchlist_evidence_floor_approved_terms`
+allowlist, initially empty. `apply_evidence_gate()` uses the lower floor only
+when a cluster matches an allowlisted term that passed Step 2's precision
+review; all other Watchlist matches retain the general floor. This keeps the
+general evidence bar untouched and makes any relaxation explicit, scoped, and
+auditable — never a blanket loosening.
 **What this does not do:** admitting a cluster past this floor does not
 change its `source_count`, `impact_score`, or classification outcome — a
 thin single-source story that clears the lowered evidence floor can still be
@@ -265,6 +277,12 @@ This must be validated against the existing classification-cost budget
 locked in — see the cost-impact test below, which couples directly to the
 budget estimator rather than only checking the reserve's slot count.
 
+Enable the reserve only if the 3–5 replay fixtures show at least three
+additional precision-approved Watchlist clusters reaching classification and
+do not increase OpenAI-budget exhaustion. If the shared budget is exhausted
+during classification, remaining candidates use the existing deterministic
+fallback classifier rather than silently remaining unclassified.
+
 Both fixes are independent and can ship separately; Step 2's data determines
 whether one, both, or neither is warranted.
 
@@ -287,8 +305,13 @@ git diff --check
 - `test_select_classification_candidates_returns_explicit_exclusion_reason_per_cluster`
 - `test_exclusion_reason_distinguishes_rank_reserve_and_dedup`
 - `test_audit_record_captures_matched_term_evidence_score_rank_and_stage`
+- `test_audit_record_includes_per_category_reserve_provenance`
+- `test_audit_record_excludes_extracted_article_text`
+- `test_audit_retention_removes_files_older_than_thirty_days`
 - `test_diagnostics_new_fields_default_to_zero_with_partial_kwargs`
 - `test_cli_prints_uncategorized_gap_diagnostics`
+- `test_replay_clusters_uses_sanitized_fixture_without_fetching`
+- `test_replay_fixture_round_trips_cluster_scoring_and_evidence_fields`
 
 **Verify:**
 ```bash
@@ -296,10 +319,12 @@ python3 -m pytest tests/test_pipeline.py tests/test_cli.py -q
 ```
 **Commit checkpoint:** `feat(diagnostics): split evidence-gate and pool-capacity exclusion counts`
 
-### Step 2 — live diagnostic runs (no code change)
-Three to five isolated dry runs (`--ignore-history --show-diagnostics`, no
-`--send`), both `off` and `full` OpenAI modes, recording the five counters
-per run. This is a data-collection checkpoint, not a commit.
+### Step 2 — capture and replay diagnostic fixtures
+Capture three to five isolated dry-run snapshots (`--ignore-history
+--show-diagnostics`, no `--send`), then replay each snapshot in both `off`
+and `full` OpenAI modes. Record the counters, per-category reserve provenance,
+term-precision samples, and budget-exhaustion result for every replay. This is
+a data-collection checkpoint, not a selection-logic commit.
 
 ### Step 3 — implement the data-selected fix(es)
 **Files (Fix 3.1):** `src/news_agent/models.py`, `src/news_agent/config.py`,
@@ -310,6 +335,8 @@ per run. This is a data-collection checkpoint, not a commit.
 
 **Tests (as applicable):**
 - `test_watchlist_evidence_floor_defaults_equal_to_general_floor`
+- `test_watchlist_evidence_floor_allowlist_defaults_empty`
+- `test_watchlist_evidence_floor_applies_only_to_allowlisted_terms`
 - `test_watchlist_evidence_floor_does_not_relax_non_watchlist_clusters`
 - `test_watchlist_admitted_cluster_still_fails_downstream_source_confirmation_check` — proves Fix 3.1 widens evaluation, not publication
 - `test_watchlist_classification_reserve_admits_qualified_watchlist_cluster`
@@ -318,7 +345,13 @@ per run. This is a data-collection checkpoint, not a commit.
 - `test_dual_eligible_cluster_claimed_once_not_double_reserved`
 - `test_watchlist_reserve_excludes_terms_not_yet_precision_reviewed`
 - `test_pool_size_unchanged_at_eighty_after_carve_out` — `20 + 10 + 10×5 == 80`
-- `test_watchlist_reserve_admission_checked_against_openai_budget_estimator` — couples to `OpenAIBudget.can_start()` / `conservative_request_cost_usd()` directly, not just a slot-count assertion
+- `test_watchlist_reserve_admission_checked_against_openai_budget_estimator` —
+  uses maximal permitted candidate payloads with
+  `OpenAIBudget.can_start()` / `conservative_request_cost_usd()`, not a
+  slot-count assertion
+- `test_budget_exhaustion_uses_deterministic_classifier_for_remaining_candidates`
+- `test_watchlist_reserve_remains_disabled_without_three_additional_approved_candidates`
+- `test_watchlist_reserve_enables_after_replay_threshold_without_budget_regression`
 
 **Verify:**
 ```bash
@@ -353,8 +386,9 @@ fails at stage 1 should never be checked at stage 3 as if stage 1 passed.
 
 - Step 1 diagnostics are additive and read-only; revert is a plain code
   revert with no data migration.
-- Fix 3.1 rolls back by setting `watchlist_minimum_story_evidence_score` back
-  to the general floor (config-only, no code change needed).
+- Fix 3.1 rolls back by clearing `watchlist_evidence_floor_approved_terms` or
+  setting `watchlist_minimum_story_evidence_score` back to the general floor
+  (config-only, no code change needed).
 - Fix 3.2 rolls back by setting `WATCHLIST_CLASSIFICATION_RESERVE = 0`.
 
 ## Open questions for review
