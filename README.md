@@ -52,6 +52,9 @@ OPENAI_API_KEY=...
 OPENAI_MODEL=gpt-5.6-terra
 ```
 
+`OPENAI_MODEL` is the runtime model setting for every OpenAI stage. Keep it aligned
+with the priced model in `config/sources.toml` before changing it.
+
 Quality judging, classification/importance, drafting, and compression use the
 standard `gpt-5.6-terra` rates configured in `config/sources.toml`. They share
 one $1.00 ceiling for the entire run. Before each API batch, the pipeline

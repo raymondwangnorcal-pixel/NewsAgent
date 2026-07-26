@@ -700,6 +700,7 @@ async def collect_pipeline_context(
                 stage: round(cost, 6)
                 for stage, cost in budget.cost_by_stage.items()
             },
+            openai_stage_outcomes=budget.stage_outcomes(),
         ),
     )
 
@@ -946,6 +947,7 @@ async def build_briefing_result(
                 stage: round(cost, 6)
                 for stage, cost in openai_budget.cost_by_stage.items()
             },
+            openai_stage_outcomes=openai_budget.stage_outcomes(),
         ),
     )
 

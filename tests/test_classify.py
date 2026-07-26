@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pytest
 
+import news_agent.classify as classify_module
 from news_agent.classify import (
     CATEGORY_NAMES,
     CLASSIFY_SCHEMA,
@@ -17,6 +18,8 @@ from news_agent.classify import (
     write_category_assignments,
 )
 from news_agent.models import Article, StoryCluster
+from news_agent.openai_budget import OpenAIBudget
+from news_agent.models import OpenAICostConfig
 
 
 def make_article(
@@ -100,6 +103,27 @@ def test_load_category_guidelines_reads_real_file() -> None:
     assert "Global News" in text
     assert "Culture + Media" in text
     assert "Finance" in text
+
+
+def test_classify_uses_deterministic_fallback_when_guidelines_are_unavailable(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    cluster = make_cluster(
+        "fallback-category",
+        "Company announces an AI infrastructure investment",
+        [make_article(feed_categories=("business_tech",), feed_source_type="tech")],
+    )
+    budget = OpenAIBudget(OpenAICostConfig())
+
+    def missing_guidelines() -> str:
+        raise FileNotFoundError("category guidelines missing")
+
+    monkeypatch.setattr(classify_module, "load_category_guidelines", missing_guidelines)
+
+    result = classify_clusters([cluster], openai_mode="full", budget=budget)
+
+    assert result["fallback-category"].category == "business_tech"
+    assert budget.stage_outcomes()["classification"]["reasons"] == {"missing_guidelines": 1}
 
 
 # --- Category inclusion rules (one representative fixture per category) -----------

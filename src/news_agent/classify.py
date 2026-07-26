@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import logging
-import os
 from collections import Counter
 from datetime import date
 from functools import lru_cache
@@ -16,7 +15,8 @@ from news_agent.models import (
     OpenAICostConfig,
     StoryCluster,
 )
-from news_agent.openai_budget import OpenAIBudget, conservative_request_cost_usd
+from news_agent.openai_budget import OpenAIBudget
+from news_agent.openai_client import request_structured_response
 
 
 DEFAULT_GUIDELINES_PATH = Path(__file__).resolve().parents[2] / "docs" / "Goal" / "category-guidelines.md"
@@ -133,12 +133,6 @@ def _chunk_clusters(clusters: list[StoryCluster], size: int) -> list[list[StoryC
     return [clusters[index : index + size] for index in range(0, len(clusters), size)]
 
 
-def _usage_value(usage: object, name: str) -> int:
-    if isinstance(usage, dict):
-        return int(usage.get(name, 0) or 0)
-    return int(getattr(usage, name, 0) or 0)
-
-
 def _classify_clusters_llm(
     clusters: list[StoryCluster],
     model: str | None = None,
@@ -154,63 +148,36 @@ def _classify_clusters_llm(
     if not clusters:
         return {}
 
-    try:
-        from openai import OpenAI
-    except ImportError:
-        logger.warning("classify: openai package not installed, cannot run LLM classification")
-        return {}
-
-    client = OpenAI()
     resolved_budget = budget or OpenAIBudget(OpenAICostConfig())
-    selected_model = model or os.getenv("OPENAI_MODEL", resolved_budget.config.model)
-    if selected_model != resolved_budget.config.model:
-        logger.warning("classify: selected model does not match the globally priced model")
+    try:
+        guidelines = load_category_guidelines()
+    except OSError:
+        logger.warning("classify: category guidelines are unavailable; using deterministic fallback", exc_info=True)
+        resolved_budget.record_failure("classification", "missing_guidelines")
         return {}
-    guidelines = load_category_guidelines()
     system_prompt = _classify_system_prompt(guidelines)
 
     assignments: dict[str, CategoryAssignment] = {}
     for chunk in _chunk_clusters(clusters, CLASSIFY_BATCH_SIZE):
         payload = _cluster_payload(chunk)
-        estimate = conservative_request_cost_usd(
-            system_prompt,
-            payload,
-            CLASSIFY_MAX_OUTPUT_TOKENS,
-            resolved_budget.config,
+        outcome = request_structured_response(
+            stage="classification",
+            budget_stage="classification",
+            default_model=model or resolved_budget.config.model,
+            system_prompt=system_prompt,
+            user_payload=payload,
+            schema_name="category_assignments",
+            schema=CLASSIFY_SCHEMA,
+            max_output_tokens=CLASSIFY_MAX_OUTPUT_TOKENS,
+            budget=resolved_budget,
         )
-        if not resolved_budget.can_start(estimate):
+        if outcome.response is None:
             continue
         try:
-            response = client.responses.create(
-                model=selected_model,
-                input=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": payload},
-                ],
-                text={
-                    "format": {
-                        "type": "json_schema",
-                        "name": "category_assignments",
-                        "strict": True,
-                        "schema": CLASSIFY_SCHEMA,
-                    }
-                },
-                max_output_tokens=CLASSIFY_MAX_OUTPUT_TOKENS,
-            )
-        except Exception:
-            logger.warning("classify: LLM call failed for a chunk of %d clusters", len(chunk), exc_info=True)
-            continue
-
-        usage = getattr(response, "usage", None)
-        resolved_budget.record(
-            "classification",
-            _usage_value(usage, "input_tokens"),
-            _usage_value(usage, "output_tokens"),
-        )
-        try:
-            data = json.loads(response.output_text)
+            data = json.loads(outcome.response.output_text)
         except Exception:
             logger.warning("classify: malformed LLM output", exc_info=True)
+            resolved_budget.record_failure("classification", "classification_malformed_response")
             continue
         chunk_by_key = {cluster.key: cluster for cluster in chunk}
         chunk_keys = set(chunk_by_key)

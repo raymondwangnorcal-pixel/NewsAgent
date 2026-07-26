@@ -2,13 +2,13 @@ from __future__ import annotations
 
 import json
 import logging
-import os
 import re
 from dataclasses import dataclass
 from typing import Any
 
 from news_agent.models import Article, BriefingParagraph, DraftingConfig, OpenAICostConfig
 from news_agent.openai_budget import OpenAIBudget, conservative_request_cost_usd
+from news_agent.openai_client import request_structured_response
 
 
 DRAFT_BATCH_SIZE = 40
@@ -186,27 +186,8 @@ def _draft_paragraphs_llm(
     if not candidates:
         return DraftBatchOutcome({})
 
-    try:
-        from openai import OpenAI
-    except ImportError:
-        logger.warning("draft: openai package not installed, cannot run LLM drafting")
-        return DraftBatchOutcome({}, tuple(candidate.story_id for candidate in candidates), error_code="openai_not_installed")
-
     resolved_config = config or DraftingConfig()
     resolved_budget = budget or OpenAIBudget(OpenAICostConfig())
-    selected_model = model or os.getenv("OPENAI_MODEL", resolved_config.model)
-    if selected_model != resolved_config.model or selected_model != resolved_budget.config.model:
-        logger.warning(
-            "draft: model %s does not match priced model %s",
-            selected_model,
-            resolved_config.model,
-        )
-        return DraftBatchOutcome(
-            {},
-            tuple(candidate.story_id for candidate in candidates),
-            error_code="draft_model_pricing_mismatch",
-        )
-    client = OpenAI()
 
     paragraphs: dict[str, str] = {}
     failed_ids: list[str] = []
@@ -216,48 +197,36 @@ def _draft_paragraphs_llm(
     stage_cost_before = resolved_budget.cost_by_stage.get("drafting", 0.0)
     budget_exhausted = False
     for chunk in _chunk_candidates(candidates, DRAFT_BATCH_SIZE):
-        estimate = estimate_drafting_batch_cost_usd(chunk, resolved_config, resolved_budget)
-        if not resolved_budget.can_start(estimate):
+        outcome = request_structured_response(
+            stage="draft",
+            budget_stage="drafting",
+            default_model=model or resolved_config.model,
+            system_prompt=DRAFT_SYSTEM_PROMPT,
+            user_payload=_candidate_payload(chunk),
+            schema_name="briefing_paragraphs",
+            schema=DRAFT_SCHEMA,
+            max_output_tokens=resolved_config.max_output_tokens_per_batch,
+            budget=resolved_budget,
+        )
+        if outcome.response is None:
             failed_ids.extend(candidate.story_id for candidate in chunk)
-            budget_exhausted = True
-            continue
-        try:
-            response = client.responses.create(
-                model=selected_model,
-                input=[
-                    {"role": "system", "content": DRAFT_SYSTEM_PROMPT},
-                    {"role": "user", "content": _candidate_payload(chunk)},
-                ],
-                text={
-                    "format": {
-                        "type": "json_schema",
-                        "name": "briefing_paragraphs",
-                        "strict": True,
-                        "schema": DRAFT_SCHEMA,
-                    }
-                },
-                max_output_tokens=resolved_config.max_output_tokens_per_batch,
-            )
-        except Exception:
-            logger.warning("draft: LLM call failed for a chunk of %d stories", len(chunk), exc_info=True)
-            failed_ids.extend(candidate.story_id for candidate in chunk)
-            saw_error = True
+            budget_exhausted = budget_exhausted or outcome.budget_exhausted
+            saw_error = saw_error or not outcome.budget_exhausted
             continue
 
-        usage = getattr(response, "usage", None)
-        input_tokens = _usage_value(usage, "input_tokens")
-        output_tokens = _usage_value(usage, "output_tokens")
+        input_tokens = _usage_value(getattr(outcome.response, "usage", None), "input_tokens")
+        output_tokens = _usage_value(getattr(outcome.response, "usage", None), "output_tokens")
         total_input_tokens += input_tokens
         total_output_tokens += output_tokens
-        resolved_budget.record("drafting", input_tokens, output_tokens)
         try:
-            data = json.loads(response.output_text)
+            data = json.loads(outcome.response.output_text)
         except Exception:
             logger.warning(
                 "draft: LLM returned malformed output for a chunk of %d stories",
                 len(chunk),
                 exc_info=True,
             )
+            resolved_budget.record_failure("drafting", "draft_malformed_response")
             failed_ids.extend(candidate.story_id for candidate in chunk)
             saw_error = True
             continue

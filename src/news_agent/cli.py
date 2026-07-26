@@ -242,6 +242,7 @@ def print_diagnostics(diagnostics: object) -> None:
     print(f"Total OpenAI output tokens: {getattr(diagnostics, 'openai_output_tokens', 0)}")
     print(f"Total OpenAI cost: ${getattr(diagnostics, 'openai_cost_usd', 0.0):.6f}")
     print(f"OpenAI cost by stage: {getattr(diagnostics, 'openai_cost_by_stage', {})}")
+    print(f"OpenAI stage outcomes: {getattr(diagnostics, 'openai_stage_outcomes', {})}")
     print(f"Overall OpenAI budget exhausted: {getattr(diagnostics, 'openai_budget_exhausted', False)}")
     print("Feed-hint pipeline")
     for field_name in (

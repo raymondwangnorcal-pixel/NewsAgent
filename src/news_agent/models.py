@@ -348,6 +348,7 @@ class PipelineDiagnostics:
     openai_cost_usd: float = 0.0
     openai_budget_exhausted: bool = False
     openai_cost_by_stage: dict[str, float] = field(default_factory=dict)
+    openai_stage_outcomes: dict[str, dict[str, object]] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)

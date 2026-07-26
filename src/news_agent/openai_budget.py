@@ -45,6 +45,9 @@ class OpenAIBudget:
     cost_usd: float = 0.0
     exhausted: bool = False
     cost_by_stage: dict[str, float] = field(default_factory=dict)
+    attempts_by_stage: dict[str, int] = field(default_factory=dict)
+    successes_by_stage: dict[str, int] = field(default_factory=dict)
+    failures_by_stage: dict[str, dict[str, int]] = field(default_factory=dict)
 
     @property
     def remaining_usd(self) -> float:
@@ -65,3 +68,25 @@ class OpenAIBudget:
         if self.cost_usd >= self.config.max_cost_usd_per_run:
             self.exhausted = True
         return cost
+
+    def record_attempt(self, stage: str) -> None:
+        self.attempts_by_stage[stage] = self.attempts_by_stage.get(stage, 0) + 1
+
+    def record_success(self, stage: str) -> None:
+        self.successes_by_stage[stage] = self.successes_by_stage.get(stage, 0) + 1
+
+    def record_failure(self, stage: str, reason: str) -> None:
+        stage_failures = self.failures_by_stage.setdefault(stage, {})
+        stage_failures[reason] = stage_failures.get(reason, 0) + 1
+
+    def stage_outcomes(self) -> dict[str, dict[str, object]]:
+        stages = set(self.attempts_by_stage) | set(self.successes_by_stage) | set(self.failures_by_stage)
+        return {
+            stage: {
+                "requested": self.attempts_by_stage.get(stage, 0),
+                "successful": self.successes_by_stage.get(stage, 0),
+                "fallbacks": sum(self.failures_by_stage.get(stage, {}).values()),
+                "reasons": dict(self.failures_by_stage.get(stage, {})),
+            }
+            for stage in sorted(stages)
+        }

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import os
 import re
 from dataclasses import replace
 from datetime import date
@@ -10,7 +9,8 @@ from typing import Any
 
 from news_agent.cluster import jaccard, tokenize
 from news_agent.models import Article, OpenAICostConfig, QualityGateConfig
-from news_agent.openai_budget import OpenAIBudget, conservative_request_cost_usd
+from news_agent.openai_budget import OpenAIBudget
+from news_agent.openai_client import request_structured_response
 
 
 DEFAULT_QUALITY_GATE_REJECTIONS_DIR = Path("data")
@@ -277,12 +277,6 @@ def _chunk_articles(articles: list[Article], size: int) -> list[list[Article]]:
     return [articles[index : index + size] for index in range(0, len(articles), size)]
 
 
-def _usage_value(usage: object, name: str) -> int:
-    if isinstance(usage, dict):
-        return int(usage.get(name, 0) or 0)
-    return int(getattr(usage, name, 0) or 0)
-
-
 def judge_ambiguous_articles(
     articles: list[Article],
     model: str | None = None,
@@ -301,58 +295,29 @@ def judge_ambiguous_articles(
     if not articles:
         return {}
 
-    try:
-        from openai import OpenAI
-    except ImportError:
-        return {}
-
-    client = OpenAI()
     resolved_budget = budget or OpenAIBudget(OpenAICostConfig())
-    selected_model = model or os.getenv("OPENAI_MODEL", resolved_budget.config.model)
-    if selected_model != resolved_budget.config.model:
-        return {}
     system_prompt = _judge_system_prompt()
 
     verdicts: dict[str, str] = {}
     for chunk in _chunk_articles(articles, AMBIGUOUS_JUDGE_BATCH_SIZE):
         payload = _judge_user_content(chunk)
-        estimate = conservative_request_cost_usd(
-            system_prompt,
-            payload,
-            AMBIGUOUS_JUDGE_MAX_OUTPUT_TOKENS,
-            resolved_budget.config,
+        outcome = request_structured_response(
+            stage="quality_judging",
+            budget_stage="quality_judging",
+            default_model=model or resolved_budget.config.model,
+            system_prompt=system_prompt,
+            user_payload=payload,
+            schema_name="content_quality_verdicts",
+            schema=JUDGE_VERDICT_SCHEMA,
+            max_output_tokens=AMBIGUOUS_JUDGE_MAX_OUTPUT_TOKENS,
+            budget=resolved_budget,
         )
-        if not resolved_budget.can_start(estimate):
+        if outcome.response is None:
             continue
         try:
-            response = client.responses.create(
-                model=selected_model,
-                input=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": payload},
-                ],
-                text={
-                    "format": {
-                        "type": "json_schema",
-                        "name": "content_quality_verdicts",
-                        "strict": True,
-                        "schema": JUDGE_VERDICT_SCHEMA,
-                    }
-                },
-                max_output_tokens=AMBIGUOUS_JUDGE_MAX_OUTPUT_TOKENS,
-            )
+            data = json.loads(outcome.response.output_text)
         except Exception:
-            continue
-
-        usage = getattr(response, "usage", None)
-        resolved_budget.record(
-            "quality_judging",
-            _usage_value(usage, "input_tokens"),
-            _usage_value(usage, "output_tokens"),
-        )
-        try:
-            data = json.loads(response.output_text)
-        except Exception:
+            resolved_budget.record_failure("quality_judging", "quality_judging_malformed_response")
             continue
         for entry in data.get("verdicts", []):
             url = entry.get("url")

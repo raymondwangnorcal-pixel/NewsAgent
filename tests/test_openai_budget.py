@@ -40,6 +40,24 @@ def test_shared_budget_refuses_request_that_would_exceed_one_dollar_cap() -> Non
     assert budget.exhausted is True
 
 
+def test_stage_outcomes_record_requests_successes_and_fallback_reasons() -> None:
+    budget = OpenAIBudget(OpenAICostConfig())
+
+    budget.record_attempt("classification")
+    budget.record_success("classification")
+    budget.record_attempt("classification")
+    budget.record_failure("classification", "classification_api_error")
+
+    assert budget.stage_outcomes() == {
+        "classification": {
+            "requested": 2,
+            "successful": 1,
+            "fallbacks": 1,
+            "reasons": {"classification_api_error": 1},
+        }
+    }
+
+
 def test_conservative_estimate_prices_input_and_maximum_output() -> None:
     config = OpenAICostConfig()
     estimate = conservative_request_cost_usd(

@@ -408,6 +408,19 @@ def test_drafting_records_usage_cost_and_output_cap(monkeypatch: pytest.MonkeyPa
     assert fake_responses.calls[0]["max_output_tokens"] == 6000
 
 
+def test_drafting_uses_openai_model_from_environment(monkeypatch: pytest.MonkeyPatch) -> None:
+    candidate = make_candidate()
+    fake_responses = FakeResponses(
+        outputs=[paragraph_payload([{"story_id": "story-1", "paragraph": "A concise paragraph."}])]
+    )
+    install_fake_openai(monkeypatch, fake_responses)
+    monkeypatch.setenv("OPENAI_MODEL", "gpt-5.6-terra")
+
+    draft_paragraphs_result([candidate])
+
+    assert fake_responses.calls[0]["model"] == "gpt-5.6-terra"
+
+
 def test_drafting_budget_exhaustion_uses_fallback_without_api_call(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

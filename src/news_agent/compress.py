@@ -8,6 +8,7 @@ from typing import Any
 
 from news_agent.models import BriefingParagraph, CompressionConfig, OpenAICostConfig
 from news_agent.openai_budget import OpenAIBudget, conservative_request_cost_usd
+from news_agent.openai_client import request_structured_response
 
 
 COMPRESS_BATCH_SIZE = 40
@@ -260,34 +261,28 @@ def _usage_value(usage: object, name: str) -> int:
 def _compress_paragraphs_llm(
     paragraphs: list[BriefingParagraph],
     config: CompressionConfig,
+    budget: OpenAIBudget,
 ) -> CompressionBatchOutcome:
     if not paragraphs:
         return CompressionBatchOutcome({})
+    outcome = request_structured_response(
+        stage="compression",
+        budget_stage="compression",
+        default_model=config.model,
+        system_prompt=COMPRESS_SYSTEM_PROMPT,
+        user_payload=_compression_payload(paragraphs),
+        schema_name="paragraph_compressions",
+        schema=COMPRESS_SCHEMA,
+        max_output_tokens=config.max_output_tokens_per_batch,
+        budget=budget,
+    )
+    if outcome.response is None:
+        return CompressionBatchOutcome({}, error_code=outcome.error_code)
     try:
-        from openai import OpenAI
-    except ImportError:
-        return CompressionBatchOutcome({}, error_code="openai_not_installed")
-
-    try:
-        response = OpenAI().responses.create(
-            model=config.model,
-            input=[
-                {"role": "system", "content": COMPRESS_SYSTEM_PROMPT},
-                {"role": "user", "content": _compression_payload(paragraphs)},
-            ],
-            max_output_tokens=config.max_output_tokens_per_batch,
-            text={
-                "format": {
-                    "type": "json_schema",
-                    "name": "paragraph_compressions",
-                    "strict": True,
-                    "schema": COMPRESS_SCHEMA,
-                }
-            },
-        )
-        data = json.loads(response.output_text)
+        data = json.loads(outcome.response.output_text)
     except Exception:
-        return CompressionBatchOutcome({}, error_code="compression_api_error")
+        budget.record_failure("compression", "compression_malformed_response")
+        return CompressionBatchOutcome({}, error_code="compression_malformed_response")
 
     story_ids = {paragraph.story_id for paragraph in paragraphs}
     compressions: dict[str, str] = {}
@@ -296,7 +291,7 @@ def _compress_paragraphs_llm(
         compressed = item.get("compressed")
         if story_id in story_ids and isinstance(compressed, str) and compressed.strip():
             compressions[story_id] = compressed.strip()
-    usage = getattr(response, "usage", None)
+    usage = getattr(outcome.response, "usage", None)
     return CompressionBatchOutcome(
         compressions,
         input_tokens=_usage_value(usage, "input_tokens"),
@@ -347,17 +342,14 @@ def compress_paragraphs_result(
     for start in range(0, len(eligible), COMPRESS_BATCH_SIZE):
         indexed_batch = eligible[start : start + COMPRESS_BATCH_SIZE]
         batch = [paragraph for _, paragraph in indexed_batch]
-        estimate = estimate_batch_cost_usd(batch, config, resolved_budget)
-        if not resolved_budget.can_start(estimate):
+        outcome = _compress_paragraphs_llm(batch, config, resolved_budget)
+        if outcome.error_code == "compression_budget_exhausted":
             budget_exhausted = True
             for index, paragraph in indexed_batch:
                 resolved[index] = _with_status(paragraph, "kept_original_budget_exhausted")
             continue
-
-        outcome = _compress_paragraphs_llm(batch, config)
         total_input_tokens += outcome.input_tokens
         total_output_tokens += outcome.output_tokens
-        resolved_budget.record("compression", outcome.input_tokens, outcome.output_tokens)
         for index, paragraph in indexed_batch:
             compressed = outcome.compressions.get(paragraph.story_id)
             if outcome.error_code or not compressed:
