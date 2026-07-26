@@ -471,6 +471,15 @@ remain planned future work and are not prerequisites for this release.
   `--email` is mutually exclusive with the existing `--channel` delivery
   selection. Existing invocations of `news-briefing --send` retain their
   current configured Telegram/SMS behavior.
+- The local, uncommitted `.env` is configured with the Gmail SMTP connection
+  shape: `GMAIL_SMTP_HOST`, `GMAIL_SMTP_PORT`, `GMAIL_SMTP_USERNAME`,
+  `GMAIL_SMTP_APP_PASSWORD`, `EMAIL_FROM`, and `EMAIL_TO`. Credential values
+  and recipient addresses must never be copied into source, tests,
+  documentation, or commits.
+- `EMAIL_TO` supports a comma-separated list for the initial two-recipient
+  test. Send one independently addressed copy per recipient rather than
+  placing multiple recipients in a shared `To:` or `Cc:` field. Report the
+  number of successful deliveries and verify each recipient independently.
 - Do not build the website, authentication, generalized profiles, Telegram,
   SMS, iMessage, multi-user delivery, paid data services, or generic
   watchlist infrastructure in V1.

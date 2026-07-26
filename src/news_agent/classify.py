@@ -19,7 +19,7 @@ from news_agent.models import (
 from news_agent.openai_budget import OpenAIBudget, conservative_request_cost_usd
 
 
-DEFAULT_GUIDELINES_PATH = Path(__file__).resolve().parents[2] / "docs" / "category-guidelines.md"
+DEFAULT_GUIDELINES_PATH = Path(__file__).resolve().parents[2] / "docs" / "Goal" / "category-guidelines.md"
 DEFAULT_CATEGORY_LOG_DIR = Path("data")
 CATEGORY_NAMES: tuple[CategoryName, ...] = ("business_tech", "domestic", "global", "culture", "finance")
 CULTURE_LANES: tuple[CultureLane, ...] = (

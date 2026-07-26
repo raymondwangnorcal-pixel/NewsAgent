@@ -344,7 +344,7 @@ region = "U.S."
 quality_weight = 0.72
 
 # Category assignment is handled by news_agent.classify against
-# docs/category-guidelines.md (LLM judgment, not keyword matching). These
+# docs/Goal/category-guidelines.md (LLM judgment, not keyword matching). These
 # entries are display-label registrations only.
 
 [categories.business_tech]
