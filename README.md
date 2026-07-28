@@ -39,6 +39,7 @@ news-briefing --dry-run --openai-mode full
 news-briefing --test-telegram
 news-briefing --send
 news-briefing --send --no-openai
+news-briefing --dry-run --to email --email-parity
 ```
 
 Use `--dry-run` until the content looks right. It prints the five messages instead of sending them.
@@ -87,6 +88,32 @@ BRIEFING_MAX_SOURCES_PER_STORY=3
 BRIEFING_INCLUDE_LINKS_SMS=false
 BRIEFING_INCLUDE_LINKS_TELEGRAM=false
 ```
+
+Required for Gmail email delivery (keep these only in the local `.env`):
+
+```text
+GMAIL_SMTP_HOST=smtp.gmail.com
+GMAIL_SMTP_PORT=587
+GMAIL_SMTP_USERNAME=sender@gmail.com
+GMAIL_SMTP_APP_PASSWORD=...
+EMAIL_FROM=sender@gmail.com
+EMAIL_TO=first@example.com,second@example.com
+TIINGO_API_KEY=...
+EODHD_API_KEY=...
+```
+
+Use `news-briefing --dry-run --to email --email-parity` to test the temporary
+Gmail-only delivery baseline. It deliberately renders the Telegram digest
+unchanged and does not require market-data keys. It is a temporary bridge;
+native email delivery is `news-briefing --send --to email` after both quote
+provider keys are configured.
+
+To schedule native Telegram-plus-email delivery locally, copy
+`scripts/com.newsagent.briefing.plist` to `~/Library/LaunchAgents/` and load it
+with `launchctl load ~/Library/LaunchAgents/com.newsagent.briefing.plist`.
+It runs Gmail-only attempts at 8:20, 8:25, 8:30, and 8:35 AM in
+`BRIEFING_TIMEZONE`. SQLite prevents a second accepted current-date edition;
+only definite pre-DATA failures are retried automatically.
 
 Useful CLI options:
 

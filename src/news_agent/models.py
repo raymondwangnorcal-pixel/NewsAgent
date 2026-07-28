@@ -65,6 +65,7 @@ class ExtractionPolicyConfig:
     id: str
     allowed_domains: tuple[str, ...]
     policy: Literal["disabled", "metadata_only", "article_text"] = "disabled"
+    source_role: Literal["primary", "publisher"] = "publisher"
 
 
 @dataclass(frozen=True)
@@ -130,6 +131,9 @@ class OpenAICostConfig:
     max_cost_usd_per_run: float = 1.00
     input_cost_usd_per_million_tokens: float = 2.50
     output_cost_usd_per_million_tokens: float = 15.00
+    # The production config reserves funds for email Watchlist work. Keep this
+    # neutral for programmatic/test construction that does not enable email.
+    watchlist_reserve_usd: float = 0.0
 
 
 @dataclass(frozen=True)

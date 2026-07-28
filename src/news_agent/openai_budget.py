@@ -53,8 +53,12 @@ class OpenAIBudget:
     def remaining_usd(self) -> float:
         return max(0.0, self.config.max_cost_usd_per_run - self.cost_usd)
 
-    def can_start(self, estimated_cost_usd: float) -> bool:
-        if estimated_cost_usd > self.remaining_usd:
+    def can_start(self, estimated_cost_usd: float, *, use_watchlist_reserve: bool = False) -> bool:
+        available = self.remaining_usd if use_watchlist_reserve else max(
+            0.0,
+            self.remaining_usd - self.config.watchlist_reserve_usd,
+        )
+        if estimated_cost_usd > available:
             self.exhausted = True
             return False
         return True

@@ -17,6 +17,7 @@ from news_agent.models import (
 )
 from news_agent.openai_budget import OpenAIBudget
 from news_agent.openai_client import request_structured_response
+from news_agent.time import briefing_today
 
 
 DEFAULT_GUIDELINES_PATH = Path(__file__).resolve().parents[2] / "docs" / "Goal" / "category-guidelines.md"
@@ -288,7 +289,7 @@ def classify_clusters(
 
 
 def default_category_assignments_path(today: date | None = None) -> Path:
-    selected_day = today or date.today()
+    selected_day = today or briefing_today()
     return DEFAULT_CATEGORY_LOG_DIR / f"category_assignments_{selected_day.isoformat()}.json"
 
 

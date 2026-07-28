@@ -176,16 +176,25 @@ def parse_feed(xml_text: str, feed: FeedConfig) -> list[Article]:
 
 
 def fetch_feed(feed: FeedConfig, timeout_seconds: float = 12.0) -> list[Article]:
+    articles, _error = fetch_feed_with_status(feed, timeout_seconds)
+    return articles
+
+
+def fetch_feed_with_status(feed: FeedConfig, timeout_seconds: float = 12.0) -> tuple[list[Article], str]:
     request = urllib.request.Request(feed.url, headers={"User-Agent": USER_AGENT})
     try:
         with urllib.request.urlopen(request, timeout=timeout_seconds, context=_ssl_context()) as response:
             body = response.read().decode("utf-8", errors="replace")
-    except (TimeoutError, urllib.error.URLError, urllib.error.HTTPError):
-        return []
+    except TimeoutError:
+        return [], "timeout"
+    except urllib.error.HTTPError as exc:
+        return [], f"http_{exc.code}"
+    except urllib.error.URLError:
+        return [], "network_error"
     try:
-        return parse_feed(body, feed)
+        return parse_feed(body, feed), ""
     except ET.ParseError:
-        return []
+        return [], "invalid_feed"
 
 
 async def fetch_all_feeds(

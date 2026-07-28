@@ -136,6 +136,20 @@ def test_cli_send_no_openai_uses_configured_sender(monkeypatch: pytest.MonkeyPat
     assert "Sent 2 message(s)." in capsys.readouterr().out
 
 
+def test_scheduled_email_before_threshold_skips_pipeline(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(cli, "scheduled_email_is_due", lambda: False)
+    monkeypatch.setattr(
+        cli,
+        "build_briefing_result_sync",
+        lambda **_kwargs: (_ for _ in ()).throw(AssertionError("pipeline should not run")),
+    )
+
+    cli.main(["--send", "--to", "email", "--email-parity", "--scheduled", "--no-openai"])
+
+    assert "8:20–8:35 AM" in capsys.readouterr().out
+
+
 def test_cli_openai_mode_choices_reject_polish(capsys: pytest.CaptureFixture[str]) -> None:
     # "polish" mode was removed with the old fragmented-schema pipeline --
     # only full/off remain.

@@ -13,6 +13,7 @@ from news_agent.models import (
 
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[2] / "config" / "sources.toml"
 ALLOWED_CULTURE_LANES = {"", "film_tv", "music", "sports", "gaming", "media_creators", "internet_culture"}
+ALLOWED_SOURCE_ROLES = {"primary", "publisher"}
 
 
 def parse_bool(value: object, default: bool = False) -> bool:
@@ -39,6 +40,13 @@ def parse_culture_lane(value: object) -> str:
     if lane not in ALLOWED_CULTURE_LANES:
         raise ValueError(f"Unsupported culture_lane: {lane}")
     return lane
+
+
+def parse_source_role(value: object) -> str:
+    role = str(value or "publisher")
+    if role not in ALLOWED_SOURCE_ROLES:
+        raise ValueError(f"Unsupported extraction policy source_role: {role}")
+    return role
 
 
 def parse_nonnegative_int(value: object, setting_name: str) -> int:
@@ -77,6 +85,8 @@ def validate_openai_cost_config(config: OpenAICostConfig) -> None:
         raise ValueError("openai_costs.model must be gpt-5.6-terra")
     if config.max_cost_usd_per_run <= 0:
         raise ValueError("openai_costs.max_cost_usd_per_run must be positive")
+    if not 0 <= config.watchlist_reserve_usd < config.max_cost_usd_per_run:
+        raise ValueError("openai_costs.watchlist_reserve_usd must be non-negative and below the run cap")
     if (
         config.input_cost_usd_per_million_tokens <= 0
         or config.output_cost_usd_per_million_tokens <= 0
@@ -152,6 +162,7 @@ def load_config(
         output_cost_usd_per_million_tokens=float(
             openai_cost_settings.get("output_cost_usd_per_million_tokens", 15.00)
         ),
+        watchlist_reserve_usd=float(openai_cost_settings.get("watchlist_reserve_usd", 0.25)),
     )
     validate_openai_cost_config(openai_costs)
     drafting = DraftingConfig(
@@ -300,6 +311,7 @@ def load_config(
                     id=str(item["id"]),
                     allowed_domains=tuple(str(domain).casefold() for domain in item.get("allowed_domains", ())),
                     policy=item.get("policy", "disabled"),
+                    source_role=parse_source_role(item.get("source_role", "publisher")),  # type: ignore[arg-type]
                 )
                 for item in raw.get("extraction_policies", ())
             ),

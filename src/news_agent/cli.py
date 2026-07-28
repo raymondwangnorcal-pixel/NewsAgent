@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import sys
-from datetime import date
 from pathlib import Path
 
 from news_agent.alerts import DEFAULT_ALERT_CONFIG_PATH, DEFAULT_ALERT_HISTORY_PATH, save_alert_history
@@ -10,13 +9,18 @@ from news_agent.config import DEFAULT_CONFIG_PATH, load_config
 from news_agent.env import load_dotenv
 from news_agent.formatting import FormatMode, FormatOptions, format_briefing_previews, format_console_preview
 from news_agent.history import DEFAULT_HISTORY_PATH
+from news_agent.mailer.service import EmailService
+from news_agent.mailer.schedule import scheduled_email_is_due
+from news_agent.mailer.settings import email_settings_from_env
 from news_agent.notifications.base import NotificationError
 from news_agent.notifications.factory import selected_channel, send_briefing_messages, send_telegram_test_message
 from news_agent.pipeline import OpenAIMode, build_alert_result_sync, build_briefing_result_sync
+from news_agent.openai_budget import OpenAIBudget
 from news_agent.quality_gate import DEFAULT_QUALITY_GATE_REJECTIONS_DIR, format_quality_gate_rejections
 from news_agent.quality_report import aggregate_source_rejections, format_source_rejection_report
 from news_agent.skipped_log import format_skipped_table
 from news_agent.watchlist import DEFAULT_WATCHLIST_PATH
+from news_agent.time import briefing_today
 
 
 def main(argv: list[str] | None = None) -> None:
@@ -50,10 +54,24 @@ def main(argv: list[str] | None = None) -> None:
         default=7,
         help="Lookback window in calendar days for --quality-report (default: 7).",
     )
-    parser.add_argument("--channel", choices=("telegram", "sms"), help="Override BRIEFING_DELIVERY_CHANNEL.")
+    parser.add_argument("--channel", choices=("telegram", "sms"), help="Deprecated override for BRIEFING_DELIVERY_CHANNEL.")
+    parser.add_argument("--to", choices=("email", "telegram", "both"), help="Explicit V1 delivery target.")
+    parser.add_argument(
+        "--email-parity",
+        action="store_true",
+        help="Temporary Gmail-only Telegram-format smoke test; does not build the Watchlist newsletter.",
+    )
+    parser.add_argument("--email-status", action="store_true", help="Print recent email delivery outcomes and exit.")
+    parser.add_argument("--email-resend", type=int, metavar="EDITION_ID", help="Resend a stored email edition.")
+    parser.add_argument("--confirm", action="store_true", help="Confirm a potentially duplicate email resend.")
+    parser.add_argument(
+        "--scheduled",
+        action="store_true",
+        help="Apply the 8:15 AM local-time guard for a launchd-triggered email delivery.",
+    )
     parser.add_argument(
         "--format",
-        choices=("sms", "telegram", "console"),
+        choices=("sms", "telegram", "console", "email"),
         help="Output format. Defaults to console for dry-run, sms for SMS sends, and telegram for Telegram sends.",
     )
     parser.add_argument(
@@ -93,6 +111,28 @@ def main(argv: list[str] | None = None) -> None:
     )
     args = parser.parse_args(argv)
 
+    if args.to and args.channel:
+        parser.error("--to cannot be combined with --channel")
+    if args.email_parity and args.to not in {"email", "both"}:
+        parser.error("--email-parity requires --to email or --to both")
+    if args.scheduled and (not args.send or args.to != "email"):
+        parser.error("--scheduled requires --send with --to email")
+    if args.email_status:
+        if args.dry_run or args.send or args.alerts or args.email_resend is not None:
+            parser.error("--email-status cannot be combined with delivery options")
+        for line in EmailService().status_lines():
+            print(line)
+        return
+    if args.email_resend is not None:
+        if args.dry_run or args.send or args.alerts:
+            parser.error("--email-resend cannot be combined with normal delivery options")
+        try:
+            outcomes = EmailService().resend(args.email_resend, args.confirm)
+        except (NotificationError, ValueError) as exc:
+            raise SystemExit(f"Email resend failed: {exc}") from exc
+        print(f"Email resend completed for {sum(item.state == 'smtp_accepted' for item in outcomes)} recipient(s).")
+        return
+
     if args.no_openai and args.no_openai_drafting:
         parser.error("--no-openai and --no-openai-drafting cannot be used together")
 
@@ -112,6 +152,12 @@ def main(argv: list[str] | None = None) -> None:
     if not args.dry_run and not args.send:
         parser.error("Choose --dry-run, --send, or --test-telegram.")
 
+    if args.channel:
+        print("Warning: --channel is deprecated; use --to telegram for Telegram delivery.", file=sys.stderr)
+    if args.scheduled and not scheduled_email_is_due():
+        print("Scheduled email skipped: it is outside the 8:20–8:35 AM BRIEFING_TIMEZONE retry window.")
+        return
+
     try:
         config = load_config(
             args.config,
@@ -119,7 +165,15 @@ def main(argv: list[str] | None = None) -> None:
         )
     except ValueError as exc:
         parser.error(str(exc))
-    format_mode = resolve_format_mode(args.format, args.dry_run, args.channel)
+    delivery_target = args.to
+    if args.alerts and delivery_target in {"email", "both"}:
+        parser.error("--alerts does not support email delivery")
+    if args.send and delivery_target in {"email", "both"}:
+        try:
+            email_settings_from_env()
+        except NotificationError as exc:
+            raise SystemExit(f"Email preflight failed: {exc}") from exc
+    format_mode = resolve_format_mode(args.format, args.dry_run, args.channel, delivery_target)
 
     if args.alerts:
         result = build_alert_result_sync(
@@ -144,7 +198,7 @@ def main(argv: list[str] | None = None) -> None:
             sent_count = send_briefing_messages(
                 messages,
                 channel=args.channel,
-                header=f"Breaking News Alerts - {date.today().isoformat()}",
+                header=f"Breaking News Alerts - {briefing_today().isoformat()}",
             )
         except NotificationError as exc:
             raise SystemExit(f"Alert send failed: {exc}") from exc
@@ -175,6 +229,32 @@ def main(argv: list[str] | None = None) -> None:
         )
 
     if args.dry_run:
+        if delivery_target in {"email", "both"}:
+            email_messages = format_briefing_previews(
+                result.briefings,
+                options=FormatOptions.from_config(config.formatting, mode="email"),
+            )
+            service = EmailService()
+            budget = getattr(result, "openai_budget", None) or OpenAIBudget(config.openai_costs)
+            if args.email_parity:
+                plain_text = service.render_parity(email_messages, f"Morning Briefing - {briefing_today().isoformat()}").plain_text
+            else:
+                plain_text, _stories = service.render_newsletter(
+                    email_messages,
+                    f"Morning Briefing - {briefing_today().isoformat()}",
+                    config.enrichment,
+                    budget,
+                    persist_quotes=False,
+                )
+                plain_text = plain_text.plain_text
+            if delivery_target == "both":
+                print("===== TELEGRAM =====")
+                for index, message in enumerate(messages, start=1):
+                    print(f"\n--- MESSAGE {index}/{len(messages)} ---")
+                    print(message)
+                print("\n===== EMAIL PLAIN TEXT =====")
+            print(plain_text, end="")
+            return
         if format_mode == "console":
             print(format_console_preview(formatted_messages))
         else:
@@ -196,10 +276,55 @@ def main(argv: list[str] | None = None) -> None:
         return
 
     try:
-        sent_count = send_briefing_messages(messages, channel=args.channel)
-    except NotificationError as exc:
+        if delivery_target == "email":
+            service = EmailService()
+            email_messages = format_briefing_previews(
+                result.briefings,
+                options=FormatOptions.from_config(config.formatting, mode="email"),
+            )
+            budget = getattr(result, "openai_budget", None) or OpenAIBudget(config.openai_costs)
+            edition = (
+                service.prepare_parity_edition(email_messages, f"Morning Briefing - {briefing_today().isoformat()}")
+                if args.email_parity
+                else service.prepare_newsletter_edition(
+                    email_messages,
+                    f"Morning Briefing - {briefing_today().isoformat()}",
+                    config.enrichment,
+                    budget,
+                )
+            )
+            outcomes = service.send_edition(edition)
+            accepted_count = accepted_email_count_or_raise(outcomes)
+            print(f"Sent email to {accepted_count} recipient(s).")
+        elif delivery_target == "both":
+            sent_count = send_briefing_messages(messages, channel="telegram")
+            service = EmailService()
+            email_messages = format_briefing_previews(
+                result.briefings,
+                options=FormatOptions.from_config(config.formatting, mode="email"),
+            )
+            budget = getattr(result, "openai_budget", None) or OpenAIBudget(config.openai_costs)
+            edition = (
+                service.prepare_parity_edition(email_messages, f"Morning Briefing - {briefing_today().isoformat()}")
+                if args.email_parity
+                else service.prepare_newsletter_edition(
+                    email_messages,
+                    f"Morning Briefing - {briefing_today().isoformat()}",
+                    config.enrichment,
+                    budget,
+                )
+            )
+            outcomes = service.send_edition(edition)
+            accepted_count = accepted_email_count_or_raise(outcomes)
+            print(
+                f"Sent {sent_count} Telegram message(s) and email to "
+                f"{accepted_count} recipient(s)."
+            )
+        else:
+            sent_count = send_briefing_messages(messages, channel=args.channel)
+            print(f"Sent {sent_count} message(s).")
+    except (NotificationError, ValueError) as exc:
         raise SystemExit(f"Send failed: {exc}") from exc
-    print(f"Sent {sent_count} message(s).")
     if args.show_skipped:
         if result.source_debug_lines:
             print()
@@ -274,6 +399,17 @@ def print_diagnostics(diagnostics: object) -> None:
     )
 
 
+def accepted_email_count_or_raise(outcomes: list[object]) -> int:
+    accepted = [outcome for outcome in outcomes if getattr(outcome, "state", "") == "smtp_accepted"]
+    if accepted:
+        return len(accepted)
+    errors = ", ".join(
+        f"{getattr(outcome, 'recipient', 'unknown')}={getattr(outcome, 'error_code', '') or getattr(outcome, 'state', 'failed')}"
+        for outcome in outcomes
+    ) or "no recipient outcomes"
+    raise NotificationError(f"No Gmail recipient reached SMTP acceptance ({errors}).")
+
+
 def print_quality_gate_rejections(quality_gate_rejections: object) -> None:
     rejections = list(quality_gate_rejections or ())
     if not rejections:
@@ -284,11 +420,20 @@ def print_quality_gate_rejections(quality_gate_rejections: object) -> None:
         print(f"{entry['reason']} | {entry['source']} | {entry['title']}")
 
 
-def resolve_format_mode(requested: str | None, dry_run: bool, channel: str | None) -> FormatMode:
+def resolve_format_mode(
+    requested: str | None,
+    dry_run: bool,
+    channel: str | None,
+    delivery_target: str | None = None,
+) -> FormatMode:
     if requested is not None:
         return requested  # type: ignore[return-value]
     if dry_run:
         return "console"
+    if delivery_target == "email":
+        return "email"
+    if delivery_target in {"telegram", "both"}:
+        return "telegram"
     if selected_channel(channel) == "sms":
         return "sms"
     return "telegram"

@@ -5,10 +5,12 @@ from dataclasses import dataclass
 from datetime import date
 from typing import Literal
 
+from news_agent.time import briefing_today
+
 from news_agent.models import BriefingParagraph, BriefingSection, FormattingConfig
 
 
-FormatMode = Literal["sms", "telegram", "console"]
+FormatMode = Literal["sms", "telegram", "console", "email"]
 
 CATEGORY_HEADERS = {
     "business_tech": "🧠 BUSINESS + TECH",
@@ -89,6 +91,8 @@ class FormatOptions:
             return self.include_links_sms
         if self.mode == "telegram":
             return self.include_links_telegram
+        if self.mode == "email":
+            return True
         return True
 
 
@@ -247,7 +251,7 @@ def build_header(category: str, options: FormatOptions) -> str:
 
 def header_title(category: str, today: date | None = None) -> str:
     title = CATEGORY_HEADERS.get(category, category.upper())
-    selected_day = today or date.today()
+    selected_day = today or briefing_today()
     return f"{title} · {selected_day.strftime('%B')} {selected_day.day}"
 
 

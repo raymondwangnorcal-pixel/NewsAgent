@@ -1,0 +1,215 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.0219875,
+  "created_at": "2026-07-26T23:30:15.795998+00:00",
+  "guard_deltas": {},
+  "input_tokens": 0,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 0,
+  "stories": [
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Apple has reportedly delayed its first smart glasses from an early 2027 target to a June 2027 unveiling, with sales expected by year-end, as it works on privacy safeguards and how to explain them. Bloomberg\u2019s Mark Gurman says Apple plans to stress on-device processing and no facial recognition, while avoiding the use of customer recordings for AI training. The approach is meant to distinguish Apple from privacy concerns surrounding camera-equipped Meta glasses.",
+      "evidence": [
+        {
+          "canonical_url": "https://techcrunch.com/2026/07/26/can-apple-make-smart-glasses-that-arent-a-constant-privacy-threat/",
+          "evidence_type": "extracted",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/07/26/can-apple-make-smart-glasses-that-arent-a-constant-privacy-threat/"
+        }
+      ],
+      "full_paragraph": "Apple has reportedly delayed its first smart glasses from an early 2027 target to a June 2027 unveiling, with sales expected by year-end, as it works on privacy safeguards and how to explain them. Bloomberg\u2019s Mark Gurman says Apple plans to stress on-device processing and no facial recognition, while avoiding the use of customer recordings for AI training. The approach is meant to distinguish Apple from privacy concerns surrounding camera-equipped Meta glasses.",
+      "guard_result": "not_run",
+      "story_id": "apple aren can constant glasses make privacy smart"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "A small but growing group of Democrats is adopting an \u201cAmerica First\u201d message to oppose U.S. involvement in the Iran war and argue for spending more at home. Michigan Senate candidate Abdul El-Sayed, California Rep. Ro Khanna and Nebraska independent Senate candidate Dan Osborn have all used versions of the phrase, long associated with Donald Trump. The shift shows how the conflict is reshaping a slogan that is also dividing the political right.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/07/26/democrats-america-first-trump-2028",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/07/26/democrats-america-first-trump-2028"
+        }
+      ],
+      "full_paragraph": "A small but growing group of Democrats is adopting an \u201cAmerica First\u201d message to oppose U.S. involvement in the Iran war and argue for spending more at home. Michigan Senate candidate Abdul El-Sayed, California Rep. Ro Khanna and Nebraska independent Senate candidate Dan Osborn have all used versions of the phrase, long associated with Donald Trump. The shift shows how the conflict is reshaping a slogan that is also dividing the political right.",
+      "guard_result": "not_run",
+      "story_id": "america democrats first some their tout version"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "A Democratic National Committee panel voted to begin the 2028 presidential primary in South Carolina, angering progressives who say the state\u2019s prominent role could disadvantage left-wing candidates. Bernie Sanders lost South Carolina decisively in both 2016 and 2020, while he won Nevada in 2020; Nevada lost out for the first voting slot. The calendar fight adds to strains between the party establishment and insurgent progressives ahead of contentious 2026 primaries.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/07/26/south-carolina-progressives-primary-2028",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/07/26/south-carolina-progressives-primary-2028"
+        }
+      ],
+      "full_paragraph": "A Democratic National Committee panel voted to begin the 2028 presidential primary in South Carolina, angering progressives who say the state\u2019s prominent role could disadvantage left-wing candidates. Bernie Sanders lost South Carolina decisively in both 2016 and 2020, while he won Nevada in 2020; Nevada lost out for the first voting slot. The calendar fight adds to strains between the party establishment and insurgent progressives ahead of contentious 2026 primaries.",
+      "guard_result": "not_run",
+      "story_id": "2028 angers dems primary progressives schedule some"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Israeli settlers set fire to two mosques, cars and agricultural land in West Bank villages overnight, Palestinian officials said, following a clash near Tal that killed four Palestinians and two Israelis. Reports also described vandalism, theft and hate graffiti, while Israel\u2019s military said troops had been sent to Qusra and police would investigate. The attacks further inflame already escalating settler-Palestinian violence in the occupied territory.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cjrv77gl4deo",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cjrv77gl4deo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Israeli settlers set fire to two mosques, cars and agricultural land in West Bank villages overnight, Palestinian officials said, following a clash near Tal that killed four Palestinians and two Israelis. Reports also described vandalism, theft and hate graffiti, while Israel\u2019s military said troops had been sent to Qusra and police would investigate. The attacks further inflame already escalating settler-Palestinian violence in the occupied territory.",
+      "guard_result": "not_run",
+      "story_id": "bank cars farm fire israeli land mosques palestinians"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "UK Prime Minister Andy Burnham pledged continued support for Ukraine before hosting President Volodymyr Zelensky, his first international visitor since taking office a week ago. Burnham will announce that Britain is sharing the intellectual property for its tablet-sized Stone Cloak electronic-warfare system, allowing Ukraine to manufacture it at scale; the UK has already supplied thousands of the drone-protection devices. The move expands Kyiv\u2019s ability to field a system tested on the battlefield.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cy8me5vyjg2o",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cy8me5vyjg2o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "UK Prime Minister Andy Burnham pledged continued support for Ukraine before hosting President Volodymyr Zelensky, his first international visitor since taking office a week ago. Burnham will announce that Britain is sharing the intellectual property for its tablet-sized Stone Cloak electronic-warfare system, allowing Ukraine to manufacture it at scale; the UK has already supplied thousands of the drone-protection devices. The move expands Kyiv\u2019s ability to field a system tested on the battlefield.",
+      "guard_result": "not_run",
+      "story_id": "ahead continued pledges support ukraine visit zelensky"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "MLB contenders are weighing deadline moves before the 6 p.m. ET cutoff on Aug. 3, with Detroit ace Tarik Skubal and Boston closer Aroldis Chapman among the most closely watched possible targets. Detroit\u2019s recent surge has made a Skubal deal less certain, while Boston\u2019s improved position could similarly keep Chapman in place. The final week will determine whether clubs such as the Dodgers, Yankees and Phillies pay heavily to improve their October chances.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/mlb/story/_/id/49410877/2026-mlb-trade-deadline-tracker-rumors-alerts-news-latest-updates-analysis",
+          "evidence_type": "extracted",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/mlb/story/_/id/49410877/2026-mlb-trade-deadline-tracker-rumors-alerts-news-latest-updates-analysis"
+        }
+      ],
+      "full_paragraph": "MLB contenders are weighing deadline moves before the 6 p.m. ET cutoff on Aug. 3, with Detroit ace Tarik Skubal and Boston closer Aroldis Chapman among the most closely watched possible targets. Detroit\u2019s recent surge has made a Skubal deal less certain, while Boston\u2019s improved position could similarly keep Chapman in place. The final week will determine whether clubs such as the Dodgers, Yankees and Phillies pay heavily to improve their October chances.",
+      "guard_result": "not_run",
+      "story_id": "deadline intel mlb trade"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Charli xcx released a digital deluxe version of \u201cMusic, Fashion, Film\u201d on iTunes, making three previously physical-only B-sides available for purchase. The $4.99 edition adds \u201cI Keep On Thinking Bout You Every Single Day and Night,\u201d \u201cPlayboy Bunny\u201d and \u201cIf You Take the Music Then What Has She Got?\u201d to the album\u2019s original 11 tracks, along with their videos. Charli had previously suggested the songs would not reach streaming or digital platforms.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/music/music-news/charli-xcx-music-fashion-film-b-sides-album-1236303107/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/music/music-news/charli-xcx-music-fashion-film-b-sides-album-1236303107/"
+        }
+      ],
+      "full_paragraph": "Charli xcx released a digital deluxe version of \u201cMusic, Fashion, Film\u201d on iTunes, making three previously physical-only B-sides available for purchase. The $4.99 edition adds \u201cI Keep On Thinking Bout You Every Single Day and Night,\u201d \u201cPlayboy Bunny\u201d and \u201cIf You Take the Music Then What Has She Got?\u201d to the album\u2019s original 11 tracks, along with their videos. Charli had previously suggested the songs would not reach streaming or digital platforms.",
+      "guard_result": "not_run",
+      "story_id": "charli edition fashion film itunes music releases sides"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Tadej Pogacar won his fifth Tour de France, tying the record held by Eddy Merckx, Miguel Indurain, Bernard Hinault and Jacques Anquetil. The 27-year-old Slovenian took the yellow jersey on Stage 6 and held it for the final 15 stages, finishing 6 minutes 26 seconds ahead despite rival Jonas Vingegaard\u2019s Stage 15 collarbone injury. Pogacar is now the youngest five-time winner and has a chance to become the race\u2019s sole record-holder.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/07/tour-de-france-tadej-pogacar-win-1237004121/",
+          "evidence_type": "extracted",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/07/tour-de-france-tadej-pogacar-win-1237004121/"
+        }
+      ],
+      "full_paragraph": "Tadej Pogacar won his fifth Tour de France, tying the record held by Eddy Merckx, Miguel Indurain, Bernard Hinault and Jacques Anquetil. The 27-year-old Slovenian took the yellow jersey on Stage 6 and held it for the final 15 stages, finishing 6 minutes 26 seconds ahead despite rival Jonas Vingegaard\u2019s Stage 15 collarbone injury. Pogacar is now the youngest five-time winner and has a chance to become the race\u2019s sole record-holder.",
+      "guard_result": "not_run",
+      "story_id": "dominates fifth france pogacar race record tadej tour"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Verge argues that John De Hart\u2019s \u201cChampagne and Bullets\u201d deserves a place alongside cult \u201cso bad it\u2019s good\u201d films such as \u201cThe Room\u201d and \u201cTroll 2.\u201d Released under several titles, including \u201cGetEven\u201d and \u201cRoad to Revenge,\u201d the film was written, directed by and stars De Hart, who also performs an awkward country-rock number. Its mismatched ambition, stilted performances and bizarre plotting make it a fresh target for fans of outsider cinema.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/column/971103/champagne-and-bullets-bad-movies-review",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/column/971103/champagne-and-bullets-bad-movies-review"
+        }
+      ],
+      "full_paragraph": "The Verge argues that John De Hart\u2019s \u201cChampagne and Bullets\u201d deserves a place alongside cult \u201cso bad it\u2019s good\u201d films such as \u201cThe Room\u201d and \u201cTroll 2.\u201d Released under several titles, including \u201cGetEven\u201d and \u201cRoad to Revenge,\u201d the film was written, directed by and stars De Hart, who also performs an awkward country-rock number. Its mismatched ambition, stilted performances and bizarre plotting make it a fresh target for fans of outsider cinema.",
+      "guard_result": "not_run",
+      "story_id": "bad belongs bullets champagne mount movies rushmore"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Marvel chief Kevin Feige said Ryan Coogler chose David Jonsson for the lead role in \u201cBlack Panther 3\u201d after a private meeting roughly six months ago, before the studio had formally begun its search. Coogler, who was finishing work on \u201cSinners,\u201d told Feige that Jonsson was \u201cthe next Black Panther,\u201d prompting Feige to approve the choice. The account signals that Coogler\u2019s next Wakanda film is moving ahead with a new central star.",
+      "evidence": [
+        {
+          "canonical_url": "https://variety.com/2026/film/news/kevin-feige-ryan-coogler-david-jonsson-black-panther-3-1236821563/",
+          "evidence_type": "extracted",
+          "source": "Variety",
+          "url": "https://variety.com/2026/film/news/kevin-feige-ryan-coogler-david-jonsson-black-panther-3-1236821563/"
+        }
+      ],
+      "full_paragraph": "Marvel chief Kevin Feige said Ryan Coogler chose David Jonsson for the lead role in \u201cBlack Panther 3\u201d after a private meeting roughly six months ago, before the studio had formally begun its search. Coogler, who was finishing work on \u201cSinners,\u201d told Feige that Jonsson was \u201cthe next Black Panther,\u201d prompting Feige to approve the choice. The account signals that Coogler\u2019s next Wakanda film is moving ahead with a new central star.",
+      "guard_result": "not_run",
+      "story_id": "ago black chills coogler david discuss feige got"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Amazon, Meta, Microsoft and Apple will report earnings in the busiest week of the summer season, putting Big Tech\u2019s growth outlook at the center of market attention. The Federal Reserve also holds its July policy meeting as renewed Middle East tensions have pushed oil higher and weighed on aerospace shares such as Boeing. Investors will be watching whether corporate results and the Fed\u2019s signals outweigh geopolitical pressure on risk assets.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/26/here-are-the-3-big-things-were-watching-in-the-stock-market-in-the-week-ahead.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/26/here-are-the-3-big-things-were-watching-in-the-stock-market-in-the-week-ahead.html"
+        }
+      ],
+      "full_paragraph": "Amazon, Meta, Microsoft and Apple will report earnings in the busiest week of the summer season, putting Big Tech\u2019s growth outlook at the center of market attention. The Federal Reserve also holds its July policy meeting as renewed Middle East tensions have pushed oil higher and weighed on aerospace shares such as Boeing. Investors will be watching whether corporate results and the Fed\u2019s signals outweigh geopolitical pressure on risk assets.",
+      "guard_result": "not_run",
+      "story_id": "ahead big market stock things watching week"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Oil prices fell and U.S. stock-index futures rose Sunday after the United States and Iran paused attacks, easing immediate fears of a wider disruption to energy supplies. Markets now face a packed week led by the Federal Reserve meeting and earnings from major technology companies. The relief rally remains tied to whether the pause in fighting holds, since renewed conflict could quickly revive oil-price and inflation concerns.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/oil-prices-sink-stock-futures-rally-as-u-s-and-iran-pause-attacks-wall-street-awaits-busy-week-75030e00?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/oil-prices-sink-stock-futures-rally-as-u-s-and-iran-pause-attacks-wall-street-awaits-busy-week-75030e00?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Oil prices fell and U.S. stock-index futures rose Sunday after the United States and Iran paused attacks, easing immediate fears of a wider disruption to energy supplies. Markets now face a packed week led by the Federal Reserve meeting and earnings from major technology companies. The relief rally remains tied to whether the pause in fighting holds, since renewed conflict could quickly revive oil-price and inflation concerns.",
+      "guard_result": "not_run",
+      "story_id": "attacks awaits busy futures iran oil pause prices"
+    }
+  ]
+}

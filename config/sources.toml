@@ -33,6 +33,7 @@ max_cost_usd_per_run = 1.00
 # Standard API pricing verified against OpenAI's gpt-5.6-terra model page on 2026-07-23.
 input_cost_usd_per_million_tokens = 2.5
 output_cost_usd_per_million_tokens = 15.0
+watchlist_reserve_usd = 0.25
 
 [drafting]
 model = "gpt-5.6-terra"
@@ -168,11 +169,13 @@ policy = "metadata_only"
 id = "reuters"
 allowed_domains = ["reuters.com"]
 policy = "article_text"
+source_role = "primary"
 
 [[extraction_policies]]
 id = "ap"
 allowed_domains = ["apnews.com"]
 policy = "article_text"
+source_role = "primary"
 
 [[feeds]]
 name = "BBC World"

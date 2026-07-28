@@ -1,0 +1,202 @@
+[
+  {
+    "category": "finance",
+    "cluster_id": "ahead big market stock things watching week",
+    "culture_lane": "",
+    "llm_importance": 45,
+    "outlier_urls": [],
+    "rationale": "This is Finance because it centers on the forthcoming Federal Reserve meeting and major earnings as catalysts for stock-market movement."
+  },
+  {
+    "category": "global",
+    "cluster_id": "bank cars farm fire israeli land mosques palestinians",
+    "culture_lane": "",
+    "llm_importance": 55,
+    "outlier_urls": [],
+    "rationale": "This is Global News because it concerns escalating settler-Palestinian violence and its broader humanitarian and political consequences in the occupied West Bank."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "deadline intel mlb trade",
+    "culture_lane": "sports",
+    "llm_importance": 28,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because MLB roster moves and the trade deadline are sports developments of public fan interest."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "attacks awaits busy futures iran oil pause prices",
+    "culture_lane": "",
+    "llm_importance": 58,
+    "outlier_urls": [],
+    "rationale": "This is Finance because its main significance is the immediate rally in stock futures and drop in oil prices caused by the pause in U.S.-Iran fighting."
+  },
+  {
+    "category": "global",
+    "cluster_id": "ahead continued pledges support ukraine visit zelensky",
+    "culture_lane": "",
+    "llm_importance": 61,
+    "outlier_urls": [],
+    "rationale": "This is Global News because it concerns UK-Ukraine diplomatic and military cooperation in response to an international war."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "america democrats first some their tout version",
+    "culture_lane": "",
+    "llm_importance": 35,
+    "outlier_urls": [],
+    "rationale": "This is U.S. News because it focuses on Democratic Party positioning and the domestic political effects of the president's Iran war."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "apple aren can constant glasses make privacy smart",
+    "culture_lane": "",
+    "llm_importance": 31,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because it concerns Apple's prospective smart-glasses product and its privacy-related product strategy."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "charli edition fashion film itunes music releases sides",
+    "culture_lane": "music",
+    "llm_importance": 20,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it is a music-release story about Charli xcx making bonus tracks available digitally."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "2028 angers dems primary progressives schedule some",
+    "culture_lane": "",
+    "llm_importance": 34,
+    "outlier_urls": [],
+    "rationale": "This is U.S. News because it concerns Democratic National Committee rules for the 2028 presidential primary and intra-party electoral politics."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "dominates fifth france pogacar race record tadej tour",
+    "culture_lane": "sports",
+    "llm_importance": 63,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because Pogacar's record-tying Tour de France victory is a major international sports result."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "bad belongs bullets champagne mount movies rushmore",
+    "culture_lane": "film_tv",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it is critical commentary on a film and its place in cult-movie culture."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "ago black chills coogler david discuss feige got",
+    "culture_lane": "film_tv",
+    "llm_importance": 26,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it concerns casting and development for a high-profile forthcoming film franchise installment."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "brissett cards deal give source",
+    "culture_lane": "sports",
+    "llm_importance": 20,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it is an NFL player-contract development, chiefly relevant as a sports roster story rather than a markets story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "down exit let likely mets peralta them",
+    "culture_lane": "sports",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it concerns a likely MLB player departure ahead of the trade deadline."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "first grades majo make mlb nats red sox",
+    "culture_lane": "sports",
+    "llm_importance": 22,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it covers MLB trade-deadline transactions and their sporting implications."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "five reasons uswnt will won",
+    "culture_lane": "sports",
+    "llm_importance": 22,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it assesses the U.S. women's national team's prospects for the upcoming World Cup."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "1st brewers fans misiorowski record rockies",
+    "culture_lane": "sports",
+    "llm_importance": 16,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it reports a notable MLB single-game performance and franchise strikeout record."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "holds koivun off open rookie scheffler win",
+    "culture_lane": "sports",
+    "llm_importance": 20,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it reports the result of a professional golf tournament and a rookie's breakthrough victory."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "2026 guide online schedule shark streaming week where",
+    "culture_lane": "film_tv",
+    "llm_importance": 14,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it is a viewing and streaming guide for a recurring television event."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "all best cups ranking world worst",
+    "culture_lane": "sports",
+    "llm_importance": 14,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it is retrospective sports analysis ranking World Cup tournaments."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "all future hungary past present rolle was",
+    "culture_lane": "sports",
+    "llm_importance": 15,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it is analysis of Formula 1 competition and driver narratives after the Hungarian Grand Prix."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "condescending defensive dismissive stakeh",
+    "culture_lane": "sports",
+    "llm_importance": 28,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it concerns leadership controversy and stakeholder criticism within a major professional sports league."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "appearing disputes jeudy pick show video",
+    "culture_lane": "sports",
+    "llm_importance": 14,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it is an NFL player controversy amplified by a viral video and team-quarterback discussion."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "first jenny lpga open scottish shin title wins",
+    "culture_lane": "sports",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it reports a notable LPGA tournament result and a golfer's first win in a decade."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "cooperst famers hall means trio",
+    "culture_lane": "sports",
+    "llm_importance": 25,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it covers Baseball Hall of Fame inductions and their sporting legacy."
+  }
+]

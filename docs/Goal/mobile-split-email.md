@@ -24,8 +24,8 @@ and interaction.
 
 ## Product Direction
 
-The Folk-style product follows the direction described in
-[`folk-style-pivot.md`](folk-style-pivot.md):
+The Folk-style product follows the direction described in the repository's
+current channel strategy:
 
 - Telegram can provide a low-cost, full chat-native briefing.
 - SMS should normally be a compact GSM-safe teaser plus a link to the full

@@ -1,0 +1,13 @@
+{
+  "items": [
+    {"ticker": "AAPL", "display_name": "Apple", "instrument_type": "stock", "aliases": ["Apple"]},
+    {"ticker": "BN", "display_name": "Brookfield Corporation", "instrument_type": "stock", "aliases": ["Brookfield"]},
+    {"ticker": "COST", "display_name": "Costco Wholesale", "instrument_type": "stock", "aliases": ["Costco"]},
+    {"ticker": "CURI", "display_name": "CuriosityStream", "instrument_type": "stock", "aliases": ["Curiosity Stream"]},
+    {"ticker": "ETHB", "display_name": "iShares Staked Ethereum Trust ETF", "instrument_type": "etf", "aliases": ["iShares Ethereum Trust"]},
+    {"ticker": "NET", "display_name": "Cloudflare", "instrument_type": "stock", "aliases": ["Cloudflare Inc."]},
+    {"ticker": "NVO", "display_name": "Novo Nordisk", "instrument_type": "adr", "aliases": []},
+    {"ticker": "META", "display_name": "Meta Platforms", "instrument_type": "stock", "aliases": ["Meta", "Facebook"]},
+    {"ticker": "SHOP", "display_name": "Shopify", "instrument_type": "stock", "aliases": ["Shopify Inc."]}
+  ]
+}

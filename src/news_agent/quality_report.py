@@ -6,6 +6,8 @@ import sys
 from datetime import date, timedelta
 from pathlib import Path
 
+from news_agent.time import briefing_today
+
 QUALITY_GATE_REJECTIONS_FILENAME_RE = re.compile(r"^quality_gate_rejections_(\d{4}-\d{2}-\d{2})\.json$")
 
 
@@ -16,7 +18,7 @@ def _rejection_files_in_window(log_dir: Path, days: int, today: date | None = No
     if days <= 0 or not log_dir.is_dir():
         return []
 
-    selected_today = today or date.today()
+    selected_today = today or briefing_today()
     cutoff = selected_today - timedelta(days=days - 1)
 
     matches: list[Path] = []

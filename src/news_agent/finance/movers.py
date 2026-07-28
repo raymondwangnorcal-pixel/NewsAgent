@@ -10,6 +10,7 @@ from news_agent.finance.explanations import explain_movers
 from news_agent.finance.providers.stooq import MarketQuote, StooqMarketDataProvider
 from news_agent.models import Article, MarketMover
 from news_agent.watchlist import WatchlistEntry, match_watchlist_text
+from news_agent.time import briefing_today
 
 
 DEFAULT_MOVER_CACHE_PATH = Path("data/market_movers_cache.json")
@@ -71,7 +72,7 @@ def load_cache(path: Path = DEFAULT_MOVER_CACHE_PATH) -> dict[str, dict[str, obj
 
 
 def save_cache(quotes: dict[str, MarketQuote], path: Path = DEFAULT_MOVER_CACHE_PATH, today: date | None = None) -> None:
-    cache_date = (today or date.today()).isoformat()
+    cache_date = (today or briefing_today()).isoformat()
     existing = load_cache(path)
     for symbol, quote in quotes.items():
         existing[symbol] = {
@@ -90,7 +91,7 @@ def cached_quotes(
     path: Path = DEFAULT_MOVER_CACHE_PATH,
     today: date | None = None,
 ) -> dict[str, MarketQuote]:
-    cache_date = (today or date.today()).isoformat()
+    cache_date = (today or briefing_today()).isoformat()
     data = load_cache(path)
     quotes: dict[str, MarketQuote] = {}
     for asset in universe:

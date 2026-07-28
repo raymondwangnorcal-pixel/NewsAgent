@@ -11,6 +11,7 @@ from news_agent.cluster import jaccard, tokenize
 from news_agent.models import Article, OpenAICostConfig, QualityGateConfig
 from news_agent.openai_budget import OpenAIBudget
 from news_agent.openai_client import request_structured_response
+from news_agent.time import briefing_today
 
 
 DEFAULT_QUALITY_GATE_REJECTIONS_DIR = Path("data")
@@ -184,7 +185,7 @@ def apply_quality_gate(
 
 
 def default_quality_gate_rejections_path(today: date | None = None) -> Path:
-    selected_day = today or date.today()
+    selected_day = today or briefing_today()
     return DEFAULT_QUALITY_GATE_REJECTIONS_DIR / f"quality_gate_rejections_{selected_day.isoformat()}.json"
 
 

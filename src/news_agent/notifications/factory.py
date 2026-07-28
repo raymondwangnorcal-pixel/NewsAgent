@@ -1,9 +1,8 @@
 from __future__ import annotations
 
 import os
-from datetime import date
-
 from news_agent.notifications.base import ConfigurationError, NotificationSender
+from news_agent.time import briefing_today
 
 
 DEFAULT_DELIVERY_CHANNEL = "telegram"
@@ -63,7 +62,7 @@ def resolve_sender(channel: str | None = None) -> tuple[NotificationSender, tupl
 
 def send_briefing_messages(messages: list[str], channel: str | None = None, header: str | None = None) -> int:
     sender, recipients, _label = resolve_sender(channel)
-    resolved_header = header or f"Morning Briefing - {date.today().isoformat()}"
+    resolved_header = header or f"Morning Briefing - {briefing_today().isoformat()}"
     sent_count = 0
     for recipient in recipients:
         sender.send_message(recipient, resolved_header)
@@ -80,5 +79,5 @@ def send_telegram_test_message() -> int:
     sender = TelegramSender.from_env()
     recipients = _require_recipients(telegram_recipients(), "TELEGRAM_CHAT_IDS or TELEGRAM_CHAT_ID")
     for recipient in recipients:
-        sender.send_message(recipient, f"Morning News Agent Telegram test - {date.today().isoformat()}")
+        sender.send_message(recipient, f"Morning News Agent Telegram test - {briefing_today().isoformat()}")
     return len(recipients)

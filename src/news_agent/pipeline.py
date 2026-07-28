@@ -146,6 +146,7 @@ class BriefingBuildResult:
     category_assignments_log_path: Path | None = None
     compression_audit_path: Path | None = None
     diagnostics: PipelineDiagnostics = field(default_factory=PipelineDiagnostics)
+    openai_budget: OpenAIBudget | None = None
 
 
 @dataclass(frozen=True)
@@ -949,6 +950,7 @@ async def build_briefing_result(
             },
             openai_stage_outcomes=openai_budget.stage_outcomes(),
         ),
+        openai_budget=openai_budget,
     )
 
 

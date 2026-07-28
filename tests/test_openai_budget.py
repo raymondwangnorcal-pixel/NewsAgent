@@ -40,6 +40,15 @@ def test_shared_budget_refuses_request_that_would_exceed_one_dollar_cap() -> Non
     assert budget.exhausted is True
 
 
+def test_watchlist_reserve_is_unavailable_to_general_stages() -> None:
+    budget = OpenAIBudget(OpenAICostConfig(watchlist_reserve_usd=0.25))
+    budget.record("classification", 80_000, 40_000)
+
+    assert budget.cost_usd == pytest.approx(0.8)
+    assert budget.can_start(0.01) is False
+    assert budget.can_start(0.01, use_watchlist_reserve=True) is True
+
+
 def test_stage_outcomes_record_requests_successes_and_fallback_reasons() -> None:
     budget = OpenAIBudget(OpenAICostConfig())
 

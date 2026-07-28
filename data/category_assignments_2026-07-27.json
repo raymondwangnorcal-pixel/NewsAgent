@@ -1,0 +1,242 @@
+[
+  {
+    "category": "business_tech",
+    "cluster_id": "advocating amodei anthropic ban ceo company dario isn",
+    "culture_lane": "",
+    "llm_importance": 46,
+    "outlier_urls": [],
+    "rationale": "Anthropic\u2019s CEO is clarifying the company\u2019s position on open-weight AI regulation, a technology-industry and platform-policy development."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "fatal festival food number rises seattle shooting suspects",
+    "culture_lane": "",
+    "llm_importance": 43,
+    "outlier_urls": [],
+    "rationale": "The investigation into a fatal shooting in Seattle is a U.S. public-safety and major-crime story."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "d4vd death murder old singer trial year",
+    "culture_lane": "",
+    "llm_importance": 39,
+    "outlier_urls": [],
+    "rationale": "Although the defendant is a musician, the central development is a Los Angeles criminal prosecution and court ruling, placing it in U.S. law and public safety."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "all buzz deadline intel mlb our trade",
+    "culture_lane": "sports",
+    "llm_importance": 30,
+    "outlier_urls": [],
+    "rationale": "MLB trade-deadline reporting concerns a major professional sports league and its competitive roster moves."
+  },
+  {
+    "category": "global",
+    "cluster_id": "believe bombs could hurt iran more officials sanctions",
+    "culture_lane": "",
+    "llm_importance": 66,
+    "outlier_urls": [],
+    "rationale": "The story centers on the international consequences of the U.S.-Iran conflict and sanctions campaign for Iran\u2019s regime and economy."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "case celeste charges d4vd death hernandez investigation murder",
+    "culture_lane": "",
+    "llm_importance": 38,
+    "outlier_urls": [],
+    "rationale": "This is a timeline of a U.S. murder investigation and prosecution, whose primary significance is criminal justice rather than the accused\u2019s music career."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "businesses challenge launch small tariff trump",
+    "culture_lane": "",
+    "llm_importance": 51,
+    "outlier_urls": [],
+    "rationale": "Small businesses\u2019 lawsuits challenging the president\u2019s tariff program are principally a U.S. legal and national-policy development."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "launching money starting",
+    "culture_lane": "",
+    "llm_importance": 34,
+    "outlier_urls": [],
+    "rationale": "X\u2019s rollout of a digital wallet and peer-to-peer payments product is a company platform and business-model launch."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "analog huntsman off percent pro razer",
+    "culture_lane": "",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "The article is about a consumer technology product and its retail discount, rather than a gaming cultural event or trend."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "announces brand chanel debuting single slayyyter tour",
+    "culture_lane": "music",
+    "llm_importance": 17,
+    "outlier_urls": [],
+    "rationale": "Slayyyter\u2019s announced single and tour performance are music-release and artist-news developments."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "announces cano confirmed dates first mexico natanael stadium",
+    "culture_lane": "music",
+    "llm_importance": 25,
+    "outlier_urls": [],
+    "rationale": "Natanael Cano\u2019s stadium-tour announcement is a music and live-entertainment event."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "ariana egregious grande hackers leaks music sues unlawful",
+    "culture_lane": "music",
+    "llm_importance": 28,
+    "outlier_urls": [],
+    "rationale": "Ariana Grande\u2019s lawsuit over leaked unreleased material centers on an artist\u2019s music, public-facing content, and fan relationship."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "ain back badazz boosie childhood friend heartwarming like",
+    "culture_lane": "music",
+    "llm_importance": 8,
+    "outlier_urls": [],
+    "rationale": "The story is a celebrity and social-video item centered on Boosie Badazz\u2019s personal reunion."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "braves deadline mlb phillies plans trade",
+    "culture_lane": "sports",
+    "llm_importance": 26,
+    "outlier_urls": [],
+    "rationale": "The Braves\u2019 and Phillies\u2019 trade-deadline plans are professional baseball coverage."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "d4vd dismembering girl murdering old ordered stand trial",
+    "culture_lane": "",
+    "llm_importance": 39,
+    "outlier_urls": [],
+    "rationale": "The key event is a U.S. court ordering a defendant to stand trial for alleged murder and child sexual abuse."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "deepens hynix plunge selloff semiconductor seoul shares",
+    "culture_lane": "",
+    "llm_importance": 48,
+    "outlier_urls": [],
+    "rationale": "SK Hynix shares\u2019 10% fall amid a wider semiconductor selloff is chiefly a material market-price movement and investor-risk story."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "bbc but defamation documents financial judge lawsuit limits",
+    "culture_lane": "",
+    "llm_importance": 42,
+    "outlier_urls": [],
+    "rationale": "A federal judge\u2019s discovery ruling in the president\u2019s defamation suit is a U.S. legal and governmental-affairs story, not a markets story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "beyond black dates ghostrider marvel men movie panther",
+    "culture_lane": "film_tv",
+    "llm_importance": 34,
+    "outlier_urls": [],
+    "rationale": "Marvel\u2019s forthcoming film slate and release dates are entertainment-industry and film-franchise news."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "culture disaster halo instant remake war xbox",
+    "culture_lane": "gaming",
+    "llm_importance": 23,
+    "outlier_urls": [],
+    "rationale": "The debate around Halo\u2019s remake concerns a video-game release and its cultural reception online."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "early film johnston join michael mummy next obsession",
+    "culture_lane": "film_tv",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "Casting talks for the next Mummy installment are film-industry and entertainment news."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "500k close custom hits inspired lee man market",
+    "culture_lane": "film_tv",
+    "llm_importance": 9,
+    "outlier_urls": [],
+    "rationale": "The sale listing for a Spider-Man and Stan Lee collectible is a narrow pop-culture and entertainment-franchise item."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "advise author casting chemistry christina devote duo elevated",
+    "culture_lane": "film_tv",
+    "llm_importance": 15,
+    "outlier_urls": [],
+    "rationale": "The discussion of romance adaptations and studio resources concerns film and television creative trends."
+  },
+  {
+    "category": "global",
+    "cluster_id": "consulate fired second shots this time toronto year",
+    "culture_lane": "",
+    "llm_importance": 31,
+    "outlier_urls": [],
+    "rationale": "The shooting at a U.S. consulate in Toronto is a significant public-safety event outside the United States with international implications."
+  },
+  {
+    "category": "global",
+    "cluster_id": "becoming bigger china cnbc connection debate newsletter tariffs",
+    "culture_lane": "",
+    "llm_importance": 57,
+    "outlier_urls": [],
+    "rationale": "The escalating U.S.-China AI competition is an international strategic and geopolitical development rather than a single-company technology story."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "analyst bubble deal habit nvidia openai potential revive",
+    "culture_lane": "",
+    "llm_importance": 37,
+    "outlier_urls": [],
+    "rationale": "The significance is investors\u2019 concern about a potential Nvidia-OpenAI financing arrangement and technology-sector valuation risk."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "anthony diary era fauci notes pandemic paul rand",
+    "culture_lane": "",
+    "llm_importance": 43,
+    "outlier_urls": [],
+    "rationale": "A senator\u2019s release of Fauci\u2019s pandemic records and pending Senate testimony are U.S. political and government-oversight developments."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "bellinger hamstring lose weeks yankees",
+    "culture_lane": "sports",
+    "llm_importance": 22,
+    "outlier_urls": [],
+    "rationale": "Cody Bellinger\u2019s injury absence is professional baseball news."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "best class defensive draft nfl",
+    "culture_lane": "sports",
+    "llm_importance": 14,
+    "outlier_urls": [],
+    "rationale": "The retrospective debate over the NFL\u2019s strongest defensive draft class is sports analysis."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "about always black candid chi closing don ending",
+    "culture_lane": "film_tv",
+    "llm_importance": 20,
+    "outlier_urls": [],
+    "rationale": "The creator\u2019s discussion of ending The Chi is television-series and entertainment coverage."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "brendan fraser johnston join michael mummy obsession rachel",
+    "culture_lane": "film_tv",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "Michael Johnston\u2019s potential casting in The Mummy 4 is film-franchise entertainment news."
+  }
+]

@@ -35,6 +35,7 @@ def request_structured_response(
     schema: dict[str, Any],
     max_output_tokens: int,
     budget: OpenAIBudget,
+    use_watchlist_reserve: bool = False,
 ) -> StructuredResponseOutcome:
     """Make one budgeted Responses API request with uniform failure reporting."""
 
@@ -45,7 +46,7 @@ def request_structured_response(
         max_output_tokens,
         budget.config,
     )
-    if not budget.can_start(estimate):
+    if not budget.can_start(estimate, use_watchlist_reserve=use_watchlist_reserve):
         error_code = f"{stage}_budget_exhausted"
         budget.record_failure(budget_stage, error_code)
         return StructuredResponseOutcome(error_code=error_code, budget_exhausted=True)

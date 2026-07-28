@@ -6,6 +6,7 @@ from datetime import date
 from pathlib import Path
 
 from news_agent.models import QualityGateConfig, StoryCluster
+from news_agent.time import briefing_today
 
 
 DEFAULT_SKIPPED_DIR = Path("data")
@@ -26,7 +27,7 @@ class SkippedStory:
 
 
 def default_skipped_path(today: date | None = None) -> Path:
-    selected_day = today or date.today()
+    selected_day = today or briefing_today()
     return DEFAULT_SKIPPED_DIR / f"skipped_stories_{selected_day.isoformat()}.json"
 
 

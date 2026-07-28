@@ -34,6 +34,10 @@ delivery-state persistence. Editorial quality is explicitly not the goal.
   lines.** That is intended and temporary. Milestone 1 output is a delivery
   proof, not the email product, and must not be evaluated as one.
 - No Watchlist section, no quote rows, no email-specific retrieval.
+- **Temporary implementation bridge:** `--to email --email-parity` (or
+  `--to both --email-parity`) keeps this Gmail-only smoke-test path available
+  after Milestone 2. Remove it once native newsletter delivery has been
+  verified with both quote-provider keys.
 
 ### Milestone 2 — Personalized newsletter
 
@@ -204,7 +208,7 @@ Add `briefing_now()` and `briefing_today()` reading `BRIEFING_TIMEZONE` via
 stdlib `zoneinfo`. Replace every `date.today()` call, including
 `formatting.header_title()` and `notifications/factory.send_briefing_messages()`.
 
-The `America/New_York` 8:15 AM threshold, the local-date guard, and every
+The `America/New_York` 8:20 AM threshold, the local-date guard, and every
 rendered date must resolve through these helpers.
 
 Catch-up editions carry **today's** date in the header and subject, with an
@@ -222,7 +226,7 @@ backdate the header.
 - Process lock: `flock` on a PID file, with an `os.kill(pid, 0)` liveness
   check. Do not use a timestamp-based staleness heuristic.
 
-Rationale on the lock: the LaunchAgent fires every 15 minutes. A stale lock left
+Rationale on the lock: the LaunchAgent starts the four daily Gmail attempts. A stale lock left
 by a crashed run would otherwise block sending indefinitely and silently. A PID
 liveness check self-heals on the next tick.
 
@@ -241,7 +245,7 @@ liveness check self-heals on the next tick.
 ### D11 — Two watchlist files, guarded by a consistency test
 
 Keep `config/email_watchlist.json` separate from `config/watchlist.json`. V1
-accepts up to three valid U.S.-listed stock, ADR, or ETF entries in the email
+accepts up to ten valid U.S.-listed stock, ADR, or ETF entries in the email
 file; the checked-in selections are examples and may be substituted. Do not
 merge the files: adding an email-only ticker to the shared file would change
 general-briefing watchlist matching, which this plan must not do.
@@ -305,7 +309,7 @@ canonical edition.
 
 ## Key Changes
 
-- Add `config/email_watchlist.json` for up to three valid U.S.-listed stock,
+- Add `config/email_watchlist.json` for up to ten valid U.S.-listed stock,
   ADR, or ETF selections. It may initially use `AAPL`/Apple, NVO/Novo Nordisk,
   and META/Meta Platforms as examples, but a user may substitute any validated
   U.S.-listed instrument. Do not modify `config/watchlist.json`, which
@@ -342,10 +346,10 @@ canonical edition.
   its unsent general content with the current edition, capped at five general
   stories plus the normal three Watchlist quote rows. Never carry forward a
   `sending` or `indeterminate` edition. Mark remaining older content as omitted.
-- Add a macOS `launchd` LaunchAgent running every 15 minutes. The application
-  enforces the `America/New_York` 8:15 AM threshold and local-date guard, sends
-  at most one current-date edition after wake, and never sends a prior-date
-  catch-up.
+- Add a macOS `launchd` LaunchAgent that runs Gmail-only attempts at 8:20,
+  8:25, 8:30, and 8:35 AM `America/New_York`. The application enforces that
+  retry window and local-date guard, retries only definite pre-DATA recipient
+  failures, and never automatically retries an indeterminate delivery.
 
 ## Accepted Limitations
 
@@ -399,7 +403,7 @@ Ordered. Item 1 precedes any change to `pipeline.py`.
 9. Test Tiingo/EODHD primary/backup behavior, the five-minute retry boundary,
    dated cached fallback, and weekend/holiday quote display.
 10. Test `briefing_today()` against a fixed `BRIEFING_TIMEZONE`, including the
-    8:15 threshold, the local-date guard, and catch-up header dating (D8).
+    8:20–8:35 retry window, the local-date guard, and catch-up header dating (D8).
 11. Verify manually, in order: a live `--to email --dry-run`, a static SMTP
     test, a two-recipient parity send, a missed-edition catch-up preview, and a
     scheduled `launchd` dry run before enabling the live daily job.
