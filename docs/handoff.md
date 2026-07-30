@@ -28,7 +28,7 @@ Remote freshness: verified. `git fetch --quiet origin` succeeded on 2026-07-30; 
 
 Working tree: dirty, and intentionally so. 26 tracked files are modified — source (`src/news_agent/{cli,cluster,config,draft,formatting,models,openai_client,pipeline}.py`, the `mailer/` package), their tests, `README.md`, `config/sources.toml`, `docs/plans/email-restructuring.md`, and generated runtime data. Untracked additions include `src/news_agent/duplicate_gate.py`, `tests/test_duplicate_gate.py`, `tests/test_openai_client.py`, `docs/plans/duplicate-event-deduplication.md`, `docs/plans/watchlist-retrieval-reliability.md`, dated `data/` records, and eleven `data/compression_audits/` files. Preserve all of it until reviewed and committed intentionally.
 
-Handoff commit: 5c0d75a
+Handoff commit: c8ee061 (`docs: update handoff (2026-07-30)`; this sha line was corrected by an immediate follow-up commit)
 
 ## Validation
 
