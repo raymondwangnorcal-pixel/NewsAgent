@@ -910,3 +910,23 @@
 - Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
 - Superseded by: none
 - Note: Activation checks entity configuration, SEC contact, tests, implementation version, and required-source dry-run outcomes.
+
+## DEC-0049 — Reject non-feed source responses before caching
+
+- Date: 2026-07-31
+- Owner: shared
+- Status at record: active
+- Decision: Treat a response whose XML root is not RSS, Atom, or RDF as an invalid source feed, and do not cache it as a successful empty result.
+- Rationale: Provider error pages can return HTTP success while containing valid HTML; failing closed preserves same-day retryability and prevents false quiet Watchlist rows.
+- Scope: Shared RSS and Atom retrieval, source-cache state, and Watchlist editorial discovery.
+- Implementation: pending
+- Recorded against HEAD: `b4c96449575ccde3626c149c4bc690143b01f044`
+- Supersedes: none
+- Evidence: User-requested correction after the NVO Yahoo source diagnostic on 2026-07-31.
+
+## Update — 2026-07-31 — DEC-0049
+
+- Type: implementation
+- Implementation commit: `b835f42b50446bbbda8f6573c224506e0bf2d5a3` — fix(fetch): reject non-feed source responses
+- Superseded by: none
+- Note: Non-feed XML roots now return an invalid-feed error, so Watchlist discovery retries rather than caching a false empty success.
