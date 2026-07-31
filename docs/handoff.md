@@ -1,6 +1,6 @@
 # NewsAgent Handoff
 
-Last updated: 2026-07-31T15:35:31-04:00
+Last updated: 2026-07-31T15:39:36-04:00
 
 ## Current Goal
 
@@ -8,7 +8,7 @@ Prepare and then implement `docs/plans/watchlist-retrieval-reliability.md`: a re
 
 ## Accomplished This Session
 
-The Watchlist plan was decision-completed and committed as `f740609 docs(watchlist): finalize retrieval reliability plan`; `docs/decisions.md` now contains DEC-0001 through DEC-0039, all with `Implementation: pending`. Existing email deduplication and resend work was checkpointed as `9ab29f9 feat(email): checkpoint deduplication and resend hardening`. A linked implementation branch, `feat/watchlist-retrieval`, was created from that checkpoint; the active repository root remains on `chore/pre-watchlist-checkpoint`. The clean implementation worktree passed `370` tests. A final preimplementation review found that worktree isolation and recipient ownership are resolved, but identified the remaining prerequisites and plan corrections below.
+No product code changed in this handoff-only session. The repository audit confirmed that the Watchlist plan remains committed as `f740609 docs(watchlist): finalize retrieval reliability plan`; `docs/decisions.md` still contains DEC-0001 through DEC-0039, all with `Implementation: pending`, and its schema, lifecycle, privacy, and Git metadata validation passes. Existing email deduplication and resend work remains checkpointed as `9ab29f9 feat(email): checkpoint deduplication and resend hardening`. The linked implementation branch, `feat/watchlist-retrieval`, still points to that checkpoint; the active repository root remains on `chore/pre-watchlist-checkpoint`. The earlier clean implementation-worktree test result was `370 passed in 0.47s`.
 
 ## Outstanding Tasks
 
@@ -30,24 +30,27 @@ Amend the plan’s filing-regime table and rules for ETHB and Shopify, then exec
 
 Active repository root: `/Users/raymondwang/PersonalProjects/NewsAgent`.
 
-Active branch: `chore/pre-watchlist-checkpoint` at `9ab29f973c054a25266167953651c262e1507695`. It has no configured upstream. Against the locally known `origin/main`, `git rev-list --left-right --count origin/main...HEAD` reports `0 5`; the five locally known commits are:
+Active branch: `chore/pre-watchlist-checkpoint`. It has no configured upstream. Before this refresh, `git rev-list --left-right --count origin/main...HEAD` reported `0 6`; after the handoff-only commit, the expected locally known count is `0 7`. The six pre-existing commits ahead of locally known `origin/main` are:
 
+- `04bcb8e docs: update handoff (2026-07-31)`
 - `9ab29f9 feat(email): checkpoint deduplication and resend hardening`
 - `f740609 docs(watchlist): finalize retrieval reliability plan`
 - `a8c0d39 docs: update handoff (2026-07-31)`
 - `d4237ae docs: correct handoff commit sha (2026-07-30)`
 - `c8ee061 docs: update handoff (2026-07-30)`
 
-Remote freshness: not verified because the active branch has no upstream and no network fetch was performed during this handoff audit. Do not infer that the five commits are pushed.
+Remote freshness: not verified because the active branch has no upstream, so no fetch was required or performed during this handoff audit. Do not infer that the local commits are pushed.
 
 Working tree before this handoff: five modified tracked `data/` files and fourteen untracked generated `data/` paths; none were staged. They are runtime artifacts and were deliberately left uncommitted. No merge, rebase, cherry-pick, or detached-HEAD state was detected. Branch `feat/watchlist-retrieval` also points to checkpoint `9ab29f9`; a separate linked worktree was created for implementation earlier in this session.
 
-Handoff commit: made for `docs/handoff.md` only; see `git log -- docs/handoff.md`. No push was performed.
+Handoff commit: made for `docs/handoff.md` only; see `git log -- docs/handoff.md`. No push was performed. The commit identifier is intentionally not embedded in this record.
 
 ## Validation
 
 - Clean implementation worktree: `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src pytest -q -p no:cacheprovider` completed with `370 passed in 0.47s`; test-generated `data/email_state.lock` was restored afterward and the worktree was clean.
 - Active worktree audit: `git status --short --branch` found five modified tracked files and fourteen untracked paths, all under `data/`; the index was empty.
+- Decision-ledger reconciliation: `/Users/raymondwang/PersonalProjects/GlobalSkills/decisiontracker/scripts/validate_ledger.py validate-ledger --repo /Users/raymondwang/PersonalProjects/NewsAgent --input /Users/raymondwang/PersonalProjects/NewsAgent/docs/decisions.md` reported `Ledger schema, lifecycle, and privacy checks passed.` No implementation update was appended because no Watchlist implementation commit exists.
+- Handoff audit: `git rev-list --left-right --count origin/main...HEAD` reported `0 6` before this handoff commit; `git log --oneline origin/main..HEAD` identified all six commits. `git symbolic-ref -q HEAD` confirmed an attached branch, and no merge, rebase, cherry-pick, or revert state was detected.
 - Environment presence check, without printing values: the implementation worktree lacks `.env` and `.venv`; the source `.env` contains `EMAIL_TO` and lacks `SEC_CONTACT_EMAIL`; `.env` is ignored by Git.
 - Official SEC evidence checked 2026-07-31: ETHB has a Form 8-K at `https://www.sec.gov/Archives/edgar/data/2099103/000143774926012415/0001437749-26-012415-index.htm` and a Form 10-Q at `https://www.sec.gov/Archives/edgar/data/2099103/000143774926015530/0001437749-26-015530-index.html`. Shopify’s 2026 Form 8-K at `https://www.sec.gov/Archives/edgar/data/1594805/000159480526000022/shop-20260508.htm` states that it is a foreign private issuer currently filing periodic and current reports on U.S. domestic issuer forms.
 - Current SEC guidance still states a maximum of 10 requests per second; implementation should nevertheless use a lower conservative limiter and an identifying `User-Agent` sourced from `SEC_CONTACT_EMAIL`.
