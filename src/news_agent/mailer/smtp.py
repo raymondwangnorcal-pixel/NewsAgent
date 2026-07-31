@@ -34,11 +34,21 @@ def classify_smtp_error(exc: OSError) -> str:
     return "network_error"
 
 
-def build_message(subject: str, plain_text: str, html: str, settings: EmailSettings, recipient: str) -> EmailMessage:
+def build_message(
+    subject: str,
+    plain_text: str,
+    html: str,
+    settings: EmailSettings,
+    recipient: str,
+    *,
+    message_id: str = "",
+) -> EmailMessage:
     message = EmailMessage()
     message["Subject"] = subject
     message["From"] = settings.from_address
     message["To"] = recipient
+    if message_id:
+        message["Message-ID"] = message_id
     message.set_content(plain_text)
     message.add_alternative(html, subtype="html")
     return message
@@ -52,9 +62,10 @@ def send_email(
     html: str,
     timeout_seconds: float = 20.0,
     smtp_factory: SMTPFactory | None = None,
+    message_id: str = "",
 ) -> RecipientOutcome:
     factory = smtp_factory or _default_smtp_factory
-    message = build_message(subject, plain_text, html, settings, recipient)
+    message = build_message(subject, plain_text, html, settings, recipient, message_id=message_id)
     smtp: smtplib.SMTP | None = None
     data_started = False
     try:

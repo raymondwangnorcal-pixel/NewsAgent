@@ -211,7 +211,9 @@ def test_state_store_creates_isolated_test_revisions(tmp_path: Path) -> None:
 
     assert (original.revision, revision.revision, another_revision.revision) == (1, 2, 3)
     assert store.edition(original.edition_id).plain_text == "Original"  # type: ignore[union-attr]
-    assert revision.subject == "Subject [Test resend #2]"
+    assert revision.subject == "[TEST] Subject (revision 2)"
+    assert revision.edition_kind == "test"
+    assert original.edition_kind == "production"
     store.record_delivery(revision.edition_id, RecipientOutcome("to@example.com", "smtp_accepted"))
     assert store.delivery_outcomes(original.edition_id) == []
     assert store.delivery_outcomes(revision.edition_id)[0].state == "smtp_accepted"
@@ -439,6 +441,29 @@ def test_summarize_watchlist_renders_material_event(monkeypatch: pytest.MonkeyPa
     assert story.articles == (article,)
 
 
+def test_watchlist_budget_exhaustion_is_visible_and_does_not_render_unevaluated_story(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    article = extracted_article("https://reuters.com/a")
+    monkeypatch.setattr(
+        watchlist_news,
+        "request_structured_response",
+        lambda **_kwargs: SimpleNamespace(response=None, budget_exhausted=True),
+    )
+
+    story = watchlist_news.summarize_watchlist(
+        EmailWatchlistEntry("AAPL", "Apple", "stock"),
+        (article,),
+        OpenAIBudget(OpenAICostConfig()),
+    )
+    plain, _html = render_watchlist_section({"AAPL": None}, [story])
+
+    assert story.articles == ()
+    assert story.classification_incomplete is True
+    assert "Watchlist classification incomplete" in plain
+    assert "No verified news today." not in plain
+
+
 def test_watchlist_discovery_filters_unallowlisted_and_prefers_primary(monkeypatch: pytest.MonkeyPatch) -> None:
     first = extracted_article("https://example.com/first", "Example")
     primary = extracted_article("https://reuters.com/primary", "Reuters")
@@ -475,8 +500,21 @@ def test_render_watchlist_labels_search_unavailable() -> None:
 
     plain, html = render_watchlist_section({"AAPL": None}, [story])
 
-    assert "News search unavailable." in plain
-    assert "News search unavailable." in html
+    assert "No verified news today (partial sources)." in plain
+    assert "No verified news today (partial sources)." in html
+
+
+def test_render_watchlist_required_source_failure_is_not_a_quiet_row() -> None:
+    story = watchlist_news.WatchlistStory(
+        "AAPL", search_error="search_unavailable", official_retrieval_failed=True
+    )
+
+    plain, html = render_watchlist_section({"AAPL": None}, [story])
+
+    warning = "Official filing retrieval failed; no complete news determination was possible."
+    assert plain.count(warning) == 1
+    assert warning in html
+    assert "No verified news today." not in plain
 
 
 def test_shared_watchlist_discovery_marks_unfinished_ticker_unavailable(monkeypatch: pytest.MonkeyPatch) -> None:

@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 import sys
+import hashlib
+import uuid
+from dataclasses import replace
 from datetime import datetime
+from urllib.parse import urlparse
 
 from news_agent.formatting import FormattedMessage
 from news_agent.mailer.models import EmailEdition, RecipientOutcome
@@ -12,10 +16,21 @@ from news_agent.mailer.smtp import SMTPFactory, send_email
 from news_agent.mailer.state import EmailStateStore
 from news_agent.mailer.quotes import EndOfDayQuote, fetch_quotes_with_shared_deadline, validate_quote_provider_configuration
 from news_agent.mailer.watchlist import load_email_watchlist, validate_shared_watchlist_consistency
-from news_agent.mailer.watchlist_news import WatchlistStory, discover_watchlists_with_shared_deadline, summarize_watchlist
-from news_agent.models import EnrichmentConfig
+from news_agent.mailer.watchlist_news import (
+    WatchlistStory,
+    deserialize_articles,
+    discover_watchlist_keys_with_shared_deadline,
+    serialize_articles,
+    summarize_watchlist,
+)
+from news_agent.models import Article, EnrichmentConfig
 from news_agent.openai_budget import OpenAIBudget
 from news_agent.time import briefing_now
+from news_agent.watchlist.edgar import EdgarClient, sec_contact_email_from_env
+from news_agent.watchlist.entity_map import classify_text, load_entity_map, load_relationship_ambiguities
+from news_agent.watchlist.filings import discover_material_filings
+from news_agent.watchlist.discovery import EXCLUDED_HOSTS, distinct_discovery_keys
+from news_agent.watchlist.models import RelationshipLabel, SourceState
 
 
 class EmailService:
@@ -43,13 +58,38 @@ class EmailService:
         budget: OpenAIBudget,
         *,
         test_revision: bool = False,
+        general_articles: tuple[Article, ...] = (),
+        use_openai: bool = True,
+        read_edgar_state: bool = False,
     ) -> EmailEdition:
-        rendered, stories = self.render_newsletter(messages, header, enrichment_config, budget)
+        rendered, stories = self.render_newsletter(
+            messages,
+            header,
+            enrichment_config,
+            budget,
+            persist_quotes=not test_revision,
+            bypass_sent_suppression=test_revision,
+            general_articles=general_articles,
+            persist_watchlist_state=not test_revision,
+            use_openai=use_openai,
+            read_edgar_state=read_edgar_state,
+        )
         today = briefing_now().date().isoformat()
         story_ids = [(message.title, "general") for message in messages]
-        story_ids.extend((story.ticker, "watchlist") for story in stories)
+        story_ids.extend(
+            (event_id, f"watchlist:{story.ticker}")
+            for story in stories
+            for event_id in story.event_ids
+        )
         if test_revision:
             return self.store.prepare_test_revision(today, rendered.subject, rendered.plain_text, rendered.html, story_ids)
+        gate_state = self.store.record_watchlist_run(
+            uuid.uuid4().hex,
+            today,
+            [_watchlist_run_record(story) for story in stories],
+        )
+        if gate_state == "FAIL":
+            return self.store.prepare_gate_failure_alert(today)
         return self.store.prepare_edition(today, rendered.subject, rendered.plain_text, rendered.html, story_ids)
 
     def render_newsletter(
@@ -60,14 +100,71 @@ class EmailService:
         budget: OpenAIBudget,
         *,
         persist_quotes: bool = True,
+        bypass_sent_suppression: bool = False,
+        general_articles: tuple[Article, ...] = (),
+        persist_watchlist_state: bool = True,
+        use_openai: bool = True,
+        read_edgar_state: bool = False,
     ) -> tuple[RenderedEmail, list[WatchlistStory]]:
         validate_quote_provider_configuration()
         validate_shared_watchlist_consistency()
         entries = load_email_watchlist()
+        entity_map = load_entity_map()
+        ambiguity_items = [
+            dict(item, created_at=datetime.now().astimezone().isoformat())
+            for item in load_relationship_ambiguities()
+        ]
+        if persist_watchlist_state:
+            self.store.sync_relationship_reviews(ambiguity_items)
+        filing_outcomes = discover_material_filings(
+            entity_map,
+            EdgarClient(sec_contact_email_from_env()),
+            briefing_date=briefing_now().date(),
+            cutoff=briefing_now(),
+            state_store=self.store if persist_watchlist_state or read_edgar_state else None,
+            persist_state=persist_watchlist_state,
+        )
         quotes: dict[str, EndOfDayQuote | None] = {}
         stories: list[WatchlistStory] = []
         live_quotes = fetch_quotes_with_shared_deadline(tuple(entry.ticker for entry in entries))
-        discovered_articles = discover_watchlists_with_shared_deadline(entries, enrichment_config)
+        briefing_date = briefing_now().date().isoformat()
+        discovery_by_key: dict[str, tuple[tuple[Article, ...], str]] = {}
+        missing_keys: list[str] = []
+        for key in distinct_discovery_keys(entity_map):
+            payload = (
+                self.store.successful_watchlist_source("yahoo", key, briefing_date)
+                if persist_watchlist_state else None
+            )
+            if payload is None:
+                missing_keys.append(key)
+                continue
+            try:
+                discovery_by_key[key] = (deserialize_articles(payload), "")
+            except (KeyError, TypeError, ValueError):
+                missing_keys.append(key)
+        fetched = discover_watchlist_keys_with_shared_deadline(tuple(missing_keys), enrichment_config)
+        for key, (articles, error) in fetched.items():
+            if persist_watchlist_state:
+                self.store.cache_watchlist_source(
+                    "yahoo",
+                    key,
+                    briefing_date,
+                    state="FAILED" if error else "OK",
+                    payload=None if error else serialize_articles(articles),
+                    error_code=error,
+                )
+            discovery_by_key[key] = (articles, error)
+        discovered_articles: dict[str, tuple[tuple[Article, ...], str]] = {}
+        for ticker, entity in entity_map.tickers.items():
+            routed: dict[str, Article] = {}
+            errors: list[str] = []
+            for key in entity.discovery_keys:
+                key_articles, key_error = discovery_by_key.get(key, ((), "search_unavailable"))
+                for article in key_articles:
+                    routed.setdefault(article.canonical_url or article.url, article)
+                if key_error:
+                    errors.append(key_error)
+            discovered_articles[ticker] = (tuple(routed.values()), errors[0] if errors else "")
         for entry in entries:
             quote = live_quotes[entry.ticker]
             if quote is None:
@@ -77,13 +174,124 @@ class EmailService:
                     quote = EndOfDayQuote(entry.ticker, close_date, close_price, previous_close, provider)
             elif persist_quotes:
                 self.store.cache_quote(entry.ticker, quote.close_date, quote.close_price, quote.previous_close, quote.provider)
+                self.store.record_quote_history(entry.ticker, quote.close_date, quote.close_price, quote.previous_close, quote.provider)
             quotes[entry.ticker] = quote
             articles, error = discovered_articles[entry.ticker]
+            filing_outcome = filing_outcomes[entry.ticker]
+            # Tier 5a reuses the general briefing's already-fetched and enriched
+            # articles.  Entity classification below remains the single relevance
+            # choke point for both general-feed and ticker-feed candidates.
+            merged_articles = {
+                article.canonical_url or article.url: article
+                for article in (*articles, *general_articles)
+                if not _excluded_editorial_host(article.canonical_url or article.url)
+            }
+            articles = tuple(merged_articles.values())
+            classifications = [
+                classify_text(
+                    entity_map.tickers[entry.ticker],
+                    "\n".join((article.title, article.summary, article.best_available_text[:3000])),
+                    "subject",
+                    current_governing_accession=filing_outcome.current_annual_accession,
+                )
+                for article in articles
+            ]
+            relevant_articles = tuple(
+                article
+                for article, classification in zip(articles, classifications, strict=True)
+                if classification.label is not RelationshipLabel.MENTION_ONLY
+            )
+            relevant_classifications = [
+                classification
+                for classification in classifications
+                if classification.label is not RelationshipLabel.MENTION_ONLY
+            ]
+            editorial_ids = tuple(
+                "editorial:" + hashlib.sha256(
+                    (entry.ticker + "|" + (article.canonical_url or article.url)).encode("utf-8")
+                ).hexdigest()
+                for article in relevant_articles
+            )
+            if not bypass_sent_suppression:
+                retained = [
+                    (article, classification, event_id)
+                    for article, classification, event_id in zip(
+                        relevant_articles, relevant_classifications, editorial_ids, strict=True
+                    )
+                    if not self.store.watchlist_event_was_sent(event_id, entry.ticker)
+                ]
+                relevant_articles = tuple(item[0] for item in retained)
+                relevant_classifications = [item[1] for item in retained]
+                editorial_ids = tuple(item[2] for item in retained)
+            unsuppressed_filings = tuple(
+                filing
+                for filing in filing_outcome.filings
+                if bypass_sent_suppression or not self.store.watchlist_event_was_sent(filing.accession, entry.ticker)
+            )
+            filing_urls = {filing.url.rstrip("/") for filing in unsuppressed_filings}
+            if filing_urls:
+                deduplicated = [
+                    (article, classification, event_id)
+                    for article, classification, event_id in zip(
+                        relevant_articles, relevant_classifications, editorial_ids, strict=True
+                    )
+                    if (article.canonical_url or article.url).rstrip("/") not in filing_urls
+                ]
+                relevant_articles = tuple(item[0] for item in deduplicated)
+                relevant_classifications = [item[1] for item in deduplicated]
+                editorial_ids = tuple(item[2] for item in deduplicated)
+            editorial_slots = max(0, 2 - min(2, len(unsuppressed_filings)))
+            story = summarize_watchlist(
+                entry,
+                relevant_articles[:editorial_slots],
+                budget,
+                use_openai=use_openai,
+            )
             if error:
-                stories.append(WatchlistStory(entry.ticker, search_error=error))
-            else:
-                stories.append(summarize_watchlist(entry, articles, budget))
-        watchlist_text, watchlist_html = render_watchlist_section(quotes, stories)
+                story = replace(story, search_error=error)
+            classification_by_url = {
+                article.canonical_url or article.url: classification
+                for article, classification in zip(relevant_articles, relevant_classifications, strict=True)
+            }
+            first_classification = (
+                classification_by_url.get(story.articles[0].canonical_url or story.articles[0].url)
+                if story.articles else None
+            )
+            rendered_editorial_ids = tuple(
+                "editorial:" + hashlib.sha256(
+                    (entry.ticker + "|" + (article.canonical_url or article.url)).encode("utf-8")
+                ).hexdigest()
+                for article in story.articles
+            )
+            stories.append(replace(
+                story,
+                disclosures=unsuppressed_filings,
+                official_retrieval_failed=filing_outcome.state is SourceState.FAILED,
+                relationship_label=first_classification.label if first_classification else "",
+                relationship_source=first_classification.relationship_source if first_classification else "",
+                event_ids=tuple(
+                    dict.fromkeys(
+                        [filing.accession for filing in unsuppressed_filings]
+                        + list(rendered_editorial_ids)
+                    )
+                ),
+                official_state=filing_outcome.state.value,
+                optional_state="FAILED" if error else "OK",
+                eligible_filings=filing_outcome.eligible_count,
+                processed_filings=filing_outcome.processed_count,
+                expected_catchup_filings=filing_outcome.catchup_expected,
+                processed_catchup_filings=filing_outcome.catchup_processed,
+                filing_dispositions=filing_outcome.dispositions,
+                filing_bodies=filing_outcome.filing_bodies,
+                price_move_percent=quote.percent_change if quote is not None else None,
+            ))
+        watchlist_text, watchlist_html = render_watchlist_section(
+            quotes,
+            stories,
+            gate_state=self.store.gate_state(),
+            pending_relationships=self.store.pending_relationship_count(),
+            gate_progress_notice=self.store.gate_progress_notice(),
+        )
         rendered = render_minimal_newsletter(messages, header, watchlist_html, watchlist_text)
         return rendered, stories
 
@@ -115,6 +323,10 @@ class EmailService:
                         edition.plain_text,
                         edition.html,
                         smtp_factory=smtp_factory,
+                        message_id=(
+                            f"<newsagent-gate-{edition.edition_id}@{settings.from_address.rsplit('@', 1)[-1]}>"
+                            if edition.edition_kind == "gate_alert" else ""
+                        ),
                     )
                 except Exception as exc:  # State integrity must survive unexpected mailer defects.
                     outcome = RecipientOutcome(recipient, "failed", f"unhandled_{type(exc).__name__.lower()}")
@@ -127,6 +339,15 @@ class EmailService:
                     f"({outcome.state}: {outcome.error_code or 'no_error_code'}).",
                     file=sys.stderr,
                 )
+        if edition.edition_kind == "gate_alert" and outcomes:
+            terminal = (
+                "smtp_accepted" if any(item.state == "smtp_accepted" for item in outcomes)
+                else "indeterminate" if any(item.state == "indeterminate" for item in outcomes)
+                else "failed"
+            )
+            self.store.record_failure_alert_terminal(terminal)
+        if outcomes and all(item.state in {"smtp_accepted", "failed", "indeterminate"} for item in outcomes):
+            self.store.cleanup_watchlist_retention()
         return outcomes
 
     def status_lines(self, limit: int = 10) -> list[str]:
@@ -144,3 +365,65 @@ class EmailService:
         if edition is None:
             raise ValueError(f"Unknown email edition: {edition_id}")
         return self.send_edition(edition, retry_indeterminate=True, force_resend=True)
+
+
+def _watchlist_run_record(story: WatchlistStory) -> dict[str, object]:
+    documents: list[dict[str, object]] = []
+    event_documents: list[tuple[str, str]] = []
+    filing_bodies = dict(story.filing_bodies)
+    for filing in story.disclosures:
+        document_id = f"sec:{getattr(filing, 'accession', '')}"
+        documents.append({
+            "document_id": document_id,
+            "source_id": "edgar",
+            "accession": getattr(filing, "accession", ""),
+            "form_type": getattr(filing, "form", ""),
+            "accepted_at": getattr(filing, "accepted_at", None).isoformat()
+                if getattr(filing, "accepted_at", None) is not None else None,
+            "canonical_url": getattr(filing, "url", ""),
+            "body": filing_bodies.get(str(getattr(filing, "accession", ""))),
+            "metadata": {
+                "description": getattr(filing, "description", ""),
+                "items": list(getattr(filing, "items", ())),
+            },
+        })
+        event_documents.append((str(getattr(filing, "accession", "")), document_id))
+    article_event_ids = [event_id for event_id in story.event_ids if event_id.startswith("editorial:")]
+    for article, event_id in zip(story.articles, article_event_ids, strict=False):
+        document_id = "url:" + hashlib.sha256((article.canonical_url or article.url).encode("utf-8")).hexdigest()
+        documents.append({
+            "document_id": document_id,
+            "source_id": "editorial",
+            "canonical_url": article.canonical_url or article.url,
+            "body": article.best_available_text,
+            "metadata": {"title": article.title, "publisher": article.source},
+        })
+        event_documents.append((event_id, document_id))
+    return {
+        "ticker": story.ticker,
+        "official_state": story.official_state,
+        "optional_state": story.optional_state,
+        "content_state": "CONTENT" if story.event_ids else (
+            "INCOMPLETE" if story.classification_incomplete else "QUIET"
+        ),
+        "retrieval_state": "FAILED" if story.official_retrieval_failed else (
+            "PARTIAL" if story.search_error or story.classification_incomplete else "COMPLETE"
+        ),
+        "event_ids": list(story.event_ids),
+        "relationship_label": str(story.relationship_label),
+        "relationship_source": story.relationship_source,
+        "eligible_filings": story.eligible_filings,
+        "processed_filings": story.processed_filings,
+        "expected_catchup_filings": story.expected_catchup_filings,
+        "processed_catchup_filings": story.processed_catchup_filings,
+        "filing_dispositions": list(story.filing_dispositions),
+        "price_move_percent": story.price_move_percent,
+        "classification_incomplete": story.classification_incomplete,
+        "documents": documents,
+        "event_documents": event_documents,
+    }
+
+
+def _excluded_editorial_host(url: str) -> bool:
+    host = (urlparse(url).hostname or "").casefold().removeprefix("www.")
+    return any(host == excluded or host.endswith("." + excluded) for excluded in EXCLUDED_HOSTS)

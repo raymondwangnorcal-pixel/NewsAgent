@@ -1,6 +1,6 @@
 # Plan: Primary-Source Watchlist Coverage with Entity-Resolved Relevance
 
-**Status:** Decision-complete; Spike 2 and implementation remain. Revised 2026-07-31 against an external review and two Watchlist Grill Me sessions to settle retrieval, relevance, evaluation, halt, recovery, notification, preflight, test-edition, concurrency, module-layout, and filing-regime behavior. The decisions are summarized in §13 and recorded durably in `docs/decisions.md`.
+**Status:** V1 code and automated tests implemented on `feat/watchlist-retrieval`; the live V1.11 no-send preflight and Gate A activation remain intentionally blocked until the local `.env` supplies `SEC_CONTACT_EMAIL`. Revised 2026-07-31 against an external review and two Watchlist Grill Me sessions to settle retrieval, relevance, evaluation, halt, recovery, notification, preflight, test-edition, concurrency, module-layout, and filing-regime behavior. The decisions are summarized in §13 and recorded durably in `docs/decisions.md`.
 **Supersedes:** the Tiingo-first / EODHD-fallback design. The Yahoo-RSS design was withdrawn and is now **partially reinstated** as a clearly-subordinate tier; see §2.2 and §5.
 **Decisions of record:** DEC-0001 through DEC-0048 in `docs/decisions.md`; DEC-0046 is superseded by DEC-0047.
 
@@ -481,7 +481,7 @@ Cleanup runs idempotently after a daily run reaches a terminal delivery state. I
 
 **V1.14 — Weekly measurement reminder.** On completed evaluation days 7, 14, 21, and every seventh day thereafter while the gate remains `MEASURING`, append a count-only footer with days completed and `max(0, minimum - adjudicated)` for the non-filing-event, definitive-relationship-claim, and rendered-story denominators. Reset the cadence with a fresh Gate A window. Do not include candidate names, headlines, tickers, or links (DEC-0039). Tests cover no reminder on day 6, correct counts on days 7 and 14, no reminder after `PASS` or `FAIL`, and cadence reset after validated recovery.
 
-**Baseline:** `PYTHONPATH=src pytest -q` reports `370 passed`. `.venv/bin/python` has no `pytest`; use the interpreter on `PATH`.
+**Current automated result:** `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src pytest -q -p no:cacheprovider` reports `407 passed`. `.venv/bin/python` has no `pytest`; use the interpreter on `PATH`.
 
 ### 9.2 Diagnostics — metric to field
 

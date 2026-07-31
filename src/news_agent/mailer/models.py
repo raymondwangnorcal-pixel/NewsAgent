@@ -42,3 +42,4 @@ class EmailEdition:
     plain_text: str
     html: str
     state: DeliveryState
+    edition_kind: str = "production"

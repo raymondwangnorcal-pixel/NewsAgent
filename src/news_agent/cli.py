@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 from news_agent.alerts import DEFAULT_ALERT_CONFIG_PATH, DEFAULT_ALERT_HISTORY_PATH, save_alert_history
@@ -10,6 +11,7 @@ from news_agent.env import load_dotenv
 from news_agent.formatting import FormatMode, FormatOptions, format_briefing_previews, format_console_preview
 from news_agent.history import DEFAULT_HISTORY_PATH
 from news_agent.mailer.service import EmailService
+from news_agent.mailer.state import EmailStateStore
 from news_agent.mailer.schedule import scheduled_email_is_due
 from news_agent.mailer.settings import email_settings_from_env
 from news_agent.notifications.base import NotificationError
@@ -21,9 +23,39 @@ from news_agent.quality_report import aggregate_source_rejections, format_source
 from news_agent.skipped_log import format_skipped_table
 from news_agent.watchlist import DEFAULT_WATCHLIST_PATH
 from news_agent.time import briefing_today
+from news_agent.watchlist.benchmark import load_benchmark_candidates
+from news_agent.watchlist.edgar import sec_contact_email_from_env
+from news_agent.watchlist.entity_map import load_entity_map, load_relationship_ambiguities
+from news_agent.watchlist.gate import activate_gate
+from news_agent.watchlist.models import ActivationPreflight
 
 
 def main(argv: list[str] | None = None) -> None:
+    effective_argv = list(sys.argv[1:] if argv is None else argv)
+    target = effective_argv[effective_argv.index("--to") + 1] if "--to" in effective_argv and effective_argv.index("--to") + 1 < len(effective_argv) else ""
+    needs_build_lock = (
+        (
+            target in {"email", "both"}
+            and ("--send" in effective_argv or "--dry-run" in effective_argv)
+            and "--email-resend" not in effective_argv
+            and "--email-parity" not in effective_argv
+        )
+        or "--activate-watchlist-gate" in effective_argv
+        or "--restart-after-gate-failure" in effective_argv
+    )
+    if not needs_build_lock:
+        _main(effective_argv)
+        return
+    try:
+        with EmailStateStore().lock():
+            _main(effective_argv)
+    except RuntimeError as exc:
+        if str(exc) == "another build is already running":
+            raise SystemExit("another build is already running") from exc
+        raise
+
+
+def _main(argv: list[str] | None = None) -> None:
     load_dotenv()
     parser = argparse.ArgumentParser(description="Build and send five morning news briefing messages.")
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG_PATH)
@@ -64,6 +96,14 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--email-status", action="store_true", help="Print recent email delivery outcomes and exit.")
     parser.add_argument("--email-resend", type=int, metavar="EDITION_ID", help="Resend a stored email edition.")
     parser.add_argument("--email-rebuild-today", action="store_true", help="Build and send a fresh same-day Gmail test revision.")
+    parser.add_argument("--watchlist-benchmark-import", type=Path, help="Import independently researched Watchlist benchmark JSON/JSONL and exit.")
+    parser.add_argument("--review-watchlist-benchmark", action="store_true", help="Review imported benchmark events one at a time and exit.")
+    parser.add_argument("--review-watchlist-relationships", action="store_true", help="Review ambiguous Watchlist relationships one at a time and exit.")
+    parser.add_argument("--review-watchlist-evaluations", action="store_true", help="Adjudicate rendered Watchlist events and large-move quiet days one at a time.")
+    parser.add_argument("--activate-watchlist-gate", action="store_true", help="Run a full no-send preflight and activate Gate A.")
+    parser.add_argument("--restart-after-gate-failure", action="store_true", help="Run the confirmed no-send recovery health check.")
+    parser.add_argument("--implementation-version", help="Version identifier evaluated by the Watchlist preflight.")
+    parser.add_argument("--tests-passed", action="store_true", help="Confirm the required test suite passed for --implementation-version.")
     parser.add_argument("--confirm", action="store_true", help="Confirm a potentially duplicate email resend.")
     parser.add_argument(
         "--scheduled",
@@ -120,6 +160,68 @@ def main(argv: list[str] | None = None) -> None:
         parser.error("--scheduled requires --send with --to email")
     if args.email_rebuild_today and (not args.send or args.to != "email" or not args.confirm or args.scheduled or args.email_resend is not None):
         parser.error("--email-rebuild-today requires --send --to email --confirm and cannot be scheduled or combined with --email-resend")
+    if args.activate_watchlist_gate and not (
+        args.dry_run
+        and args.to == "email"
+        and args.show_diagnostics
+        and args.confirm
+        and args.tests_passed
+        and args.implementation_version
+        and not args.send
+    ):
+        parser.error(
+            "--activate-watchlist-gate requires --dry-run --to email --show-diagnostics "
+            "--confirm --tests-passed --implementation-version VERSION"
+        )
+    if args.restart_after_gate_failure:
+        if not args.confirm or args.send or args.dry_run or args.activate_watchlist_gate or args.scheduled:
+            parser.error("--restart-after-gate-failure requires --confirm and cannot be combined with delivery options")
+        args.dry_run = True
+        args.to = "email"
+        args.show_diagnostics = True
+        if not args.implementation_version:
+            args.implementation_version = "watchlist-v1"
+        if not EmailStateStore().gate_recovery_allowed():
+            parser.error("--restart-after-gate-failure requires a halted failed Gate A window")
+    if args.watchlist_benchmark_import:
+        if args.dry_run or args.send or args.alerts or args.email_resend is not None:
+            parser.error("--watchlist-benchmark-import cannot be combined with delivery options")
+        entity_map = load_entity_map()
+        candidates = load_benchmark_candidates(args.watchlist_benchmark_import, set(entity_map.tickers))
+        imported_at = datetime.now(timezone.utc).isoformat()
+        inserted = EmailStateStore().import_benchmark_events([
+            {
+                "ticker": item.ticker,
+                "event_date": item.event_date.isoformat(),
+                "source_url": item.source_url,
+                "headline": item.headline,
+                "materiality_rationale": item.materiality_rationale,
+                "provenance": item.provenance,
+                "imported_at": imported_at,
+            }
+            for item in candidates
+        ])
+        print(f"Imported {inserted} independent Watchlist benchmark event(s).")
+        return
+    if args.review_watchlist_benchmark:
+        if args.dry_run or args.send or args.alerts:
+            parser.error("--review-watchlist-benchmark cannot be combined with delivery options")
+        _review_benchmark_events(EmailStateStore())
+        return
+    if args.review_watchlist_relationships:
+        if args.dry_run or args.send or args.alerts:
+            parser.error("--review-watchlist-relationships cannot be combined with delivery options")
+        store = EmailStateStore()
+        created_at = datetime.now(timezone.utc).isoformat()
+        items = [dict(item, created_at=created_at) for item in load_relationship_ambiguities()]
+        store.sync_relationship_reviews(items)
+        _review_relationships(store)
+        return
+    if args.review_watchlist_evaluations:
+        if args.dry_run or args.send or args.alerts:
+            parser.error("--review-watchlist-evaluations cannot be combined with delivery options")
+        _review_watchlist_evaluations(EmailStateStore())
+        return
     if args.email_status:
         if args.dry_run or args.send or args.alerts or args.email_resend is not None:
             parser.error("--email-status cannot be combined with delivery options")
@@ -160,6 +262,9 @@ def main(argv: list[str] | None = None) -> None:
     if args.scheduled and not scheduled_email_is_due():
         print("Scheduled email skipped: it is outside the 8:20–8:35 AM BRIEFING_TIMEZONE retry window.")
         return
+    if args.scheduled and not EmailStateStore().scheduled_work_allowed():
+        print("Scheduled NewsAgent work halted after Gate A failure; run --restart-after-gate-failure --confirm.")
+        return
 
     try:
         config = load_config(
@@ -176,6 +281,15 @@ def main(argv: list[str] | None = None) -> None:
             email_settings_from_env()
         except NotificationError as exc:
             raise SystemExit(f"Email preflight failed: {exc}") from exc
+    if args.scheduled:
+        gate_store = EmailStateStore()
+        if gate_store.gate_failure_alert_pending():
+            service = EmailService(gate_store)
+            edition = gate_store.prepare_gate_failure_alert(briefing_today().isoformat())
+            outcomes = service.send_edition(edition)
+            accepted_count = accepted_email_count_or_raise(outcomes)
+            print(f"Sent Gate A failure alert to {accepted_count} recipient(s); scheduled work is now halted.")
+            return
     format_mode = resolve_format_mode(args.format, args.dry_run, args.channel, delivery_target)
 
     if args.alerts:
@@ -242,14 +356,56 @@ def main(argv: list[str] | None = None) -> None:
             if args.email_parity:
                 plain_text = service.render_parity(email_messages, f"Morning Briefing - {briefing_today().isoformat()}").plain_text
             else:
-                plain_text, _stories = service.render_newsletter(
+                plain_text, watchlist_stories = service.render_newsletter(
                     email_messages,
                     f"Morning Briefing - {briefing_today().isoformat()}",
                     config.enrichment,
                     budget,
                     persist_quotes=False,
+                    general_articles=getattr(result, "watchlist_candidates", ()),
+                    use_openai=openai_mode != "off",
+                    persist_watchlist_state=not args.restart_after_gate_failure,
+                    read_edgar_state=args.restart_after_gate_failure,
                 )
                 plain_text = plain_text.plain_text
+                if args.activate_watchlist_gate:
+                    implementation_version = str(args.implementation_version)
+                    preflight = ActivationPreflight(
+                        implementation_version=implementation_version,
+                        entity_map_valid=True,
+                        sec_contact_valid=bool(sec_contact_email_from_env()),
+                        tests_passed=args.tests_passed,
+                        dry_run_version=implementation_version,
+                        required_edgar_failures=tuple(
+                            story.ticker for story in watchlist_stories if story.official_retrieval_failed
+                        ),
+                    )
+                    activate_gate(preflight, confirmed=args.confirm)
+                    service.store.record_activation_preflight(
+                        implementation_version,
+                        {
+                            "entity_map_valid": preflight.entity_map_valid,
+                            "sec_contact_valid": preflight.sec_contact_valid,
+                            "tests_passed": preflight.tests_passed,
+                            "dry_run_version": preflight.dry_run_version,
+                            "required_edgar_failures": list(preflight.required_edgar_failures),
+                        },
+                        preflight.passed,
+                    )
+                    service.store.activate_gate(implementation_version, confirmed=True)
+                if args.restart_after_gate_failure:
+                    required_failures = tuple(
+                        story.ticker for story in watchlist_stories if story.official_retrieval_failed
+                    )
+                    service.store.complete_gate_recovery(
+                        str(args.implementation_version),
+                        succeeded=not required_failures,
+                    )
+                    if required_failures:
+                        raise SystemExit(
+                            "Gate A recovery health check failed: required EDGAR failures for "
+                            + ", ".join(required_failures)
+                        )
             if delivery_target == "both":
                 print("===== TELEGRAM =====")
                 for index, message in enumerate(messages, start=1):
@@ -268,6 +424,10 @@ def main(argv: list[str] | None = None) -> None:
                 print(format_skipped_table(result.skipped_stories))
             if args.show_diagnostics:
                 print_diagnostics(diagnostics)
+            if args.activate_watchlist_gate:
+                print(f"Gate A activated for {args.implementation_version}.")
+            if args.restart_after_gate_failure:
+                print("Gate A recovery health check passed; a fresh MEASURING window is active.")
             return
         if format_mode == "console":
             print(format_console_preview(formatted_messages))
@@ -309,6 +469,8 @@ def main(argv: list[str] | None = None) -> None:
                     config.enrichment,
                     budget,
                     test_revision=args.email_rebuild_today,
+                    general_articles=getattr(result, "watchlist_candidates", ()),
+                    use_openai=openai_mode != "off",
                 )
             )
             outcomes = service.send_edition(edition)
@@ -330,6 +492,8 @@ def main(argv: list[str] | None = None) -> None:
                     f"Morning Briefing - {briefing_today().isoformat()}",
                     config.enrichment,
                     budget,
+                    general_articles=getattr(result, "watchlist_candidates", ()),
+                    use_openai=openai_mode != "off",
                 )
             )
             outcomes = service.send_edition(edition)
@@ -440,6 +604,87 @@ def accepted_email_count_or_raise(outcomes: list[object]) -> int:
         for outcome in outcomes
     ) or "no recipient outcomes"
     raise NotificationError(f"No Gmail recipient reached SMTP acceptance ({errors}).")
+
+
+def _review_benchmark_events(store: EmailStateStore) -> None:
+    pending = store.pending_benchmark_events()
+    if not pending:
+        print("No pending Watchlist benchmark events.")
+        return
+    for item in pending:
+        print(f"\n{item['ticker']} | {item['event_date']} | {item['headline']}")
+        print(item["source_url"])
+        print(f"Materiality rationale: {item['materiality_rationale']}")
+        verdict = input("Verdict [material/not_material/unclear/quit]: ").strip().casefold()
+        if verdict == "quit":
+            return
+        if verdict not in {"material", "not_material", "unclear"}:
+            print("Invalid verdict; item left pending.")
+            continue
+        found: bool | None = None
+        if verdict == "material":
+            answer = input("Did NewsAgent find this event? [yes/no/unclear]: ").strip().casefold()
+            found = True if answer == "yes" else False if answer == "no" else None
+        store.review_benchmark_event(int(item["id"]), verdict, found_by_newsagent=found)
+
+
+def _review_relationships(store: EmailStateStore) -> None:
+    pending = store.pending_relationship_reviews()
+    if not pending:
+        print("No pending Watchlist relationships.")
+        return
+    for item in pending:
+        print(f"\n{item['ticker']} | {item['candidate']} → {item['proposed_relationship']}")
+        print(item["evidence_url"])
+        print(item["reason"])
+        verdict = input("Verdict [accepted/rejected/unclear/quit]: ").strip().casefold()
+        if verdict == "quit":
+            return
+        if verdict not in {"accepted", "rejected", "unclear"}:
+            print("Invalid verdict; item left pending.")
+            continue
+        store.review_relationship(str(item["review_id"]), verdict)
+
+
+def _review_watchlist_evaluations(store: EmailStateStore) -> None:
+    events = store.pending_watchlist_evaluations()
+    moves = store.pending_large_move_reviews()
+    if not events and not moves:
+        print("No pending Watchlist evaluations.")
+        return
+    definitive = {"DIRECT", "AFFILIATE", "MANAGED_CAPITAL", "UNDERLYING_ASSET"}
+    for item in events:
+        print(f"\n{item['ticker']} | {item['headline']}")
+        if item["canonical_url"]:
+            print(item["canonical_url"])
+        event_id = str(item["event_id"])
+        if not item["story_reviewed"]:
+            relevance = input("Story relevance [relevant/irrelevant/unclear/quit]: ").strip().casefold()
+            if relevance == "quit":
+                return
+            if relevance not in {"relevant", "irrelevant", "unclear"}:
+                print("Invalid verdict; item left pending.")
+                continue
+            store.record_adjudication("rendered_story", event_id, relevance)
+        if item["relationship_label"] in definitive and not item["relationship_reviewed"]:
+            relation = input("Relationship claim [correct/incorrect/unclear]: ").strip().casefold()
+            if relation in {"correct", "incorrect", "unclear"}:
+                store.record_adjudication("relationship_claim", event_id, relation)
+            else:
+                print("Invalid relationship verdict; relationship claim left pending.")
+    for item in moves:
+        print(
+            f"\n{item['ticker']} | {item['briefing_date']} | "
+            f"move {item['price_move_percent']:+.2f}% | quiet Watchlist row"
+        )
+        verdict = input("Was a material event missed? [yes/no/unclear/quit]: ").strip().casefold()
+        if verdict == "quit":
+            return
+        mapped = {"yes": "missed", "no": "no_miss", "unclear": "unclear"}.get(verdict)
+        if mapped is None:
+            print("Invalid verdict; item left pending.")
+            continue
+        store.record_adjudication("large_move", str(item["subject_id"]), mapped)
 
 
 def print_quality_gate_rejections(quality_gate_rejections: object) -> None:

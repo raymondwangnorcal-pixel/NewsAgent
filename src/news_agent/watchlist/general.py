@@ -9,9 +9,8 @@ from typing import Any
 from news_agent.models import StoryCluster
 
 
-DEFAULT_WATCHLIST_PATH = Path(__file__).resolve().parents[2] / "config" / "watchlist.json"
+DEFAULT_WATCHLIST_PATH = Path(__file__).resolve().parents[3] / "config" / "watchlist.json"
 WORD_RE = re.compile(r"[a-z0-9]+")
-EXPLICIT_TICKER_RE = re.compile(r"(?:\$|\b(?:NASDAQ|NYSE|AMEX|NYSEARCA)\s*:?\s*)?([A-Z][A-Z0-9.-]{1,5})\b")
 
 
 @dataclass(frozen=True)
@@ -57,11 +56,9 @@ def load_watchlist(path: Path | None = None) -> tuple[WatchlistEntry, ...]:
     resolved = path or DEFAULT_WATCHLIST_PATH
     if not resolved.exists():
         return DEFAULT_WATCHLIST_ENTRIES
-
     text = resolved.read_text(encoding="utf-8")
     if resolved.suffix.lower() in {".yaml", ".yml"}:
         return parse_simple_yaml_watchlist(text)
-
     raw = json.loads(text)
     items = raw.get("items", raw) if isinstance(raw, dict) else raw
     return tuple(entry_from_mapping(item) for item in items)
@@ -105,9 +102,12 @@ def entry_from_mapping(item: object) -> WatchlistEntry:
     if not label:
         raise ValueError(f"Watchlist entry is missing a label/name: {item!r}")
     aliases = tuple(str(alias).strip() for alias in item.get("aliases", ()) if str(alias).strip())
-    ticker = str(item.get("ticker", "")).strip().upper()
-    weight = float(item.get("weight", 1.0))
-    return WatchlistEntry(label=label, aliases=aliases, ticker=ticker, weight=weight)
+    return WatchlistEntry(
+        label=label,
+        aliases=aliases,
+        ticker=str(item.get("ticker", "")).strip().upper(),
+        weight=float(item.get("weight", 1.0)),
+    )
 
 
 def normalize_words(value: str) -> set[str]:
@@ -116,12 +116,14 @@ def normalize_words(value: str) -> set[str]:
 
 def explicit_tickers(text: str) -> set[str]:
     symbols: set[str] = set()
-    for match in re.finditer(r"\$([A-Z][A-Z0-9.-]{1,5})\b", text):
-        symbols.add(match.group(1).replace(".", "-"))
-    for match in re.finditer(r"\b(?:NASDAQ|NYSE|AMEX|NYSEARCA)\s*:?\s*([A-Z][A-Z0-9.-]{1,5})\b", text):
-        symbols.add(match.group(1).replace(".", "-"))
-    for match in re.finditer(r"\(([A-Z][A-Z0-9.-]{1,5})\)", text):
-        symbols.add(match.group(1).replace(".", "-"))
+    patterns = (
+        r"\$([A-Z][A-Z0-9.-]{1,5})\b",
+        r"\b(?:NASDAQ|NYSE|AMEX|NYSEARCA)\s*:?\s*([A-Z][A-Z0-9.-]{1,5})\b",
+        r"\(([A-Z][A-Z0-9.-]{1,5})\)",
+    )
+    for pattern in patterns:
+        for match in re.finditer(pattern, text):
+            symbols.add(match.group(1).replace(".", "-"))
     return symbols
 
 
@@ -143,9 +145,7 @@ def match_watchlist_text(text: str, entries: tuple[WatchlistEntry, ...]) -> tupl
     matches: list[str] = []
     seen: set[str] = set()
     for entry in entries:
-        matched = False
-        if entry.ticker and entry.ticker in tickers:
-            matched = True
+        matched = bool(entry.ticker and entry.ticker in tickers)
         if not matched:
             matched = any(term_matches(term, text, words) for term in entry.terms)
         if matched and entry.label not in seen:
@@ -154,10 +154,7 @@ def match_watchlist_text(text: str, entries: tuple[WatchlistEntry, ...]) -> tupl
     return tuple(matches)
 
 
-def match_cluster_watchlist(
-    cluster: StoryCluster,
-    entries: tuple[WatchlistEntry, ...],
-) -> tuple[str, ...]:
+def match_cluster_watchlist(cluster: StoryCluster, entries: tuple[WatchlistEntry, ...]) -> tuple[str, ...]:
     text = "\n".join((cluster.title, cluster.representative_summary, cluster.merged_text))
     return match_watchlist_text(text, entries)
 

@@ -148,6 +148,9 @@ class BriefingBuildResult:
     compression_audit_path: Path | None = None
     diagnostics: PipelineDiagnostics = field(default_factory=PipelineDiagnostics)
     openai_budget: OpenAIBudget | None = None
+    # Quality-gated, already-materialized feed articles are handed to the email-only
+    # Watchlist as tier 5a discovery signals.  The Watchlist must not refetch them.
+    watchlist_candidates: tuple[Article, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -1012,6 +1015,7 @@ async def build_briefing_result(
             openai_stage_outcomes=openai_budget.stage_outcomes(),
         ),
         openai_budget=openai_budget,
+        watchlist_candidates=tuple(_flatten_cluster_articles(context.all_clusters)),
     )
 
 
