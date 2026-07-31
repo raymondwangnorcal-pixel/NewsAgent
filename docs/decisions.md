@@ -520,3 +520,127 @@
 - Recorded against HEAD: `a8c0d39fc05a28b16fc71ef9b20367bfde07c2db`
 - Supersedes: none
 - Evidence: User selected Option A during the Watchlist Grill Me session; `docs/plans/watchlist-retrieval-reliability.md` §7, §9.4, and §10.
+
+## DEC-0040 — Gate A starts disabled and requires confirmed activation
+
+- Date: 2026-07-31
+- Owner: user
+- Status at record: active
+- Decision: Gate A defaults to `DISABLED` and enters `MEASURING` only through an explicit confirmed activation command after Spike 2, all required tests, and a successful full no-send dry run.
+- Rationale: Evaluation data and delivery enforcement must not activate before the entity map, implementation, and operational validation are ready.
+- Scope: Gate A state model, activation CLI, scheduler delivery guard, evaluation-window initialization, diagnostics, and tests.
+- Implementation: pending
+- Recorded against HEAD: `c42db98b6023c75919e73e9862a733c664518b25`
+- Supersedes: none
+- Evidence: User decision during the Watchlist Grill Me session on 2026-07-31; `docs/plans/watchlist-retrieval-reliability.md` §10.
+
+## DEC-0041 — Rebuilt test editions are isolated from production state
+
+- Date: 2026-07-31
+- Owner: user
+- Status at record: active
+- Decision: `--email-resend` sends a stored edition unchanged, while `--email-rebuild-today` fetches and rebuilds the current edition with a `[TEST]` subject, bypasses Watchlist sent suppression, and keeps its delivery records, sent history, and Gate A metrics separate from production.
+- Rationale: Testing current retrieval and rendering must not suppress production stories, alter an archived edition, or contaminate release-gate evidence.
+- Scope: Email CLI, edition creation, delivery records, Watchlist suppression, subject rendering, Gate A metrics, diagnostics, and tests.
+- Implementation: pending
+- Recorded against HEAD: `c42db98b6023c75919e73e9862a733c664518b25`
+- Supersedes: none
+- Evidence: User decision during the Watchlist Grill Me session on 2026-07-31; `docs/plans/watchlist-retrieval-reliability.md` delivery validation requirements.
+
+## DEC-0042 — Build non-filing recall ground truth independently each week
+
+- Date: 2026-07-31
+- Owner: user
+- Status at record: active
+- Decision: Gate A uses weekly agent-assisted research independent of NewsAgent retrieval, drawing candidates from issuer releases, regulator releases, and approved editorial reporting, importing ticker, event date, source URL, and materiality rationale through a local CLI, and counting only user-confirmed material events toward the minimum-20 non-filing recall denominator.
+- Rationale: Recall cannot be measured against candidates discovered by the system being evaluated, while independent research and human confirmation provide usable ground truth without purchasing a data feed.
+- Scope: Gate A benchmark acquisition cadence, benchmark schema, import CLI, interactive adjudication, recall calculation, diagnostics, and tests.
+- Implementation: pending
+- Recorded against HEAD: `c42db98b6023c75919e73e9862a733c664518b25`
+- Supersedes: none
+- Evidence: User decision during the Watchlist Grill Me session on 2026-07-31; `docs/plans/watchlist-retrieval-reliability.md` §9.4 and §10.
+
+## DEC-0043 — Serialize stateful builds and bound transient retrieval retries
+
+- Date: 2026-07-31
+- Owner: user
+- Status at record: active
+- Decision: NewsAgent permits only one stateful email build at a time through a process-level lock; a contending run exits before retrieval, model calls, state mutation, or delivery with an explicit already-running result, while transient fetches receive at most three attempts with exponential backoff, jitter, and `Retry-After` support and failed fetches never become successful daily-cache entries.
+- Rationale: Global serialization avoids conflicting edition, suppression, budget, and source-cache mutations, while bounded retry behavior recovers brief upstream failures without hiding persistent failures or duplicating work.
+- Scope: Scheduled and manual email builds, run locking, HTTP retrieval, source caching, diagnostics, CLI exit behavior, and tests.
+- Implementation: pending
+- Recorded against HEAD: `c42db98b6023c75919e73e9862a733c664518b25`
+- Supersedes: none
+- Evidence: User decision during the Watchlist Grill Me session on 2026-07-31; `docs/plans/watchlist-retrieval-reliability.md` §8 and §14.
+
+## DEC-0044 — Select EDGAR processing rules from observed forms
+
+- Date: 2026-07-31
+- Owner: user
+- Status at record: active
+- Decision: EDGAR coverage and processing rules are configured per ticker from observed supported filing forms and refreshed when new forms appear, while legal issuer regime remains metadata and does not exclusively select forms; ETHB therefore requires EDGAR coverage for its observed trust filings and Shopify currently uses its observed domestic forms.
+- Rationale: Legal classification does not reliably predict operational filing behavior, and static regime routing would omit current ETHB filings and misroute Shopify.
+- Scope: Spike 2, entity-map filing metadata, EDGAR form filtering, filing fixtures, diagnostics, and tests.
+- Implementation: pending
+- Recorded against HEAD: `c42db98b6023c75919e73e9862a733c664518b25`
+- Supersedes: none
+- Evidence: User decision during the Watchlist Grill Me session on 2026-07-31; `docs/plans/watchlist-retrieval-reliability.md` §3.1, §6.4, §11, and V1.1.
+
+## DEC-0045 — Keep Watchlist implementation inside the main application tree
+
+- Date: 2026-07-31
+- Owner: user
+- Status at record: active
+- Decision: Implement Watchlist as a dedicated `src/news_agent/watchlist/` package inside the existing NewsAgent checkout, with no separate Watchlist worktree or application and with the repository's existing local environment.
+- Rationale: Watchlist is a component of NewsAgent and should have an explicit internal module boundary without duplicating the repository or maintaining a separate development environment.
+- Scope: Source-package layout, imports from mailer and CLI code, test layout, local development workflow, and removal of the obsolete linked Watchlist worktree.
+- Implementation: pending
+- Recorded against HEAD: `c42db98b6023c75919e73e9862a733c664518b25`
+- Supersedes: none
+- Evidence: User decision during the Watchlist Grill Me session on 2026-07-31.
+
+## DEC-0046 — Disabled Gate A skips Watchlist work and says so
+
+- Date: 2026-07-31
+- Owner: user
+- Status at record: active
+- Decision: While Gate A is `DISABLED`, normal NewsAgent runs continue the existing general briefing, perform no Watchlist retrieval, classification, rendering, or evaluation collection, and include the explicit notice `Watchlist disabled.`; confirmed activation enables Watchlist processing and opens a fresh `MEASURING` window together.
+- Rationale: Unvalidated Watchlist behavior must not run or reach readers, but disabling it must neither hide its status nor interrupt the established general briefing.
+- Scope: Scheduler entrypoint, Watchlist orchestration, email rendering, Gate A state transitions, diagnostics, and tests.
+- Implementation: pending
+- Recorded against HEAD: `c42db98b6023c75919e73e9862a733c664518b25`
+- Supersedes: none
+- Evidence: User decision during the Watchlist Grill Me session on 2026-07-31; `docs/plans/watchlist-retrieval-reliability.md` §7 and §10.
+
+## DEC-0047 — Disabled Gate A does not disable Watchlist delivery
+
+- Date: 2026-07-31
+- Owner: user
+- Status at record: active
+- Decision: While Gate A is `DISABLED`, normal NewsAgent runs still retrieve, classify, and render Watchlist content, the email states `Watchlist evaluation disabled.`, no Gate A metrics accumulate, and no gate-triggered delivery or pipeline shutdown can occur.
+- Rationale: The user wants Watchlist to operate during the pre-measurement period while keeping release-gate evidence and enforcement explicitly inactive until confirmed activation.
+- Scope: Watchlist orchestration, email rendering, Gate A metrics and state transitions, scheduler enforcement, diagnostics, and tests.
+- Implementation: pending
+- Recorded against HEAD: `c42db98b6023c75919e73e9862a733c664518b25`
+- Supersedes: DEC-0046
+- Evidence: User clarification during the Watchlist Grill Me session on 2026-07-31; `docs/plans/watchlist-retrieval-reliability.md` §7 and §10.
+
+## Update — 2026-07-31 — DEC-0046
+
+- Type: supersession
+- Implementation commit: not applicable
+- Superseded by: DEC-0047
+- Note: Gate A being disabled no longer skips Watchlist processing or delivery; it disables only evaluation and enforcement.
+
+## DEC-0048 — Gate A activation requires a successful required-source preflight
+
+- Date: 2026-07-31
+- Owner: user
+- Status at record: active
+- Decision: Confirmed Gate A activation requires valid entity-map and SEC contact configuration, all required tests passing, a full no-send dry run in which every required EDGAR source succeeds, and no migration or processing error; optional-source failures and unresolved relationships already withheld by the ambiguity policy do not block activation.
+- Rationale: Activation must prove the authoritative retrieval and state paths work without letting transient optional outages or safely unresolved relationships prevent measurement indefinitely.
+- Scope: Gate A activation CLI, preflight evidence, configuration validation, EDGAR diagnostics, migration health, ambiguity handling, and tests.
+- Implementation: pending
+- Recorded against HEAD: `c42db98b6023c75919e73e9862a733c664518b25`
+- Supersedes: none
+- Evidence: User decision during the Watchlist Grill Me session on 2026-07-31; `docs/plans/watchlist-retrieval-reliability.md` §10 and V1.11.

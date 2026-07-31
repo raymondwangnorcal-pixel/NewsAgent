@@ -1,8 +1,8 @@
 # Plan: Primary-Source Watchlist Coverage with Entity-Resolved Relevance
 
-**Status:** Decision-complete and ready for implementation. Revised 2026-07-31 against an external review (10 blocking, 4 further-review findings), then through the Watchlist Grill Me session to settle retrieval, relevance, evaluation, halt, recovery, and notification behavior. The decisions are summarized in §13 and recorded durably in `docs/decisions.md`.
+**Status:** Decision-complete; Spike 2 and implementation remain. Revised 2026-07-31 against an external review and two Watchlist Grill Me sessions to settle retrieval, relevance, evaluation, halt, recovery, notification, preflight, test-edition, concurrency, module-layout, and filing-regime behavior. The decisions are summarized in §13 and recorded durably in `docs/decisions.md`.
 **Supersedes:** the Tiingo-first / EODHD-fallback design. The Yahoo-RSS design was withdrawn and is now **partially reinstated** as a clearly-subordinate tier; see §2.2 and §5.
-**Decisions of record:** DEC-0001 through DEC-0039 in `docs/decisions.md`.
+**Decisions of record:** DEC-0001 through DEC-0048 in `docs/decisions.md`; DEC-0046 is superseded by DEC-0047.
 
 ---
 
@@ -56,12 +56,13 @@ It therefore returns as tier 5b: subordinate to filings, never the basis of a `D
 
 | Ticker | Issuer | Regime | Annual report | Expected coverage |
 |---|---|---|---|---|
-| AAPL, COST, META, NET, SHOP, CURI | US domestic filers | 8-K / 10-Q / 10-K | 10-K + Exhibit 21 | Good |
+| AAPL, COST, META, NET, CURI | US domestic filers | 8-K / 10-Q / 10-K | 10-K + Exhibit 21 | Good |
+| SHOP | Foreign private issuer currently using U.S. domestic forms | Observed 8-K / 10-Q / 10-K; refresh when new forms appear | Observed 10-K + Exhibit 21 | Good while domestic-form reporting continues |
 | NVO | Novo Nordisk (Danish) | Foreign private issuer | 20-F | **Weak** — irregular, lagged; home-market disclosure precedes SEC |
 | BN | Brookfield Corporation (Canadian) | Foreign private issuer | 40-F | **Weak** — same |
-| ETHB | iShares Staked Ethereum Trust ETF | Trust / fund | N/A | **Trust-specific coverage is thin; V1 also evaluates bounded underlying-Ethereum events** (DEC-0023) |
+| ETHB | iShares Staked Ethereum Trust ETF | Trust / fund | Observed 8-K / 10-Q; refresh when new forms appear | Observed 10-Q; annual form must be established by Spike 2 | **Required EDGAR coverage plus bounded underlying-Ethereum events** (DEC-0023, DEC-0044) |
 
-Confirmed independently: ETHB returned **2 items, newest 2026-03-16**; CURI's newest was **2026-07-15**.
+Official SEC evidence checked 2026-07-31 confirms ETHB CIK `0002099103` filed Form 8-K accession `0001437749-26-012415` and Form 10-Q accession `0001437749-26-015530`. Shopify's 2026 Form 8-K accession `0001594805-26-000022` says it remains a foreign private issuer but currently files periodic and current reports on U.S. domestic issuer forms. Filing processing therefore follows observed forms rather than a binary legal-regime switch (DEC-0044).
 
 **Expected steady state.** An active US filer files roughly 10–20 8-Ks a year. Across six domestic filers that is on the order of one filing every two to three days *combined*. Most tickers, most mornings, will have nothing, and D7-R makes that visible on nearly every row.
 
@@ -170,6 +171,13 @@ D1 (watchlist sources scoped separately from global `extraction_policies`), D4 (
 | D50 | **Manual recovery runs one full no-send health check before clearing the halt.** Success starts a fresh Gate A window and resumes email on the next scheduled run; failure leaves the latch set (DEC-0037) |
 | D51 | **The first fully measurable Gate A failure suppresses the newsletter and sends one final admin email containing failed metrics and the restart command.** All future delivery then halts (DEC-0038) |
 | D52 | **While Gate A is measuring, one email per week shows count-only evaluation progress and remaining review minima.** No candidate details appear (DEC-0039) |
+| D53 | **Gate A defaults to `DISABLED` and requires an explicit confirmed activation after the entity-map/configuration preflight, tests, and required-source dry run pass** (DEC-0040, DEC-0048) |
+| D54 | **Stored resend and current-code rebuild are distinct.** `--email-resend` preserves the stored edition; `--email-rebuild-today` creates an isolated `[TEST]` edition that cannot affect production suppression, delivery history, or Gate A metrics (DEC-0041) |
+| D55 | **Build the non-filing recall frame weekly and independently of NewsAgent retrieval.** Import source-backed candidates locally and count only user-confirmed material events (DEC-0042) |
+| D56 | **Only one stateful email build may run at a time.** Contenders exit before side effects; transient retrieval gets at most three attempts with backoff, jitter, and `Retry-After`, and failure never becomes a successful cache entry (DEC-0043) |
+| D57 | **Choose each ticker's EDGAR processing rules from observed supported forms and refresh them when new forms appear.** Legal regime remains metadata (DEC-0044) |
+| D58 | **Watchlist is an internal `src/news_agent/watchlist/` package in the main checkout.** It is not a separate application or worktree (DEC-0045) |
+| D59 | **Gate A `DISABLED` does not disable Watchlist delivery.** Normal runs still process Watchlist, state `Watchlist evaluation disabled.`, collect no Gate metrics, and cannot trigger gate enforcement (DEC-0047; supersedes DEC-0046) |
 
 ---
 
@@ -232,7 +240,7 @@ The label is **derived**, never asserted by the map alone. A map entry establish
 
 ### 6.3 Entity map schema
 
-`config/entity_map.json`, versioned, validated by a JSON Schema with fixtures.
+`config/entity_map.json`, versioned, validated by a JSON Schema with fixtures. `legal_regime` is descriptive metadata; `observed_forms` selects processing behavior and is refreshed when a new form appears (DEC-0044). A valid CIK with supported observed forms sets `required_edgar: true`, including ETHB and Shopify.
 
 ```json
 {
@@ -240,7 +248,11 @@ The label is **derived**, never asserted by the map alone. A map entry establish
   "tickers": {
     "BN": {
       "legal_issuer": "Brookfield Corporation",
+      "legal_regime": "foreign_private_issuer",
       "cik": "0001001085",
+      "observed_forms": ["6-K", "40-F"],
+      "required_edgar": true,
+      "annual_form": "40-F",
       "names": [
         {
           "name": "Brookfield Corporation",
@@ -355,7 +367,7 @@ A ticker may have one block, both, or neither. `No verified news today.` renders
 
 **Underlying-asset wording.** `UNDERLYING_ASSET` is a V1 renderable label for ETHB (DEC-0023). It states the connection directly—for example, `Relevance: ETHB holds ether, so this affects the fund's underlying asset`—and cites the current trust prospectus separately from the event source. It never implies that the trust sponsored, controlled, or participated in the Ethereum event.
 
-**Administrative footer.** A nonempty relationship-ambiguity queue adds the compact count-only notice from DEC-0034 after the Watchlist section. While Gate A is `MEASURING`, every seventh completed evaluation day also adds a compact line with elapsed days and the counts remaining to reach the three §9.4 review minima (DEC-0039). These notices are not stories, do not consume a ticker's story or `Also:` limit, and expose no unverified candidate detail.
+**Administrative footer.** A nonempty relationship-ambiguity queue adds the compact count-only notice from DEC-0034 after the Watchlist section. While Gate A is `DISABLED`, every normal edition says `Watchlist evaluation disabled.` even though Watchlist retrieval and rendering continue (DEC-0047). While Gate A is `MEASURING`, every seventh completed evaluation day also adds a compact line with elapsed days and the counts remaining to reach the three §9.4 review minima (DEC-0039). These notices are not stories, do not consume a ticker's story or `Also:` limit, and expose no unverified candidate detail.
 
 ---
 
@@ -373,6 +385,9 @@ A ticker may have one block, both, or neither. `No verified news today.` renders
 - `watchlist_events` — `event_id`, member `document_id`s, linkage basis.
 - `watchlist_sent_history` — `(event_id, ticker)`, first-delivered timestamp.
 - `watchlist_diagnostics` — per ticker-run, the fields in §9.2.
+- `watchlist_gate_windows` — versioned Gate A state, window timestamps, activation/preflight evidence, metric numerators and denominators, failure reasons, halt state, and recovery audit events.
+- `watchlist_adjudications` — immutable reviewer verdicts for rendered claims, story relevance, rejected items, large-move reviews, and benchmark events.
+- `watchlist_benchmark_events` — independently researched non-filing candidates with source URL, ticker, event date, materiality rationale, import provenance, and adjudication status.
 - `quote_history` — `(ticker, trading_date)` close and previous close. **Required**: existing `quote_cache` is keyed on ticker alone and holds only the latest row (`state.py:91-94`), so the large-move review diagnostic cannot be computed from it.
 
 ### 8.3 Scope boundary
@@ -389,7 +404,15 @@ Three distinct identifiers:
 
 **Suppression is keyed on `event_id` and begins on successful delivery** (D17). Edition membership is recorded separately from delivery. Current code records only the ticker as the watchlist story ID, at edition preparation, before SMTP (`src/news_agent/mailer/service.py:47-53`); recording suppression there would hide an event permanently after a failed send.
 
-### 8.5 Deduplication in V1
+**Test editions never enter production suppression or evaluation state** (DEC-0041). `--email-resend` sends the stored edition bytes unchanged. `--email-rebuild-today` rebuilds with current code and sources, prefixes the subject with `[TEST]`, bypasses Watchlist sent suppression, and writes only test-scoped edition and delivery records; it never mutates `watchlist_sent_history` or Gate A metrics.
+
+### 8.5 Build serialization and source-cache integrity
+
+A process-level lock covers every stateful email build, scheduled or manual (DEC-0043). A contending process exits before network access, model calls, state mutation, or delivery with the explicit result `another build is already running`. The lock is released automatically on process exit; no stale timestamp lease is required.
+
+Transient HTTP failures receive at most three total attempts with exponential backoff, jitter, and `Retry-After` support. A failed attempt is persisted for diagnostics but never marks `(source_id, discovery_key, briefing_date)` successful. Only a validated response or a `NOT_MODIFIED` response backed by a usable unexpired body can populate a successful daily-cache entry.
+
+### 8.6 Deduplication in V1
 
 V1 links documents at the event level in two stages (DEC-0018):
 
@@ -400,7 +423,7 @@ V1 links documents at the event level in two stages (DEC-0018):
 
 One merged event renders as one story. Its primary document supplies the canonical link and factual basis when available; the render may retain one useful secondary attribution such as `Also reported by Reuters`. Without a primary document, source precedence in §5 chooses the canonical editorial source. `event_id` and sent-history suppression apply to the merged event, not its member documents.
 
-### 8.6 Retention
+### 8.7 Retention
 
 Retention applies only to Watchlist state introduced by this plan (DEC-0025):
 
@@ -416,7 +439,9 @@ Cleanup runs idempotently after a daily run reaches a terminal delivery state. I
 
 ### 9.1 V1 steps
 
-**V1.1 — EDGAR client.** A dedicated client, not the generic `FeedConfig` path. SEC's supported company-history interface is the JSON Submissions API, requiring CIKs zero-padded to ten digits, and returns compact columnar filing data the RSS path would discard. Implement: accession URL construction, acceptance-time capture, amendment and form filtering, a per-CIK successful-retrieval watermark, catch-up enumeration from the last successful watermark after an outage, a global rate limiter (SEC states a maximum of 10 requests/second — confirm against current SEC policy at implementation time), conditional requests with validator storage, and fixtures for each filer class (10-K/8-K, 20-F/6-K, 40-F/6-K, trust). An eligible filing is a configured Watchlist filing form accepted after the prior successful watermark and before the current edition cutoff; processing includes an explicit materiality/render or exclusion disposition, not necessarily a rendered story (DEC-0033).
+**V1.0 — Package boundary.** Implement the feature as `src/news_agent/watchlist/` with explicit domain models and injected retrieval/state collaborators (DEC-0045). `src/news_agent/mailer/` remains responsible for edition and SMTP orchestration; compatibility imports may temporarily preserve existing call sites, but new Watchlist domain logic does not accumulate in `mailer/watchlist_news.py`.
+
+**V1.1 — EDGAR client.** A dedicated client, not the generic `FeedConfig` path. SEC's supported company-history interface is the JSON Submissions API, requiring CIKs zero-padded to ten digits, and returns compact columnar filing data the RSS path would discard. Implement: accession URL construction, acceptance-time capture, amendment and observed-form filtering, a per-CIK successful-retrieval watermark, catch-up enumeration from the last successful watermark after an outage, a conservative global rate limiter below SEC's published ceiling, conditional requests with validator storage, and fixtures for each observed filer class (10-K/8-K, 20-F/6-K, 40-F/6-K, trust 10-Q/8-K). Apply the DEC-0043 three-attempt transient retry policy. Legal regime remains metadata; `observed_forms` from the entity map selects processing and refreshes when a new form appears (DEC-0044). An eligible filing is a configured Watchlist filing form accepted after the prior successful watermark and before the current edition cutoff; processing includes an explicit materiality/render or exclusion disposition, not necessarily a rendered story (DEC-0033).
 
 **V1.2 — User-Agent.** SEC asks for an identifying organization and contact address. The current shared agent is the placeholder `morning-news-agent/0.1 (+https://example.local)` (`src/news_agent/fetch.py:19`). EDGAR uses an application-specific `User-Agent` containing the dedicated NewsAgent Gmail address loaded from the separate required environment variable `SEC_CONTACT_EMAIL` (DEC-0022). Do not derive it implicitly from `EMAIL_FROM`, hardcode it, persist it in diagnostics, or print the constructed header. Startup and dry-run configuration validation report only whether the setting is present and syntactically valid; an EDGAR-enabled run fails clearly before retrieval when it is missing or invalid.
 
@@ -434,7 +459,7 @@ Cleanup runs idempotently after a daily run reaches a terminal delivery state. I
 
 **V1.6 — Materiality** per §6.5.
 
-**V1.7 — State and retention** per §8, migrating `email_state.db` v2 → v3, with a migration test from a v2 fixture. Implement idempotent seven-day body cleanup and one-year metadata cleanup, protected by active-edition references.
+**V1.7 — State, serialization, and retention** per §8, migrating `email_state.db` v2 → v3, with an automatic pre-migration backup and a migration test from a v2 fixture. Add the process-level build lock, Gate A state, benchmark/adjudication state, test-edition isolation, source-cache success rules, and idempotent seven-day body and one-year metadata cleanup protected by active-edition references.
 
 **V1.8 — Rendering** per §7. Delete `GOOGLE_NEWS_BASE` and `google_news_feed()` from `src/news_agent/mailer/watchlist_news.py`. **Scope note: this removes Google RSS from *watchlist retrieval only*.** The five Google News feeds in `config/sources.toml` serving the general briefing are **out of scope and must not be touched** — removing them would change Telegram and general-news coverage, contradicting §14.
 
@@ -444,9 +469,11 @@ Cleanup runs idempotently after a daily run reaches a terminal delivery state. I
 
 **Gate-metric boundary tests.** The required-source failure ratio passes at exactly 2% and fails above it; every failed ticker-day keeps a visible failure outcome. Unsupported sources are excluded from both numerator and denominator. A successful EDGAR response that omits or leaves any eligible accession unprocessed fails Gate A, while an outage records a retrieval failure and the next successful run processes every accession since the previous successful watermark exactly once. A nonempty ambiguity queue renders only the correct count in the admin footer, withholds every candidate detail, and remains reviewable one item at a time through the local CLI; an empty queue renders no notice.
 
-**Delivery-guard tests.** `MEASURING` and `PASS` permit scheduled pipeline execution and SMTP delivery. A metric without its required evidence denominator keeps the gate `MEASURING` rather than manufacturing a pass or fail. The first fully evaluated `FAIL` suppresses the regular newsletter and permits only the DEC-0038 administrative alert workflow; after its terminal delivery outcome, every scheduled invocation exits before network access, model calls, candidate processing, evaluation collection, or SMTP, suppressing both the general briefing and Watchlist (DEC-0035–DEC-0036). The halt latch survives process and machine restarts and cannot clear automatically. Only the manually confirmed recovery command may bypass it for one no-send health check; failed checks leave all state halted, while success records an audit event, resets metrics into a new versioned `MEASURING` window, and permits only the next scheduled run to resume delivery (DEC-0037).
+**Delivery-guard tests.** `DISABLED` permits normal Watchlist and general-briefing delivery, renders `Watchlist evaluation disabled.`, records no Gate A metrics, and cannot enforce a gate-triggered shutdown (DEC-0047). `MEASURING` and `PASS` permit scheduled pipeline execution and SMTP delivery. A metric without its required evidence denominator keeps the gate `MEASURING` rather than manufacturing a pass or fail. The first fully evaluated `FAIL` suppresses the regular newsletter and permits only the DEC-0038 administrative alert workflow; after its terminal delivery outcome, every scheduled invocation exits before network access, model calls, candidate processing, evaluation collection, or SMTP, suppressing both the general briefing and Watchlist (DEC-0035–DEC-0036). The halt latch survives process and machine restarts and cannot clear automatically. Only the manually confirmed recovery command may bypass it for one no-send health check; failed checks leave all state halted, while success records an audit event, resets metrics into a new versioned `MEASURING` window, and permits only the next scheduled run to resume delivery (DEC-0037). Contending builds exit without side effects, all transient retrieval attempts are bounded at three, and a failed fetch never becomes a successful cache hit (DEC-0043).
 
-**V1.11 — Dry run.** `PYTHONPATH=src .venv/bin/python -m news_agent.cli --dry-run --to email --show-diagnostics` exits `0`, sends nothing, every Disclosed link is a primary-source URL, every Reported link is either the event's primary document or an approved editorial source with explicit attribution, every non-self relationship has separate evidence, and no credential appears.
+**V1.11 — Dry run and activation.** `PYTHONPATH=src .venv/bin/python -m news_agent.cli --dry-run --to email --show-diagnostics` exits `0`, sends nothing, every required EDGAR source succeeds, every Disclosed link is a primary-source URL, every Reported link is either the event's primary document or an approved editorial source with explicit attribution, every non-self relationship has separate evidence, and no credential appears. Gate A defaults to `DISABLED`. Add an explicit confirmed activation command that starts a fresh `MEASURING` window only when the entity map and `SEC_CONTACT_EMAIL` validate, all required tests are recorded as passing, the latest full no-send dry run has no required EDGAR, migration, or processing failure, and the implementation version matches (DEC-0040, DEC-0048). Optional-source failures and fail-closed unresolved relationship ambiguities do not block activation.
+
+**V1.11a — Test editions.** Preserve `--email-resend` as an unchanged stored-edition resend. `--email-rebuild-today --send --to email --confirm` builds an isolated `[TEST]` edition with current code and sources, bypasses Watchlist sent suppression, and cannot modify production delivery history, sent-event history, or Gate A metrics (DEC-0041).
 
 **V1.12 — Halt recovery.** Add `--restart-after-gate-failure --confirm`. It is rejected when the gate is not halted or confirmation is absent. When halted, it runs the V1.11 pipeline without SMTP while preserving the old failed window and latch. Only after a fully successful health check does one transaction record the recovery event, clear the latch, and create a fresh versioned `MEASURING` window; the command itself never sends an email (DEC-0037).
 
@@ -487,6 +514,8 @@ The weekly email reminder reports only those three remaining counts plus elapsed
 **Mode 1 — verify what rendered.** Shows ticker, date, absolute price move, headline, source, timestamp, the predicted label, **the matched name and its character span**, and the materiality basis. Asks: is this genuinely about this company; would it matter to a holder; was the relationship correct. ~30–60 seconds each.
 
 **Mode 2 — detect misses.** Shows ticker-days where the move was ≥3% (D21) and the outcome was `QUIET`, and asks whether there was news the reviewer would have wanted, with an optional link. ~3–5 minutes each, because it requires looking up what actually happened. It also presents events from an independently maintained benchmark register. Each benchmark row stores ticker, date, direct source, materiality verdict, and whether NewsAgent found it. The register may incorporate confirmed events found during Mode 2, scheduled ticker review, and documented historical cases, but it may not be built solely by relabelling items NewsAgent already retrieved.
+
+**Independent benchmark workflow.** At least weekly, an agent researches the configured tickers without reading or seeding queries from NewsAgent candidate, document, event, or diagnostic tables (DEC-0042). Candidate sources are issuer releases, regulator releases, and approved editorial reporting. Import through a local CLI using a JSON or JSONL record containing ticker, event date, source URL, headline or stable source identifier, and a concise materiality rationale. The importer rejects duplicates and unsupported tickers, records import provenance, and queues each candidate for one-at-a-time user adjudication. Only `material` verdicts count toward the minimum-20 non-filing denominator; `not_material` and `unclear` remain auditable but do not enter it.
 
 **Stratified sampling, not random.** The initial 40 must include items the system *rejected*, or over-rejection is unmeasurable — and over-rejection is the likelier failure mode with primary sources. Strata may overlap; if the minimum denominator or target coverage is not met, continue sampling.
 
@@ -539,7 +568,7 @@ Estimated reviewer effort for the initial 40: **1.5–2.5 hours**, most of it Mo
 
 Quiet days are expected. The system is judged on whether it **misses known material events or invents relevance**, not on whether every ticker has an item daily.
 
-**Delivery enforcement.** Persist Gate A state as `MEASURING`, `PASS`, or `FAIL` with the evaluated implementation version, window, metric numerators and denominators, and reasons. Scheduled email delivery continues while the gate is `MEASURING` so the evidence can be collected. Once the gate is fully evaluable, any failed threshold suppresses the regular newsletter, sets `FAIL`, and runs exactly the bounded final administrative-alert workflow in V1.13 (DEC-0038). After that alert reaches a terminal outcome, a durable halt latch makes the scheduled entrypoint exit before retrieval, classification, evaluation collection, or SMTP—including the general briefing—and never clears itself (DEC-0035–DEC-0036). Recovery requires `--restart-after-gate-failure --confirm`: a full no-send health check runs while the latch remains set, failure changes nothing, and success atomically records the recovery, opens a fresh `MEASURING` window, and enables the next scheduled run (DEC-0037).
+**Delivery enforcement.** Persist Gate A state as `DISABLED`, `MEASURING`, `PASS`, or `FAIL` with the evaluated implementation version, window, metric numerators and denominators, preflight evidence, and reasons. `DISABLED` is the default: normal runs still retrieve and render Watchlist, add `Watchlist evaluation disabled.`, collect no Gate A metrics, and apply no gate-triggered halt (DEC-0040, DEC-0047). Only the confirmed activation command in V1.11 may open a `MEASURING` window after the DEC-0048 preflight succeeds. Scheduled email delivery continues while the gate is `MEASURING` so the evidence can be collected. Once the gate is fully evaluable, any failed threshold suppresses the regular newsletter, sets `FAIL`, and runs exactly the bounded final administrative-alert workflow in V1.13 (DEC-0038). After that alert reaches a terminal outcome, a durable halt latch makes the scheduled entrypoint exit before retrieval, classification, evaluation collection, or SMTP—including the general briefing—and never clears itself (DEC-0035–DEC-0036). Recovery requires `--restart-after-gate-failure --confirm`: a full no-send health check runs while the latch remains set, failure changes nothing, and success atomically records the recovery, opens a fresh `MEASURING` window, and enables the next scheduled run (DEC-0037).
 
 ---
 
@@ -549,7 +578,7 @@ Neither writes production code. **Spike 2 blocks V1. Spike 1 moved to V1.5 with 
 
 **Spike 1 — tier-2 source registry (V1.5, not blocking V1).** For each of the nine tickers, probe and record the actual official endpoint: URL, format (RSS/Atom/JSON/HTML), stable identifier available, update cadence, `robots.txt` result, `ETag`/`Last-Modified` support, and whether a machine-readable feed exists at all. Official sources are heterogeneous — Apple exposes a newsroom page, Costco an investor-news application page; there is no demonstrated common contract. Output: `config/source_registry.json` with an adapter type per endpoint and a required/optional flag. **Issuers with no usable endpoint are recorded `UNSUPPORTED` and tier 2 is skipped for them** — not treated as failure.
 
-**Spike 2 — entity-map bootstrap.** Per ticker, automatically record whether SEC filing coverage is supported and therefore required under D27, the applicable annual form (10-K, 20-F, 40-F, or none), whether a subsidiary exhibit exists, its format, whether the omission allowance was exercised, and the evidence outcome. For every non-self relationship, record the evidence source, verification date, expiry date, and annual accession used under D32. Well-supported entries are accepted automatically; conflicting, incomplete, or family-level relationships enter the user ambiguity queue and fail closed until reviewed (DEC-0029). Output: the first `config/entity_map.json`, the ambiguity queue, and a note per ticker on what could not be established.
+**Spike 2 — entity-map bootstrap.** Per ticker, automatically record legal regime as metadata, whether SEC filing coverage is supported and therefore required under D27, the set of observed supported forms, the applicable annual form (10-K, 20-F, 40-F, trust-specific form, or unknown), whether a subsidiary exhibit exists, its format, whether the omission allowance was exercised, and the evidence outcome (DEC-0044). The observed-form set, not legal regime, selects processing behavior and is refreshed when a new form appears. For every non-self relationship, record the evidence source, verification date, expiry date, and annual accession or prospectus used under D32. Well-supported entries are accepted automatically; conflicting, incomplete, or family-level relationships enter the user ambiguity queue and fail closed until reviewed (DEC-0029). Output: the first `config/entity_map.json`, the ambiguity queue, and a note per ticker on what could not be established.
 
 ---
 
@@ -566,6 +595,8 @@ Rollback procedure: stop the scheduled job; restore the pre-migration backup of 
 **Settled 2026-07-31:** Q1 — tier 2 deferred, V1 primary source is EDGAR only (DEC-0001), with Options A, B, and C included in V1 (DEC-0009; D20–D21). Q2 — interactive adjudication starts with a 40-item target and extends until at least 20 independently identified material non-filing events support the recall denominator (DEC-0016, superseding DEC-0002; §9.4), with an 80% minimum non-filing recall threshold (DEC-0010; D23). Q6 — Gate A triggers a targeted provider recommendation for confirmed contextual-coverage gaps, never an automatic purchase or activation (DEC-0017, D30; §10). Robots exception kept (DEC-0004, D19).
 
 **Settled in the Watchlist Grill Me session:** Q4 — use the complete domestic-issuer Form 8-K allowlist in D22, including Items 5.04–5.06 and 8.01, and measure the routine-filing volume those broader items add (DEC-0008, superseding DEC-0005). Q3 — show the short relationship explanation and its citation in the email (DEC-0006). Q5 — render `No verified news today (partial sources).` for a quiet ticker whose optional sources partially failed (DEC-0007). Editorial fallback — when no primary document can be located, allow an approved editorial source to support a clearly attributed summary in the Reported block without using it as corporate-relationship evidence (DEC-0011, D24). Managed capital — include `MANAGED_CAPITAL` in V1 with explicit relationship wording and separate evidence (DEC-0012, D25). Foreign issuers — evaluate each 6-K for materiality and use headline fallback only when official metadata establishes a qualifying event (DEC-0013, D26). Source requirements — require supported EDGAR coverage, treat Options A and B as optional, and preserve verified stories alongside an explicit EDGAR-failure warning (DEC-0014, D27). Budget — guarantee the $0.25 watchlist reserve, allow unused capacity inside the $1 run cap, and label budget-exhausted tickers classification-incomplete (DEC-0015, D28). Deduplication — merge high-confidence duplicate events in V1 with primary-source precedence and retain uncertain pairs separately (DEC-0018, D31); no confirmed same event may render twice in one email, while uncertain pairs fail only if adjudication confirms duplication (DEC-0031, D44). Relationship freshness — expire non-self evidence after 12 months or a newer governing filing and prevent stale evidence from producing `AFFILIATE`, `MANAGED_CAPITAL`, or `UNDERLYING_ASSET` (DEC-0019, D32). Per-ticker brevity — render at most two full stories and no more than two additional linked mentions (DEC-0020–DEC-0021, D33–D34). SEC contact — identify EDGAR requests with the dedicated NewsAgent Gmail supplied through `SEC_CONTACT_EMAIL` without logging it (DEC-0022, D35). ETHB — include bounded material Ethereum events as `UNDERLYING_ASSET` with a current prospectus citation and fetch `ETH-USD` once daily as its shared discovery key (DEC-0023–DEC-0024, D36–D37). Retention — purge raw Watchlist payloads and extracted text after seven days and non-body metadata after one year, protecting active editions (DEC-0025, D38). Relationship accuracy — Gate A allows at most 5% false rendered relationship claims across the four definitive labels and requires at least 20 adjudicated claims before enforcing the threshold (DEC-0026–DEC-0027, D39–D40). Large moves — quiet ≥3% move days are diagnostic review targets only, and affect recall or provider recommendations only after a reviewer confirms a missed material event (DEC-0028, D41). Entity-map bootstrap — accept well-supported official evidence automatically, send only ambiguity to the user, and fail closed until ambiguous entries are reviewed (DEC-0029, D42). Story relevance — Gate A permits at most 5% irrelevant rendered stories after at least 20 rendered stories have been reviewed (DEC-0030, D43). Retrieval reliability — required sources may fail on at most 2% of evaluated ticker-days, and every failure remains explicit (DEC-0032, D45). SEC filings — after a successful EDGAR retrieval, zero eligible filings may be missed; outages use the retrieval allowance and must be caught up completely on the next successful run (DEC-0033, D46). Ambiguity notice — a count-only admin footer signals pending relationship reviews while details remain withheld for local CLI review (DEC-0034, D47). Gate failure — once all minimum evidence exists, any failed Gate A threshold suppresses the regular newsletter, sends one final metrics-and-restart admin email, then halts every scheduled pipeline task until a confirmed no-send health check succeeds and opens a fresh evaluation window (DEC-0035–DEC-0038, D48–D51). Measurement reminders — every seventh completed evaluation day shows count-only progress and remaining review minima (DEC-0039, D52).
+
+**Settled in the second Watchlist Grill Me session:** Gate A defaults to `DISABLED` and requires confirmed activation after configuration, tests, and a successful required-source dry run (DEC-0040, DEC-0048; D53). Stored resends remain unchanged while rebuilt `[TEST]` editions are isolated from production delivery, suppression, and evaluation state (DEC-0041; D54). The non-filing recall frame is researched independently at least weekly, imported locally, and counted only after user adjudication (DEC-0042; D55). Stateful builds are serialized and transient retrieval receives at most three bounded attempts without failure poisoning the success cache (DEC-0043; D56). EDGAR processing follows observed per-ticker forms rather than legal regime, correcting ETHB and Shopify coverage (DEC-0044; D57). Watchlist is implemented as `src/news_agent/watchlist/` in the main checkout, not a separate application or worktree (DEC-0045; D58). The initial decision to skip Watchlist while Gate A was disabled (DEC-0046) was superseded: normal runs still deliver Watchlist, state `Watchlist evaluation disabled.`, collect no Gate metrics, and cannot trigger gate enforcement until activation (DEC-0047; D59).
 
 ---
 
@@ -601,4 +632,11 @@ Rollback procedure: stop the scheduled job; restore the pre-migration backup of 
 - **The five Google News feeds in `config/sources.toml` are unchanged**; Telegram and general-briefing coverage are unaffected.
 - The 10-ticker cap, shared deadline, and Gmail-only delivery are unchanged. The watchlist receives at least its $0.25 reserve and may use otherwise-unused capacity, but total OpenAI spend never exceeds the $1 per-run cap; budget exhaustion is visible per D28.
 - No licensed provider is purchased or activated automatically. Any Gate A recommendation identifies measured coverage gaps, the cheapest targeted option, expected recurring cost, and exact insertion point before requesting user approval.
+- Gate A begins `DISABLED`; normal editions still contain Watchlist and the exact evaluation-disabled notice, but no Gate A numerator or denominator changes and no gate-triggered halt is possible.
+- Gate A activation fails closed unless the entity map and SEC contact validate, required tests pass, a version-matched no-send dry run completes with every required EDGAR source successful, and no migration or processing error occurs. Optional-source failures and safely withheld ambiguity do not block activation.
+- `--email-resend` sends stored content unchanged. `--email-rebuild-today` produces an isolated `[TEST]` edition and cannot mutate production edition delivery, event suppression, or Gate A state.
+- A contending stateful build exits before any network, model, state, or delivery side effect. Transient fetches receive no more than three attempts, and a failed response cannot satisfy a daily success-cache lookup.
+- Shopify and ETHB use the observed filing forms recorded in `config/entity_map.json`; a legal-regime label alone never selects or excludes processing.
+- Weekly benchmark imports are independent of NewsAgent discovery and require user-confirmed materiality before entering the non-filing recall denominator.
+- New Watchlist domain logic lives under `src/news_agent/watchlist/`; no separate Watchlist checkout, application, virtual environment, or credential file is required.
 - Generated `data/` and credentials are untouched by the commit.
