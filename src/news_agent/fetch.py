@@ -135,6 +135,8 @@ def _is_acceptable_title(raw_title: str) -> bool:
 
 def parse_feed(xml_text: str, feed: FeedConfig) -> list[Article]:
     root = ET.fromstring(xml_text)
+    if _local_name(root.tag) not in {"rss", "feed", "rdf"}:
+        raise ValueError("response is not an RSS or Atom feed")
     nodes = root.findall(".//item")
     if not nodes:
         nodes = root.findall(f".//{ATOM_NS}entry")
@@ -193,7 +195,7 @@ def fetch_feed_with_status(feed: FeedConfig, timeout_seconds: float = 12.0) -> t
         return [], "network_error"
     try:
         return parse_feed(body, feed), ""
-    except ET.ParseError:
+    except (ET.ParseError, ValueError):
         return [], "invalid_feed"
 
 
