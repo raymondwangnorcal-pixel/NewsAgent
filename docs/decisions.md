@@ -644,3 +644,269 @@
 - Recorded against HEAD: `c42db98b6023c75919e73e9862a733c664518b25`
 - Supersedes: none
 - Evidence: User decision during the Watchlist Grill Me session on 2026-07-31; `docs/plans/watchlist-retrieval-reliability.md` §10 and V1.11.
+
+## Update — 2026-07-31 — DEC-0001
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: V1 uses EDGAR as its official filing source and keeps issuer-IR retrieval deferred.
+
+## Update — 2026-07-31 — DEC-0004
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Yahoo discovery retains the approved personal-use path policy while excluding unapproved publishers.
+
+## Update — 2026-07-31 — DEC-0006
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Rendered relationship explanations include a separate evidence link.
+
+## Update — 2026-07-31 — DEC-0007
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Quiet rows distinguish optional-source partial coverage from verified quiet and required-source failure.
+
+## Update — 2026-07-31 — DEC-0008
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: The deterministic Form 8-K item allowlist matches the settled V1 policy.
+
+## Update — 2026-07-31 — DEC-0009
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: V1 reuses general-feed articles, retrieves distinct Yahoo keys, and records large-move review targets.
+
+## Update — 2026-07-31 — DEC-0010
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Gate A enforces the settled 80 percent non-filing recall boundary.
+
+## Update — 2026-07-31 — DEC-0011
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Approved editorial evidence renders in a separately attributed Reported block.
+
+## Update — 2026-07-31 — DEC-0012
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Managed-capital stories use explicit non-issuer wording and separate relationship evidence.
+
+## Update — 2026-07-31 — DEC-0013
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Form 6-K documents receive content evaluation with fail-closed official-metadata fallback.
+
+## Update — 2026-07-31 — DEC-0014
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Supported EDGAR coverage is required while editorial discovery remains optional.
+
+## Update — 2026-07-31 — DEC-0015
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Watchlist model work uses the shared capped budget and its reserved capacity.
+
+## Update — 2026-07-31 — DEC-0016
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Benchmark import and one-at-a-time review enforce the minimum independent material-event denominator.
+
+## Update — 2026-07-31 — DEC-0019
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Non-self evidence expires by date and when a newer governing annual accession is observed.
+
+## Update — 2026-07-31 — DEC-0020
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Rendering allocates at most two full event slots per ticker.
+
+## Update — 2026-07-31 — DEC-0021
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Overflow disclosure links are capped at two per ticker.
+
+## Update — 2026-07-31 — DEC-0022
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: EDGAR requires a separately configured contact and does not emit it in diagnostics.
+
+## Update — 2026-07-31 — DEC-0023
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: ETHB can use bounded material Ethereum events with explicit underlying-asset wording and evidence.
+
+## Update — 2026-07-31 — DEC-0024
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Distinct discovery-key caching fetches ETH-USD at most once per day and routes it only to ETHB.
+
+## Update — 2026-07-31 — DEC-0025
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Idempotent retention purges bodies after seven days and metadata after one year while protecting active editions.
+
+## Update — 2026-07-31 — DEC-0026
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Gate A enforces the five percent false-relationship threshold.
+
+## Update — 2026-07-31 — DEC-0027
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Relationship accuracy remains unevaluable below twenty definitive adjudications.
+
+## Update — 2026-07-31 — DEC-0028
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Quiet moves of at least three percent enter local review without directly failing Gate A.
+
+## Update — 2026-07-31 — DEC-0030
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Gate A applies the five percent irrelevant-story threshold only after twenty conclusive reviews.
+
+## Update — 2026-07-31 — DEC-0032
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Required retrieval failures are persisted and evaluated against the two percent boundary.
+
+## Update — 2026-07-31 — DEC-0033
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: EDGAR watermarks, catch-up enumeration, and filing dispositions support zero system-caused filing misses.
+
+## Update — 2026-07-31 — DEC-0034
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Editions show only the pending relationship-review count and keep details in the local CLI.
+
+## Update — 2026-07-31 — DEC-0035
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: A measurable failed gate suppresses the regular scheduled newsletter.
+
+## Update — 2026-07-31 — DEC-0036
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: A durable latch makes later scheduled invocations exit before pipeline work.
+
+## Update — 2026-07-31 — DEC-0037
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Confirmed recovery performs a no-send health check and opens a fresh measuring window only on success.
+
+## Update — 2026-07-31 — DEC-0038
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: The failed window produces one stable administrative alert before the halt becomes terminal.
+
+## Update — 2026-07-31 — DEC-0039
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Measuring editions show count-only progress on each seventh evaluation day.
+
+## Update — 2026-07-31 — DEC-0040
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Schema migration creates Gate A disabled and activation requires explicit confirmation.
+
+## Update — 2026-07-31 — DEC-0041
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Rebuilt test editions refresh sources without writing production suppression, delivery, cache, watermark, quote, or Gate state.
+
+## Update — 2026-07-31 — DEC-0043
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Stateful email builds use a global lock and transient HTTP work is bounded to three attempts without cache poisoning.
+
+## Update — 2026-07-31 — DEC-0045
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Watchlist domain code now lives inside the main news_agent package.
+
+## Update — 2026-07-31 — DEC-0047
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Disabled evaluation permits normal Watchlist retrieval and renders the exact disabled notice without collecting Gate metrics.
+
+## Update — 2026-07-31 — DEC-0048
+
+- Type: implementation
+- Implementation commit: `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` — feat(watchlist): implement reliable retrieval and gate
+- Superseded by: none
+- Note: Activation checks entity configuration, SEC contact, tests, implementation version, and required-source dry-run outcomes.
