@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import io
 import json
+import gzip
 import sqlite3
 import threading
 import urllib.error
@@ -147,6 +148,20 @@ def test_retry_client_returns_valid_json_without_retry() -> None:
 
     assert result.data == {"ok": True}
     assert result.attempts == 1
+
+
+def test_retry_client_decodes_gzip_response() -> None:
+    response = SimpleNamespace(
+        status=200,
+        headers={"Content-Encoding": "gzip"},
+        read=lambda: gzip.compress(b'{"ok": true}'),
+    )
+
+    result = RetryingJsonClient(opener=lambda *_args: response, sleep=lambda _seconds: None).get(
+        "https://example.com", {}
+    )
+
+    assert result.data == {"ok": True}
 
 
 def test_gate_activation_ignores_optional_failures_and_safe_ambiguity() -> None:

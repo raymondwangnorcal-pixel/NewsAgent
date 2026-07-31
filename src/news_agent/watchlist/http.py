@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import json
+import gzip
 import random
 import time
 import urllib.error
 import urllib.request
+import zlib
 from dataclasses import dataclass
 from email.message import Message
 from typing import Any, Callable, Protocol
@@ -62,7 +64,8 @@ class RetryingJsonClient:
                 response_headers = {key.casefold(): value for key, value in response.headers.items()}
                 if response.status == 304:
                     return JsonResponse(304, None, response_headers, attempt)
-                payload = json.loads(response.read().decode("utf-8"))
+                body = _decode_body(response.read(), response_headers)
+                payload = json.loads(body.decode("utf-8"))
                 if not isinstance(payload, dict):
                     return JsonResponse(response.status, None, response_headers, attempt, "invalid_json_shape")
                 return JsonResponse(response.status, payload, response_headers, attempt)
@@ -74,7 +77,14 @@ class RetryingJsonClient:
                 if attempt == self.max_attempts:
                     return JsonResponse(exc.code, None, _headers(exc.headers), attempt, f"http_{exc.code}")
                 self._sleep(_delay(attempt, exc.headers.get("Retry-After"), self._jitter()))
-            except (TimeoutError, urllib.error.URLError, OSError, json.JSONDecodeError) as exc:
+            except (
+                TimeoutError,
+                urllib.error.URLError,
+                OSError,
+                zlib.error,
+                UnicodeDecodeError,
+                json.JSONDecodeError,
+            ) as exc:
                 if attempt == self.max_attempts:
                     return JsonResponse(0, None, {}, attempt, _network_error_code(exc))
                 self._sleep(_delay(attempt, None, self._jitter()))
@@ -103,14 +113,19 @@ class RetryingBytesClient:
             try:
                 response = self._opener(request, self.timeout_seconds)
                 response_headers = {key.casefold(): value for key, value in response.headers.items()}
-                return BytesResponse(response.status, response.read(), response_headers, attempt)
+                return BytesResponse(
+                    response.status,
+                    _decode_body(response.read(), response_headers),
+                    response_headers,
+                    attempt,
+                )
             except urllib.error.HTTPError as exc:
                 if exc.code not in {408, 425, 429, 500, 502, 503, 504}:
                     return BytesResponse(exc.code, None, _headers(exc.headers), attempt, f"http_{exc.code}")
                 if attempt == self.max_attempts:
                     return BytesResponse(exc.code, None, _headers(exc.headers), attempt, f"http_{exc.code}")
                 self._sleep(_delay(attempt, exc.headers.get("Retry-After"), self._jitter()))
-            except (TimeoutError, urllib.error.URLError, OSError) as exc:
+            except (TimeoutError, urllib.error.URLError, OSError, zlib.error) as exc:
                 if attempt == self.max_attempts:
                     return BytesResponse(0, None, {}, attempt, _network_error_code(exc))
                 self._sleep(_delay(attempt, None, self._jitter()))
@@ -139,4 +154,18 @@ def _network_error_code(exc: BaseException) -> str:
         return "invalid_json"
     if isinstance(exc, TimeoutError):
         return "timeout"
+    if isinstance(exc, UnicodeDecodeError):
+        return "invalid_encoding"
     return "network_error"
+
+
+def _decode_body(payload: bytes, headers: dict[str, str]) -> bytes:
+    encoding = headers.get("content-encoding", "").casefold()
+    if "gzip" in encoding:
+        return gzip.decompress(payload)
+    if "deflate" in encoding:
+        try:
+            return zlib.decompress(payload)
+        except zlib.error:
+            return zlib.decompress(payload, -zlib.MAX_WBITS)
+    return payload
