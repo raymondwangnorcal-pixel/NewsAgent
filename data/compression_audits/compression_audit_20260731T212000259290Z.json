@@ -1,0 +1,306 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.023365,
+  "created_at": "2026-07-31T21:20:00.259355+00:00",
+  "guard_deltas": {},
+  "input_tokens": 0,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 0,
+  "stories": [
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Paramount Skydance has asked a federal judge to begin its antitrust trial over the proposed Warner Bros. merger in November, while a 12-state coalition and the Writers Guild of America want an April 5, 2027 start. The states contend the $111 billion deal would reduce competition in basic cable and theatrical distribution, and Paramount will owe Warner shareholders $7 million a day from Sept. 30 until closing. The trial calendar could therefore materially affect both the merger\u2019s cost and its completion timetable.",
+      "evidence": [
+        {
+          "canonical_url": "https://variety.com/2026/film/news/states-paramount-warner-bros-antitrust-trial-2027-1236825068/",
+          "evidence_type": "extracted",
+          "source": "Variety",
+          "url": "https://variety.com/2026/film/news/states-paramount-warner-bros-antitrust-trial-2027-1236825068/"
+        }
+      ],
+      "full_paragraph": "Paramount Skydance has asked a federal judge to begin its antitrust trial over the proposed Warner Bros. merger in November, while a 12-state coalition and the Writers Guild of America want an April 5, 2027 start. The states contend the $111 billion deal would reduce competition in basic cable and theatrical distribution, and Paramount will owe Warner shareholders $7 million a day from Sept. 30 until closing. The trial calendar could therefore materially affect both the merger\u2019s cost and its completion timetable.",
+      "guard_result": "not_run",
+      "story_id": "2027 antitrust april ask november paramount seeks states"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Fender Musical Instruments has demanded that makers of Stratocaster-style guitars, including companies contacted in Europe such as Yamaha and PRS, pull the models from the market after asserting newly acquired copyright protection for the design. Some manufacturers have agreed to redesign instruments, while others are challenging Fender through lawyers and litigation. The dispute will test whether a decades-old, widely copied guitar shape can be controlled through copyright\u2014and could reshape the market for lower-cost compatible instruments.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/pro/does-fender-own-stratocaster-guitar-design-legal-fight/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/pro/does-fender-own-stratocaster-guitar-design-legal-fight/"
+        }
+      ],
+      "full_paragraph": "Fender Musical Instruments has demanded that makers of Stratocaster-style guitars, including companies contacted in Europe such as Yamaha and PRS, pull the models from the market after asserting newly acquired copyright protection for the design. Some manufacturers have agreed to redesign instruments, while others are challenging Fender through lawyers and litigation. The dispute will test whether a decades-old, widely copied guitar shape can be controlled through copyright\u2014and could reshape the market for lower-cost compatible instruments.",
+      "guard_result": "not_run",
+      "story_id": "business design dividing does fender feud global guitar"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Indian consumers spent a record $345 million on mobile apps in the second quarter, up 35% from a year earlier, as payments for generative AI, streaming and productivity services rose, Sensor Tower said. Revenue per download has more than doubled in three and a half years even as quarterly downloads have held near 6.3 billion since 2023. The shift gives app developers a more credible path to earning subscription revenue in the world\u2019s biggest download market.",
+      "evidence": [
+        {
+          "canonical_url": "https://techcrunch.com/2026/07/31/india-is-starting-to-pay-for-apps-not-just-download-them/",
+          "evidence_type": "extracted",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/07/31/india-is-starting-to-pay-for-apps-not-just-download-them/"
+        }
+      ],
+      "full_paragraph": "Indian consumers spent a record $345 million on mobile apps in the second quarter, up 35% from a year earlier, as payments for generative AI, streaming and productivity services rose, Sensor Tower said. Revenue per download has more than doubled in three and a half years even as quarterly downloads have held near 6.3 billion since 2023. The shift gives app developers a more credible path to earning subscription revenue in the world\u2019s biggest download market.",
+      "guard_result": "not_run",
+      "story_id": "apps download india just not pay starting them"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Amazon, Alphabet and Tesla each reported negative cash flow in their latest quarters, while Meta\u2019s cash generation fell 91%, highlighting the financial strain of the technology industry\u2019s AI buildout. The results come as companies race to fund data centers and computing equipment despite rising component costs. Investors are increasingly focused not just on AI revenue potential, but on whether the spending surge can be financed without weakening balance sheets or returns.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/31/tech-earnings-cash-memory-ai.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/31/tech-earnings-cash-memory-ai.html"
+        }
+      ],
+      "full_paragraph": "Amazon, Alphabet and Tesla each reported negative cash flow in their latest quarters, while Meta\u2019s cash generation fell 91%, highlighting the financial strain of the technology industry\u2019s AI buildout. The results come as companies race to fund data centers and computing equipment despite rising component costs. Investors are increasingly focused not just on AI revenue potential, but on whether the spending surge can be financed without weakening balance sheets or returns.",
+      "guard_result": "not_run",
+      "story_id": "ballooning buildout cash costs dwindling memory price soaring"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Paramount has proposed a November start for the antitrust trial over its Warner Bros. Discovery merger, while a dozen state attorneys general and the Writers Guild of America are seeking an April 2027 date. The competing schedules were submitted in a joint filing after the sides failed to agree. The judge\u2019s decision will determine how quickly the legal challenge to the proposed combination proceeds and how long merger-related uncertainty hangs over both companies.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/07/paramount-warner-bros-lawsuit-trial-date-1237014622/",
+          "evidence_type": "feed_content",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/07/paramount-warner-bros-lawsuit-trial-date-1237014622/"
+        }
+      ],
+      "full_paragraph": "Paramount has proposed a November start for the antitrust trial over its Warner Bros. Discovery merger, while a dozen state attorneys general and the Writers Guild of America are seeking an April 2027 date. The competing schedules were submitted in a joint filing after the sides failed to agree. The judge\u2019s decision will determine how quickly the legal challenge to the proposed combination proceeds and how long merger-related uncertainty hangs over both companies.",
+      "guard_result": "not_run",
+      "story_id": "ags antitrust april judge merger november paramount pitches"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "President Donald Trump said the Justice Department\u2019s proposed \u201canti-weaponization\u201d fund is dead but also said he wished it were not, reopening a dispute that has stalled acting Attorney General Todd Blanche\u2019s confirmation. Republican Sens. John Cornyn and Thom Tillis have demanded written assurances that the fund will not proceed, and Tillis said Trump\u2019s remarks suggested it remained alive. Their resistance leaves Blanche\u2019s nomination dependent on resolving concerns over potential taxpayer-funded compensation.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/07/31/trump-blanche-doj-anti-weaponization-fund-dead",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/07/31/trump-blanche-doj-anti-weaponization-fund-dead"
+        }
+      ],
+      "full_paragraph": "President Donald Trump said the Justice Department\u2019s proposed \u201canti-weaponization\u201d fund is dead but also said he wished it were not, reopening a dispute that has stalled acting Attorney General Todd Blanche\u2019s confirmation. Republican Sens. John Cornyn and Thom Tillis have demanded written assurances that the fund will not proceed, and Tillis said Trump\u2019s remarks suggested it remained alive. Their resistance leaves Blanche\u2019s nomination dependent on resolving concerns over potential taxpayer-funded compensation.",
+      "guard_result": "not_run",
+      "story_id": "anti blanche comments confirmation fight fund reignite trump"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "MarketWatch warned that workers who delay claiming Social Security until age 70 should weigh more than the larger initial check: the higher benefit also receives proportionally larger cost-of-living adjustments. The point adds a household-level complication to the broader debate over the program\u2019s funding shortfall. Claiming decisions can permanently alter retirement income, making the timing trade-off important even as policymakers focus on Social Security\u2019s long-term finances.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/if-social-securitys-funding-crisis-is-the-elephant-in-the-room-this-is-the-mouse-everyone-has-overlooked-you-have-been-warned-b95c450d?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/if-social-securitys-funding-crisis-is-the-elephant-in-the-room-this-is-the-mouse-everyone-has-overlooked-you-have-been-warned-b95c450d?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "MarketWatch warned that workers who delay claiming Social Security until age 70 should weigh more than the larger initial check: the higher benefit also receives proportionally larger cost-of-living adjustments. The point adds a household-level complication to the broader debate over the program\u2019s funding shortfall. Claiming decisions can permanently alter retirement income, making the timing trade-off important even as policymakers focus on Social Security\u2019s long-term finances.",
+      "guard_result": "not_run",
+      "story_id": "been crisis elephant everyone funding mouse overlooked room"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Rescuers have recovered the body of U.S. climber Mallory Geis after an avalanche struck a 10-person expedition on Pakistan\u2019s Broad Peak, and authorities also identified victims from Oman and Nepal. Geis, 39, was from San Antonio, according to U.S. media; bad weather has hampered the search, with one climber still unaccounted for. Drone teams have spotted several others, but rescuers must reach the high-altitude site before their condition can be confirmed.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cddjz1r01l8o",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cddjz1r01l8o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Rescuers have recovered the body of U.S. climber Mallory Geis after an avalanche struck a 10-person expedition on Pakistan\u2019s Broad Peak, and authorities also identified victims from Oman and Nepal. Geis, 39, was from San Antonio, according to U.S. media; bad weather has hampered the search, with one climber still unaccounted for. Drone teams have spotted several others, but rescuers must reach the high-altitude site before their condition can be confirmed.",
+      "guard_result": "not_run",
+      "story_id": "avalanche body climber pakistan recovered"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Hamas said it will disarm only after Israel fulfills earlier ceasefire commitments, qualifying President Donald Trump\u2019s claim of a breakthrough in U.S.-brokered Gaza negotiations. The group\u2019s position leaves a central condition of any lasting agreement unresolved despite Trump\u2019s announcement. Whether Israel meets the commitments Hamas cites\u2014and whether Hamas ultimately accepts disarmament\u2014will determine whether the reported diplomatic progress can move beyond a public claim into an enforceable deal.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/31/trump-hamas-disarmament-conditions.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/31/trump-hamas-disarmament-conditions.html"
+        }
+      ],
+      "full_paragraph": "Hamas said it will disarm only after Israel fulfills earlier ceasefire commitments, qualifying President Donald Trump\u2019s claim of a breakthrough in U.S.-brokered Gaza negotiations. The group\u2019s position leaves a central condition of any lasting agreement unresolved despite Trump\u2019s announcement. Whether Israel meets the commitments Hamas cites\u2014and whether Hamas ultimately accepts disarmament\u2014will determine whether the reported diplomatic progress can move beyond a public claim into an enforceable deal.",
+      "guard_result": "not_run",
+      "story_id": "claim commitments depends disarmament gaza hamas honoring israel"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "An estimated 60,000 people from Morocco crossed into Spain\u2019s North African enclave of Ceuta over 24 hours, an unprecedented influx into a territory with about 83,000 residents. Dozens died attempting the crossing, though Spanish officials said more than 48,000 migrants had voluntarily returned to Morocco by Friday evening. The surge has put renewed pressure on Spain and Morocco to explain what triggered it and to manage a border route long used by people seeking entry to Europe.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/videos/c171nnql1j4o",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/videos/c171nnql1j4o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "An estimated 60,000 people from Morocco crossed into Spain\u2019s North African enclave of Ceuta over 24 hours, an unprecedented influx into a territory with about 83,000 residents. Dozens died attempting the crossing, though Spanish officials said more than 48,000 migrants had voluntarily returned to Morocco by Friday evening. The surge has put renewed pressure on Spain and Morocco to explain what triggered it and to manage a border route long used by people seeking entry to Europe.",
+      "guard_result": "not_run",
+      "story_id": "ceuta crossings mass migrant triggered"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Sony and Marvel\u2019s \u201cSpider-Man: Brand New Day\u201d took in a record $72 million in domestic previews and was tracking toward a $167 million to $173 million opening day, according to industry estimates. Forecasts for its North American debut ranged from roughly $270 million to above $330 million, putting it within reach of the biggest openings ever but still short of a confirmed record. Its performance will be a major test of whether superhero films can again deliver event-scale theatrical crowds.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/07/box-office-spider-man-brand-new-day-1237014268/",
+          "evidence_type": "extracted",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/07/box-office-spider-man-brand-new-day-1237014268/"
+        },
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/31/spider-man-brand-new-day-box-office-preview-sales.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/31/spider-man-brand-new-day-box-office-preview-sales.html"
+        }
+      ],
+      "full_paragraph": "Sony and Marvel\u2019s \u201cSpider-Man: Brand New Day\u201d took in a record $72 million in domestic previews and was tracking toward a $167 million to $173 million opening day, according to industry estimates. Forecasts for its North American debut ranged from roughly $270 million to above $330 million, putting it within reach of the biggest openings ever but still short of a confirmed record. Its performance will be a major test of whether superhero films can again deliver event-scale theatrical crowds.",
+      "guard_result": "not_run",
+      "story_id": "167m 357m all avengers beat box brand could"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The expansion Toronto Tempo acquired forward Aneesah Morrow from the Connecticut Sun for the rights to Maria \u201cMasha\u201d Kliundikova and a 2028 second-round pick. Morrow, the No. 7 pick in last year\u2019s draft, averaged 11.6 points and 8.9 rebounds in 23.2 minutes over 20 games this season, including nine double-doubles. The deal gives Toronto the young frontcourt player it had been seeking while Connecticut adds future roster flexibility.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/wnba/story/_/id/49498176/connecticut-trade-morrow-tempo-kliundikova-second-rounder",
+          "evidence_type": "extracted",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/wnba/story/_/id/49498176/connecticut-trade-morrow-tempo-kliundikova-second-rounder"
+        }
+      ],
+      "full_paragraph": "The expansion Toronto Tempo acquired forward Aneesah Morrow from the Connecticut Sun for the rights to Maria \u201cMasha\u201d Kliundikova and a 2028 second-round pick. Morrow, the No. 7 pick in last year\u2019s draft, averaged 11.6 points and 8.9 rebounds in 23.2 minutes over 20 games this season, including nine double-doubles. The deal gives Toronto the young frontcourt player it had been seeking while Connecticut adds future roster flexibility.",
+      "guard_result": "not_run",
+      "story_id": "deal forward lands morrow sun tempo"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Atlanta\u2019s ONE Musicfest has canceled its 2026 event after 16 years, saying it will use the pause to rethink and build a new version of the festival rather than repeat its established format. Last year\u2019s lineup included Future, Mary J. Blige, Ludacris, Kehlani and Doechii, reflecting the festival\u2019s mix of rap and R&B generations. The decision removes a significant annual gathering from Atlanta\u2019s concert calendar while organizers work on a possible relaunch.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/music/concerts/one-musicfest-2026-festival-statement-1236307305/",
+          "evidence_type": "feed_content",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/music/concerts/one-musicfest-2026-festival-statement-1236307305/"
+        }
+      ],
+      "full_paragraph": "Atlanta\u2019s ONE Musicfest has canceled its 2026 event after 16 years, saying it will use the pause to rethink and build a new version of the festival rather than repeat its established format. Last year\u2019s lineup included Future, Mary J. Blige, Ludacris, Kehlani and Doechii, reflecting the festival\u2019s mix of rap and R&B generations. The decision removes a significant annual gathering from Atlanta\u2019s concert calendar while organizers work on a possible relaunch.",
+      "guard_result": "not_run",
+      "story_id": "atlanta build cancels festival iteration musicfest one this"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "FIFA President Gianni Infantino\u2019s contested World Cup plans have prompted boycott threats from countries, putting the 2027 Women\u2019s World Cup at risk of becoming the first major tournament affected by the dispute. The conflict arrives after years of growth in visibility and investment for women\u2019s soccer. A boycott or prolonged standoff could deprive players and national teams of the sport\u2019s largest global stage and undermine that momentum.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/soccer/story/_/id/49496364/fifa-president-gianni-infantino-world-cup-plan-uefa-boycott-womens-soccer-threat",
+          "evidence_type": "feed_content",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/soccer/story/_/id/49496364/fifa-president-gianni-infantino-world-cup-plan-uefa-boycott-womens-soccer-threat"
+        }
+      ],
+      "full_paragraph": "FIFA President Gianni Infantino\u2019s contested World Cup plans have prompted boycott threats from countries, putting the 2027 Women\u2019s World Cup at risk of becoming the first major tournament affected by the dispute. The conflict arrives after years of growth in visibility and investment for women\u2019s soccer. A boycott or prolonged standoff could deprive players and national teams of the sport\u2019s largest global stage and undermine that momentum.",
+      "guard_result": "not_run",
+      "story_id": "battle cup infantino progress risks soccer undermining women"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Microsoft, Amazon and Alphabet added nearly $1.5 trillion in combined market value this week after reporting strong cloud growth and affirming or increasing AI capital-spending plans. Microsoft gained more than $600 billion, while Amazon and Alphabet each rose by more than $400 billion; investors viewed the results as evidence that returns on AI investment may be emerging. The gains sharpened a divide among megacaps, with Meta and Apple losing value as investors questioned their spending outlooks.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/31/apple-aapl-amazon-amzn-stock-today.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/31/apple-aapl-amazon-amzn-stock-today.html"
+        }
+      ],
+      "full_paragraph": "Microsoft, Amazon and Alphabet added nearly $1.5 trillion in combined market value this week after reporting strong cloud growth and affirming or increasing AI capital-spending plans. Microsoft gained more than $600 billion, while Amazon and Alphabet each rose by more than $400 billion; investors viewed the results as evidence that returns on AI investment may be emerging. The gains sharpened a divide among megacaps, with Meta and Apple losing value as investors questioned their spending outlooks.",
+      "guard_result": "not_run",
+      "story_id": "added alphabet amazon combined microsoft nearly this trillion"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The S&P 500 finished July lower, its first decline for the month since 2014, after a volatile final stretch of trading. Chip stocks led the pullback, posting their worst monthly performance in 24 years, according to MarketWatch. The reversal shows how quickly investor enthusiasm around technology can fade when concerns about valuations, spending and the durability of the AI-led rally begin to outweigh recent gains.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/s-p-500-heads-for-the-first-july-decline-since-2014-here-are-the-stocks-that-led-the-selloff-5677f63b?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/s-p-500-heads-for-the-first-july-decline-since-2014-here-are-the-stocks-that-led-the-selloff-5677f63b?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "The S&P 500 finished July lower, its first decline for the month since 2014, after a volatile final stretch of trading. Chip stocks led the pullback, posting their worst monthly performance in 24 years, according to MarketWatch. The reversal shows how quickly investor enthusiasm around technology can fade when concerns about valuations, spending and the durability of the AI-led rally begin to outweigh recent gains.",
+      "guard_result": "not_run",
+      "story_id": "2014 500 decline ends first july led selloff"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Index Ventures has raised $2 billion across three new funds, bringing its total available investing capital to $3.5 billion shortly after its payout from the Wiz cybersecurity deal. The fresh capital gives the venture firm substantial capacity to back startups across stages despite a selective market for technology investing. It also signals that established investors with recent exits can continue deploying money even as many younger companies face tougher fundraising conditions.",
+      "evidence": [
+        {
+          "canonical_url": "https://techcrunch.com/2026/07/31/fresh-off-its-wiz-payout-index-ventures-raises-2b-across-three-funds/",
+          "evidence_type": "feed_content",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/07/31/fresh-off-its-wiz-payout-index-ventures-raises-2b-across-three-funds/"
+        }
+      ],
+      "full_paragraph": "Index Ventures has raised $2 billion across three new funds, bringing its total available investing capital to $3.5 billion shortly after its payout from the Wiz cybersecurity deal. The fresh capital gives the venture firm substantial capacity to back startups across stages despite a selective market for technology investing. It also signals that established investors with recent exits can continue deploying money even as many younger companies face tougher fundraising conditions.",
+      "guard_result": "not_run",
+      "story_id": "across fresh funds index off payout raises three"
+    }
+  ]
+}

@@ -1,0 +1,385 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.0245925,
+  "created_at": "2026-07-29T00:50:30.829046+00:00",
+  "guard_deltas": {},
+  "input_tokens": 0,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 0,
+  "stories": [
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Elon Musk\u2019s xAI, now owned by SpaceX, sued Minnesota Attorney General Keith Ellison to block a state law targeting apps that create non-consensual sexualized images. The law, due to take effect Saturday, allows fines of $500,000 each time a user creates an explicit deepfake; xAI argues it is an overbroad, content-based restriction on speech. The case will test how far states can regulate generative-AI tools used for image manipulation.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/spacexs-xai-sues-minnesota-over-law-to-ban-nudify-apps-.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/spacexs-xai-sues-minnesota-over-law-to-ban-nudify-apps-.html"
+        }
+      ],
+      "full_paragraph": "Elon Musk\u2019s xAI, now owned by SpaceX, sued Minnesota Attorney General Keith Ellison to block a state law targeting apps that create non-consensual sexualized images. The law, due to take effect Saturday, allows fines of $500,000 each time a user creates an explicit deepfake; xAI argues it is an overbroad, content-based restriction on speech. The case will test how far states can regulate generative-AI tools used for image manipulation.",
+      "guard_result": "not_run",
+      "story_id": "apps ban elon law minnesota musk nudify sues"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Federal Communications Commission announced an import ban on foreign-made \u201cadvanced robotic devices\u201d and power inverters, citing unacceptable risks, in a move expected to hit Chinese manufacturers hardest. The restriction covers mobile devices including humanoid and quadruped robots, while China is also home to major inverter suppliers used in solar arrays. The policy extends Washington\u2019s technology-security campaign into emerging robotics and clean-energy hardware supply chains.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/tech/972259/us-foreign-robots-power-inverter-ban",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/tech/972259/us-foreign-robots-power-inverter-ban"
+        }
+      ],
+      "full_paragraph": "The Federal Communications Commission announced an import ban on foreign-made \u201cadvanced robotic devices\u201d and power inverters, citing unacceptable risks, in a move expected to hit Chinese manufacturers hardest. The restriction covers mobile devices including humanoid and quadruped robots, while China is also home to major inverter suppliers used in solar arrays. The policy extends Washington\u2019s technology-security campaign into emerging robotics and clean-energy hardware supply chains.",
+      "guard_result": "not_run",
+      "story_id": "banning foreign robots"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Providence Equity Partners will become the majority investor in THE\u2022TEAM, the talent and sports agency formerly known as Wasserman, by providing additional capital for the company to buy founder Casey Wasserman\u2019s remaining stake. Providence has been an investor since 2022, and Mike Watt, president since 2014, will become CEO when the deal closes. Financial terms were not disclosed, ending a sale process launched after Wasserman said in February that he would sell.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/pro/theteam-sale-closes-providence-equity-partners-ownership/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/pro/theteam-sale-closes-providence-equity-partners-ownership/"
+        }
+      ],
+      "full_paragraph": "Providence Equity Partners will become the majority investor in THE\u2022TEAM, the talent and sports agency formerly known as Wasserman, by providing additional capital for the company to buy founder Casey Wasserman\u2019s remaining stake. Providence has been an investor since 2022, and Mike Watt, president since 2014, will become CEO when the deal closes. Financial terms were not disclosed, ending a sale process launched after Wasserman said in February that he would sell.",
+      "guard_result": "not_run",
+      "story_id": "equity partners providence selling team"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Federal Aviation Administration is moving to waive environmental rules for some launch approvals, a step that could speed work by companies including SpaceX and Blue Origin. Transportation Secretary Sean Duffy said the administration wants to remove government \u201cred tape\u201d to preserve U.S. leadership in the space race. The change could shorten permitting timelines, though it also reduces a layer of environmental review around a rapidly expanding launch industry.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/space-launches-faa-environmental-spacex-blue-origin-sean-duffy.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/space-launches-faa-environmental-spacex-blue-origin-sean-duffy.html"
+        }
+      ],
+      "full_paragraph": "The Federal Aviation Administration is moving to waive environmental rules for some launch approvals, a step that could speed work by companies including SpaceX and Blue Origin. Transportation Secretary Sean Duffy said the administration wants to remove government \u201cred tape\u201d to preserve U.S. leadership in the space race. The change could shorten permitting timelines, though it also reduces a layer of environmental review around a rapidly expanding launch industry.",
+      "guard_result": "not_run",
+      "story_id": "approval blue could environmental faa get launch move"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Entertainment executive Ari Emanuel endorsed Paramount\u2019s pending $110 billion acquisition of Warner Bros. Discovery in a Wall Street Journal opinion article, calling the states\u2019 antitrust lawsuit against it \u201ctrash.\u201d Emanuel argued that the deal could help save Hollywood and urged regulators to allow it. His intervention adds a prominent industry voice to the fight, but the transaction still faces legal scrutiny over whether combining the media companies would lessen competition.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/07/ari-emanuel-paramount-warner-bros-discovery-merger-wsj-1237006229/",
+          "evidence_type": "feed_content",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/07/ari-emanuel-paramount-warner-bros-discovery-merger-wsj-1237006229/"
+        }
+      ],
+      "full_paragraph": "Entertainment executive Ari Emanuel endorsed Paramount\u2019s pending $110 billion acquisition of Warner Bros. Discovery in a Wall Street Journal opinion article, calling the states\u2019 antitrust lawsuit against it \u201ctrash.\u201d Emanuel argued that the deal could help save Hollywood and urged regulators to allow it. His intervention adds a prominent industry voice to the fight, but the transaction still faces legal scrutiny over whether combining the media companies would lessen competition.",
+      "guard_result": "not_run",
+      "story_id": "antitrust ari backs blasts deal emanuel lawsuit paramount"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Seattle residents and Mayor Bruce Harrell gathered for a candlelight vigil after a gunfight at the Bite of Seattle food festival killed three people and injured at least four others. The victims were Junior Cee Niko Semo, 19, Carlos Israel Sanchez Villalba, 44, and Ashley Whitehead, 56; the free three-day festival typically draws about 350,000 people. The killings have turned a major civic event into a renewed focus for public-safety concerns.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cvgv7m5z4n0o",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cvgv7m5z4n0o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Seattle residents and Mayor Bruce Harrell gathered for a candlelight vigil after a gunfight at the Bite of Seattle food festival killed three people and injured at least four others. The victims were Junior Cee Niko Semo, 19, Carlos Israel Sanchez Villalba, 44, and Ashley Whitehead, 56; the free three-day festival typically draws about 350,000 people. The killings have turned a major civic event into a renewed focus for public-safety concerns.",
+      "guard_result": "not_run",
+      "story_id": "festival food life lover pays seattle shooting tribute"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Senate Majority Leader John Thune and House Speaker Mike Johnson plan to attend President Trump\u2019s two-day midterm convention in Dallas in September, underscoring their effort to maintain party unity. Other Republican candidates, including Texas Attorney General Ken Paxton, also intend to attend, while Maine Sen. Susan Collins is unlikely to do so. The gathering offers fundraising and media exposure but puts vulnerable Republicans close to a president whose approval ratings are falling.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/07/29/republicans-midterm-convention-dallas-john-thune-mike-johnson-trump",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/07/29/republicans-midterm-convention-dallas-john-thune-mike-johnson-trump"
+        }
+      ],
+      "full_paragraph": "Senate Majority Leader John Thune and House Speaker Mike Johnson plan to attend President Trump\u2019s two-day midterm convention in Dallas in September, underscoring their effort to maintain party unity. Other Republican candidates, including Texas Attorney General Ken Paxton, also intend to attend, while Maine Sen. Susan Collins is unlikely to do so. The gathering offers fundraising and media exposure but puts vulnerable Republicans close to a president whose approval ratings are falling.",
+      "guard_result": "not_run",
+      "story_id": "attend both convention dallas johnson plan thune trump"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "President Donald Trump and the Justice Department separately asked the Supreme Court to erase the $83.3 million defamation verdict won by writer E. Jean Carroll. Trump argues he was immune because his 2019 statements denying Carroll\u2019s sexual-assault claim were made while president; the DOJ says the federal government should have replaced him as defendant, which would have ended the claim. The appeals seek to expand protections for presidents and federal employees over official conduct.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/trump-asks-supreme-court-to-toss-83point3m-defamation-award-to-e-jean-carroll.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/trump-asks-supreme-court-to-toss-83point3m-defamation-award-to-e-jean-carroll.html"
+        }
+      ],
+      "full_paragraph": "President Donald Trump and the Justice Department separately asked the Supreme Court to erase the $83.3 million defamation verdict won by writer E. Jean Carroll. Trump argues he was immune because his 2019 statements denying Carroll\u2019s sexual-assault claim were made while president; the DOJ says the federal government should have replaced him as defendant, which would have ended the claim. The appeals seek to expand protections for presidents and federal employees over official conduct.",
+      "guard_result": "not_run",
+      "story_id": "ask award carroll court defamation doj jean supreme"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Senate has set up votes on a Russia sanctions package aimed at officials, oligarchs, their relatives, banks and the \u201cshadow fleet\u201d of vessels used to move Russian oil. The legislation is intended to increase pressure over Russia\u2019s war in Ukraine and to reach foreign actors helping evade existing restrictions. Its advancement signals broad Senate interest in tougher economic measures, though the scope and timing of final action remain unsettled.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/russia-sanctions-congress-key-vote-lindsey-graham-ukraine.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/russia-sanctions-congress-key-vote-lindsey-graham-ukraine.html"
+        }
+      ],
+      "full_paragraph": "The Senate has set up votes on a Russia sanctions package aimed at officials, oligarchs, their relatives, banks and the \u201cshadow fleet\u201d of vessels used to move Russian oil. The legislation is intended to increase pressure over Russia\u2019s war in Ukraine and to reach foreign actors helping evade existing restrictions. Its advancement signals broad Senate interest in tougher economic measures, though the scope and timing of final action remain unsettled.",
+      "guard_result": "not_run",
+      "story_id": "russia sanction senate sets ukraine votes war"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Senate voted 86-12 to advance a Russia and Iran sanctions bill championed by the late Sen. Lindsey Graham, shortly after senators met with Ukrainian President Volodymyr Zelenskyy. The measure would impose 100% secondary tariffs on countries buying Russian oil and gas and targets Russia\u2019s sanctions-evasion \u201cshadow fleet\u201d; it also renews Iran sanctions due to expire this year. The lopsided procedural vote gives leaders a stronger path toward final passage after months of delay.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/07/29/senate-russia-sanctions-lindsey-graham",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/07/29/senate-russia-sanctions-lindsey-graham"
+        }
+      ],
+      "full_paragraph": "The Senate voted 86-12 to advance a Russia and Iran sanctions bill championed by the late Sen. Lindsey Graham, shortly after senators met with Ukrainian President Volodymyr Zelenskyy. The measure would impose 100% secondary tariffs on countries buying Russian oil and gas and targets Russia\u2019s sanctions-evasion \u201cshadow fleet\u201d; it also renews Iran sanctions due to expire this year. The lopsided procedural vote gives leaders a stronger path toward final passage after months of delay.",
+      "guard_result": "not_run",
+      "story_id": "bill forward graham move russia sanctions senators vote"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Iran\u2019s Revolutionary Guard launched several ballistic missiles at U.S. forces in the Middle East late Tuesday, but U.S. Central Command said all were intercepted. U.S. officials said the apparent target was a base in Jordan, and U.S. crude futures rose more than 4% to $82.50 a barrel after the attack. The exchange ended a two-day lull in fighting and raises pressure on Washington and Tehran\u2019s already fragile diplomatic pause.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/29/us-iran-war-hormuz-centcom.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/29/us-iran-war-hormuz-centcom.html"
+        }
+      ],
+      "full_paragraph": "Iran\u2019s Revolutionary Guard launched several ballistic missiles at U.S. forces in the Middle East late Tuesday, but U.S. Central Command said all were intercepted. U.S. officials said the apparent target was a base in Jordan, and U.S. crude futures rose more than 4% to $82.50 a barrel after the attack. The exchange ended a two-day lull in fighting and raises pressure on Washington and Tehran\u2019s already fragile diplomatic pause.",
+      "guard_result": "not_run",
+      "story_id": "attack ballistic east forces iran launches middle missile"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Iran fired multiple ballistic missiles toward a U.S. military base in Jordan on Tuesday, its first such attack since President Trump paused strikes against Tehran on Friday; Central Command said every missile was intercepted. The launch came at 5:45 p.m. ET and targeted the same country where two U.S. service members were killed in a missile-and-drone barrage earlier this month. It threatens the pause intended to give diplomacy a chance.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/07/28/iran-missile-attack-us-base-jordan",
+          "evidence_type": "feed_content",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/07/28/iran-missile-attack-us-base-jordan"
+        }
+      ],
+      "full_paragraph": "Iran fired multiple ballistic missiles toward a U.S. military base in Jordan on Tuesday, its first such attack since President Trump paused strikes against Tehran on Friday; Central Command said every missile was intercepted. The launch came at 5:45 p.m. ET and targeted the same country where two U.S. service members were killed in a missile-and-drone barrage earlier this month. It threatens the pause intended to give diplomacy a chance.",
+      "guard_result": "not_run",
+      "story_id": "base first iran launches missiles paused since strikes"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Major League Baseball contenders are weighing deals ahead of the Aug. 3 trade deadline, with rival teams reporting especially high asking prices for starting pitching. Detroit\u2019s Tarik Skubal is among the biggest names drawing speculation, while clubs including the Dodgers, Yankees, Cubs and Phillies are assessing roster upgrades for a postseason push. With six days left, the costly market for arms suggests many major moves may wait until the final hours.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/mlb/story/_/id/49410877/2026-mlb-trade-deadline-tracker-rumors-alerts-news-latest-updates-analysis",
+          "evidence_type": "extracted",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/mlb/story/_/id/49410877/2026-mlb-trade-deadline-tracker-rumors-alerts-news-latest-updates-analysis"
+        }
+      ],
+      "full_paragraph": "Major League Baseball contenders are weighing deals ahead of the Aug. 3 trade deadline, with rival teams reporting especially high asking prices for starting pitching. Detroit\u2019s Tarik Skubal is among the biggest names drawing speculation, while clubs including the Dodgers, Yankees, Cubs and Phillies are assessing roster upgrades for a postseason push. With six days left, the costly market for arms suggests many major moves may wait until the final hours.",
+      "guard_result": "not_run",
+      "story_id": "all buzz deadline intel mlb our trade"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Netflix narrowly overtook the BBC as the first place UK viewers say they turn when choosing what to watch, according to Ofcom\u2019s Media Nations report. Netflix was named first by 26% of viewers in 2025, versus 25% for the BBC; among people aged 16 to 24, the gap was 36% to 14%. Ofcom cautioned that methodology changes make year-to-year comparisons indicative, but the findings sharpen pressure on the BBC\u2019s funding model.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/07/netflix-chosen-over-bbc-uk-audiences-ofcom-media-nations-1237005527/",
+          "evidence_type": "extracted",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/07/netflix-chosen-over-bbc-uk-audiences-ofcom-media-nations-1237005527/"
+        }
+      ],
+      "full_paragraph": "Netflix narrowly overtook the BBC as the first place UK viewers say they turn when choosing what to watch, according to Ofcom\u2019s Media Nations report. Netflix was named first by 26% of viewers in 2025, versus 25% for the BBC; among people aged 16 to 24, the gap was 36% to 14%. Ofcom cautioned that methodology changes make year-to-year comparisons indicative, but the findings sharpen pressure on the BBC\u2019s funding model.",
+      "guard_result": "not_run",
+      "story_id": "audiences bbc call first media nations netflix now"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Ariana Grande sued unidentified hackers in Los Angeles seeking to uncover people she alleges stole and leaked unreleased music, videos and photographs. The suit says 45 unreleased songs were hacked and leaked in 2023 alone, part of hundreds of alleged leaks since her 2011 debut, and claims the material was taken through producers and photographers in her circle. The case seeks to halt distribution and identify alleged sellers operating through social platforms.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/entertainment/972233/ariana-grande-hacking-lawsuit",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/entertainment/972233/ariana-grande-hacking-lawsuit"
+        }
+      ],
+      "full_paragraph": "Ariana Grande sued unidentified hackers in Los Angeles seeking to uncover people she alleges stole and leaked unreleased music, videos and photographs. The suit says 45 unreleased songs were hacked and leaked in 2023 alone, part of hundreds of alleged leaks since her 2011 debut, and claims the material was taken through producers and photographers in her circle. The case seeks to halt distribution and identify alleged sellers operating through social platforms.",
+      "guard_result": "not_run",
+      "story_id": "ariana been grande hackers her leaking songs suing"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Christopher Nolan\u2019s \u201cThe Odyssey\u201d is on track to exceed the roughly $330 million domestic lifetime total of his 2023 hit \u201cOppenheimer\u201d after only 13 days in theaters. Its second Monday brought in $14.7 million, with Tuesday projected at more than $16 million. The pace underscores the film\u2019s unusually sustained opening-run demand and places it among the year\u2019s defining box-office successes, while \u201cHadestown\u201d also posted a $2 million-plus Monday.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/07/box-office-the-odyssey-oppenheimer-record-hadestown-1237006246/",
+          "evidence_type": "feed_content",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/07/box-office-the-odyssey-oppenheimer-record-hadestown-1237006246/"
+        }
+      ],
+      "full_paragraph": "Christopher Nolan\u2019s \u201cThe Odyssey\u201d is on track to exceed the roughly $330 million domestic lifetime total of his 2023 hit \u201cOppenheimer\u201d after only 13 days in theaters. Its second Monday brought in $14.7 million, with Tuesday projected at more than $16 million. The pace underscores the film\u2019s unusually sustained opening-run demand and places it among the year\u2019s defining box-office successes, while \u201cHadestown\u201d also posted a $2 million-plus Monday.",
+      "guard_result": "not_run",
+      "story_id": "box days hadestown lifetime monday odyssey office oppenheimer"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Big Ten Commissioner Tony Petitti renewed his call for a 24-team College Football Playoff beginning in 2027, saying quicker action would make the transition easier. Petitti made the case on the opening day of the conference\u2019s media days, keeping the Big Ten at the center of a debate over how much further to expand the postseason. The proposal would substantially widen access but would also reshape scheduling, player workloads and the value of the regular season.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/college-football/story/_/id/49474525/tony-petitti-reiterates-big-10-desire-24-team-cfp-27",
+          "evidence_type": "feed_content",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/college-football/story/_/id/49474525/tony-petitti-reiterates-big-10-desire-24-team-cfp-27"
+        }
+      ],
+      "full_paragraph": "Big Ten Commissioner Tony Petitti renewed his call for a 24-team College Football Playoff beginning in 2027, saying quicker action would make the transition easier. Petitti made the case on the opening day of the conference\u2019s media days, keeping the Big Ten at the center of a debate over how much further to expand the postseason. The proposal would substantially widen access but would also reshape scheduling, player workloads and the value of the regular season.",
+      "guard_result": "not_run",
+      "story_id": "big cfp petitti push reiterates team ten"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Seagate Technology reported June-quarter results above Wall Street expectations, sending its shares higher after hours and offering a positive signal for investors rattled by weakness in AI-linked stocks. The storage maker\u2019s performance matters because data-storage demand is tied to the buildout of AI infrastructure, even as investors have questioned whether spending across the sector can justify lofty valuations. The reaction suggests earnings execution remains a key differentiator in the AI trade.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/seagates-earnings-are-welcome-news-for-the-battered-ai-trade-92dfc30f?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/seagates-earnings-are-welcome-news-for-the-battered-ai-trade-92dfc30f?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Seagate Technology reported June-quarter results above Wall Street expectations, sending its shares higher after hours and offering a positive signal for investors rattled by weakness in AI-linked stocks. The storage maker\u2019s performance matters because data-storage demand is tied to the buildout of AI infrastructure, even as investors have questioned whether spending across the sector can justify lofty valuations. The reaction suggests earnings execution remains a key differentiator in the AI trade.",
+      "guard_result": "not_run",
+      "story_id": "battered earnings seagate trade welcome"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Ford raised its outlook after beating second-quarter earnings expectations, citing operational improvements, resilient vehicle prices and a sales mix tilted toward more profitable models. The automaker also said recovery of its F-Series pickup production is on track, a key point because those trucks are central to Ford\u2019s earnings power. The updated guidance gives investors evidence that the company\u2019s core combustion-vehicle business is cushioning broader pressure on auto demand.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/ford-motor-f-earnings-q2-2026.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/ford-motor-f-earnings-q2-2026.html"
+        }
+      ],
+      "full_paragraph": "Ford raised its outlook after beating second-quarter earnings expectations, citing operational improvements, resilient vehicle prices and a sales mix tilted toward more profitable models. The automaker also said recovery of its F-Series pickup production is on track, a key point because those trucks are central to Ford\u2019s earnings power. The updated guidance gives investors evidence that the company\u2019s core combustion-vehicle business is cushioning broader pressure on auto demand.",
+      "guard_result": "not_run",
+      "story_id": "beat earnings ford guidance raises recovery series track"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Ford\u2019s stock jumped after the automaker showed it could limit sales declines by leaning on pickup trucks and other traditionally powered vehicles, a strategy similar to General Motors\u2019 approach. That reliance on profitable, established models helped support Ford\u2019s latest results and improved outlook. Investors are treating the comparison with GM as meaningful because both companies are trying to protect margins while balancing weaker demand and the costly transition toward electric vehicles.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/ford-matches-gm-in-one-crucial-way-and-the-stock-jumps-bf2f708c?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/ford-matches-gm-in-one-crucial-way-and-the-stock-jumps-bf2f708c?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Ford\u2019s stock jumped after the automaker showed it could limit sales declines by leaning on pickup trucks and other traditionally powered vehicles, a strategy similar to General Motors\u2019 approach. That reliance on profitable, established models helped support Ford\u2019s latest results and improved outlook. Investors are treating the comparison with GM as meaningful because both companies are trying to protect margins while balancing weaker demand and the costly transition toward electric vehicles.",
+      "guard_result": "not_run",
+      "story_id": "crucial ford jumps matches one stock way"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Micron Technology shares are headed toward their worst monthly decline in 11 years as investors grow more concerned that China is building up domestic supplies of memory chips and chipmaking equipment. Analysts say those fears have weighed on the stock despite continuing interest in semiconductors used for AI systems. The drop highlights a risk for U.S. chipmakers: Chinese self-sufficiency efforts could pressure demand and market share in one of their most important markets.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/microns-stock-sinks-toward-worst-monthly-drop-in-11-years-as-china-fears-escalate-3c956a67?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/microns-stock-sinks-toward-worst-monthly-drop-in-11-years-as-china-fears-escalate-3c956a67?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Micron Technology shares are headed toward their worst monthly decline in 11 years as investors grow more concerned that China is building up domestic supplies of memory chips and chipmaking equipment. Analysts say those fears have weighed on the stock despite continuing interest in semiconductors used for AI systems. The drop highlights a risk for U.S. chipmakers: Chinese self-sufficiency efforts could pressure demand and market share in one of their most important markets.",
+      "guard_result": "not_run",
+      "story_id": "china drop escalate fears micron monthly sinks stock"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "FIFA is considering a plan to raise billions of dollars by selling minority stakes in commercial rights tied to the World Cup, including to an investment firm run by Joshua Kushner, Jared Kushner\u2019s brother. The proposal would bring outside investors into a share of the tournament\u2019s revenue-generating business rather than the competition itself. It could give FIFA more capital, while also increasing private investors\u2019 influence over the economics of the world\u2019s biggest soccer event.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.npr.org/2026/07/28/nx-s1-5910773/fifa-world-cup-gianni-infantino",
+          "evidence_type": "feed_content",
+          "source": "NPR News",
+          "url": "https://www.npr.org/2026/07/28/nx-s1-5910773/fifa-world-cup-gianni-infantino"
+        }
+      ],
+      "full_paragraph": "FIFA is considering a plan to raise billions of dollars by selling minority stakes in commercial rights tied to the World Cup, including to an investment firm run by Joshua Kushner, Jared Kushner\u2019s brother. The proposal would bring outside investors into a share of the tournament\u2019s revenue-generating business rather than the competition itself. It could give FIFA more capital, while also increasing private investors\u2019 influence over the economics of the world\u2019s biggest soccer event.",
+      "guard_result": "not_run",
+      "story_id": "billions cup dollars fifa plan raise selling stakes"
+    }
+  ]
+}
