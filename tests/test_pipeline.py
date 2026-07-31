@@ -594,10 +594,45 @@ def test_build_draft_candidates_falls_back_to_all_articles_if_outliers_cover_eve
     assert len(candidates[0].articles) == 1
 
 
+def test_build_draft_candidates_diversifies_sources_only_for_merged_stories() -> None:
+    articles = [
+        replace(
+            make_article(f"Wire {index}", f"https://example.com/wire-{index}", "Summary", "Reuters"),
+            evidence_score=float(10 - index),
+        )
+        for index in range(3)
+    ]
+    articles.append(
+        replace(
+            make_article("Independent", "https://example.com/bbc", "Summary", "BBC"),
+            evidence_score=1.0,
+        )
+    )
+    merged = cluster("merged", "Merged")
+    merged.articles = list(articles)
+    merged.merged_from = ("absorbed",)
+    unmerged = cluster("unmerged", "Unmerged")
+    unmerged.articles = list(articles)
+
+    candidates = pipeline.build_draft_candidates(
+        {"business_tech": [merged, unmerged]},
+        {},
+    )
+
+    assert candidates[0].is_merged is True
+    assert [article.source for article in candidates[0].articles[:2]] == ["Reuters", "BBC"]
+    assert candidates[1].is_merged is False
+    assert [article.source for article in candidates[1].articles[:3]] == [
+        "Reuters",
+        "Reuters",
+        "Reuters",
+    ]
+
+
 # --- build_briefing_sections: grouping + finance lead lines ------------------------
 
 
-def test_build_briefing_sections_groups_paragraphs_and_covers_all_categories() -> None:
+def test_build_briefing_sections_groups_paragraphs_and_omits_empty_categories() -> None:
     paragraphs = [
         BriefingParagraph(story_id="s1", category="finance", paragraph="Markets moved.", sources=("Reuters",)),
         BriefingParagraph(story_id="s2", category="culture", paragraph="A film opened.", sources=("Variety",)),
@@ -607,9 +642,8 @@ def test_build_briefing_sections_groups_paragraphs_and_covers_all_categories() -
     sections = pipeline.build_briefing_sections(paragraphs, config, StockSnapshot(news_mentions=(), mega_caps=(), quotes={}))
 
     by_category = {section.category: section for section in sections}
-    assert set(by_category) == {"business_tech", "domestic", "global", "culture", "finance"}
+    assert set(by_category) == {"culture", "finance"}
     assert len(by_category["finance"].paragraphs) == 1
-    assert len(by_category["business_tech"].paragraphs) == 0
 
 
 def test_build_briefing_sections_finance_gets_lead_lines_other_categories_dont() -> None:
@@ -630,8 +664,18 @@ def test_build_briefing_sections_finance_gets_lead_lines_other_categories_dont()
     sections = pipeline.build_briefing_sections([], config, FakeSnapshot())
     by_category = {section.category: section for section in sections}
 
+    assert set(by_category) == {"finance"}
     assert by_category["finance"].lead_lines == ("AAPL 100.00 (+1.0%)", "NVDA 100.00 (+1.0%)")
-    assert by_category["business_tech"].lead_lines == ()
+
+
+def test_build_briefing_sections_omits_finance_when_it_has_no_story_or_quotes() -> None:
+    sections = pipeline.build_briefing_sections(
+        [],
+        minimal_config(),
+        StockSnapshot(news_mentions=(), mega_caps=(), quotes={}),
+    )
+
+    assert sections == []
 
 
 # --- collect_pipeline_context: quality gate + classification wiring ---------------
@@ -734,6 +778,58 @@ def test_collect_pipeline_context_off_mode_never_calls_classify_llm(
     # consumes a classification slot in off mode.
     assert context.category_assignments == {}
     assert context.all_clusters[0].skip_reason == "insufficient story context"
+
+
+def test_collect_pipeline_context_runs_duplicate_gate_in_full_mode(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path,
+) -> None:
+    article = make_article(
+        title="Acme announces a major acquisition",
+        url="https://example.com/acme",
+        summary=(
+            "Acme agreed to acquire Example Corp for $10 billion after its board approved "
+            "the transaction, which is expected to close after a regulatory review."
+        ),
+    )
+    _patch_fetch_and_stock(monkeypatch, [article])
+    monkeypatch.setattr(
+        pipeline,
+        "classify_clusters",
+        lambda candidates, **_kwargs: {
+            item.key: CategoryAssignment(
+                category="business_tech",
+                rationale="Corporate acquisition.",
+                llm_importance=80,
+            )
+            for item in candidates
+        },
+    )
+    calls: list[int] = []
+
+    def fake_gate(category_clusters, config, *, assignments, budget):
+        deck_size = sum(len(items) for items in category_clusters.values())
+        calls.append(deck_size)
+        return (
+            category_clusters,
+            [],
+            pipeline.DuplicateGateStats(deck_size=deck_size, eligible_pairs=1),
+        )
+
+    monkeypatch.setattr(pipeline, "apply_duplicate_gate", fake_gate)
+
+    context = asyncio.run(
+        pipeline.collect_pipeline_context(
+            minimal_config(),
+            openai_mode="full",
+            quality_gate_log_path=tmp_path / "quality.json",
+            category_assignments_log_path=tmp_path / "assignments.json",
+        )
+    )
+
+    assert calls == [1]
+    assert context.diagnostics.duplicate_gate_deck_size == 1
+    assert context.diagnostics.duplicate_gate_eligible_pairs == 1
 
 
 def test_collect_pipeline_context_writes_category_assignments_log(
@@ -867,7 +963,7 @@ def test_build_briefing_result_end_to_end_off_mode(monkeypatch: pytest.MonkeyPat
 
     assert isinstance(result.briefings, list)
     assert all(isinstance(section, BriefingSection) for section in result.briefings)
-    assert {section.category for section in result.briefings} == set(pipeline.CATEGORY_NAMES)
+    assert all(section.paragraphs or section.lead_lines for section in result.briefings)
     # off mode -> classify_clusters_fallback with no feed_categories signal ->
     # category "" -> the article doesn't land in any of the 5 sections, but the
     # pipeline still runs end-to-end without crashing and every section exists.

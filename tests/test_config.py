@@ -9,6 +9,7 @@ from news_agent.models import (
     BriefingParagraph,
     CompressionConfig,
     DraftingConfig,
+    DuplicateGateConfig,
     EnrichmentConfig,
     ExtractionPolicyConfig,
     OpenAICostConfig,
@@ -177,6 +178,42 @@ def test_default_drafting_config_matches_locked_model_and_output_cap() -> None:
 
     assert config.model == "gpt-5.6-terra"
     assert config.max_output_tokens_per_batch == 6000
+
+
+def test_default_duplicate_gate_config_matches_locked_values() -> None:
+    config = load_config(DEFAULT_CONFIG_PATH).duplicate_gate
+
+    assert config == DuplicateGateConfig()
+
+
+@pytest.mark.parametrize(
+    ("old", "new", "message"),
+    [
+        (
+            "candidate_title_jaccard_threshold = 0.20",
+            "candidate_title_jaccard_threshold = 1.1",
+            "duplicate_gate.candidate_title_jaccard_threshold",
+        ),
+        (
+            'reasoning_effort = "medium"',
+            'reasoning_effort = "minimal"',
+            "duplicate_gate.reasoning_effort",
+        ),
+        (
+            "max_component_size = 4",
+            "max_component_size = 1",
+            "duplicate_gate.max_component_size",
+        ),
+    ],
+)
+def test_config_rejects_invalid_duplicate_gate_settings(
+    tmp_path: Path,
+    old: str,
+    new: str,
+    message: str,
+) -> None:
+    with pytest.raises(ValueError, match=message):
+        load_config(_write_config_variant(tmp_path, old, new))
 
 
 def test_default_openai_cost_config_has_verified_prices_and_one_dollar_cap() -> None:

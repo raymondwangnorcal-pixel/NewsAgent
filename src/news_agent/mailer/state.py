@@ -13,7 +13,7 @@ from news_agent.mailer.models import DeliveryState, EmailEdition, RecipientOutco
 
 DEFAULT_STATE_PATH = Path("data/email_state.db")
 DEFAULT_LOCK_PATH = Path("data/email_state.lock")
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 
 def _now() -> str:
@@ -36,45 +36,66 @@ class EmailStateStore:
         if version > SCHEMA_VERSION:
             raise RuntimeError("Email state database was created by a newer NewsAgent version.")
         if version == 0:
+            self._create_schema(connection)
+        elif version == 1:
             connection.executescript(
                 """
-                CREATE TABLE editions (
-                    id INTEGER PRIMARY KEY,
-                    local_date TEXT NOT NULL UNIQUE,
-                    subject TEXT NOT NULL,
-                    plain_text TEXT NOT NULL,
-                    html TEXT NOT NULL,
-                    state TEXT NOT NULL,
-                    article_window_end TEXT NOT NULL,
-                    created_at TEXT NOT NULL,
-                    updated_at TEXT NOT NULL
-                );
-                CREATE TABLE edition_stories (
-                    edition_id INTEGER NOT NULL REFERENCES editions(id) ON DELETE CASCADE,
-                    story_id TEXT NOT NULL,
-                    category TEXT NOT NULL,
-                    position INTEGER NOT NULL,
-                    PRIMARY KEY (edition_id, story_id)
-                );
-                CREATE TABLE deliveries (
-                    edition_id INTEGER NOT NULL REFERENCES editions(id) ON DELETE CASCADE,
-                    recipient TEXT NOT NULL,
-                    state TEXT NOT NULL,
-                    error_code TEXT NOT NULL DEFAULT '',
-                    updated_at TEXT NOT NULL,
-                    PRIMARY KEY (edition_id, recipient)
-                );
-                CREATE TABLE quote_cache (
-                    ticker TEXT PRIMARY KEY,
-                    close_date TEXT NOT NULL,
-                    close_price REAL NOT NULL,
-                    previous_close REAL NOT NULL,
-                    provider TEXT NOT NULL,
-                    updated_at TEXT NOT NULL
-                );
+                ALTER TABLE edition_stories RENAME TO edition_stories_v1;
+                ALTER TABLE deliveries RENAME TO deliveries_v1;
+                ALTER TABLE editions RENAME TO editions_v1;
+                ALTER TABLE quote_cache RENAME TO quote_cache_v1;
+                """
+            )
+            self._create_schema(connection, commit=False)
+            connection.executescript(
+                """
+                INSERT INTO editions(id, local_date, revision, subject, plain_text, html, state, article_window_end, created_at, updated_at)
+                SELECT id, local_date, 1, subject, plain_text, html, state, article_window_end, created_at, updated_at FROM editions_v1;
+                INSERT INTO edition_stories(edition_id, story_id, category, position)
+                SELECT edition_id, story_id, category, position FROM edition_stories_v1;
+                INSERT INTO deliveries(edition_id, recipient, state, error_code, updated_at)
+                SELECT edition_id, recipient, state, error_code, updated_at FROM deliveries_v1;
+                INSERT INTO quote_cache(ticker, close_date, close_price, previous_close, provider, updated_at)
+                SELECT ticker, close_date, close_price, previous_close, provider, updated_at FROM quote_cache_v1;
+                DROP TABLE edition_stories_v1;
+                DROP TABLE deliveries_v1;
+                DROP TABLE editions_v1;
+                DROP TABLE quote_cache_v1;
                 """
             )
             connection.execute(f"PRAGMA user_version = {SCHEMA_VERSION}")
+            connection.commit()
+
+    def _create_schema(self, connection: sqlite3.Connection, commit: bool = True) -> None:
+        connection.executescript(
+            """
+            CREATE TABLE editions (
+                id INTEGER PRIMARY KEY,
+                local_date TEXT NOT NULL,
+                revision INTEGER NOT NULL DEFAULT 1,
+                subject TEXT NOT NULL, plain_text TEXT NOT NULL, html TEXT NOT NULL,
+                state TEXT NOT NULL, article_window_end TEXT NOT NULL,
+                created_at TEXT NOT NULL, updated_at TEXT NOT NULL,
+                UNIQUE(local_date, revision)
+            );
+            CREATE TABLE edition_stories (
+                edition_id INTEGER NOT NULL REFERENCES editions(id) ON DELETE CASCADE,
+                story_id TEXT NOT NULL, category TEXT NOT NULL, position INTEGER NOT NULL,
+                PRIMARY KEY (edition_id, story_id)
+            );
+            CREATE TABLE deliveries (
+                edition_id INTEGER NOT NULL REFERENCES editions(id) ON DELETE CASCADE,
+                recipient TEXT NOT NULL, state TEXT NOT NULL, error_code TEXT NOT NULL DEFAULT '', updated_at TEXT NOT NULL,
+                PRIMARY KEY (edition_id, recipient)
+            );
+            CREATE TABLE quote_cache (
+                ticker TEXT PRIMARY KEY, close_date TEXT NOT NULL, close_price REAL NOT NULL,
+                previous_close REAL NOT NULL, provider TEXT NOT NULL, updated_at TEXT NOT NULL
+            );
+            """
+        )
+        connection.execute(f"PRAGMA user_version = {SCHEMA_VERSION}")
+        if commit:
             connection.commit()
 
     @contextmanager
@@ -108,7 +129,7 @@ class EmailStateStore:
     ) -> EmailEdition:
         now = _now()
         with self.connect() as connection:
-            row = connection.execute("SELECT * FROM editions WHERE local_date = ?", (local_date,)).fetchone()
+            row = connection.execute("SELECT * FROM editions WHERE local_date = ? AND revision = 1", (local_date,)).fetchone()
             if row is None:
                 cursor = connection.execute(
                     """
@@ -123,6 +144,20 @@ class EmailStateStore:
                     [(edition_id, story_id, category, index) for index, (story_id, category) in enumerate(story_ids)],
                 )
                 row = connection.execute("SELECT * FROM editions WHERE id = ?", (edition_id,)).fetchone()
+            return _edition_from_row(row)
+
+    def prepare_test_revision(self, local_date: str, subject: str, plain_text: str, html: str, story_ids: list[tuple[str, str]]) -> EmailEdition:
+        now = _now()
+        with self.connect() as connection:
+            revision = int(connection.execute("SELECT COALESCE(MAX(revision), 0) + 1 FROM editions WHERE local_date = ?", (local_date,)).fetchone()[0])
+            subject = f"{subject} [Test resend #{revision}]"
+            cursor = connection.execute(
+                "INSERT INTO editions(local_date, revision, subject, plain_text, html, state, article_window_end, created_at, updated_at) VALUES (?, ?, ?, ?, ?, 'prepared', ?, ?, ?)",
+                (local_date, revision, subject, plain_text, html, now, now, now),
+            )
+            edition_id = int(cursor.lastrowid)
+            connection.executemany("INSERT INTO edition_stories(edition_id, story_id, category, position) VALUES (?, ?, ?, ?)", [(edition_id, story_id, category, index) for index, (story_id, category) in enumerate(story_ids)])
+            row = connection.execute("SELECT * FROM editions WHERE id = ?", (edition_id,)).fetchone()
             return _edition_from_row(row)
 
     def record_delivery(self, edition_id: int, outcome: RecipientOutcome) -> None:
@@ -194,6 +229,7 @@ def _edition_from_row(row: sqlite3.Row) -> EmailEdition:
     return EmailEdition(
         edition_id=int(row["id"]),
         local_date=str(row["local_date"]),
+        revision=int(row["revision"]),
         subject=str(row["subject"]),
         plain_text=str(row["plain_text"]),
         html=str(row["html"]),

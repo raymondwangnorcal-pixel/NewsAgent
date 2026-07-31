@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import socket
+import sqlite3
 import ssl
 from datetime import datetime, timezone
 from pathlib import Path
@@ -13,7 +14,7 @@ from news_agent.formatting import FormattedMessage
 from news_agent.mailer import quotes, service as mailer_service, watchlist_news
 from news_agent.mailer.models import EmailSettings, EmailWatchlistEntry, RecipientOutcome
 from news_agent.mailer.quotes import EndOfDayQuote, EodhdQuoteProvider, TiingoQuoteProvider, fetch_quote_with_fallback, fetch_quotes_with_shared_deadline
-from news_agent.mailer.render import render_parity_email, render_watchlist_section
+from news_agent.mailer.render import render_minimal_newsletter, render_parity_email, render_watchlist_section
 from news_agent.mailer.settings import email_settings_from_env
 from news_agent.mailer.smtp import send_email
 from news_agent.mailer.state import EmailStateStore
@@ -90,6 +91,41 @@ def test_parity_email_plain_text_is_header_and_exact_messages() -> None:
     assert "font-family: Helvetica, Arial, sans-serif" in rendered.html
 
 
+def test_native_newsletter_links_source_label_and_keeps_plain_text_url() -> None:
+    messages = [
+        FormattedMessage(
+            "Business + Tech",
+            "BUSINESS + TECH\n\nA substantive story.\n(via BBC)\nhttps://www.bbc.co.uk/news/example",
+        )
+    ]
+
+    rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-07-28")
+
+    assert "(via BBC)\nhttps://www.bbc.co.uk/news/example" in rendered.plain_text
+    assert '<a href="https://www.bbc.co.uk/news/example">(via BBC)</a>' in rendered.html
+    assert ">https://www.bbc.co.uk/news/example<" not in rendered.html
+    assert "<pre" not in rendered.html
+    assert 'font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif' in rendered.html
+    assert 'padding: 22px 0' in rendered.html
+
+
+def test_native_newsletter_links_each_source_in_merged_story() -> None:
+    messages = [
+        FormattedMessage(
+            "Global",
+            "GLOBAL\n\nA merged story.\n(via BBC, Reuters)\n"
+            "https://example.com/bbc, https://example.com/reuters",
+        )
+    ]
+
+    rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-07-28")
+
+    assert '<a href="https://example.com/bbc">BBC</a>' in rendered.html
+    assert '<a href="https://example.com/reuters">Reuters</a>' in rendered.html
+    assert ">https://example.com/bbc<" not in rendered.html
+    assert ">https://example.com/reuters<" not in rendered.html
+
+
 def test_email_settings_deduplicate_recipients(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("GMAIL_SMTP_HOST", "smtp.gmail.com")
     monkeypatch.setenv("GMAIL_SMTP_PORT", "587")
@@ -163,7 +199,64 @@ def test_state_store_reuses_local_date_edition(tmp_path: Path) -> None:
     second = store.prepare_edition("2026-07-25", "Changed", "Changed", "<p>Changed</p>", [])
 
     assert second.edition_id == first.edition_id
+    assert second.revision == 1
     assert second.plain_text == "Plain"
+
+
+def test_state_store_creates_isolated_test_revisions(tmp_path: Path) -> None:
+    store = EmailStateStore(tmp_path / "state.db")
+    original = store.prepare_edition("2026-07-25", "Subject", "Original", "<p>Original</p>", [("original", "finance")])
+    revision = store.prepare_test_revision("2026-07-25", "Subject", "Rebuilt", "<p>Rebuilt</p>", [("rebuilt", "finance")])
+    another_revision = store.prepare_test_revision("2026-07-25", "Subject", "Rebuilt again", "<p>Again</p>", [])
+
+    assert (original.revision, revision.revision, another_revision.revision) == (1, 2, 3)
+    assert store.edition(original.edition_id).plain_text == "Original"  # type: ignore[union-attr]
+    assert revision.subject == "Subject [Test resend #2]"
+    store.record_delivery(revision.edition_id, RecipientOutcome("to@example.com", "smtp_accepted"))
+    assert store.delivery_outcomes(original.edition_id) == []
+    assert store.delivery_outcomes(revision.edition_id)[0].state == "smtp_accepted"
+
+
+def test_state_store_migrates_v1_database_and_preserves_quote_cache(tmp_path: Path) -> None:
+    path = tmp_path / "state.db"
+    connection = sqlite3.connect(path)
+    connection.executescript(
+        """
+        CREATE TABLE editions (
+            id INTEGER PRIMARY KEY, local_date TEXT NOT NULL UNIQUE,
+            subject TEXT NOT NULL, plain_text TEXT NOT NULL, html TEXT NOT NULL,
+            state TEXT NOT NULL, article_window_end TEXT NOT NULL,
+            created_at TEXT NOT NULL, updated_at TEXT NOT NULL
+        );
+        CREATE TABLE edition_stories (
+            edition_id INTEGER NOT NULL REFERENCES editions(id) ON DELETE CASCADE,
+            story_id TEXT NOT NULL, category TEXT NOT NULL, position INTEGER NOT NULL,
+            PRIMARY KEY (edition_id, story_id)
+        );
+        CREATE TABLE deliveries (
+            edition_id INTEGER NOT NULL REFERENCES editions(id) ON DELETE CASCADE,
+            recipient TEXT NOT NULL, state TEXT NOT NULL, error_code TEXT NOT NULL DEFAULT '', updated_at TEXT NOT NULL,
+            PRIMARY KEY (edition_id, recipient)
+        );
+        CREATE TABLE quote_cache (
+            ticker TEXT PRIMARY KEY, close_date TEXT NOT NULL, close_price REAL NOT NULL,
+            previous_close REAL NOT NULL, provider TEXT NOT NULL, updated_at TEXT NOT NULL
+        );
+        INSERT INTO editions VALUES (1, '2026-07-25', 'Subject', 'Plain', '<p>HTML</p>', 'smtp_accepted', 'x', 'x', 'x');
+        INSERT INTO deliveries VALUES (1, 'to@example.com', 'smtp_accepted', '', 'x');
+        INSERT INTO quote_cache VALUES ('AAPL', '2026-07-24', 100, 99, 'Tiingo', 'x');
+        PRAGMA user_version = 1;
+        """
+    )
+    connection.commit()
+    connection.close()
+
+    store = EmailStateStore(path)
+    migrated = store.edition(1)
+
+    assert migrated is not None and migrated.revision == 1
+    assert store.delivery_outcomes(1)[0].recipient == "to@example.com"
+    assert store.cached_quote("AAPL") == ("2026-07-24", 100.0, 99.0, "Tiingo")
 
 
 def test_first_recipient_acceptance_remains_the_edition_watermark(tmp_path: Path) -> None:
@@ -211,12 +304,29 @@ def test_automatic_send_does_not_retry_indeterminate_recipient(tmp_path: Path, m
     assert service.send_edition(edition) == [RecipientOutcome("to@example.com", "indeterminate", "network_error")]
 
 
+def test_confirmed_resend_retries_an_accepted_recipient(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    store = EmailStateStore(tmp_path / "state.db")
+    service = mailer_service.EmailService(store)
+    edition = store.prepare_edition("2026-07-25", "Subject", "Plain", "<p>HTML</p>", [])
+    store.record_delivery(edition.edition_id, RecipientOutcome("to@example.com", "smtp_accepted"))
+    monkeypatch.setattr(mailer_service, "email_settings_from_env", lambda: smtp_settings())
+    monkeypatch.setattr(
+        mailer_service,
+        "send_email",
+        lambda _settings, recipient, *_args, **_kwargs: RecipientOutcome(recipient, "smtp_accepted"),
+    )
+
+    assert service.resend(edition.edition_id, confirmed=True) == [RecipientOutcome("to@example.com", "smtp_accepted")]
+
+
 def test_status_reports_failed_not_stranded_sending(tmp_path: Path) -> None:
     store = EmailStateStore(tmp_path / "state.db")
     edition = store.prepare_edition("2026-07-25", "Subject", "Plain", "<p>HTML</p>", [])
     store.record_delivery(edition.edition_id, RecipientOutcome("to@example.com", "failed", "dns_failure"))
 
-    assert "to@example.com: failed" in mailer_service.EmailService(store).status_lines()[0]
+    status = mailer_service.EmailService(store).status_lines()[0]
+    assert "r1" in status
+    assert "to@example.com: failed" in status
 
 
 def test_email_watchlist_rejects_more_than_ten_entries(tmp_path: Path) -> None:

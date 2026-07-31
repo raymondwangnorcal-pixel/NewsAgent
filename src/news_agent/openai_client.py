@@ -36,6 +36,7 @@ def request_structured_response(
     max_output_tokens: int,
     budget: OpenAIBudget,
     use_watchlist_reserve: bool = False,
+    reasoning_effort: str = "",
 ) -> StructuredResponseOutcome:
     """Make one budgeted Responses API request with uniform failure reporting."""
 
@@ -60,13 +61,13 @@ def request_structured_response(
         return StructuredResponseOutcome(error_code=error_code)
 
     try:
-        response = OpenAI().responses.create(
-            model=configured_openai_model(default_model),
-            input=[
+        request_options: dict[str, Any] = {
+            "model": configured_openai_model(default_model),
+            "input": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_payload},
             ],
-            text={
+            "text": {
                 "format": {
                     "type": "json_schema",
                     "name": schema_name,
@@ -74,7 +75,12 @@ def request_structured_response(
                     "schema": schema,
                 }
             },
-            max_output_tokens=max_output_tokens,
+            "max_output_tokens": max_output_tokens,
+        }
+        if reasoning_effort:
+            request_options["reasoning"] = {"effort": reasoning_effort}
+        response = OpenAI().responses.create(
+            **request_options,
         )
     except Exception:
         error_code = f"{stage}_api_error"
@@ -88,6 +94,10 @@ def request_structured_response(
         _usage_value(usage, "input_tokens"),
         _usage_value(usage, "output_tokens"),
     )
+    if getattr(response, "status", "") == "incomplete":
+        error_code = f"{stage}_incomplete_response"
+        budget.record_failure(budget_stage, error_code)
+        return StructuredResponseOutcome(error_code=error_code)
     budget.record_success(budget_stage)
     return StructuredResponseOutcome(response=response)
 

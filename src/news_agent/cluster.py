@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import re
+from dataclasses import dataclass
 from datetime import datetime, timezone
 
-from news_agent.models import Article, StoryCluster
+from news_agent.models import Article, DuplicateGateConfig, StoryCluster
 
 
 STOPWORDS = {
@@ -67,6 +68,89 @@ ENTITY_STOPWORDS = {
     "Tuesday",
     "Wednesday",
 }
+GENERIC_GATE_ENTITIES = frozenset(
+    {
+        "AI",
+        "AP",
+        "BBC",
+        "CEO",
+        "CFO",
+        "CNN",
+        "COO",
+        "CTO",
+        "ETF",
+        "EU",
+        "GDP",
+        "IPO",
+        "REUTERS",
+        "UK",
+        "US",
+        "USA",
+    }
+)
+GENERIC_GATE_ENTITY_WORDS = STOPWORDS | {
+    "according",
+    "all",
+    "another",
+    "april",
+    "aug",
+    "august",
+    "both",
+    "but",
+    "december",
+    "during",
+    "feb",
+    "february",
+    "following",
+    "january",
+    "july",
+    "june",
+    "march",
+    "may",
+    "months",
+    "nov",
+    "november",
+    "now",
+    "october",
+    "once",
+    "only",
+    "people",
+    "she",
+    "some",
+    "sept",
+    "september",
+    "subject",
+    "target",
+    "that",
+    "there",
+    "they",
+    "this",
+    "when",
+    "whether",
+    "while",
+    "will",
+    "would",
+}
+RETROSPECTIVE_TITLE_MARKERS = (
+    "timeline",
+    "explainer",
+    "explained",
+    "everything we know",
+    "what to know",
+    "what we know",
+    "a look at",
+    "recap",
+)
+
+
+@dataclass(frozen=True)
+class DuplicateGatePair:
+    left: StoryCluster
+    right: StoryCluster
+    title_jaccard: float
+    shared_entities: tuple[str, ...]
+    shared_event_terms: tuple[str, ...]
+    hours_apart: float
 
 
 def strip_source_names(title: str, source: str = "") -> str:
@@ -172,6 +256,91 @@ def different_development(article: Article, cluster: StoryCluster, title_score: 
     return False
 
 
+def clusters_are_different_developments(
+    left: StoryCluster,
+    right: StoryCluster,
+    title_score: float,
+) -> bool:
+    if not (cluster_entities(left) & cluster_entities(right)) or title_score >= 0.32:
+        return False
+    left_events = cluster_event_terms(left)
+    right_events = cluster_event_terms(right)
+    return bool(left_events and right_events and left_events.isdisjoint(right_events))
+
+
+def specific_shared_entities(left: StoryCluster, right: StoryCluster) -> set[str]:
+    left_entities = cluster_entities(left)
+    right_entities = cluster_entities(right)
+    shared = left_entities & right_entities
+    exact_entities = {
+        entity
+        for entity in shared
+        if not (
+            (tokens := {token.upper() for token in TOKEN_RE.findall(entity.casefold())})
+            and (
+                tokens <= GENERIC_GATE_ENTITIES
+                or all(token.casefold() in GENERIC_GATE_ENTITY_WORDS for token in tokens)
+                or all(len(token) == 1 for token in tokens)
+            )
+        )
+    }
+    left_tokens = {
+        token.casefold()
+        for entity in left_entities
+        for token in TOKEN_RE.findall(entity)
+        if len(token) >= 3 and any(character.isdigit() for character in token)
+    }
+    right_tokens = {
+        token.casefold()
+        for entity in right_entities
+        for token in TOKEN_RE.findall(entity)
+        if len(token) >= 3 and any(character.isdigit() for character in token)
+    }
+    return exact_entities or (left_tokens & right_tokens)
+
+
+def duplicate_gate_candidates(
+    clusters: list[StoryCluster],
+    config: DuplicateGateConfig,
+) -> list[DuplicateGatePair]:
+    pairs: list[DuplicateGatePair] = []
+    for left_index, left in enumerate(clusters):
+        for right in clusters[left_index + 1 :]:
+            elapsed_hours = hours_apart(left.latest_published_at, right.latest_published_at)
+            if elapsed_hours > config.candidate_window_hours:
+                continue
+            shared_entities = specific_shared_entities(left, right)
+            if not shared_entities:
+                continue
+            title_score = jaccard(cluster_tokens(left), cluster_tokens(right))
+            shared_events = cluster_event_terms(left) & cluster_event_terms(right)
+            if (
+                title_score < config.candidate_title_jaccard_threshold
+                and not shared_events
+            ):
+                continue
+            if clusters_are_different_developments(left, right, title_score):
+                continue
+            pairs.append(
+                DuplicateGatePair(
+                    left=left,
+                    right=right,
+                    title_jaccard=title_score,
+                    shared_entities=tuple(sorted(shared_entities)),
+                    shared_event_terms=tuple(sorted(shared_events)),
+                    hours_apart=elapsed_hours,
+                )
+            )
+    return sorted(
+        pairs,
+        key=lambda pair: (
+            -len(pair.shared_entities),
+            -pair.title_jaccard,
+            *sorted((story_key(pair.left.articles[0]), story_key(pair.right.articles[0]))),
+        ),
+    )
+
+
 def article_cluster_similarity(article: Article, cluster: StoryCluster) -> float:
     title_score = jaccard(article_tokens(article), cluster_tokens(cluster))
     entity_score = jaccard(extract_entities(f"{article.title} {article.summary}"), cluster_entities(cluster))
@@ -191,6 +360,26 @@ def choose_canonical_headline(articles: list[Article]) -> str:
             item.reputation,
             -int(any(word in item.title.lower() for word in ("live", "updates", "latest"))),
             min(len(item.title), 120),
+        ),
+        reverse=True,
+    )
+    return ranked[0].title
+
+
+def is_retrospective_title(title: str) -> bool:
+    lowered = title.lower()
+    return any(marker in lowered for marker in RETROSPECTIVE_TITLE_MARKERS)
+
+
+def choose_merged_headline(articles: list[Article]) -> str:
+    if not articles:
+        return ""
+    ranked = sorted(
+        articles,
+        key=lambda item: (
+            not is_retrospective_title(item.title),
+            item.reputation,
+            item.published_at,
         ),
         reverse=True,
     )

@@ -30,6 +30,7 @@ from news_agent.compression_audit import (
 )
 from news_agent.config import load_config
 from news_agent.draft import DraftCandidate, DraftRunResult, draft_paragraphs_result
+from news_agent.duplicate_gate import DuplicateGateStats, apply_duplicate_gate
 from news_agent.enrichment import enrich_clusters, select_enrichment_clusters
 from news_agent.evidence import apply_cluster_evidence_scores, rank_articles_by_evidence
 from news_agent.fetch import fetch_all_feeds
@@ -641,14 +642,39 @@ async def collect_pipeline_context(
         assignments.update(backfill_assignments)
         apply_category_assignments(backfill, backfill_assignments)
         apply_importance(backfill, backfill_assignments, config.importance)
+    selection_result = select_importance_deck(clusters, config, minimum_evidence)
+    category_clusters = selection_result.category_clusters
+    selection_underfilled_reason = deck_underfilled_reason(selection_result, clusters, config)
+    duplicate_gate_stats = DuplicateGateStats()
+    if config.duplicate_gate.enabled and capabilities.classify and capabilities.draft:
+        category_clusters, removed_clusters, duplicate_gate_stats = apply_duplicate_gate(
+            category_clusters,
+            config,
+            assignments=assignments,
+            budget=budget,
+        )
+        if removed_clusters:
+            removed_ids = {id(cluster) for cluster in removed_clusters}
+            clusters = [cluster for cluster in clusters if id(cluster) not in removed_ids]
+
+    # Write after the duplicate gate so merged outlier decisions are represented
+    # by the surviving story key in the audit log.
     resolved_category_assignments_log_path = category_assignments_log_path or default_category_assignments_path()
     write_category_assignments(assignments, resolved_category_assignments_log_path)
 
-    selection_result = select_importance_deck(clusters, config, minimum_evidence)
-    category_clusters = selection_result.category_clusters
     history_suppressed = [cluster for cluster in clusters if "stale/repeated" in cluster.skip_reason]
     insufficient = [cluster for cluster in clusters if cluster.skip_reason == "insufficient story context"]
     selected_counts = {category: len(category_clusters[category]) for category in CATEGORY_NAMES}
+    merged_deck_count = sum(selected_counts.values())
+    if duplicate_gate_stats.clusters_removed and merged_deck_count < config.importance.deck_target:
+        merge_reason = "duplicate_gate_merged_stories"
+        final_underfilled_reason = (
+            f"{selection_underfilled_reason}; {merge_reason}"
+            if selection_underfilled_reason
+            else merge_reason
+        )
+    else:
+        final_underfilled_reason = selection_underfilled_reason
     underfilled_reasons = underfilled_reasons_by_category(
         clusters,
         category_clusters,
@@ -691,8 +717,18 @@ async def collect_pipeline_context(
             big_day_selected_by_category=selection_result.big_day_selected_by_category,
             source_cap_relaxed_by_category=selection_result.source_cap_relaxed_by_category,
             deck_target=config.importance.deck_target,
-            deck_selected=selection_result.selected_count,
-            deck_underfilled_reason=deck_underfilled_reason(selection_result, clusters, config),
+            deck_selected=merged_deck_count,
+            deck_underfilled_reason=final_underfilled_reason,
+            duplicate_gate_deck_size=duplicate_gate_stats.deck_size,
+            duplicate_gate_eligible_pairs=duplicate_gate_stats.eligible_pairs,
+            duplicate_gate_candidate_components=duplicate_gate_stats.candidate_components,
+            duplicate_gate_clusters_offered=duplicate_gate_stats.clusters_offered,
+            duplicate_gate_components_dropped=duplicate_gate_stats.components_dropped,
+            duplicate_gate_sets_returned=duplicate_gate_stats.sets_returned,
+            duplicate_gate_sets_rejected=duplicate_gate_stats.sets_rejected,
+            duplicate_gate_sets_merged=duplicate_gate_stats.sets_merged,
+            duplicate_gate_clusters_removed=duplicate_gate_stats.clusters_removed,
+            duplicate_gate_cross_category_merges=duplicate_gate_stats.cross_category_merges,
             openai_input_tokens=budget.input_tokens,
             openai_output_tokens=budget.output_tokens,
             openai_cost_usd=round(budget.cost_usd, 6),
@@ -786,6 +822,18 @@ def _finance_lead_lines(stock_snapshot: object) -> tuple[str, ...]:
     return tuple(quote_for(symbol).compact() for symbol in mega_caps[:FINANCE_LEAD_TICKER_COUNT])
 
 
+def _diverse_article_order(articles: tuple[Article, ...]) -> tuple[Article, ...]:
+    ranked = rank_articles_by_evidence(list(articles))
+    chosen: list[Article] = []
+    seen_sources: set[str] = set()
+    for article in ranked:
+        if article.source not in seen_sources:
+            chosen.append(article)
+            seen_sources.add(article.source)
+    chosen.extend(article for article in ranked if article not in chosen)
+    return tuple(chosen)
+
+
 def build_draft_candidates(
     category_clusters: dict[str, list[StoryCluster]],
     category_assignments: dict[str, CategoryAssignment],
@@ -798,9 +846,19 @@ def build_draft_candidates(
             articles = tuple(article for article in cluster.articles if article.url not in outlier_urls) or tuple(
                 cluster.articles
             )
-            articles = tuple(rank_articles_by_evidence(articles))
+            articles = (
+                _diverse_article_order(articles)
+                if cluster.merged_from
+                else tuple(rank_articles_by_evidence(articles))
+            )
             candidates.append(
-                DraftCandidate(story_id=cluster.key, category=category, title=cluster.title, articles=articles)
+                DraftCandidate(
+                    story_id=cluster.key,
+                    category=category,
+                    title=cluster.title,
+                    articles=articles,
+                    is_merged=bool(cluster.merged_from),
+                )
             )
     return candidates
 
@@ -818,11 +876,14 @@ def build_briefing_sections(
     for category in CATEGORY_NAMES:
         label = config.categories[category].label if category in config.categories else category
         lead_lines = _finance_lead_lines(stock_snapshot) if category == "finance" else ()
+        category_paragraphs = tuple(by_category.get(category, ()))
+        if not category_paragraphs and not (category == "finance" and lead_lines):
+            continue
         sections.append(
             BriefingSection(
                 category=category,
                 label=label,
-                paragraphs=tuple(by_category.get(category, ())),
+                paragraphs=category_paragraphs,
                 lead_lines=lead_lines,
             )
         )

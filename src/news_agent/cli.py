@@ -63,6 +63,7 @@ def main(argv: list[str] | None = None) -> None:
     )
     parser.add_argument("--email-status", action="store_true", help="Print recent email delivery outcomes and exit.")
     parser.add_argument("--email-resend", type=int, metavar="EDITION_ID", help="Resend a stored email edition.")
+    parser.add_argument("--email-rebuild-today", action="store_true", help="Build and send a fresh same-day Gmail test revision.")
     parser.add_argument("--confirm", action="store_true", help="Confirm a potentially duplicate email resend.")
     parser.add_argument(
         "--scheduled",
@@ -117,6 +118,8 @@ def main(argv: list[str] | None = None) -> None:
         parser.error("--email-parity requires --to email or --to both")
     if args.scheduled and (not args.send or args.to != "email"):
         parser.error("--scheduled requires --send with --to email")
+    if args.email_rebuild_today and (not args.send or args.to != "email" or not args.confirm or args.scheduled or args.email_resend is not None):
+        parser.error("--email-rebuild-today requires --send --to email --confirm and cannot be scheduled or combined with --email-resend")
     if args.email_status:
         if args.dry_run or args.send or args.alerts or args.email_resend is not None:
             parser.error("--email-status cannot be combined with delivery options")
@@ -214,8 +217,8 @@ def main(argv: list[str] | None = None) -> None:
         config=config,
         watchlist_path=args.watchlist,
         history_path=args.history_path,
-        ignore_history=args.ignore_history,
-        persist_history=args.send,
+        persist_history=args.send and not args.email_rebuild_today,
+        ignore_history=args.ignore_history or args.email_rebuild_today,
     )
     options = FormatOptions.from_config(config.formatting, mode=format_mode)
     formatted_messages = format_briefing_previews(result.briefings, options=options)
@@ -254,6 +257,17 @@ def main(argv: list[str] | None = None) -> None:
                     print(message)
                 print("\n===== EMAIL PLAIN TEXT =====")
             print(plain_text, end="")
+            if args.show_skipped:
+                if result.source_debug_lines:
+                    print()
+                    print("Source distribution")
+                    for line in result.source_debug_lines:
+                        print(line)
+                print_quality_gate_rejections(getattr(result, "quality_gate_rejections", ()))
+                print()
+                print(format_skipped_table(result.skipped_stories))
+            if args.show_diagnostics:
+                print_diagnostics(diagnostics)
             return
         if format_mode == "console":
             print(format_console_preview(formatted_messages))
@@ -283,14 +297,18 @@ def main(argv: list[str] | None = None) -> None:
                 options=FormatOptions.from_config(config.formatting, mode="email"),
             )
             budget = getattr(result, "openai_budget", None) or OpenAIBudget(config.openai_costs)
+            header = f"Morning Briefing - {briefing_today().isoformat()}"
+            if args.email_rebuild_today:
+                header += " [Test resend]"
             edition = (
-                service.prepare_parity_edition(email_messages, f"Morning Briefing - {briefing_today().isoformat()}")
+                service.prepare_parity_edition(email_messages, header, test_revision=args.email_rebuild_today)
                 if args.email_parity
                 else service.prepare_newsletter_edition(
                     email_messages,
-                    f"Morning Briefing - {briefing_today().isoformat()}",
+                    header,
                     config.enrichment,
                     budget,
+                    test_revision=args.email_rebuild_today,
                 )
             )
             outcomes = service.send_edition(edition)
@@ -369,6 +387,20 @@ def print_diagnostics(diagnostics: object) -> None:
     print(f"OpenAI cost by stage: {getattr(diagnostics, 'openai_cost_by_stage', {})}")
     print(f"OpenAI stage outcomes: {getattr(diagnostics, 'openai_stage_outcomes', {})}")
     print(f"Overall OpenAI budget exhausted: {getattr(diagnostics, 'openai_budget_exhausted', False)}")
+    print("Duplicate-event gate")
+    for field_name in (
+        "duplicate_gate_deck_size",
+        "duplicate_gate_eligible_pairs",
+        "duplicate_gate_candidate_components",
+        "duplicate_gate_clusters_offered",
+        "duplicate_gate_components_dropped",
+        "duplicate_gate_sets_returned",
+        "duplicate_gate_sets_rejected",
+        "duplicate_gate_sets_merged",
+        "duplicate_gate_clusters_removed",
+        "duplicate_gate_cross_category_merges",
+    ):
+        print(f"{field_name}: {getattr(diagnostics, field_name, 0)}")
     print("Feed-hint pipeline")
     for field_name in (
         "fetched_articles_by_feed_hint",

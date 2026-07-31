@@ -108,6 +108,16 @@ unchanged and does not require market-data keys. It is a temporary bridge;
 native email delivery is `news-briefing --send --to email` after both quote
 provider keys are configured.
 
+To send a fresh, same-day Gmail test revision without changing briefing
+history or replacing the original edition, run:
+
+```bash
+news-briefing --send --to email --email-rebuild-today --confirm
+```
+
+Each invocation creates a separately tracked `Test resend` revision. It is
+manual-only and cannot run through the scheduler.
+
 To schedule native Telegram-plus-email delivery locally, copy
 `scripts/com.newsagent.briefing.plist` to `~/Library/LaunchAgents/` and load it
 with `launchctl load ~/Library/LaunchAgents/com.newsagent.briefing.plist`.

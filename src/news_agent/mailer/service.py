@@ -27,10 +27,12 @@ class EmailService:
     def render_parity(self, messages: list[FormattedMessage], header: str) -> RenderedEmail:
         return render_parity_email(messages, header)
 
-    def prepare_parity_edition(self, messages: list[FormattedMessage], header: str) -> EmailEdition:
+    def prepare_parity_edition(self, messages: list[FormattedMessage], header: str, *, test_revision: bool = False) -> EmailEdition:
         rendered = self.render_parity(messages, header)
         today = briefing_now().date().isoformat()
         story_ids = [(message.title, "general") for message in messages]
+        if test_revision:
+            return self.store.prepare_test_revision(today, rendered.subject, rendered.plain_text, rendered.html, story_ids)
         return self.store.prepare_edition(today, rendered.subject, rendered.plain_text, rendered.html, story_ids)
 
     def prepare_newsletter_edition(
@@ -39,11 +41,15 @@ class EmailService:
         header: str,
         enrichment_config: EnrichmentConfig,
         budget: OpenAIBudget,
+        *,
+        test_revision: bool = False,
     ) -> EmailEdition:
         rendered, stories = self.render_newsletter(messages, header, enrichment_config, budget)
         today = briefing_now().date().isoformat()
         story_ids = [(message.title, "general") for message in messages]
         story_ids.extend((story.ticker, "watchlist") for story in stories)
+        if test_revision:
+            return self.store.prepare_test_revision(today, rendered.subject, rendered.plain_text, rendered.html, story_ids)
         return self.store.prepare_edition(today, rendered.subject, rendered.plain_text, rendered.html, story_ids)
 
     def render_newsletter(
@@ -87,6 +93,7 @@ class EmailService:
         smtp_factory: SMTPFactory | None = None,
         *,
         retry_indeterminate: bool = False,
+        force_resend: bool = False,
     ) -> list[RecipientOutcome]:
         settings = email_settings_from_env()
         outcomes: list[RecipientOutcome] = []
@@ -94,9 +101,9 @@ class EmailService:
             for recipient in settings.recipients:
                 previous = {outcome.recipient: outcome for outcome in self.store.delivery_outcomes(edition.edition_id)}
                 previous_outcome = previous.get(recipient, RecipientOutcome(recipient, "prepared"))
-                if previous_outcome.state == "smtp_accepted" or (
+                if not force_resend and (previous_outcome.state == "smtp_accepted" or (
                     previous_outcome.state == "indeterminate" and not retry_indeterminate
-                ):
+                )):
                     outcomes.append(previous_outcome)
                     continue
                 self.store.record_delivery(edition.edition_id, RecipientOutcome(recipient, "sending"))
@@ -127,7 +134,7 @@ class EmailService:
         for edition in self.store.latest_editions(limit):
             outcomes = self.store.delivery_outcomes(edition.edition_id)
             recipient_state = ", ".join(f"{item.recipient}: {item.state}" for item in outcomes) or "no recipients"
-            lines.append(f"{edition.edition_id} | {edition.local_date} | {edition.state} | {recipient_state}")
+            lines.append(f"{edition.edition_id} | {edition.local_date} r{edition.revision} | {edition.state} | {recipient_state}")
         return lines
 
     def resend(self, edition_id: int, confirmed: bool) -> list[RecipientOutcome]:
@@ -136,4 +143,4 @@ class EmailService:
         edition = self.store.edition(edition_id)
         if edition is None:
             raise ValueError(f"Unknown email edition: {edition_id}")
-        return self.send_edition(edition, retry_indeterminate=True)
+        return self.send_edition(edition, retry_indeterminate=True, force_resend=True)

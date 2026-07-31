@@ -105,6 +105,43 @@ def test_cli_dry_run_prints_messages(monkeypatch: pytest.MonkeyPatch, tmp_path, 
     assert "An AI startup raised a large funding round" in output
 
 
+def test_cli_email_dry_run_prints_requested_diagnostics(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path,
+    capsys,
+) -> None:
+    monkeypatch.chdir(tmp_path)
+    diagnostics = PipelineDiagnostics(
+        duplicate_gate_deck_size=10,
+        duplicate_gate_sets_merged=1,
+    )
+    monkeypatch.setattr(
+        cli,
+        "build_briefing_result_sync",
+        lambda **_kwargs: SimpleNamespace(
+            briefings=sample_briefings(),
+            skipped_stories=[],
+            skipped_log_path=Path("skipped.json"),
+            source_debug_lines=(),
+            diagnostics=diagnostics,
+            openai_budget=None,
+        ),
+    )
+
+    class FakeEmailService:
+        def render_newsletter(self, *_args, **_kwargs):
+            return SimpleNamespace(plain_text="EMAIL PREVIEW\n"), []
+
+    monkeypatch.setattr(cli, "EmailService", FakeEmailService)
+
+    cli.main(["--dry-run", "--to", "email", "--show-diagnostics", "--no-openai"])
+
+    output = capsys.readouterr().out
+    assert "EMAIL PREVIEW" in output
+    assert "duplicate_gate_deck_size: 10" in output
+    assert "duplicate_gate_sets_merged: 1" in output
+
+
 def test_cli_send_no_openai_uses_configured_sender(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:
     monkeypatch.chdir(tmp_path)
     calls: dict[str, object] = {}
@@ -148,6 +185,59 @@ def test_scheduled_email_before_threshold_skips_pipeline(monkeypatch: pytest.Mon
     cli.main(["--send", "--to", "email", "--email-parity", "--scheduled", "--no-openai"])
 
     assert "8:20–8:35 AM" in capsys.readouterr().out
+
+
+@pytest.mark.parametrize(
+    "argv",
+    [
+        ["--email-rebuild-today"],
+        ["--send", "--to", "email", "--email-rebuild-today"],
+        ["--send", "--to", "email", "--confirm", "--email-rebuild-today", "--scheduled"],
+        ["--send", "--to", "email", "--confirm", "--email-rebuild-today", "--email-resend", "1"],
+    ],
+)
+def test_email_rebuild_today_requires_explicit_manual_email_send(argv: list[str], capsys: pytest.CaptureFixture[str]) -> None:
+    with pytest.raises(SystemExit):
+        cli.main(argv)
+
+    assert "--email-rebuild-today requires --send --to email --confirm" in capsys.readouterr().err
+
+
+def test_email_rebuild_today_uses_fresh_build_without_persisting_history(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.chdir(tmp_path)
+    calls: dict[str, object] = {}
+
+    def fake_build(**kwargs: object) -> object:
+        calls.update(kwargs)
+        return SimpleNamespace(
+            briefings=sample_briefings(), skipped_stories=[], skipped_log_path=Path("skipped.json"), source_debug_lines=()
+        )
+
+    class FakeEmailService:
+        def render_parity(self, *_args: object) -> object:
+            return SimpleNamespace(plain_text="preview")
+
+        def prepare_parity_edition(self, _messages: object, header: str, *, test_revision: bool) -> object:
+            calls["header"] = header
+            calls["test_revision"] = test_revision
+            return object()
+
+        def send_edition(self, _edition: object) -> list[object]:
+            return [SimpleNamespace(state="smtp_accepted")]
+
+    monkeypatch.setattr(cli, "build_briefing_result_sync", fake_build)
+    monkeypatch.setattr(cli, "email_settings_from_env", lambda: object())
+    monkeypatch.setattr(cli, "EmailService", FakeEmailService)
+
+    cli.main(["--send", "--to", "email", "--email-parity", "--email-rebuild-today", "--confirm", "--no-openai"])
+
+    assert calls["ignore_history"] is True
+    assert calls["persist_history"] is False
+    assert calls["test_revision"] is True
+    assert "[Test resend]" in str(calls["header"])
+    assert "Sent email to 1 recipient(s)." in capsys.readouterr().out
 
 
 def test_cli_openai_mode_choices_reject_polish(capsys: pytest.CaptureFixture[str]) -> None:
@@ -249,6 +339,16 @@ def test_cli_prints_importance_phase_diagnostics(capsys: pytest.CaptureFixture[s
         big_day_selected_by_category={"culture": 1},
         deck_target=25,
         deck_selected=25,
+        duplicate_gate_deck_size=25,
+        duplicate_gate_eligible_pairs=4,
+        duplicate_gate_candidate_components=2,
+        duplicate_gate_clusters_offered=4,
+        duplicate_gate_components_dropped=0,
+        duplicate_gate_sets_returned=1,
+        duplicate_gate_sets_rejected=0,
+        duplicate_gate_sets_merged=1,
+        duplicate_gate_clusters_removed=1,
+        duplicate_gate_cross_category_merges=0,
     ))
 
     output = capsys.readouterr().out
@@ -264,6 +364,16 @@ def test_cli_prints_importance_phase_diagnostics(capsys: pytest.CaptureFixture[s
     assert "Total OpenAI cost: $0.022000" in output
     assert "OpenAI cost by stage: {'classification': 0.0165, 'drafting': 0.0055}" in output
     assert "Overall OpenAI budget exhausted: False" in output
+    assert "duplicate_gate_deck_size: 25" in output
+    assert "duplicate_gate_eligible_pairs: 4" in output
+    assert "duplicate_gate_candidate_components: 2" in output
+    assert "duplicate_gate_clusters_offered: 4" in output
+    assert "duplicate_gate_components_dropped: 0" in output
+    assert "duplicate_gate_sets_returned: 1" in output
+    assert "duplicate_gate_sets_rejected: 0" in output
+    assert "duplicate_gate_sets_merged: 1" in output
+    assert "duplicate_gate_clusters_removed: 1" in output
+    assert "duplicate_gate_cross_category_merges: 0" in output
     assert "Deck: 25/25 (full)" in output
 
 

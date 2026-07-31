@@ -307,6 +307,15 @@ canonical edition.
   `config/sources.toml` and delete the `.env` override so the config file
   describes actual behavior.
 
+### D16 — Same-day email rebuilds are explicit test revisions
+
+Provide `news-briefing --send --to email --email-rebuild-today --confirm` for
+manual Gmail testing. It builds against live sources with history suppression
+disabled, never writes the shared briefing history, and stores a new immutable
+same-day revision rather than altering the original edition. Label the subject
+and header `Test resend`; retain independent delivery outcomes for every
+revision. The scheduler and normal resend command must reject this mode.
+
 ## Key Changes
 
 - Add `config/email_watchlist.json` for up to ten valid U.S.-listed stock,
@@ -335,6 +344,8 @@ canonical edition.
   --dry-run` renders the exact multipart content without writing delivery state;
   `--to both --dry-run` renders both channel projections.
 - Add `--email-status` (D13) and `--email-resend <edition-id> --confirm` (D12).
+- Add `--email-rebuild-today --send --to email --confirm` for a fresh,
+  manually initiated same-day test revision (D16).
 - Route all date and time resolution through `briefing_now()` /
   `briefing_today()` (D8).
 - Reserve `watchlist_reserve_usd` from the run budget (D3). When the
@@ -407,6 +418,9 @@ Ordered. Item 1 precedes any change to `pipeline.py`.
 11. Verify manually, in order: a live `--to email --dry-run`, a static SMTP
     test, a two-recipient parity send, a missed-edition catch-up preview, and a
     scheduled `launchd` dry run before enabling the live daily job.
+12. Test a same-day `--email-rebuild-today` send: confirm it is labelled as a
+    test revision, uses live unsuppressed input, leaves shared history intact,
+    and leaves the original edition unchanged.
 
 ## Assumptions
 
