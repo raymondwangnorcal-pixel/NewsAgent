@@ -1,77 +1,57 @@
 # NewsAgent Handoff
 
-Last updated: 2026-07-31T15:39:36-04:00
+Last updated: 2026-07-31T17:12:48-04:00
 
 ## Current Goal
 
-Prepare and then implement `docs/plans/watchlist-retrieval-reliability.md`: a reliable Gmail Watchlist that retrieves each distinct ticker once per day, reports only verified material events with correct entity relationships and source attribution, and can later fan results out to roughly 100 users. No implementation of this plan has begun.
+Finish release validation for the V1 Watchlist reliability implementation on `feat/watchlist-retrieval`. The code is committed and Gate A correctly defaults to `DISABLED`; the immediate blocker is the absent local `SEC_CONTACT_EMAIL`, which prevents the required native-email no-send run.
 
 ## Accomplished This Session
 
-No product code changed in this handoff-only session. The repository audit confirmed that the Watchlist plan remains committed as `f740609 docs(watchlist): finalize retrieval reliability plan`; `docs/decisions.md` still contains DEC-0001 through DEC-0039, all with `Implementation: pending`, and its schema, lifecycle, privacy, and Git metadata validation passes. Existing email deduplication and resend work remains checkpointed as `9ab29f9 feat(email): checkpoint deduplication and resend hardening`. The linked implementation branch, `feat/watchlist-retrieval`, still points to that checkpoint; the active repository root remains on `chore/pre-watchlist-checkpoint`. The earlier clean implementation-worktree test result was `370 passed in 0.47s`.
+Implemented the Watchlist inside `src/news_agent/watchlist/` and committed it as `ba59a3f feat(watchlist): implement reliable retrieval and gate`. The implementation adds the verified nine-ticker entity map and ambiguity queue, observed-form EDGAR processing, required SEC contact validation, conditional response reuse, per-CIK catch-up watermarks, content evaluation for Form 6-K, distinct daily Yahoo discovery-key caching including one `ETH-USD` request, reuse of already-materialized general-feed articles, fail-closed entity classification and materiality, explicit relationship wording/evidence, production-only event suppression, v2-to-v3 state migration with backup, diagnostics/adjudication/benchmark/retention state, global build serialization, isolated `[TEST]` editions, Gate A activation/evaluation/failure-alert/halt/recovery behavior, and weekly measurement notices. Normal runs process and render Watchlist while Gate A is disabled and include the exact notice `Watchlist evaluation disabled.`
+
+The corrected plan and prerequisite decisions were previously committed as `a19b5dc docs(watchlist): resolve implementation prerequisites`. The append-only decision ledger was reconciled to the verified implementation commit and committed as `09fff78 docs(decisions): reconcile watchlist implementation`. The prior separate Watchlist worktree was removed; this branch remains in the main checkout. `gh issue list --state open` returned no open GitHub issues.
 
 ## Outstanding Tasks
 
-1. Correct the filing-regime assumptions in `docs/plans/watchlist-retrieval-reliability.md` before using them as implementation rules. ETHB, CIK `0002099103`, already files Forms 8-K and 10-Q and must have required EDGAR coverage. Shopify is legally a foreign private issuer but currently files on U.S. domestic forms, including Form 8-K; select processing rules from observed forms instead of a binary domestic/foreign label.
-2. Run blocking Spike 2 from plan §11. Produce `config/entity_map.json`, the relationship-ambiguity queue, and per-ticker notes covering CIK, supported filing forms, annual form, subsidiary evidence, omission allowance, relationship evidence, verification date, and expiry.
-3. Prepare the `feat/watchlist-retrieval` worktree runtime without copying secrets into Git. It currently lacks `.env` and `.venv`; the source environment has `EMAIL_TO` but lacks required `SEC_CONTACT_EMAIL`. Recommended setup: a dedicated virtual environment, an ignored local `.env` link or equivalent secure environment loading, and the dedicated NewsAgent address in `SEC_CONTACT_EMAIL`.
-4. Add explicit test-edition behavior to the plan and implementation. Recommended contract: `--email-resend` sends the stored edition unchanged; `--email-rebuild-today` refreshes/reprocesses Watchlist sources with current code, bypasses Watchlist sent suppression, is marked test-only, and does not affect production sent history or Gate A metrics.
-5. Add a preflight Gate A state. Recommended contract: start at `DISABLED`; enter `MEASURING` only through an explicit confirmed activation command after Spike 2, tests, and a successful full dry run. Existing `MEASURING`, `PASS`, and `FAIL` behavior remains unchanged afterward.
-6. Specify and implement the independent non-filing benchmark workflow required by DEC-0016. The register needs at least 20 material events found independently of NewsAgent retrieval; define its approved-source acquisition cadence and import/review path so Gate A recall is measurable.
-7. Specify transient retrieval and concurrency behavior: bounded retries/backoff, failed fetches not becoming permanent successful daily-cache entries, and a run lock or atomic source-key claim preventing scheduled and manual builds from processing the same cache entry concurrently.
-8. Implement V1.1–V1.14, migration/rollback support, diagnostics, adjudication CLI, release gate, tests, and dry run from the plan. Update each implemented ledger entry in `docs/decisions.md` with its commit hash through the `decisiontracker` lifecycle.
-9. After merging into the scheduler’s active code path, validate a no-send health check and a Gmail test edition before enabling Gate A. Do not alter Telegram behavior.
+1. Add the dedicated NewsAgent contact address to the ignored local `.env` as `SEC_CONTACT_EMAIL`; do not infer it from another variable, print it, or commit it.
+2. Run `PYTHONPATH=src .venv/bin/python -m news_agent.cli --dry-run --to email --show-diagnostics`. Confirm exit 0, all required EDGAR sources succeed, source/relationship links are correct, and no credential appears. Do not send mail during this step.
+3. After the no-send result is clean, run the explicitly confirmed `[TEST]` Gmail revision if desired. Keep Gate A `DISABLED` unless the owner separately chooses the activation command documented in `README.md`.
+4. Complete the deliberately unreconciled V1 gaps before calling every plan acceptance criterion complete: broader high-confidence filing/editorial event merging and duplicate-pair review (DEC-0018/DEC-0031), an automatic entity-map bootstrap/refresh path rather than only the committed bootstrap output (DEC-0029), automatic observed-form configuration refresh (DEC-0044), and an automatic weekly independent-research cadence around the implemented benchmark importer/reviewer (DEC-0042). Licensed-provider gap-report generation (DEC-0017) is needed only if a mature Gate A window later fails contextual recall. DEC-0003 remains pending in the ledger because this commit did not clearly implement that older general-email headline decision.
 
 ## Recommended Next Task
 
-Amend the plan’s filing-regime table and rules for ETHB and Shopify, then execute Spike 2. The resulting verified entity map should drive EDGAR implementation rather than the plan’s static assumptions.
+Set `SEC_CONTACT_EMAIL` locally, then run the full native-email no-send command from Outstanding Task 2 and inspect its Watchlist output and diagnostics. Do not activate Gate A as part of that first run.
 
 ## Git / Remote State
 
-Active repository root: `/Users/raymondwang/PersonalProjects/NewsAgent`.
+Repository root: `/Users/raymondwang/PersonalProjects/NewsAgent`. Branch: `feat/watchlist-retrieval`, attached, with no configured upstream. Against the locally known `origin/main`, HEAD is 0 behind and 10 commits ahead; the newest relevant commits are `09fff78`, `ba59a3f`, and `a19b5dc`. Remote freshness was not verified because this branch has no upstream; no push was performed.
 
-Active branch: `chore/pre-watchlist-checkpoint`. It has no configured upstream. Before this refresh, `git rev-list --left-right --count origin/main...HEAD` reported `0 6`; after the handoff-only commit, the expected locally known count is `0 7`. The six pre-existing commits ahead of locally known `origin/main` are:
-
-- `04bcb8e docs: update handoff (2026-07-31)`
-- `9ab29f9 feat(email): checkpoint deduplication and resend hardening`
-- `f740609 docs(watchlist): finalize retrieval reliability plan`
-- `a8c0d39 docs: update handoff (2026-07-31)`
-- `d4237ae docs: correct handoff commit sha (2026-07-30)`
-- `c8ee061 docs: update handoff (2026-07-30)`
-
-Remote freshness: not verified because the active branch has no upstream, so no fetch was required or performed during this handoff audit. Do not infer that the local commits are pushed.
-
-Working tree before this handoff: five modified tracked `data/` files and fourteen untracked generated `data/` paths; none were staged. They are runtime artifacts and were deliberately left uncommitted. No merge, rebase, cherry-pick, or detached-HEAD state was detected. Branch `feat/watchlist-retrieval` also points to checkpoint `9ab29f9`; a separate linked worktree was created for implementation earlier in this session.
-
-Handoff commit: made for `docs/handoff.md` only; see `git log -- docs/handoff.md`. No push was performed. The commit identifier is intentionally not embedded in this record.
+The implementation and decision-ledger changes are committed. Five modified tracked `data/` files and fourteen untracked generated `data/` paths predate this implementation and remain deliberately untouched and uncommitted. The handoff record is committed alone per the handoff workflow; its own SHA is intentionally not embedded here.
 
 ## Validation
 
-- Clean implementation worktree: `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src pytest -q -p no:cacheprovider` completed with `370 passed in 0.47s`; test-generated `data/email_state.lock` was restored afterward and the worktree was clean.
-- Active worktree audit: `git status --short --branch` found five modified tracked files and fourteen untracked paths, all under `data/`; the index was empty.
-- Decision-ledger reconciliation: `/Users/raymondwang/PersonalProjects/GlobalSkills/decisiontracker/scripts/validate_ledger.py validate-ledger --repo /Users/raymondwang/PersonalProjects/NewsAgent --input /Users/raymondwang/PersonalProjects/NewsAgent/docs/decisions.md` reported `Ledger schema, lifecycle, and privacy checks passed.` No implementation update was appended because no Watchlist implementation commit exists.
-- Handoff audit: `git rev-list --left-right --count origin/main...HEAD` reported `0 6` before this handoff commit; `git log --oneline origin/main..HEAD` identified all six commits. `git symbolic-ref -q HEAD` confirmed an attached branch, and no merge, rebase, cherry-pick, or revert state was detected.
-- Environment presence check, without printing values: the implementation worktree lacks `.env` and `.venv`; the source `.env` contains `EMAIL_TO` and lacks `SEC_CONTACT_EMAIL`; `.env` is ignored by Git.
-- Official SEC evidence checked 2026-07-31: ETHB has a Form 8-K at `https://www.sec.gov/Archives/edgar/data/2099103/000143774926012415/0001437749-26-012415-index.htm` and a Form 10-Q at `https://www.sec.gov/Archives/edgar/data/2099103/000143774926015530/0001437749-26-015530-index.html`. Shopify’s 2026 Form 8-K at `https://www.sec.gov/Archives/edgar/data/1594805/000159480526000022/shop-20260508.htm` states that it is a foreign private issuer currently filing periodic and current reports on U.S. domestic issuer forms.
-- Current SEC guidance still states a maximum of 10 requests per second; implementation should nevertheless use a lower conservative limiter and an identifying `User-Agent` sourced from `SEC_CONTACT_EMAIL`.
-- No Watchlist implementation tests or live mailer dry run were run because implementation has not started and the required environment/Spike 2 outputs are absent.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src pytest -q -p no:cacheprovider`: `407 passed in 0.52s` after the final implementation changes.
+- `git diff --check`: passed before the implementation commit.
+- `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m news_agent.cli --help`: all new Watchlist import, review, activation, and recovery flags are registered.
+- Decision ledger: historical validation passed; commit `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` and its subject were verified; locked append and append-only verification passed.
+- Environment presence check, without printing values: `.env` does not contain a nonempty `SEC_CONTACT_EMAIL`.
+- Required live native-email no-send run: not run because the SEC contact is absent. No Gmail test revision or production email was sent. Gate A was not activated.
+- GitHub issue audit: the open-issue list was empty.
 
 ## Risks / Decisions
 
-- DEC-0001 through DEC-0039 are settled but unimplemented. The old handoff’s open Q3–Q5 and 70% recall figure are stale. Current Gate A non-filing recall is at least 80% with a minimum of 20 independently identified material non-filing events.
-- The existing plan says it is ready for implementation, but its static filing-regime evidence is incomplete. In particular, describing ETHB as having thin trust-only coverage omits current 8-K/10-Q filings. Spike 2 must be authoritative.
-- The rebuild/resend and Gate A activation contracts above are recommended but not yet recorded as durable decisions. They should be settled before state and delivery-guard code is written.
-- Ground truth remains partly manual: Gate A also requires at least 20 adjudicated definitive relationship claims and 20 reviewed rendered stories, and the live window extends beyond 30 days until all denominators exist.
-- A fully measurable Gate A failure is intentionally configured to suppress the newsletter, send one final administrative failure email, and halt all scheduled NewsAgent work until a confirmed no-send recovery succeeds. Both current recipient inboxes are controlled by the repository owner; do not record their addresses.
-- Standing Yahoo exception: DEC-0004 deliberately permits fetching Yahoo `/m/` paths despite `finance.yahoo.com/robots.txt`. Prior measured yield was 12 restricted links among 162 candidates; four of five sampled restricted pages yielded no extractable text and one yielded 451 characters. This is personal-V1-only and must be guarded by explicit configuration and removed or reconsidered before any second user, paid use, rate-limit/block signal, or broader deployment.
-- Preserve the shared `$1.00` OpenAI cap, the guaranteed `$0.25` Watchlist reserve, the ten-ticker limit, Gmail-only temporary delivery mode, quote-only quiet rows, explicit retrieval-failure wording, no false ticker associations, and unchanged Telegram behavior.
-- `data/email_state.db` is ignored and absent from the clean implementation worktree. Develop migrations against fixtures and rehearse rollout against a disposable copy of the live v2 database; rollback requires restoring the automatic pre-migration backup, not merely reverting code.
-- Never print or document API keys, Gmail credentials, recipient addresses, or `SEC_CONTACT_EMAIL`.
+- Gate A is intentionally `DISABLED` by default. Disabled evaluation does not disable Watchlist retrieval or rendering and does not collect Gate metrics.
+- A future activation must use the version-matched confirmed preflight in `README.md`; optional-source failures and fail-closed ambiguity do not block it, but any required EDGAR or processing failure does.
+- The standing personal-use Yahoo `/m/` robots exception remains active under DEC-0004 and must be reconsidered before broader or paid use.
+- A Gate A failure sends one stable administrative alert, then durably halts scheduled pipeline work until a confirmed no-send recovery succeeds.
+- The ignored live SQLite database will migrate from v2 to v3 on first native Watchlist use and automatically creates a recorded v2 backup. Rollback requires restoring that backup before reverting code.
+- Preserve the existing generated `data/` changes; they were not created or modified intentionally by this implementation commit.
 
 ## Archive Decision
 
 Safe to archive: No
 
-Reason: Watchlist implementation has not begun; Spike 2, plan corrections, environment setup, remaining state/testing contracts, implementation, and required validation are outstanding. The active working tree also contains uncommitted generated data.
+Reason: Required live no-send validation is blocked by missing local configuration, and the explicitly listed residual plan gaps remain unimplemented.
 
-Next action: correct the plan’s SEC regime assumptions and run Spike 2 from `docs/plans/watchlist-retrieval-reliability.md` §11.
+Next action: Configure `SEC_CONTACT_EMAIL` locally and run the full no-send native-email preflight without activating Gate A.
