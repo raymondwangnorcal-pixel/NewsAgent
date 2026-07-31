@@ -1,10 +1,10 @@
 # NewsAgent Handoff
 
-Last updated: 2026-07-31T17:20:51-04:00
+Last updated: 2026-07-31T17:31:00-04:00
 
 ## Current Goal
 
-Finish the remaining V1 acceptance gaps for the Watchlist reliability implementation on `feat/watchlist-retrieval`. The code, required local SEC contact, database migration, automated suite, and native-email no-send validation are complete. Gate A correctly remains `DISABLED`.
+Finish the remaining V1 acceptance gaps for the Watchlist reliability implementation on `feat/watchlist-retrieval`. The code, required local SEC contact, database migration, automated suite, no-send validation, and isolated Gmail delivery validation are complete. Gate A correctly remains `DISABLED`.
 
 ## Accomplished This Session
 
@@ -14,10 +14,11 @@ The corrected plan and prerequisite decisions were previously committed as `a19b
 
 The first live no-send attempt exposed gzip-encoded SEC responses; `6884b8a fix(watchlist): decode compressed SEC responses` added gzip/deflate handling and a regression test. The repeated no-send run exited 0 without SMTP, stored 9 EDGAR and 10 Yahoo daily source rows in `OK`, rendered primary SEC filings for AAPL, NVO, and META, showed explicit quiet rows elsewhere, and included `Watchlist evaluation disabled.` The local v2 database migration created `data/email_state.db.v2-backup-20260731T211747Z`.
 
+The requested isolated full `[TEST]` email revision was submitted after the no-send validation. Gmail accepted delivery for both configured recipients. It was stored as test edition `12`, revision `1`; Gate A remained `DISABLED`, and `watchlist_sent_history` remained empty, confirming no production Watchlist-suppression state was changed.
+
 ## Outstanding Tasks
 
-1. Run an explicitly confirmed `[TEST]` Gmail revision if the owner wants delivery validation. Keep Gate A `DISABLED` unless the owner separately chooses the activation command documented in `README.md`.
-2. Complete the deliberately unreconciled V1 gaps before calling every plan acceptance criterion complete: broader high-confidence filing/editorial event merging and duplicate-pair review (DEC-0018/DEC-0031), an automatic entity-map bootstrap/refresh path rather than only the committed bootstrap output (DEC-0029), automatic observed-form configuration refresh (DEC-0044), and an automatic weekly independent-research cadence around the implemented benchmark importer/reviewer (DEC-0042). Licensed-provider gap-report generation (DEC-0017) is needed only if a mature Gate A window later fails contextual recall. DEC-0003 remains pending in the ledger because these commits did not clearly implement that older general-email headline decision.
+1. Complete the deliberately unreconciled V1 gaps before calling every plan acceptance criterion complete: broader high-confidence filing/editorial event merging and duplicate-pair review (DEC-0018/DEC-0031), an automatic entity-map bootstrap/refresh path rather than only the committed bootstrap output (DEC-0029), automatic observed-form configuration refresh (DEC-0044), and an automatic weekly independent-research cadence around the implemented benchmark importer/reviewer (DEC-0042). Licensed-provider gap-report generation (DEC-0017) is needed only if a mature Gate A window later fails contextual recall. DEC-0003 remains pending in the ledger because these commits did not clearly implement that older general-email headline decision.
 
 ## Recommended Next Task
 
@@ -37,7 +38,7 @@ The implementation and decision-ledger changes are committed. Five modified trac
 - Decision ledger: historical validation passed; commit `ba59a3f7453ebe947be1f21cb1b26906026d4ddd` and its subject were verified; locked append and append-only verification passed.
 - Environment presence check, without printing values: the ignored local `.env` contains a nonempty `SEC_CONTACT_EMAIL`.
 - `PYTHONPATH=src .venv/bin/python -m news_agent.cli --dry-run --to email --show-diagnostics`: exited 0 after the gzip fix; it sent no email, produced no required-source warning, and left Gate A disabled. SQLite verification returned `edgar|OK|9` and `yahoo|OK|10` for `2026-07-31`.
-- No Gmail test revision or production email was sent. Gate A was not activated.
+- `PYTHONPATH=src .venv/bin/python -m news_agent.cli --send --to email --email-rebuild-today --confirm`: created the isolated test edition and Gmail accepted it for both configured recipients. Gate A remained `DISABLED`; `watchlist_sent_history` was still `0` afterward.
 - GitHub issue audit: the open-issue list was empty.
 
 ## Risks / Decisions
@@ -53,6 +54,6 @@ The implementation and decision-ledger changes are committed. Five modified trac
 
 Safe to archive: No
 
-Reason: The explicitly listed residual plan gaps remain unimplemented, delivery validation has not been requested, and pre-existing generated `data/` changes remain uncommitted.
+Reason: The explicitly listed residual plan gaps remain unimplemented and pre-existing generated `data/` changes remain uncommitted.
 
 Next action: Implement broader high-confidence event merging and duplicate-pair review without activating Gate A.
