@@ -7,9 +7,9 @@
       "ticker": "BN",
       "candidate": "Brookfield",
       "proposed_relationship": "family_ambiguous",
-      "status": "pending",
+      "status": "accepted",
       "evidence_url": "https://www.sec.gov/Archives/edgar/data/1001085/000100108526000006/bn-20251231.htm",
-      "reason": "The family name is shared by separately listed and managed entities; event evidence must identify the acting entity."
+      "reason": "Accepted as a BN family-level relationship; event evidence must identify the acting entity and retain hedged wording."
     }
   ]
 }

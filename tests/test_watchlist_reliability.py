@@ -55,6 +55,15 @@ def test_entity_classifier_does_not_upgrade_officer_quote() -> None:
     assert result.label is RelationshipLabel.MENTION_ONLY
 
 
+def test_bare_brookfield_story_is_eligible_for_bn_with_family_level_wording() -> None:
+    entity = load_entity_map().tickers["BN"]
+
+    result = classify_text(entity, "Brookfield announced a material acquisition.", "subject")
+
+    assert result.label is RelationshipLabel.FAMILY_UNRESOLVED
+    assert result.matched_name == "Brookfield"
+
+
 def test_stale_underlying_relationship_does_not_render() -> None:
     entity = load_entity_map().tickers["ETHB"]
 
