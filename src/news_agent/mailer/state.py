@@ -4,6 +4,7 @@ import fcntl
 import hashlib
 import html
 import json
+import logging
 import os
 import sqlite3
 import threading
@@ -19,6 +20,7 @@ DEFAULT_STATE_PATH = Path("data/email_state.db")
 DEFAULT_LOCK_PATH = Path("data/email_state.lock")
 SCHEMA_VERSION = 3
 _HELD_LOCKS: set[tuple[Path, int]] = set()
+logger = logging.getLogger(__name__)
 
 
 def _now() -> str:
@@ -442,7 +444,9 @@ class EmailStateStore:
                 (ticker, close_date, close_price, previous_close, provider, _now()),
             )
 
-    def cached_quote(self, ticker: str) -> tuple[str, float, float, str] | None:
+    def cached_quote(
+        self, ticker: str, *, expected_close_date: str | None = None
+    ) -> tuple[str, float, float, str] | None:
         with self.connect() as connection:
             row = connection.execute(
                 "SELECT close_date, close_price, previous_close, provider FROM quote_cache WHERE ticker = ?",
@@ -450,7 +454,14 @@ class EmailStateStore:
             ).fetchone()
         if row is None:
             return None
-        return str(row["close_date"]), float(row["close_price"]), float(row["previous_close"]), str(row["provider"])
+        close_date = str(row["close_date"])
+        if expected_close_date is not None and close_date != expected_close_date:
+            logger.warning(
+                "watchlist cached quote rejected: ticker=%s close_date=%s expected_close_date=%s",
+                ticker, close_date, expected_close_date,
+            )
+            return None
+        return close_date, float(row["close_price"]), float(row["previous_close"]), str(row["provider"])
 
     def record_quote_history(
         self,

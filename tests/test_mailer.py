@@ -3,7 +3,7 @@ from __future__ import annotations
 import socket
 import sqlite3
 import ssl
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -13,8 +13,8 @@ from news_agent import cli
 from news_agent.formatting import FormattedMessage
 from news_agent.mailer import quotes, service as mailer_service, watchlist_news
 from news_agent.mailer.models import EmailSettings, EmailWatchlistEntry, RecipientOutcome
-from news_agent.mailer.quotes import EndOfDayQuote, EodhdQuoteProvider, TiingoQuoteProvider, fetch_quote_with_fallback, fetch_quotes_with_shared_deadline
-from news_agent.mailer.render import render_minimal_newsletter, render_parity_email, render_watchlist_section
+from news_agent.mailer.quotes import EndOfDayQuote, EodhdQuoteProvider, TiingoQuoteProvider, expected_quote_close_date, fetch_quote_with_fallback, fetch_quotes_with_shared_deadline
+from news_agent.mailer.render import RenderedEmail, render_minimal_newsletter, render_parity_email, render_watchlist_section
 from news_agent.mailer.settings import email_settings_from_env
 from news_agent.mailer.smtp import send_email
 from news_agent.mailer.state import EmailStateStore
@@ -372,25 +372,121 @@ def test_quote_provider_fallback_uses_eodhd_after_tiingo_failure() -> None:
         def fetch(self, ticker: str) -> EndOfDayQuote | None:
             return EndOfDayQuote(ticker, "2026-07-24", 110.0, 100.0, self.name)
 
-    quote = fetch_quote_with_fallback("AAPL", (EmptyProvider(), BackupProvider()), retry_seconds=0)
+    quote = fetch_quote_with_fallback(
+        "AAPL", (EmptyProvider(), BackupProvider()), retry_seconds=0, expected_close_date=date(2026, 7, 24)
+    )
 
     assert quote is not None
     assert quote.provider == "EODHD"
     assert quote.percent_change == pytest.approx(10.0)
 
 
-def test_shared_quote_deadline_is_passed_to_each_concurrent_ticker() -> None:
+def test_shared_quote_deadline_and_expected_date_are_passed_to_each_concurrent_ticker() -> None:
     seen_deadlines: list[float] = []
+    seen_dates: list[date] = []
 
-    def fake_fetcher(ticker: str, *, deadline: float) -> EndOfDayQuote:
+    def fake_fetcher(ticker: str, *, deadline: float, expected_close_date: date) -> EndOfDayQuote:
         seen_deadlines.append(deadline)
+        seen_dates.append(expected_close_date)
         return EndOfDayQuote(ticker, "2026-07-24", 100.0, 99.0, "Fake")
 
-    quotes_by_ticker = fetch_quotes_with_shared_deadline(("AAPL", "NVO", "META"), retry_seconds=5, fetcher=fake_fetcher)
+    expected = date(2026, 7, 24)
+    quotes_by_ticker = fetch_quotes_with_shared_deadline(
+        ("AAPL", "NVO", "META"), retry_seconds=5, fetcher=fake_fetcher, expected_close_date=expected
+    )
 
     assert set(quotes_by_ticker) == {"AAPL", "NVO", "META"}
     assert len(seen_deadlines) == 3
     assert len(set(seen_deadlines)) == 1
+    assert seen_dates == [expected, expected, expected]
+
+
+def test_stale_primary_quote_triggers_fresh_fallback(caplog: pytest.LogCaptureFixture) -> None:
+    class StaleProvider:
+        name = "Tiingo"
+        token = "token"
+
+        def fetch(self, ticker: str) -> EndOfDayQuote:
+            return EndOfDayQuote(ticker, "2026-07-30", 100.0, 99.0, self.name)
+
+    class FreshProvider:
+        name = "EODHD"
+        token = "token"
+
+        def fetch(self, ticker: str) -> EndOfDayQuote:
+            return EndOfDayQuote(ticker, "2026-07-31", 101.0, 100.0, self.name)
+
+    quote = fetch_quote_with_fallback(
+        "CURI", (StaleProvider(), FreshProvider()), retry_seconds=0, expected_close_date=date(2026, 7, 31)
+    )
+
+    assert quote == EndOfDayQuote("CURI", "2026-07-31", 101.0, 100.0, "EODHD")
+    assert "watchlist quote rejected" in caplog.text
+
+
+def test_all_stale_provider_quotes_are_unavailable() -> None:
+    class StaleProvider:
+        name = "Stale"
+        token = "token"
+
+        def fetch(self, ticker: str) -> EndOfDayQuote:
+            return EndOfDayQuote(ticker, "2026-07-30", 100.0, 99.0, self.name)
+
+    assert fetch_quote_with_fallback(
+        "CURI", (StaleProvider(), StaleProvider()), retry_seconds=0, expected_close_date=date(2026, 7, 31)
+    ) is None
+
+
+def test_expected_quote_close_date_accepts_friday_for_monday_morning() -> None:
+    from zoneinfo import ZoneInfo
+
+    assert expected_quote_close_date(datetime(2026, 8, 3, 8, 20, tzinfo=ZoneInfo("America/New_York"))) == date(2026, 7, 31)
+
+
+def test_expected_quote_close_date_uses_same_day_after_regular_close() -> None:
+    from zoneinfo import ZoneInfo
+
+    assert expected_quote_close_date(datetime(2026, 7, 31, 17, 0, tzinfo=ZoneInfo("America/New_York"))) == date(2026, 7, 31)
+
+
+def test_quote_cache_rejects_a_stale_close_date(tmp_path: Path, caplog: pytest.LogCaptureFixture) -> None:
+    store = EmailStateStore(tmp_path / "state.db")
+    store.cache_quote("CURI", "2026-07-30", 2.42, 2.49, "Tiingo")
+
+    assert store.cached_quote("CURI", expected_close_date="2026-07-31") is None
+    assert "watchlist cached quote rejected" in caplog.text
+
+
+def test_quote_cache_uses_the_expected_close_date(tmp_path: Path) -> None:
+    store = EmailStateStore(tmp_path / "state.db")
+    store.cache_quote("CURI", "2026-07-31", 2.42, 2.49, "Tiingo")
+
+    assert store.cached_quote("CURI", expected_close_date="2026-07-31") == ("2026-07-31", 2.42, 2.49, "Tiingo")
+
+
+def test_expected_quote_close_date_skips_a_market_holiday() -> None:
+    from zoneinfo import ZoneInfo
+
+    assert expected_quote_close_date(datetime(2026, 9, 7, 8, 20, tzinfo=ZoneInfo("America/New_York"))) == date(2026, 9, 4)
+
+
+def test_test_revision_does_not_allow_production_quote_cache(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    store = EmailStateStore(tmp_path / "state.db")
+    service = mailer_service.EmailService(store)
+    captured: dict[str, object] = {}
+
+    def fake_render_newsletter(*_args: object, **kwargs: object) -> tuple[RenderedEmail, list[object]]:
+        captured.update(kwargs)
+        return RenderedEmail("Subject", "Plain", "<p>Plain</p>"), []
+
+    monkeypatch.setattr(service, "render_newsletter", fake_render_newsletter)
+
+    service.prepare_newsletter_edition(
+        [], "Header", EnrichmentConfig(), OpenAIBudget(OpenAICostConfig()), test_revision=True
+    )
+
+    assert captured["persist_quotes"] is False
+    assert captured["allow_cached_quotes"] is False
 
 
 def test_tiingo_provider_parses_last_available_trading_day(monkeypatch: pytest.MonkeyPatch) -> None:

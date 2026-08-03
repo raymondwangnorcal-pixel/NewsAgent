@@ -14,7 +14,12 @@ from news_agent.mailer.render import render_minimal_newsletter, render_watchlist
 from news_agent.mailer.settings import email_settings_from_env
 from news_agent.mailer.smtp import SMTPFactory, send_email
 from news_agent.mailer.state import EmailStateStore
-from news_agent.mailer.quotes import EndOfDayQuote, fetch_quotes_with_shared_deadline, validate_quote_provider_configuration
+from news_agent.mailer.quotes import (
+    EndOfDayQuote,
+    expected_quote_close_date,
+    fetch_quotes_with_shared_deadline,
+    validate_quote_provider_configuration,
+)
 from news_agent.mailer.watchlist import load_email_watchlist, validate_shared_watchlist_consistency
 from news_agent.mailer.watchlist_news import (
     WatchlistStory,
@@ -68,6 +73,7 @@ class EmailService:
             enrichment_config,
             budget,
             persist_quotes=not test_revision,
+            allow_cached_quotes=not test_revision,
             bypass_sent_suppression=test_revision,
             general_articles=general_articles,
             persist_watchlist_state=not test_revision,
@@ -100,6 +106,7 @@ class EmailService:
         budget: OpenAIBudget,
         *,
         persist_quotes: bool = True,
+        allow_cached_quotes: bool = True,
         bypass_sent_suppression: bool = False,
         general_articles: tuple[Article, ...] = (),
         persist_watchlist_state: bool = True,
@@ -126,7 +133,10 @@ class EmailService:
         )
         quotes: dict[str, EndOfDayQuote | None] = {}
         stories: list[WatchlistStory] = []
-        live_quotes = fetch_quotes_with_shared_deadline(tuple(entry.ticker for entry in entries))
+        expected_close_date = expected_quote_close_date()
+        live_quotes = fetch_quotes_with_shared_deadline(
+            tuple(entry.ticker for entry in entries), expected_close_date=expected_close_date
+        )
         briefing_date = briefing_now().date().isoformat()
         discovery_by_key: dict[str, tuple[tuple[Article, ...], str]] = {}
         missing_keys: list[str] = []
@@ -167,8 +177,10 @@ class EmailService:
             discovered_articles[ticker] = (tuple(routed.values()), errors[0] if errors else "")
         for entry in entries:
             quote = live_quotes[entry.ticker]
-            if quote is None:
-                cached = self.store.cached_quote(entry.ticker)
+            if quote is None and allow_cached_quotes:
+                cached = self.store.cached_quote(
+                    entry.ticker, expected_close_date=expected_close_date.isoformat()
+                )
                 if cached is not None:
                     close_date, close_price, previous_close, provider = cached
                     quote = EndOfDayQuote(entry.ticker, close_date, close_price, previous_close, provider)
