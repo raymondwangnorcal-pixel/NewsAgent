@@ -930,3 +930,23 @@
 - Implementation commit: `b835f42b50446bbbda8f6573c224506e0bf2d5a3` — fix(fetch): reject non-feed source responses
 - Superseded by: none
 - Note: Non-feed XML roots now return an invalid-feed error, so Watchlist discovery retries rather than caching a false empty success.
+
+## DEC-0050 — Require the latest completed NYSE close for Watchlist quotes
+
+- Date: 2026-08-03
+- Owner: shared
+- Status at record: active
+- Decision: Accept Watchlist quotes and quote-cache fallbacks only when their close date equals the latest completed regular NYSE session; test editions neither write nor read the production quote cache.
+- Rationale: A displayed Watchlist edition must not mix stale per-ticker closes with current session closes, while morning, weekend, and holiday runs still use the legitimate preceding session.
+- Scope: Quote providers, fallback selection, quote cache, test-revision isolation, and diagnostics.
+- Implementation: pending
+- Recorded against HEAD: `33ea9e9d33b3b7b992e3a257cb94b63924924894`
+- Supersedes: none
+- Evidence: User-requested implementation following the 2026-07-31 mixed-date Watchlist diagnosis and read-only adversarial review.
+
+## Update — 2026-08-03 — DEC-0050
+
+- Type: implementation
+- Implementation commit: `db5386d7241be311d80e01e84207cfb63d98843f` — fix(watchlist): reject stale quote dates
+- Superseded by: none
+- Note: Date-validated provider fallback, exact-date cache reads, test cache isolation, NYSE-session selection, and rejection diagnostics are implemented with boundary coverage.
