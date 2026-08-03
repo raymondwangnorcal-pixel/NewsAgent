@@ -950,3 +950,23 @@
 - Implementation commit: `db5386d7241be311d80e01e84207cfb63d98843f` — fix(watchlist): reject stale quote dates
 - Superseded by: none
 - Note: Date-validated provider fallback, exact-date cache reads, test cache isolation, NYSE-session selection, and rejection diagnostics are implemented with boundary coverage.
+
+## DEC-0051 — Treat bare Brookfield as an accepted BN family-level relationship
+
+- Date: 2026-08-03
+- Owner: user
+- Status at record: active
+- Decision: Include material stories naming Brookfield in BN's Watchlist as a family-level relationship, with wording that does not assert Brookfield Corporation itself acted.
+- Rationale: The owner accepted the Brookfield-to-BN family relationship while retaining entity-specific attribution safeguards.
+- Scope: BN entity mapping, relationship-review seed state, Watchlist classification, and rendering.
+- Implementation: pending
+- Recorded against HEAD: `a816ecd5c080d89fbf4d70c7d1a3c65fe0956714`
+- Supersedes: none
+- Evidence: User-approved local relationship review and configuration update on 2026-08-03.
+
+## Update — 2026-08-03 — DEC-0051
+
+- Type: implementation
+- Implementation commit: `6f6009ccb80952728858902cc48fe021be995430` — feat(watchlist): accept Brookfield family coverage for BN
+- Superseded by: none
+- Note: The review seed is accepted and a regression test preserves hedged family-level BN classification for bare Brookfield stories.
