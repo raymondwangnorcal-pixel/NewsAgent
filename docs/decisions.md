@@ -1005,3 +1005,11 @@
 - Superseded by: none
 - Note: The Watchlist now uses the Finance quote snapshot during regular NYSE hours, labels those values live, and preserves completed-close behavior otherwise.
 - Privacy waivers: none
+
+## Update — 2026-08-04 — DEC-0053
+
+- Type: implementation
+- Implementation commit: `c4aa2764d763eefc71e3147f46a3350033d9367a` — feat(newsletter): simplify finance section
+- Superseded by: none
+- Note: Finance no longer receives ticker-price lead lines, while the Watchlist quote snapshot and alerts remain available.
+- Privacy waivers: none
