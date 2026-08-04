@@ -475,11 +475,12 @@ def test_live_watchlist_quote_requires_a_previous_close() -> None:
 
 
 def test_watchlist_renderer_marks_intraday_prices_as_live() -> None:
-    plain, _html = render_watchlist_section(
+    plain, html = render_watchlist_section(
         {"AAPL": EndOfDayQuote("AAPL", "2026-08-03", 306.01, 308.91, "Yahoo Finance", "live")}, []
     )
 
     assert "AAPL: 306.01 (-0.94%) · live" in plain
+    assert 'style="color: #d93025;"' in html
 
 
 def test_quote_cache_rejects_a_stale_close_date(tmp_path: Path, caplog: pytest.LogCaptureFixture) -> None:

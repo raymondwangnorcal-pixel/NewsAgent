@@ -79,7 +79,6 @@ GLOBAL_CLASSIFICATION_POOL_SIZE = 30
 CATEGORY_CLASSIFICATION_RESERVE = 10
 MAX_CLASSIFICATION_POOL_SIZE = 80
 
-FINANCE_LEAD_TICKER_COUNT = 7
 def story_identity(cluster: StoryCluster) -> str:
     if cluster.key:
         return cluster.key
@@ -813,18 +812,6 @@ def source_debug_lines(category_clusters: dict[str, list[StoryCluster]]) -> tupl
     return tuple(lines)
 
 
-def _finance_lead_lines(stock_snapshot: object) -> tuple[str, ...]:
-    """Real, non-LLM-generated market-quote lines for the finance section's
-    lead-in -- kept structurally separate from drafted paragraphs (see
-    BriefingSection.lead_lines) since a drafting model shouldn't be trusted
-    to state today's exact price from memory."""
-    mega_caps = getattr(stock_snapshot, "mega_caps", None)
-    quote_for = getattr(stock_snapshot, "quote_for", None)
-    if not mega_caps or quote_for is None:
-        return ()
-    return tuple(quote_for(symbol).compact() for symbol in mega_caps[:FINANCE_LEAD_TICKER_COUNT])
-
-
 def _diverse_article_order(articles: tuple[Article, ...]) -> tuple[Article, ...]:
     ranked = rank_articles_by_evidence(list(articles))
     chosen: list[Article] = []
@@ -869,7 +856,6 @@ def build_draft_candidates(
 def build_briefing_sections(
     paragraphs: list[BriefingParagraph],
     config: AgentConfig,
-    stock_snapshot: object,
 ) -> list[BriefingSection]:
     by_category: dict[str, list[BriefingParagraph]] = {name: [] for name in CATEGORY_NAMES}
     for paragraph in paragraphs:
@@ -878,16 +864,14 @@ def build_briefing_sections(
     sections: list[BriefingSection] = []
     for category in CATEGORY_NAMES:
         label = config.categories[category].label if category in config.categories else category
-        lead_lines = _finance_lead_lines(stock_snapshot) if category == "finance" else ()
         category_paragraphs = tuple(by_category.get(category, ()))
-        if not category_paragraphs and not (category == "finance" and lead_lines):
+        if not category_paragraphs:
             continue
         sections.append(
             BriefingSection(
                 category=category,
                 label=label,
                 paragraphs=category_paragraphs,
-                lead_lines=lead_lines,
             )
         )
     return sections
@@ -948,7 +932,7 @@ async def build_briefing_result(
             path=default_compression_audit_path(compression_audit_dir),
         )
     presentation_paragraphs = order_paragraphs_for_presentation(compressed_paragraphs, context.category_clusters)
-    briefings = build_briefing_sections(presentation_paragraphs, config, context.stock_snapshot)
+    briefings = build_briefing_sections(presentation_paragraphs, config)
 
     selected = selected_clusters(context.category_clusters)
     if persist_history and not ignore_history:

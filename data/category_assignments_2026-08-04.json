@@ -1,35 +1,43 @@
 [
   {
     "category": "finance",
-    "cluster_id": "but content current fed keeping level mind open",
+    "cluster_id": "adding era fed inflation manufacturing pandemic pressure shows",
     "culture_lane": "",
-    "llm_importance": 43,
+    "llm_importance": 45,
     "outlier_urls": [],
-    "rationale": "A Federal Reserve official\u2019s view on maintaining the benchmark rate is monetary-policy news, whose primary significance is interest-rate expectations."
+    "rationale": "The manufacturing survey's inflation signal and resulting pressure on the Federal Reserve center on economic data and monetary-policy implications."
   },
   {
-    "category": "finance",
-    "cluster_id": "backstop bessent defense expand fed japan pushing warsh",
+    "category": "global",
+    "cluster_id": "112 2023 funeral gaza israeli killed mass palestinians",
     "culture_lane": "",
-    "llm_importance": 58,
+    "llm_importance": 55,
     "outlier_urls": [],
-    "rationale": "The proposed Fed facility for Japan concerns currency support and the functioning of the U.S. Treasury market, making it a financial-system story."
+    "rationale": "The recovery and mass funeral of civilians killed in Gaza is a humanitarian consequence of an international war."
   },
   {
-    "category": "finance",
-    "cluster_id": "cramer jim market stock things top tuesday",
-    "culture_lane": "",
-    "llm_importance": 25,
+    "category": "culture",
+    "cluster_id": "bowen broadway debut make mary yang",
+    "culture_lane": "film_tv",
+    "llm_importance": 22,
     "outlier_urls": [],
-    "rationale": "The story\u2019s central subject is the day\u2019s equity-market direction and the earnings and oil-price developments moving stocks."
+    "rationale": "Bowen Yang's Broadway debut is an entertainment and theater casting development."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "access controversial fast market media moving posts sale",
+    "culture_lane": "",
+    "llm_importance": 35,
+    "outlier_urls": [],
+    "rationale": "Trump Media's sale of rapid access to Truth Social posts is principally a platform monetization and business-model change."
   },
   {
     "category": "finance",
     "cluster_id": "commercial demand driving jumps otherworldly palantir revenue",
     "culture_lane": "",
-    "llm_importance": 42,
+    "llm_importance": 52,
     "outlier_urls": [],
-    "rationale": "Palantir\u2019s 20% share-price move following earnings is primarily a market reaction to financial results and guidance."
+    "rationale": "Palantir's sharply rising share price following earnings makes this primarily a market-moving earnings report."
   },
   {
     "category": "business_tech",
@@ -37,262 +45,238 @@
     "culture_lane": "",
     "llm_importance": 48,
     "outlier_urls": [],
-    "rationale": "India\u2019s planned overhaul of UPI\u2019s merchant-fee model is chiefly about how a major digital-payments platform and its participants operate."
+    "rationale": "India's proposed changes to UPI concern the operating and merchant-fee model of a major payments network."
   },
   {
-    "category": "business_tech",
-    "cluster_id": "access controversial fast market media moving posts sale",
-    "culture_lane": "",
-    "llm_importance": 30,
+    "category": "culture",
+    "cluster_id": "favorite memories movies our",
+    "culture_lane": "film_tv",
+    "llm_importance": 10,
     "outlier_urls": [],
-    "rationale": "Trump Media\u2019s paid rapid-access offering is a platform business-model change, even though its customers seek market-moving information."
+    "rationale": "This is a cultural feature about moviegoing and the public experience of theaters."
   },
   {
     "category": "global",
     "cluster_id": "absence army his oldest president reshuffles stokes unease",
     "culture_lane": "",
-    "llm_importance": 39,
+    "llm_importance": 42,
     "outlier_urls": [],
-    "rationale": "The Cameroonian president\u2019s military reshuffle amid concerns about his absence is an important foreign political and leadership development."
+    "rationale": "Cameroon's president reshuffling the military amid uncertainty over his health is a significant foreign political development."
   },
   {
     "category": "culture",
-    "cluster_id": "ariana back chin daughter grande her magnificent message",
-    "culture_lane": "music",
-    "llm_importance": 12,
-    "outlier_urls": [],
-    "rationale": "The item is a celebrity-focused public and social-media moment involving Ariana Grande."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "agreement licensing merlin remixing signs spotify tool",
-    "culture_lane": "music",
-    "llm_importance": 34,
-    "outlier_urls": [],
-    "rationale": "Spotify\u2019s licensing deal for an AI music-remixing feature directly concerns music distribution, artists, and a streaming platform\u2019s cultural product."
-  },
-  {
-    "category": "global",
-    "cluster_id": "five hits kills more moscow region sites strike",
-    "culture_lane": "",
-    "llm_importance": 55,
-    "outlier_urls": [],
-    "rationale": "Ukrainian strikes on sites in Russia are a battlefield development in the Russia-Ukraine war with international consequences."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "boston breakthrough country hit lefty loves northeast stella",
-    "culture_lane": "music",
-    "llm_importance": 20,
-    "outlier_urls": [],
-    "rationale": "This is a music-chart story about the regional popularity and Hot 100 performance of Stella Lefty\u2019s song."
-  },
-  {
-    "category": "business_tech",
-    "cluster_id": "builds centers data find future out pod portable",
-    "culture_lane": "",
-    "llm_importance": 24,
-    "outlier_urls": [],
-    "rationale": "Runware\u2019s modular AI data-center launch is a technology and AI-infrastructure product development."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "2026 adds anime conferences expands market tiffcom tokyo",
-    "culture_lane": "film_tv",
-    "llm_importance": 21,
-    "outlier_urls": [],
-    "rationale": "TIFFCOM\u2019s expansion is a film-and-content-market event centered on screen IP, anime, and industry programming."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "cinema crime french giovanni honoring jos pioneer retrospective",
-    "culture_lane": "film_tv",
-    "llm_importance": 17,
-    "outlier_urls": [],
-    "rationale": "The San Sebasti\u00e1n retrospective is a film-festival programming announcement honoring a significant cinema figure."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "cmg donny exec forces former herran hugo joins",
-    "culture_lane": "film_tv",
-    "llm_importance": 15,
-    "outlier_urls": [],
-    "rationale": "A production executive joining a TV and film company is an entertainment-industry leadership and production development."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "ahead announces cast creative exclusive full hall midnight",
+    "cluster_id": "bbc britbox cast hercule origin poirot reveals series",
     "culture_lane": "film_tv",
     "llm_importance": 18,
     "outlier_urls": [],
-    "rationale": "The announcement concerns the cast and creative team for an upcoming Off-Broadway theatrical production."
-  },
-  {
-    "category": "domestic",
-    "cluster_id": "communist hearing michigan they tuesday vote voters",
-    "culture_lane": "",
-    "llm_importance": 35,
-    "outlier_urls": [],
-    "rationale": "Campaign messaging aimed at Michigan voters is U.S. electoral politics and therefore belongs in U.S. News."
+    "rationale": "The cast announcement for a BBC and BritBox dramatic series is a television entertainment development."
   },
   {
     "category": "business_tech",
-    "cluster_id": "bags clever design hooks integrated peak",
+    "cluster_id": "800 away back bag filled free giving school",
     "culture_lane": "",
-    "llm_importance": 12,
+    "llm_importance": 5,
     "outlier_urls": [],
-    "rationale": "Peak Design\u2019s City Line is a consumer-product launch featuring a new bag design and hardware feature."
+    "rationale": "The giveaway is a narrow consumer-technology promotional item."
   },
   {
-    "category": "finance",
-    "cluster_id": "amazon bezos billion falling filed jeff just sell",
+    "category": "culture",
+    "cluster_id": "bola date ever hopeful longest moving negra netflix",
+    "culture_lane": "film_tv",
+    "llm_importance": 30,
+    "outlier_urls": [],
+    "rationale": "Netflix's unusually long theatrical rollout for an Oscar contender is chiefly a film-release and awards-season development."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "apple confidential data employees may more openai taken",
+    "culture_lane": "",
+    "llm_importance": 48,
+    "outlier_urls": [],
+    "rationale": "Apple's trade-secrets litigation against OpenAI concerns technology-company operations and alleged misuse of proprietary product information."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "apple copy iphone paste windows working",
     "culture_lane": "",
     "llm_importance": 30,
     "outlier_urls": [],
-    "rationale": "The filing to sell $4 billion of Amazon shares and the accompanying stock decline are principally an equity-market development."
+    "rationale": "Apple's planned iPhone-to-Windows interoperability feature is a product and platform development driven by EU requirements."
   },
   {
-    "category": "business_tech",
+    "category": "finance",
     "cluster_id": "drugs eliquis end estimates guidance hikes low other",
     "culture_lane": "",
-    "llm_importance": 37,
+    "llm_importance": 34,
     "outlier_urls": [],
-    "rationale": "Pfizer\u2019s results and revised revenue outlook are chiefly a major pharmaceutical company operating-performance and product-demand update."
-  },
-  {
-    "category": "business_tech",
-    "cluster_id": "cmf earbuds first launching nothing open",
-    "culture_lane": "",
-    "llm_importance": 15,
-    "outlier_urls": [],
-    "rationale": "Nothing\u2019s CMF Clip Pro is a new consumer-electronics product launch."
-  },
-  {
-    "category": "finance",
-    "cluster_id": "2020 growth jumps more posts retailer since stock",
-    "culture_lane": "",
-    "llm_importance": 35,
-    "outlier_urls": [],
-    "rationale": "Wayfair\u2019s more-than-20% stock jump after quarterly results is primarily a material market move driven by earnings and sales growth."
+    "rationale": "Pfizer's results and revised revenue guidance are an earnings and corporate financial-performance story."
   },
   {
     "category": "culture",
-    "cluster_id": "august books days dog get summer through will",
+    "cluster_id": "acquisition bola cannes days ever longest negra netflix",
     "culture_lane": "film_tv",
-    "llm_importance": 10,
-    "outlier_urls": [],
-    "rationale": "This is an editorial selection of new books for readers, squarely within books and cultural releases."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "bow documentary linkin park september this",
-    "culture_lane": "music",
-    "llm_importance": 24,
-    "outlier_urls": [],
-    "rationale": "The release of a documentary about Linkin Park\u2019s return is a music and entertainment release announcement."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "august cast center guitars lincoln set seven theater",
-    "culture_lane": "film_tv",
-    "llm_importance": 16,
-    "outlier_urls": [],
-    "rationale": "The cast announcement for an August Wilson play is a theater and performing-arts development."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "2026 crazy game gta meets taxi weirdest",
-    "culture_lane": "gaming",
-    "llm_importance": 14,
-    "outlier_urls": [],
-    "rationale": "The article reviews and contextualizes a newly released video game, making it gaming culture coverage."
-  },
-  {
-    "category": "finance",
-    "cluster_id": "but buying draw fewer foreigners homebuilders luxury properties",
-    "culture_lane": "",
     "llm_importance": 30,
     "outlier_urls": [],
-    "rationale": "The pullback in foreign purchases of U.S. residential property is primarily a measurable real-estate market and investment trend."
+    "rationale": "Netflix's record theatrical window for the Cannes acquisition is a film distribution and release-strategy story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "2001 angels called chart jamie neal rewind",
+    "culture_lane": "music",
+    "llm_importance": 8,
+    "outlier_urls": [],
+    "rationale": "The retrospective on Jamie O'Neal's chart-topper is a music-history and chart feature."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "but doesn sheeran sing songs this top week",
+    "culture_lane": "music",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "Ed Sheeran's songwriting credits on leading global songs are a music-chart development."
   },
   {
     "category": "business_tech",
-    "cluster_id": "billion fundraising more polymarket round talks than valuation",
+    "cluster_id": "anderson company growth largest market mcdonald names president",
     "culture_lane": "",
-    "llm_importance": 38,
+    "llm_importance": 28,
     "outlier_urls": [],
-    "rationale": "Polymarket\u2019s proposed fundraising at a high valuation is a startup funding and venture-capital story."
+    "rationale": "McDonald's appointment of a new U.S. president is a major company's leadership change."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "ahead bowl creators espn exclusive first football lines",
+    "culture_lane": "media_creators",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "ESPN's football Creator Network initiative concerns sports-media programming and creators."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "2026 bluey dominate high originals peacock pitt rates",
+    "culture_lane": "film_tv",
+    "llm_importance": 35,
+    "outlier_urls": [],
+    "rationale": "The Nielsen rankings describe audience performance for major streaming television titles and platforms."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "2026 arkansas brings filmland love matthew mcconaughey messy",
+    "culture_lane": "film_tv",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "Filmland's announced lineup is a film-festival and cultural-event development."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "adds emblem fire fortune guns surprise weapon weave",
+    "culture_lane": "gaming",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "A new weapon mechanic in Fire Emblem is a video-game product and entertainment development."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "about ari cbs ceo cnn controlling david ellison",
+    "culture_lane": "",
+    "llm_importance": 60,
+    "outlier_urls": [],
+    "rationale": "The dispute over the Paramount-Warner Bros. Discovery merger centers on a major media-company transaction and corporate control."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "before bola company hopeful longest negra netflix oscar",
+    "culture_lane": "film_tv",
+    "llm_importance": 30,
+    "outlier_urls": [],
+    "rationale": "Netflix's record theatrical commitment for an Oscar hopeful is a film-distribution and awards-season story."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "apple baby chain china explain iphone leak moves",
+    "culture_lane": "",
+    "llm_importance": 42,
+    "outlier_urls": [],
+    "rationale": "The story examines Apple supplier information and shifts in the China-India electronics supply chain."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "46m box brand day man monday office record",
+    "culture_lane": "film_tv",
+    "llm_importance": 40,
+    "outlier_urls": [],
+    "rationale": "Spider-Man's record domestic box-office performance is a major film-industry and entertainment result."
   },
   {
     "category": "domestic",
     "cluster_id": "arrest arson largest made state washington wildfires",
     "culture_lane": "",
-    "llm_importance": 46,
+    "llm_importance": 45,
     "outlier_urls": [],
-    "rationale": "A major wildfire evacuation and an arson arrest in Washington state concern U.S. public safety and an emergency."
+    "rationale": "The arson arrest follows destructive Washington wildfires and mass evacuations, a U.S. public-safety emergency."
   },
   {
-    "category": "culture",
-    "cluster_id": "acquires carnival day died exclusive films girl jackal",
-    "culture_lane": "film_tv",
-    "llm_importance": 16,
-    "outlier_urls": [],
-    "rationale": "Carnival Films\u2019 acquisition of television adaptation rights is an entertainment-content development."
-  },
-  {
-    "category": "global",
-    "cluster_id": "air eruption guatemala lava sends spewing volcano",
+    "category": "business_tech",
+    "cluster_id": "believes decline ford good july month sales still",
     "culture_lane": "",
-    "llm_importance": 27,
+    "llm_importance": 28,
     "outlier_urls": [],
-    "rationale": "A volcanic eruption in Guatemala is an important natural-disaster development outside the United States."
-  },
-  {
-    "category": "finance",
-    "cluster_id": "bessent dive hormuz note oil prices qatar reopen",
-    "culture_lane": "",
-    "llm_importance": 52,
-    "outlier_urls": [],
-    "rationale": "The central development is a sharp move in oil prices caused by prospects for reopening the Strait of Hormuz."
-  },
-  {
-    "category": "global",
-    "cluster_id": "crimea four gun kills occupied rampage russian soldier",
-    "culture_lane": "",
-    "llm_importance": 21,
-    "outlier_urls": [],
-    "rationale": "The shooting occurred in Russian-occupied Crimea, a conflict-affected foreign territory, and is an international public-security development."
-  },
-  {
-    "category": "",
-    "cluster_id": "money rules swear they work",
-    "culture_lane": "",
-    "llm_importance": 8,
-    "outlier_urls": [],
-    "rationale": "This is general personal-finance advice rather than a story primarily about markets, asset prices, monetary policy, banking, or economic performance."
+    "rationale": "Ford's monthly vehicle-sales decline is a company and auto-industry operating-performance development."
   },
   {
     "category": "global",
     "cluster_id": "150 boat catches channel fire migrants more rescued",
     "culture_lane": "",
-    "llm_importance": 29,
+    "llm_importance": 30,
     "outlier_urls": [],
-    "rationale": "The rescue of migrants attempting a Channel crossing is part of an international migration and humanitarian issue."
+    "rationale": "The Channel rescue concerns cross-border migration and an emergency involving French and UK waters."
   },
   {
-    "category": "global",
-    "cluster_id": "deadly during ethiopia hits landslide monastery mountain prayer",
-    "culture_lane": "",
-    "llm_importance": 34,
+    "category": "culture",
+    "cluster_id": "player ranked reclassifies top williams",
+    "culture_lane": "sports",
+    "llm_importance": 12,
     "outlier_urls": [],
-    "rationale": "A deadly landslide in Ethiopia is a natural-disaster and humanitarian development outside the United States."
+    "rationale": "A top basketball prospect's recruiting-class decision is a sports development."
   },
   {
-    "category": "global",
-    "cluster_id": "000 airport caught ecstasy indonesian moment pills pilot",
+    "category": "business_tech",
+    "cluster_id": "boston during event founder host side summit week",
     "culture_lane": "",
-    "llm_importance": 14,
+    "llm_importance": 5,
     "outlier_urls": [],
-    "rationale": "The arrest of a pilot at an Indonesian airport is a foreign criminal-justice story, though relatively narrow in consequence."
+    "rationale": "This is a narrow startup-industry event promotion aimed at founders and investors."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "bessent dive hormuz note oil prices qatar reopen",
+    "culture_lane": "",
+    "llm_importance": 55,
+    "outlier_urls": [],
+    "rationale": "The central development is a sharp oil-price move caused by prospects of reopening the Strait of Hormuz."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "300m now spotify subscribers",
+    "culture_lane": "",
+    "llm_importance": 35,
+    "outlier_urls": [],
+    "rationale": "Spotify surpassing 300 million subscribers is a major platform's customer-growth and pricing-performance update."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "been crisis elephant everyone funding mouse overlooked room",
+    "culture_lane": "",
+    "llm_importance": 15,
+    "outlier_urls": [],
+    "rationale": "The article focuses on Social Security claiming and cost-of-living implications for personal retirement finances."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "money rules swear they work",
+    "culture_lane": "",
+    "llm_importance": 5,
+    "outlier_urls": [],
+    "rationale": "This is a narrow personal-finance guidance piece about household money management."
   }
 ]

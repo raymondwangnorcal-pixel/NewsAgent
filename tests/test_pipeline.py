@@ -629,7 +629,7 @@ def test_build_draft_candidates_diversifies_sources_only_for_merged_stories() ->
     ]
 
 
-# --- build_briefing_sections: grouping + finance lead lines ------------------------
+# --- build_briefing_sections: grouping ---------------------------------------------
 
 
 def test_build_briefing_sections_groups_paragraphs_and_omits_empty_categories() -> None:
@@ -639,40 +639,17 @@ def test_build_briefing_sections_groups_paragraphs_and_omits_empty_categories() 
     ]
     config = minimal_config()
 
-    sections = pipeline.build_briefing_sections(paragraphs, config, StockSnapshot(news_mentions=(), mega_caps=(), quotes={}))
+    sections = pipeline.build_briefing_sections(paragraphs, config)
 
     by_category = {section.category: section for section in sections}
     assert set(by_category) == {"culture", "finance"}
     assert len(by_category["finance"].paragraphs) == 1
 
 
-def test_build_briefing_sections_finance_gets_lead_lines_other_categories_dont() -> None:
-    class FakeQuote:
-        def __init__(self, text: str) -> None:
-            self._text = text
-
-        def compact(self) -> str:
-            return self._text
-
-    class FakeSnapshot:
-        mega_caps = ("AAPL", "NVDA")
-
-        def quote_for(self, symbol: str) -> FakeQuote:
-            return FakeQuote(f"{symbol} 100.00 (+1.0%)")
-
-    config = minimal_config()
-    sections = pipeline.build_briefing_sections([], config, FakeSnapshot())
-    by_category = {section.category: section for section in sections}
-
-    assert set(by_category) == {"finance"}
-    assert by_category["finance"].lead_lines == ("AAPL 100.00 (+1.0%)", "NVDA 100.00 (+1.0%)")
-
-
-def test_build_briefing_sections_omits_finance_when_it_has_no_story_or_quotes() -> None:
+def test_build_briefing_sections_omits_finance_when_it_has_no_story() -> None:
     sections = pipeline.build_briefing_sections(
         [],
         minimal_config(),
-        StockSnapshot(news_mentions=(), mega_caps=(), quotes={}),
     )
 
     assert sections == []

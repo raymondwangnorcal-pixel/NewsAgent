@@ -1,0 +1,340 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.0239125,
+  "created_at": "2026-08-04T15:03:07.141169+00:00",
+  "guard_deltas": {},
+  "input_tokens": 0,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 0,
+  "stories": [
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Trump Media & Technology Group has launched Truth API, a paid data feed promising Wall Street firms and institutional investors the fastest access to influential Truth Social posts. President Donald Trump\u2019s account, with about 13 million followers, is the platform\u2019s largest and potentially most market-moving, though the company has not said whether it is included. The service raises legal and ethical questions because Trump\u2019s family remains the company\u2019s majority shareholder while his public statements can move markets within seconds.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c4gdkl9zn8wo",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c4gdkl9zn8wo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Trump Media & Technology Group has launched Truth API, a paid data feed promising Wall Street firms and institutional investors the fastest access to influential Truth Social posts. President Donald Trump\u2019s account, with about 13 million followers, is the platform\u2019s largest and potentially most market-moving, though the company has not said whether it is included. The service raises legal and ethical questions because Trump\u2019s family remains the company\u2019s majority shareholder while his public statements can move markets within seconds.",
+      "guard_result": "not_run",
+      "story_id": "access controversial fast market media moving posts sale"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "India is laying legal groundwork to let merchants potentially pay fees on some transactions through its Unified Payments Interface, ending the principle that accepting UPI payments is free. UPI processed a record 23.66 billion transactions worth \u20b929.88 trillion, or about $313.4 billion, in July alone. The change could give banks and fintechs a more durable way to fund the fast-growing network, but would alter a zero-fee policy that helped drive its mass adoption since 2020.",
+      "evidence": [
+        {
+          "canonical_url": "https://techcrunch.com/2026/08/04/india-moves-to-give-its-instant-payments-network-a-business-model/",
+          "evidence_type": "extracted",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/08/04/india-moves-to-give-its-instant-payments-network-a-business-model/"
+        }
+      ],
+      "full_paragraph": "India is laying legal groundwork to let merchants potentially pay fees on some transactions through its Unified Payments Interface, ending the principle that accepting UPI payments is free. UPI processed a record 23.66 billion transactions worth \u20b929.88 trillion, or about $313.4 billion, in July alone. The change could give banks and fintechs a more durable way to fund the fast-growing network, but would alter a zero-fee policy that helped drive its mass adoption since 2020.",
+      "guard_result": "not_run",
+      "story_id": "business give india instant model moves network payments"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Apple is seeking a preliminary injunction and expedited discovery in its trade-secrets case against OpenAI, alleging its technology may be used in an AI device or other products. In a new court filing, Apple said its investigation identified 11 additional former employees who may have witnessed or been involved in the alleged theft beyond the two employees initially accused. The request escalates a dispute that could expose more of OpenAI\u2019s hardware-development plans and Apple\u2019s confidential work.",
+      "evidence": [
+        {
+          "canonical_url": "https://techcrunch.com/2026/08/04/apple-says-more-ex-employees-may-have-taken-confidential-data-to-openai/",
+          "evidence_type": "extracted",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/08/04/apple-says-more-ex-employees-may-have-taken-confidential-data-to-openai/"
+        }
+      ],
+      "full_paragraph": "Apple is seeking a preliminary injunction and expedited discovery in its trade-secrets case against OpenAI, alleging its technology may be used in an AI device or other products. In a new court filing, Apple said its investigation identified 11 additional former employees who may have witnessed or been involved in the alleged theft beyond the two employees initially accused. The request escalates a dispute that could expose more of OpenAI\u2019s hardware-development plans and Apple\u2019s confidential work.",
+      "guard_result": "not_run",
+      "story_id": "apple confidential data employees may more openai taken"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "A multistate lawsuit seeking to block the proposed $110 billion Paramount-Warner Bros. Discovery merger has put CNN\u2019s future at the center of the fight, according to Deadline. Paramount chief David Ellison has argued that concerns over CNN are the lawsuit\u2019s real focus, while Ari Emanuel has publicly addressed fears that Larry Ellison could exert influence over both CNN and CBS. The case could determine whether the combined company proceeds and how its news operations are governed.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/08/cnn-ari-emanuel-paramount-merger-response-1237016961/",
+          "evidence_type": "feed_content",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/08/cnn-ari-emanuel-paramount-merger-response-1237016961/"
+        }
+      ],
+      "full_paragraph": "A multistate lawsuit seeking to block the proposed $110 billion Paramount-Warner Bros. Discovery merger has put CNN\u2019s future at the center of the fight, according to Deadline. Paramount chief David Ellison has argued that concerns over CNN are the lawsuit\u2019s real focus, while Ari Emanuel has publicly addressed fears that Larry Ellison could exert influence over both CNN and CBS. The case could determine whether the combined company proceeds and how its news operations are governed.",
+      "guard_result": "not_run",
+      "story_id": "about ari cbs ceo cnn controlling david ellison"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "China\u2019s electronics hub of Huaqiangbei lacks the parts needed to make exact copies of Apple\u2019s newest phones, CNBC reported, a sign of changing access to the company\u2019s supply chain. The report links that shortage to the so-called \u201cBaby iPhone\u201d and to a leak involving an Apple supplier, against a backdrop of Apple\u2019s manufacturing expansion in India. Those shifts matter because they suggest China\u2019s once-speedy ecosystem for copying and supplying consumer electronics is facing tighter constraints.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/04/china-apple-india-tata-electronics.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/04/china-apple-india-tata-electronics.html"
+        }
+      ],
+      "full_paragraph": "China\u2019s electronics hub of Huaqiangbei lacks the parts needed to make exact copies of Apple\u2019s newest phones, CNBC reported, a sign of changing access to the company\u2019s supply chain. The report links that shortage to the so-called \u201cBaby iPhone\u201d and to a leak involving an Apple supplier, against a backdrop of Apple\u2019s manufacturing expansion in India. Those shifts matter because they suggest China\u2019s once-speedy ecosystem for copying and supplying consumer electronics is facing tighter constraints.",
+      "guard_result": "not_run",
+      "story_id": "apple baby chain china explain iphone leak moves"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Authorities have made an arson arrest connected to the largest of several wildfires burning near Spokane, Washington, the BBC reported. Three fires in the area have forced about 60,000 people from their homes, underscoring the immediate scale of the emergency even as investigators pursue a possible criminal cause. The arrest may clarify how the biggest blaze began, while evacuation and firefighting efforts remain the priority for communities in the fire zone.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c5y3ppmmev1o?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c5y3ppmmev1o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Authorities have made an arson arrest connected to the largest of several wildfires burning near Spokane, Washington, the BBC reported. Three fires in the area have forced about 60,000 people from their homes, underscoring the immediate scale of the emergency even as investigators pursue a possible criminal cause. The arrest may clarify how the biggest blaze began, while evacuation and firefighting efforts remain the priority for communities in the fire zone.",
+      "guard_result": "not_run",
+      "story_id": "arrest arson largest made state washington wildfires"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Crowds in Gaza City held a mass funeral for 112 Palestinians, mostly women and children, whose bodies were recently recovered from a residential block struck by Israel in November 2023. A two-week recovery operation pulled the remains of members of the Abu Sharia and Hassayna families from rubble in the Sabra neighborhood; the dead included 40 children and 38 women. The burial, described as Gaza\u2019s largest such funeral, highlights how casualties from early fighting are still being recovered.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cn0n99npjejo",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cn0n99npjejo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Crowds in Gaza City held a mass funeral for 112 Palestinians, mostly women and children, whose bodies were recently recovered from a residential block struck by Israel in November 2023. A two-week recovery operation pulled the remains of members of the Abu Sharia and Hassayna families from rubble in the Sabra neighborhood; the dead included 40 children and 38 women. The burial, described as Gaza\u2019s largest such funeral, highlights how casualties from early fighting are still being recovered.",
+      "guard_result": "not_run",
+      "story_id": "112 2023 funeral gaza israeli killed mass palestinians"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Cameroon\u2019s 93-year-old President Paul Biya reshuffled senior military posts after being absent from public view for nearly two months, fueling concern over his prolonged stay abroad. He promoted five colonels to brigadier general and reappointed Raymond Jean Charles Beko\u2019o Abondo to command the elite presidential guard, a post he has held since 2013. The moves echo earlier security reshuffles during periods of scrutiny and keep attention on political stability around one of Africa\u2019s longest-serving leaders.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/ckg9kd27lkpo",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/ckg9kd27lkpo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Cameroon\u2019s 93-year-old President Paul Biya reshuffled senior military posts after being absent from public view for nearly two months, fueling concern over his prolonged stay abroad. He promoted five colonels to brigadier general and reappointed Raymond Jean Charles Beko\u2019o Abondo to command the elite presidential guard, a post he has held since 2013. The moves echo earlier security reshuffles during periods of scrutiny and keep attention on political stability around one of Africa\u2019s longest-serving leaders.",
+      "guard_result": "not_run",
+      "story_id": "absence army his oldest president reshuffles stokes unease"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "French authorities rescued more than 150 migrants after the engine of their boat caught fire as it attempted to cross the English Channel to the UK. The incident adds to the dangers facing people using overcrowded small boats on one of Europe\u2019s busiest shipping routes. It is likely to intensify scrutiny of cross-Channel enforcement and rescue operations, even as authorities on both sides seek to deter the crossings.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c4gkpeppjyqo?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c4gkpeppjyqo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "French authorities rescued more than 150 migrants after the engine of their boat caught fire as it attempted to cross the English Channel to the UK. The incident adds to the dangers facing people using overcrowded small boats on one of Europe\u2019s busiest shipping routes. It is likely to intensify scrutiny of cross-Channel enforcement and rescue operations, even as authorities on both sides seek to deter the crossings.",
+      "guard_result": "not_run",
+      "story_id": "150 boat catches channel fire migrants more rescued"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Bowen Yang will make his Broadway acting debut as Mary Todd Lincoln in the Tony-winning comedy \u201cOh, Mary!\u201d beginning September 15. The former \u201cSaturday Night Live\u201d cast member will take over from Meg Stalter for a limited 12-week run through December 6 at the Lyceum Theatre. Yang\u2019s casting gives the long-running production another high-profile lead as it continues its Broadway run, West End engagement and planned North American tour.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/08/bowen-yang-oh-mary-broadway-1237017010/",
+          "evidence_type": "extracted",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/08/bowen-yang-oh-mary-broadway-1237017010/"
+        },
+        {
+          "canonical_url": "https://www.hollywoodreporter.com/lifestyle/arts/bowen-yang-broadway-debut-in-oh-mary-this-fall-1236663740/",
+          "evidence_type": "extracted",
+          "source": "The Hollywood Reporter",
+          "url": "https://www.hollywoodreporter.com/lifestyle/arts/bowen-yang-broadway-debut-in-oh-mary-this-fall-1236663740/"
+        }
+      ],
+      "full_paragraph": "Bowen Yang will make his Broadway acting debut as Mary Todd Lincoln in the Tony-winning comedy \u201cOh, Mary!\u201d beginning September 15. The former \u201cSaturday Night Live\u201d cast member will take over from Meg Stalter for a limited 12-week run through December 6 at the Lyceum Theatre. Yang\u2019s casting gives the long-running production another high-profile lead as it continues its Broadway run, West End engagement and planned North American tour.",
+      "guard_result": "not_run",
+      "story_id": "bowen broadway debut make mary yang"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Verge\u2019s staff used the summer box-office resurgence to share personal memories of going to the movies, from blockbuster crowds to large-format screenings. The discussion was prompted in part by renewed enthusiasm for IMAX, including 70mm presentations of \u201cThe Odyssey,\u201d and by strong interest in Spider-Man. Rather than reporting a single industry development, the piece argues that communal viewing remains a key draw for theaters as studios seek to sustain a broader audience recovery.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/entertainment/974920/verge-favorite-movie-memories",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/entertainment/974920/verge-favorite-movie-memories"
+        }
+      ],
+      "full_paragraph": "The Verge\u2019s staff used the summer box-office resurgence to share personal memories of going to the movies, from blockbuster crowds to large-format screenings. The discussion was prompted in part by renewed enthusiasm for IMAX, including 70mm presentations of \u201cThe Odyssey,\u201d and by strong interest in Spider-Man. Rather than reporting a single industry development, the piece argues that communal viewing remains a key draw for theaters as studios seek to sustain a broader audience recovery.",
+      "guard_result": "not_run",
+      "story_id": "favorite memories movies our"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Ed Sheeran co-wrote two of the top 10 songs on this week\u2019s Billboard Global 200 despite not performing either one. Shakira and Burna Boy\u2019s \u201cDai Dai,\u201d the 2026 FIFA World Cup official song, held No. 1 for a fourth week with 56.8 million global streams, while KATSEYE\u2019s \u201cAnimal\u201d debuted at No. 10 on 29.8 million streams. The placements underline Sheeran\u2019s continued commercial reach as a songwriter even while his own recordings have been absent from the global top 10.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/pro/ed-sheeran-wrote-top-10-songs-in-the-world-this-week/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/pro/ed-sheeran-wrote-top-10-songs-in-the-world-this-week/"
+        }
+      ],
+      "full_paragraph": "Ed Sheeran co-wrote two of the top 10 songs on this week\u2019s Billboard Global 200 despite not performing either one. Shakira and Burna Boy\u2019s \u201cDai Dai,\u201d the 2026 FIFA World Cup official song, held No. 1 for a fourth week with 56.8 million global streams, while KATSEYE\u2019s \u201cAnimal\u201d debuted at No. 10 on 29.8 million streams. The placements underline Sheeran\u2019s continued commercial reach as a songwriter even while his own recordings have been absent from the global top 10.",
+      "guard_result": "not_run",
+      "story_id": "but doesn sheeran sing songs this top week"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "ESPN has added Chase Murman, Leah Cammarano, Diana Flores, Isaac Rochell and Simone Scott to its Creator Network ahead of the network\u2019s first Super Bowl. The creators will produce content for ESPN platforms as well as their own channels, extending the sports outlet\u2019s reach into personality-led digital coverage. The effort reflects ESPN\u2019s push to build audiences beyond traditional broadcasts as football\u2019s biggest event approaches.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.hollywoodreporter.com/business/digital/new-espn-creator-network-class-2026-1236663222/",
+          "evidence_type": "feed_content",
+          "source": "The Hollywood Reporter",
+          "url": "https://www.hollywoodreporter.com/business/digital/new-espn-creator-network-class-2026-1236663222/"
+        }
+      ],
+      "full_paragraph": "ESPN has added Chase Murman, Leah Cammarano, Diana Flores, Isaac Rochell and Simone Scott to its Creator Network ahead of the network\u2019s first Super Bowl. The creators will produce content for ESPN platforms as well as their own channels, extending the sports outlet\u2019s reach into personality-led digital coverage. The effort reflects ESPN\u2019s push to build audiences beyond traditional broadcasts as football\u2019s biggest event approaches.",
+      "guard_result": "not_run",
+      "story_id": "ahead bowl creators espn exclusive first football lines"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Nintendo\u2019s upcoming \u201cFire Emblem: Fortune\u2019s Weave\u201d will add guns to a series best known for tactical battles built around swords, spears, bows and magic, Polygon reported. The newly revealed weapon marks a notable change for the fantasy strategy franchise and could reshape combat choices for players. Its inclusion signals that the new installment is willing to depart from the series\u2019 traditional arsenal as it arrives for Nintendo Switch 2.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.polygon.com/fire-emblem-fortunes-weave-guns-nintendo-switch-2/",
+          "evidence_type": "feed_content",
+          "source": "Polygon",
+          "url": "https://www.polygon.com/fire-emblem-fortunes-weave-guns-nintendo-switch-2/"
+        }
+      ],
+      "full_paragraph": "Nintendo\u2019s upcoming \u201cFire Emblem: Fortune\u2019s Weave\u201d will add guns to a series best known for tactical battles built around swords, spears, bows and magic, Polygon reported. The newly revealed weapon marks a notable change for the fantasy strategy franchise and could reshape combat choices for players. Its inclusion signals that the new installment is willing to depart from the series\u2019 traditional arsenal as it arrives for Nintendo Switch 2.",
+      "guard_result": "not_run",
+      "story_id": "adds emblem fire fortune guns surprise weapon weave"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "U.S. manufacturing expanded at its fastest pace in more than four years in July, with the ISM index rising to 55.6, but factory executives also reported persistent price pressure and geopolitical uncertainty. The production measure jumped 6.3 points and manufacturing employment expanded for the first time in 33 months, while the prices index remained high at 71.1. The mix of stronger activity and stubborn inflation complicates the Federal Reserve\u2019s path on interest rates.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/manufacturing-survey-shows-inflation-worries-adding-to-pressure-on-fed.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/manufacturing-survey-shows-inflation-worries-adding-to-pressure-on-fed.html"
+        }
+      ],
+      "full_paragraph": "U.S. manufacturing expanded at its fastest pace in more than four years in July, with the ISM index rising to 55.6, but factory executives also reported persistent price pressure and geopolitical uncertainty. The production measure jumped 6.3 points and manufacturing employment expanded for the first time in 33 months, while the prices index remained high at 71.1. The mix of stronger activity and stubborn inflation complicates the Federal Reserve\u2019s path on interest rates.",
+      "guard_result": "not_run",
+      "story_id": "adding era fed inflation manufacturing pandemic pressure shows"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Palantir shares jumped 27% after the software company reported second-quarter revenue of $1.94 billion, up 93% from a year earlier and above analysts\u2019 $1.8 billion estimate. Commercial revenue surged 149% to $764 million as customers sought AI tools that let them keep control of their data, while government revenue rose 90% to $809 million. The results and raised outlook reinforce investor expectations that demand for enterprise AI is translating into unusually rapid sales growth.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/04/palantir-2q-earnings-ai-sovereign-tools.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/04/palantir-2q-earnings-ai-sovereign-tools.html"
+        }
+      ],
+      "full_paragraph": "Palantir shares jumped 27% after the software company reported second-quarter revenue of $1.94 billion, up 93% from a year earlier and above analysts\u2019 $1.8 billion estimate. Commercial revenue surged 149% to $764 million as customers sought AI tools that let them keep control of their data, while government revenue rose 90% to $809 million. The results and raised outlook reinforce investor expectations that demand for enterprise AI is translating into unusually rapid sales growth.",
+      "guard_result": "not_run",
+      "story_id": "commercial demand driving jumps otherworldly palantir revenue"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Pfizer beat quarterly estimates and raised the low end of its full-year revenue guidance, citing strength in blood thinner Eliquis and other medicines. At the same time, it cut its expected 2026 revenue from Covid products to $4 billion from roughly $5 billion previously. The update shows Pfizer is leaning more heavily on its non-Covid drug portfolio as the pandemic-era business continues to shrink.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/04/pfizer-pfe-earnings-q2-2026.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/04/pfizer-pfe-earnings-q2-2026.html"
+        }
+      ],
+      "full_paragraph": "Pfizer beat quarterly estimates and raised the low end of its full-year revenue guidance, citing strength in blood thinner Eliquis and other medicines. At the same time, it cut its expected 2026 revenue from Covid products to $4 billion from roughly $5 billion previously. The update shows Pfizer is leaning more heavily on its non-Covid drug portfolio as the pandemic-era business continues to shrink.",
+      "guard_result": "not_run",
+      "story_id": "drugs eliquis end estimates guidance hikes low other"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Oil prices fell sharply after a Qatari official said the US and Iran could reach a short-term agreement to reopen the Strait of Hormuz, MarketWatch reported. The route is vital to global energy shipments, so signs that traffic could normalize reduced the risk premium traders had placed on crude. Markets will now watch whether talks produce a workable deal, since any failure or renewed disruption could quickly reverse the move.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/oil-prices-rise-after-vessel-reports-being-hit-in-strait-of-hormuz-db6ce867?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/oil-prices-rise-after-vessel-reports-being-hit-in-strait-of-hormuz-db6ce867?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Oil prices fell sharply after a Qatari official said the US and Iran could reach a short-term agreement to reopen the Strait of Hormuz, MarketWatch reported. The route is vital to global energy shipments, so signs that traffic could normalize reduced the risk premium traders had placed on crude. Markets will now watch whether talks produce a workable deal, since any failure or renewed disruption could quickly reverse the move.",
+      "guard_result": "not_run",
+      "story_id": "bessent dive hormuz note oil prices qatar reopen"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "A MarketWatch analysis warns that delaying a Social Security claim until age 70 does more than increase a retiree\u2019s initial monthly benefit: it also produces proportionally larger cost-of-living adjustments. The point adds a personal-finance wrinkle to the broader debate over Social Security\u2019s funding shortfall. For retirees, the trade-off remains whether they can forgo earlier payments in exchange for a larger inflation-adjusted benefit later in life.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/if-social-securitys-funding-crisis-is-the-elephant-in-the-room-this-is-the-mouse-everyone-has-overlooked-you-have-been-warned-b95c450d?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/if-social-securitys-funding-crisis-is-the-elephant-in-the-room-this-is-the-mouse-everyone-has-overlooked-you-have-been-warned-b95c450d?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "A MarketWatch analysis warns that delaying a Social Security claim until age 70 does more than increase a retiree\u2019s initial monthly benefit: it also produces proportionally larger cost-of-living adjustments. The point adds a personal-finance wrinkle to the broader debate over Social Security\u2019s funding shortfall. For retirees, the trade-off remains whether they can forgo earlier payments in exchange for a larger inflation-adjusted benefit later in life.",
+      "guard_result": "not_run",
+      "story_id": "been crisis elephant everyone funding mouse overlooked room"
+    }
+  ]
+}

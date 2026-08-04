@@ -983,3 +983,25 @@
 - Recorded against HEAD: `2e9a3bd512cccf9b993de936e60c4574ea91166c`
 - Supersedes: none
 - Evidence: User-approved Watchlist live-price request on 2026-08-03.
+
+## DEC-0053 — Remove ticker-price display from the Finance section
+
+- Date: 2026-08-04
+- Owner: user
+- Status at record: active
+- Decision: Do not render stock ticker prices in the Finance section; retain Watchlist prices and their supporting quote retrieval.
+- Rationale: The Finance briefing should contain only editorial stories, while the Watchlist remains the dedicated place for tracked-price information.
+- Scope: Finance-section construction and its ticker-price display code only; Watchlist and alert behavior remain unchanged.
+- Implementation: pending
+- Recorded against HEAD: `eeb5feaf8fdee6a077ff3071fd629847c8a117e2`
+- Supersedes: none
+- Evidence: User-requested Finance-section simplification on 2026-08-04.
+- Privacy waivers: none
+
+## Update — 2026-08-04 — DEC-0052
+
+- Type: implementation
+- Implementation commit: `eeb5feaf8fdee6a077ff3071fd629847c8a117e2` — Refactor news agent implementation
+- Superseded by: none
+- Note: The Watchlist now uses the Finance quote snapshot during regular NYSE hours, labels those values live, and preserves completed-close behavior otherwise.
+- Privacy waivers: none
