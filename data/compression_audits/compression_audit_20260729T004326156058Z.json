@@ -1,0 +1,334 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.0236375,
+  "created_at": "2026-07-29T00:43:26.156111+00:00",
+  "guard_deltas": {},
+  "input_tokens": 0,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 0,
+  "stories": [
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Elon Musk\u2019s xAI, now owned by SpaceX, sued Minnesota Attorney General Keith Ellison to block a law targeting apps that generate non-consensual sexualized images. The law, due to take effect Saturday, allows $500,000 fines for each explicit deepfake created; xAI calls it an overbroad, content-based restriction on speech. The suit puts a court at the center of a growing clash between AI-image tools and protections for people depicted without consent.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/spacexs-xai-sues-minnesota-over-law-to-ban-nudify-apps-.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/spacexs-xai-sues-minnesota-over-law-to-ban-nudify-apps-.html"
+        }
+      ],
+      "full_paragraph": "Elon Musk\u2019s xAI, now owned by SpaceX, sued Minnesota Attorney General Keith Ellison to block a law targeting apps that generate non-consensual sexualized images. The law, due to take effect Saturday, allows $500,000 fines for each explicit deepfake created; xAI calls it an overbroad, content-based restriction on speech. The suit puts a court at the center of a growing clash between AI-image tools and protections for people depicted without consent.",
+      "guard_result": "not_run",
+      "story_id": "apps ban elon law minnesota musk nudify sues"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Federal Communications Commission announced an import ban covering foreign-made \u201cadvanced robotic devices,\u201d including mobile humanoid and quadruped robots, as well as power inverters. The agency cited unspecified \u201cunacceptable risks,\u201d and although it did not name China, the measure will particularly hit Chinese robot makers and inverter suppliers such as Sungrow and already-blacklisted Huawei. The policy could reshape supply chains for robotics and solar-energy equipment while escalating U.S. technology restrictions.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/tech/972259/us-foreign-robots-power-inverter-ban",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/tech/972259/us-foreign-robots-power-inverter-ban"
+        }
+      ],
+      "full_paragraph": "The Federal Communications Commission announced an import ban covering foreign-made \u201cadvanced robotic devices,\u201d including mobile humanoid and quadruped robots, as well as power inverters. The agency cited unspecified \u201cunacceptable risks,\u201d and although it did not name China, the measure will particularly hit Chinese robot makers and inverter suppliers such as Sungrow and already-blacklisted Huawei. The policy could reshape supply chains for robotics and solar-energy equipment while escalating U.S. technology restrictions.",
+      "guard_result": "not_run",
+      "story_id": "banning foreign robots"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Providence Equity Partners will take full ownership of talent and sports agency THE\u2022TEAM, formerly Wasserman, by buying founder Casey Wasserman\u2019s remaining stake. Providence has been the company\u2019s majority investor since 2022, and president Mike Watt, who assumed day-to-day control after Wasserman announced a sale in February, will become CEO when the deal closes. Financial terms were not disclosed, leaving the agency under a private-equity owner as it transitions beyond its founder.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/pro/theteam-sale-closes-providence-equity-partners-ownership/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/pro/theteam-sale-closes-providence-equity-partners-ownership/"
+        }
+      ],
+      "full_paragraph": "Providence Equity Partners will take full ownership of talent and sports agency THE\u2022TEAM, formerly Wasserman, by buying founder Casey Wasserman\u2019s remaining stake. Providence has been the company\u2019s majority investor since 2022, and president Mike Watt, who assumed day-to-day control after Wasserman announced a sale in February, will become CEO when the deal closes. Financial terms were not disclosed, leaving the agency under a private-equity owner as it transitions beyond its founder.",
+      "guard_result": "not_run",
+      "story_id": "equity partners providence selling team"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Federal Aviation Administration is moving to waive some environmental rules that can slow launch approvals, a step that could benefit companies including SpaceX and Blue Origin. Transportation Secretary Sean Duffy said the administration wants to remove \u201cgovernment red tape\u201d to help the U.S. compete in a new space race. Any change could speed launch licensing, but it also raises questions over how environmental effects near launch sites will be reviewed.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/space-launches-faa-environmental-spacex-blue-origin-sean-duffy.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/space-launches-faa-environmental-spacex-blue-origin-sean-duffy.html"
+        }
+      ],
+      "full_paragraph": "The Federal Aviation Administration is moving to waive some environmental rules that can slow launch approvals, a step that could benefit companies including SpaceX and Blue Origin. Transportation Secretary Sean Duffy said the administration wants to remove \u201cgovernment red tape\u201d to help the U.S. compete in a new space race. Any change could speed launch licensing, but it also raises questions over how environmental effects near launch sites will be reviewed.",
+      "guard_result": "not_run",
+      "story_id": "approval blue could environmental faa get launch move"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Ari Emanuel backed Paramount\u2019s proposed $110 billion acquisition of Warner Bros. Discovery in a Wall Street Journal opinion article, arguing the deal could help save Hollywood. He dismissed a states\u2019 antitrust lawsuit against the transaction as \u201ctrash\u201d and urged regulators to let creative businesses compete. His intervention adds a prominent entertainment-industry voice to the fight over whether combining two major studios and streaming businesses would reduce competition.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/07/ari-emanuel-paramount-warner-bros-discovery-merger-wsj-1237006229/",
+          "evidence_type": "feed_content",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/07/ari-emanuel-paramount-warner-bros-discovery-merger-wsj-1237006229/"
+        }
+      ],
+      "full_paragraph": "Ari Emanuel backed Paramount\u2019s proposed $110 billion acquisition of Warner Bros. Discovery in a Wall Street Journal opinion article, arguing the deal could help save Hollywood. He dismissed a states\u2019 antitrust lawsuit against the transaction as \u201ctrash\u201d and urged regulators to let creative businesses compete. His intervention adds a prominent entertainment-industry voice to the fight over whether combining two major studios and streaming businesses would reduce competition.",
+      "guard_result": "not_run",
+      "story_id": "antitrust ari backs blasts deal emanuel lawsuit paramount"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Senate agreed to begin votes on a sanctions package aimed at cutting Russia\u2019s oil revenue and weakening its war effort in Ukraine. Lawmakers combined the Russia measure, named for the late Sen. Lindsey Graham, with Iran sanctions; it would target purchasers of Russian oil and gas and expand tariff authority. The procedural breakthrough advances a long-delayed congressional effort to pressure Moscow while Ukraine seeks stronger support.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/russia-sanctions-congress-key-vote-lindsey-graham-ukraine.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/russia-sanctions-congress-key-vote-lindsey-graham-ukraine.html"
+        }
+      ],
+      "full_paragraph": "The Senate agreed to begin votes on a sanctions package aimed at cutting Russia\u2019s oil revenue and weakening its war effort in Ukraine. Lawmakers combined the Russia measure, named for the late Sen. Lindsey Graham, with Iran sanctions; it would target purchasers of Russian oil and gas and expand tariff authority. The procedural breakthrough advances a long-delayed congressional effort to pressure Moscow while Ukraine seeks stronger support.",
+      "guard_result": "not_run",
+      "story_id": "russia sanction senate sets ukraine votes war"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Seattle residents held a candlelight vigil for the three people killed in a gunfight at the Bite of Seattle food festival, where at least four others were wounded. The victims were Junior Cee Niko Semo, 19, Carlos Israel Sanchez Villalba, 44, and Ashley Whitehead, 56; the annual free event typically draws about 350,000 people. Fundraisers and public tributes have focused on families left behind as the city mourns the violence.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cvgv7m5z4n0o",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cvgv7m5z4n0o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Seattle residents held a candlelight vigil for the three people killed in a gunfight at the Bite of Seattle food festival, where at least four others were wounded. The victims were Junior Cee Niko Semo, 19, Carlos Israel Sanchez Villalba, 44, and Ashley Whitehead, 56; the annual free event typically draws about 350,000 people. Fundraisers and public tributes have focused on families left behind as the city mourns the violence.",
+      "guard_result": "not_run",
+      "story_id": "festival food life lover pays seattle shooting tribute"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "President Donald Trump and the Justice Department separately asked the Supreme Court to overturn the $83.3 million defamation verdict won by writer E. Jean Carroll. Trump argues he was immune because his 2019 statements denying her sexual-assault allegation came while he was president, while the DOJ says the government should have replaced him as defendant under the Westfall Act. The appeals test how far presidential and federal-employee protections extend to personal defamation claims.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/trump-asks-supreme-court-to-toss-83point3m-defamation-award-to-e-jean-carroll.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/trump-asks-supreme-court-to-toss-83point3m-defamation-award-to-e-jean-carroll.html"
+        }
+      ],
+      "full_paragraph": "President Donald Trump and the Justice Department separately asked the Supreme Court to overturn the $83.3 million defamation verdict won by writer E. Jean Carroll. Trump argues he was immune because his 2019 statements denying her sexual-assault allegation came while he was president, while the DOJ says the government should have replaced him as defendant under the Westfall Act. The appeals test how far presidential and federal-employee protections extend to personal defamation claims.",
+      "guard_result": "not_run",
+      "story_id": "ask award carroll court defamation doj jean supreme"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Senate confirmed Jay Clayton as President Trump\u2019s director of national intelligence, replacing Bill Pulte, who had served in the role for months after Tulsi Gabbard resigned. Clayton now takes charge of coordinating the U.S. intelligence community and briefing the president on national-security threats. The confirmation ends an extended interim arrangement at a post central to intelligence policy and oversight.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/jay-clayton-bill-pulte-senate-vote-trump-spy-chief.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/jay-clayton-bill-pulte-senate-vote-trump-spy-chief.html"
+        }
+      ],
+      "full_paragraph": "The Senate confirmed Jay Clayton as President Trump\u2019s director of national intelligence, replacing Bill Pulte, who had served in the role for months after Tulsi Gabbard resigned. Clayton now takes charge of coordinating the U.S. intelligence community and briefing the president on national-security threats. The confirmation ends an extended interim arrangement at a post central to intelligence policy and oversight.",
+      "guard_result": "not_run",
+      "story_id": "clayton confirms director intelligence jay national pulte replacing"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Iran launched a surprise ballistic-missile attack on U.S. forces in the Middle East, but U.S. Central Command said every missile was intercepted. Centcom said the attack originated from Iran, without providing details on the target, damage or casualties. The interception prevented an immediate reported loss, but the episode underscores the risk of a wider confrontation involving U.S. forces in the region.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/29/us-iran-war-hormuz-centcom.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/29/us-iran-war-hormuz-centcom.html"
+        }
+      ],
+      "full_paragraph": "Iran launched a surprise ballistic-missile attack on U.S. forces in the Middle East, but U.S. Central Command said every missile was intercepted. Centcom said the attack originated from Iran, without providing details on the target, damage or casualties. The interception prevented an immediate reported loss, but the episode underscores the risk of a wider confrontation involving U.S. forces in the region.",
+      "guard_result": "not_run",
+      "story_id": "attack ballistic east forces iran launches middle missile"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Major League Baseball contenders are weighing roster upgrades with the trade deadline set for 6 p.m. ET on Aug. 3, while asking prices for starting pitching remain especially high. Teams are discussing players ranging from Detroit\u2019s Tarik Skubal to lower-cost options such as Brady Singer, according to ESPN\u2019s deadline roundup. The scarcity and cost of pitching mean many of the biggest moves may wait until the final days before the deadline.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/mlb/story/_/id/49410877/2026-mlb-trade-deadline-tracker-rumors-alerts-news-latest-updates-analysis",
+          "evidence_type": "extracted",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/mlb/story/_/id/49410877/2026-mlb-trade-deadline-tracker-rumors-alerts-news-latest-updates-analysis"
+        }
+      ],
+      "full_paragraph": "Major League Baseball contenders are weighing roster upgrades with the trade deadline set for 6 p.m. ET on Aug. 3, while asking prices for starting pitching remain especially high. Teams are discussing players ranging from Detroit\u2019s Tarik Skubal to lower-cost options such as Brady Singer, according to ESPN\u2019s deadline roundup. The scarcity and cost of pitching mean many of the biggest moves may wait until the final days before the deadline.",
+      "guard_result": "not_run",
+      "story_id": "all buzz deadline intel mlb our trade"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Netflix narrowly surpassed the BBC as the first place UK viewers say they turn when choosing something to watch, according to Ofcom\u2019s Media Nations report. In 2025, 26% chose Netflix first versus 25% for the BBC, though Ofcom said methodology changes make year-to-year comparisons only indicative; among 16- to 24-year-olds, Netflix led 36% to 14%. The shift increases pressure on the BBC as it renegotiates its funding model.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/07/netflix-chosen-over-bbc-uk-audiences-ofcom-media-nations-1237005527/",
+          "evidence_type": "extracted",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/07/netflix-chosen-over-bbc-uk-audiences-ofcom-media-nations-1237005527/"
+        }
+      ],
+      "full_paragraph": "Netflix narrowly surpassed the BBC as the first place UK viewers say they turn when choosing something to watch, according to Ofcom\u2019s Media Nations report. In 2025, 26% chose Netflix first versus 25% for the BBC, though Ofcom said methodology changes make year-to-year comparisons only indicative; among 16- to 24-year-olds, Netflix led 36% to 14%. The shift increases pressure on the BBC as it renegotiates its funding model.",
+      "guard_result": "not_run",
+      "story_id": "audiences bbc call first media nations netflix now"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Ariana Grande sued unidentified hackers in Los Angeles, seeking to identify people she alleges stole and leaked unreleased music, videos and photos. Her complaint says 45 unreleased songs alone were hacked and leaked in 2023, part of hundreds of alleged leaks since her 2011 debut, and accuses the defendants of selling and posting material online. The case seeks to stop distribution and hold those behind persistent entertainment-industry leaks accountable.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/entertainment/972233/ariana-grande-hacking-lawsuit",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/entertainment/972233/ariana-grande-hacking-lawsuit"
+        }
+      ],
+      "full_paragraph": "Ariana Grande sued unidentified hackers in Los Angeles, seeking to identify people she alleges stole and leaked unreleased music, videos and photos. Her complaint says 45 unreleased songs alone were hacked and leaked in 2023, part of hundreds of alleged leaks since her 2011 debut, and accuses the defendants of selling and posting material online. The case seeks to stop distribution and hold those behind persistent entertainment-industry leaks accountable.",
+      "guard_result": "not_run",
+      "story_id": "ariana been grande hackers her leaking songs suing"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Christopher Nolan\u2019s \u201cThe Odyssey\u201d is set to pass the $330 million domestic lifetime total of \u201cOppenheimer\u201d after only 13 days in theaters, Deadline reported. Its second Monday brought in $14.7 million, with Tuesday projected to exceed $16 million, compared with the 595 days \u201cOppenheimer\u201d needed to reach its final U.S. total. The unusually strong weekday performance signals sustained demand for the epic rather than a front-loaded opening.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/07/box-office-the-odyssey-oppenheimer-record-hadestown-1237006246/",
+          "evidence_type": "feed_content",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/07/box-office-the-odyssey-oppenheimer-record-hadestown-1237006246/"
+        }
+      ],
+      "full_paragraph": "Christopher Nolan\u2019s \u201cThe Odyssey\u201d is set to pass the $330 million domestic lifetime total of \u201cOppenheimer\u201d after only 13 days in theaters, Deadline reported. Its second Monday brought in $14.7 million, with Tuesday projected to exceed $16 million, compared with the 595 days \u201cOppenheimer\u201d needed to reach its final U.S. total. The unusually strong weekday performance signals sustained demand for the epic rather than a front-loaded opening.",
+      "guard_result": "not_run",
+      "story_id": "box days hadestown lifetime monday odyssey office oppenheimer"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "UEFA will hold an emergency meeting to consider responses, including a possible World Cup boycott, to a FIFA plan to sell equity to outside investors, ESPN reported. FIFA is seeking to raise $20 billion through the proposed investment, according to the report. A boycott remains only a possibility, but the dispute exposes a serious rift over how football\u2019s biggest global tournament should be financed and controlled.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/soccer/story/_/id/49470028/uefa-blasts-fifa-proposal-10-billion-world-cup-private-investment",
+          "evidence_type": "feed_content",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/soccer/story/_/id/49470028/uefa-blasts-fifa-proposal-10-billion-world-cup-private-investment"
+        }
+      ],
+      "full_paragraph": "UEFA will hold an emergency meeting to consider responses, including a possible World Cup boycott, to a FIFA plan to sell equity to outside investors, ESPN reported. FIFA is seeking to raise $20 billion through the proposed investment, according to the report. A boycott remains only a possibility, but the dispute exposes a serious rift over how football\u2019s biggest global tournament should be financed and controlled.",
+      "guard_result": "not_run",
+      "story_id": "boycott fifa plan sources uefa weighs"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Ford raised its 2026 earnings outlook after reporting adjusted second-quarter earnings of 42 cents a share, above the 35 cents Wall Street expected, sending its stock up nearly 7% after hours. It now forecasts adjusted EBIT of $10 billion to $11 billion, citing operational improvements, resilient pricing and profitable vehicle mix despite automotive revenue of $44.89 billion missing estimates. The upgrade signals Ford expects stronger pickup and core-vehicle performance to offset a softer top line.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/ford-motor-f-earnings-q2-2026.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/ford-motor-f-earnings-q2-2026.html"
+        }
+      ],
+      "full_paragraph": "Ford raised its 2026 earnings outlook after reporting adjusted second-quarter earnings of 42 cents a share, above the 35 cents Wall Street expected, sending its stock up nearly 7% after hours. It now forecasts adjusted EBIT of $10 billion to $11 billion, citing operational improvements, resilient pricing and profitable vehicle mix despite automotive revenue of $44.89 billion missing estimates. The upgrade signals Ford expects stronger pickup and core-vehicle performance to offset a softer top line.",
+      "guard_result": "not_run",
+      "story_id": "beat earnings ford guidance raises recovery series track"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Seagate reported June-quarter results above Wall Street expectations, and its shares rose after hours, offering investors a positive data point for the battered AI trade. The storage maker\u2019s performance matters because AI systems require large amounts of data storage alongside computing chips and networking equipment. The reaction suggests investors remain willing to reward companies showing that AI-related infrastructure demand is translating into earnings.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/seagates-earnings-are-welcome-news-for-the-battered-ai-trade-92dfc30f?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/seagates-earnings-are-welcome-news-for-the-battered-ai-trade-92dfc30f?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Seagate reported June-quarter results above Wall Street expectations, and its shares rose after hours, offering investors a positive data point for the battered AI trade. The storage maker\u2019s performance matters because AI systems require large amounts of data storage alongside computing chips and networking equipment. The reaction suggests investors remain willing to reward companies showing that AI-related infrastructure demand is translating into earnings.",
+      "guard_result": "not_run",
+      "story_id": "battered earnings seagate trade welcome"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Ford\u2019s stock jumped after the automaker leaned on pickup trucks and other traditionally powered vehicles to limit its sales decline, a strategy that aligns it with a key strength at rival General Motors. The approach emphasizes profitable, established models rather than relying solely on newer vehicle segments. Investors appeared to welcome the focus on core products, especially as Ford works to stabilize earnings and recover F-Series production.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/ford-matches-gm-in-one-crucial-way-and-the-stock-jumps-bf2f708c?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/ford-matches-gm-in-one-crucial-way-and-the-stock-jumps-bf2f708c?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Ford\u2019s stock jumped after the automaker leaned on pickup trucks and other traditionally powered vehicles to limit its sales decline, a strategy that aligns it with a key strength at rival General Motors. The approach emphasizes profitable, established models rather than relying solely on newer vehicle segments. Investors appeared to welcome the focus on core products, especially as Ford works to stabilize earnings and recover F-Series production.",
+      "guard_result": "not_run",
+      "story_id": "crucial ford jumps matches one stock way"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Micron\u2019s shares were heading toward their worst monthly decline in 11 years as investor concerns grew over China\u2019s expanding domestic supply of chips and chipmaking tools. Analysts said the selloff reflects fears that Chinese competitors could pressure demand or pricing for memory products. The drop highlights how geopolitical competition and shifting supply chains are becoming a material risk even for companies tied to long-term AI demand.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/microns-stock-sinks-toward-worst-monthly-drop-in-11-years-as-china-fears-escalate-3c956a67?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/microns-stock-sinks-toward-worst-monthly-drop-in-11-years-as-china-fears-escalate-3c956a67?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Micron\u2019s shares were heading toward their worst monthly decline in 11 years as investor concerns grew over China\u2019s expanding domestic supply of chips and chipmaking tools. Analysts said the selloff reflects fears that Chinese competitors could pressure demand or pricing for memory products. The drop highlights how geopolitical competition and shifting supply chains are becoming a material risk even for companies tied to long-term AI demand.",
+      "guard_result": "not_run",
+      "story_id": "china drop escalate fears micron monthly sinks stock"
+    }
+  ]
+}

@@ -98,6 +98,7 @@ GMAIL_SMTP_USERNAME=sender@gmail.com
 GMAIL_SMTP_APP_PASSWORD=...
 EMAIL_FROM=sender@gmail.com
 EMAIL_TO=first@example.com,second@example.com
+SEC_CONTACT_EMAIL=newsagent-contact@gmail.com
 TIINGO_API_KEY=...
 EODHD_API_KEY=...
 ```
@@ -106,7 +107,40 @@ Use `news-briefing --dry-run --to email --email-parity` to test the temporary
 Gmail-only delivery baseline. It deliberately renders the Telegram digest
 unchanged and does not require market-data keys. It is a temporary bridge;
 native email delivery is `news-briefing --send --to email` after both quote
-provider keys are configured.
+provider keys and `SEC_CONTACT_EMAIL` are configured. Native email runs always
+retrieve and render the Watchlist. Gate A evaluation starts disabled, so normal
+editions initially include the exact notice `Watchlist evaluation disabled.`;
+that notice does not mean Watchlist retrieval is disabled.
+
+To send a fresh, same-day Gmail test revision without changing briefing
+history or replacing the original edition, run:
+
+```bash
+news-briefing --send --to email --email-rebuild-today --confirm
+```
+
+Each invocation creates a separately tracked `Test resend` revision. It is
+manual-only, has a `[TEST]` subject, and cannot affect production Watchlist
+suppression or Gate A metrics. To resend a stored edition byte-for-byte instead,
+use `news-briefing --email-resend EDITION_ID --confirm`.
+
+Watchlist evaluation is opt-in. After the test suite and a full no-send run pass
+for the same implementation version, activate it explicitly:
+
+```bash
+news-briefing --dry-run --to email --show-diagnostics \
+  --activate-watchlist-gate --tests-passed \
+  --implementation-version VERSION --confirm
+```
+
+Independent benchmark events can be imported and reviewed locally with
+`--watchlist-benchmark-import FILE` and `--review-watchlist-benchmark`.
+Use `--review-watchlist-relationships` for ambiguity review and
+`--review-watchlist-evaluations` for rendered-event and large-move review.
+If a fully measurable Gate A window fails, the regular newsletter is replaced
+by one administrative failure alert and scheduled work halts. Recovery requires
+`news-briefing --restart-after-gate-failure --confirm`; that command performs a
+no-send health check and never sends a newsletter itself.
 
 To schedule native Telegram-plus-email delivery locally, copy
 `scripts/com.newsagent.briefing.plist` to `~/Library/LaunchAgents/` and load it

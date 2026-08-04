@@ -8,6 +8,7 @@ from news_agent.formatting import (
     format_briefing_previews,
     format_category_message,
     format_console_preview,
+    format_paragraph_item,
     format_sources,
     omitted_story_count,
 )
@@ -21,8 +22,16 @@ def paragraph(
     "it would integrate the model into its productivity suite within weeks.",
     sources: tuple[str, ...] = ("Reuters", "The Verge", "Bloomberg"),
     urls: tuple[str, ...] = ("https://example.com/story-1",),
+    is_merged: bool = False,
 ) -> BriefingParagraph:
-    return BriefingParagraph(story_id=story_id, category=category, paragraph=text, sources=sources, urls=urls)
+    return BriefingParagraph(
+        story_id=story_id,
+        category=category,
+        paragraph=text,
+        sources=sources,
+        urls=urls,
+        is_merged=is_merged,
+    )
 
 
 def section(
@@ -76,6 +85,48 @@ def test_story_includes_source_attribution_line() -> None:
     options = FormatOptions(mode="telegram")
     message = format_category_message(section(), options=options)
     assert "(via Reuters, The Verge, Bloomberg)" in message.text
+
+
+def test_merged_story_credits_up_to_five_sources_and_keeps_credit_when_trimmed() -> None:
+    merged = paragraph(
+        sources=("Reuters", "AP", "BBC", "Bloomberg", "CNBC"),
+        is_merged=True,
+    )
+    rendered = format_paragraph_item(
+        merged,
+        options=FormatOptions(mode="telegram", max_sources_per_story=3),
+        include_sources=False,
+    )
+
+    assert "(via Reuters, AP, BBC, Bloomberg, CNBC)" in rendered
+
+
+def test_merged_email_story_emits_one_link_per_credited_source() -> None:
+    merged = paragraph(
+        sources=("BBC", "Reuters"),
+        urls=("https://example.com/bbc", "https://example.com/reuters"),
+        is_merged=True,
+    )
+
+    rendered = format_paragraph_item(merged, options=FormatOptions(mode="email"))
+
+    assert "(via BBC, Reuters)" in rendered
+    assert (
+        "https://example.com/bbc, https://example.com/reuters"
+        in rendered
+    )
+
+
+def test_unmerged_story_keeps_configured_source_cap() -> None:
+    unmerged = paragraph(sources=("Reuters", "AP", "BBC", "Bloomberg"))
+
+    rendered = format_paragraph_item(
+        unmerged,
+        options=FormatOptions(mode="telegram", max_sources_per_story=3),
+    )
+
+    assert "(via Reuters, AP, BBC)" in rendered
+    assert "Bloomberg" not in rendered
 
 
 def test_multiple_paragraphs_render_in_order_separated_by_blank_line() -> None:

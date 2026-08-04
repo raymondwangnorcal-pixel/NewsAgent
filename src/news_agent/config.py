@@ -6,7 +6,7 @@ from pathlib import Path
 
 from news_agent.models import (
     AgentConfig, CategoryConfig, CategorySelectionLimit, CompressionConfig, DEFAULT_CATEGORY_FETCH_RESERVES,
-    DEFAULT_CATEGORY_SELECTION_LIMITS, DraftingConfig, EnrichmentConfig, ExtractionPolicyConfig, FeedConfig,
+    DEFAULT_CATEGORY_SELECTION_LIMITS, DraftingConfig, DuplicateGateConfig, EnrichmentConfig, ExtractionPolicyConfig, FeedConfig,
     FormattingConfig, ImportanceConfig, OpenAICostConfig, QualityGateConfig,
 )
 
@@ -94,6 +94,23 @@ def validate_openai_cost_config(config: OpenAICostConfig) -> None:
         raise ValueError("openai_costs requires positive input and output token prices")
 
 
+def validate_duplicate_gate_config(config: DuplicateGateConfig) -> None:
+    if config.candidate_window_hours <= 0:
+        raise ValueError("duplicate_gate.candidate_window_hours must be positive")
+    if not 0 <= config.candidate_title_jaccard_threshold <= 1:
+        raise ValueError("duplicate_gate.candidate_title_jaccard_threshold must be between 0 and 1")
+    if config.max_clusters_per_request <= 0:
+        raise ValueError("duplicate_gate.max_clusters_per_request must be positive")
+    if config.max_output_tokens_per_request <= 0:
+        raise ValueError("duplicate_gate.max_output_tokens_per_request must be positive")
+    if config.reasoning_effort not in {"low", "medium", "high", "xhigh"}:
+        raise ValueError("duplicate_gate.reasoning_effort must be low, medium, high, or xhigh")
+    if config.max_component_size < 2:
+        raise ValueError("duplicate_gate.max_component_size must be at least 2")
+    if config.summary_truncate_chars <= 0:
+        raise ValueError("duplicate_gate.summary_truncate_chars must be positive")
+
+
 def load_config(
     path: Path = DEFAULT_CONFIG_PATH,
     compression_enabled_override: bool | None = None,
@@ -107,6 +124,7 @@ def load_config(
     openai_cost_settings = raw.get("openai_costs", {})
     drafting_settings = raw.get("drafting", {})
     compression_settings = raw.get("compression", {})
+    duplicate_gate_settings = raw.get("duplicate_gate", {})
     selection_settings = raw.get("selection", {})
     selection_limit_settings = raw.get("selection_limits", {})
     feeds = tuple(
@@ -165,6 +183,31 @@ def load_config(
         watchlist_reserve_usd=float(openai_cost_settings.get("watchlist_reserve_usd", 0.25)),
     )
     validate_openai_cost_config(openai_costs)
+    duplicate_gate = DuplicateGateConfig(
+        enabled=parse_bool(duplicate_gate_settings.get("enabled"), default=True),
+        candidate_window_hours=float(
+            duplicate_gate_settings.get("candidate_window_hours", 24.0)
+        ),
+        candidate_title_jaccard_threshold=float(
+            duplicate_gate_settings.get("candidate_title_jaccard_threshold", 0.20)
+        ),
+        max_clusters_per_request=int(
+            duplicate_gate_settings.get("max_clusters_per_request", 40)
+        ),
+        max_output_tokens_per_request=int(
+            duplicate_gate_settings.get("max_output_tokens_per_request", 2000)
+        ),
+        reasoning_effort=str(
+            duplicate_gate_settings.get("reasoning_effort", "medium")
+        ),
+        max_component_size=int(
+            duplicate_gate_settings.get("max_component_size", 4)
+        ),
+        summary_truncate_chars=int(
+            duplicate_gate_settings.get("summary_truncate_chars", 250)
+        ),
+    )
+    validate_duplicate_gate_config(duplicate_gate)
     drafting = DraftingConfig(
         model=str(drafting_settings.get("model", "gpt-5.6-terra")),
         max_output_tokens_per_batch=int(
@@ -230,6 +273,7 @@ def load_config(
         importance=importance,
         openai_costs=openai_costs,
         drafting=drafting,
+        duplicate_gate=duplicate_gate,
         compression=compression,
         category_selection_limits=limits,
         max_per_source_per_category=max_per_source,

@@ -154,6 +154,18 @@ class CompressionConfig:
 
 
 @dataclass(frozen=True)
+class DuplicateGateConfig:
+    enabled: bool = True
+    candidate_window_hours: float = 24.0
+    candidate_title_jaccard_threshold: float = 0.20
+    max_clusters_per_request: int = 40
+    max_output_tokens_per_request: int = 2000
+    reasoning_effort: str = "medium"
+    max_component_size: int = 4
+    summary_truncate_chars: int = 250
+
+
+@dataclass(frozen=True)
 class AgentConfig:
     feeds: tuple[FeedConfig, ...]
     categories: dict[CategoryName, CategoryConfig]
@@ -165,6 +177,7 @@ class AgentConfig:
     importance: ImportanceConfig = field(default_factory=ImportanceConfig)
     openai_costs: OpenAICostConfig = field(default_factory=OpenAICostConfig)
     drafting: DraftingConfig = field(default_factory=DraftingConfig)
+    duplicate_gate: DuplicateGateConfig = field(default_factory=DuplicateGateConfig)
     category_selection_limits: dict[CategoryName, CategorySelectionLimit] = field(
         default_factory=lambda: dict(DEFAULT_CATEGORY_SELECTION_LIMITS)
     )
@@ -231,6 +244,7 @@ class StoryCluster:
     skip_reason: str = ""
     content_quality_penalty: float = 0.0
     evidence_score: float = 0.0
+    merged_from: tuple[str, ...] = ()
 
     @property
     def sources(self) -> list[str]:
@@ -305,6 +319,7 @@ class BriefingParagraph:
     full_paragraph: str = ""
     compression_status: CompressionStatus | str = ""
     compression_ratio: float = 0.0
+    is_merged: bool = False
 
 
 @dataclass(frozen=True)
@@ -340,6 +355,16 @@ class PipelineDiagnostics:
     deck_target: int = 0
     deck_selected: int = 0
     deck_underfilled_reason: str = ""
+    duplicate_gate_deck_size: int = 0
+    duplicate_gate_eligible_pairs: int = 0
+    duplicate_gate_candidate_components: int = 0
+    duplicate_gate_clusters_offered: int = 0
+    duplicate_gate_components_dropped: int = 0
+    duplicate_gate_sets_returned: int = 0
+    duplicate_gate_sets_rejected: int = 0
+    duplicate_gate_sets_merged: int = 0
+    duplicate_gate_clusters_removed: int = 0
+    duplicate_gate_cross_category_merges: int = 0
     compressed_count: int = 0
     compression_status_counts: dict[str, int] = field(default_factory=dict)
     median_compression_ratio: float = 0.0
@@ -372,6 +397,7 @@ class StockQuote:
     symbol: str
     price: float | None = None
     change_percent: float | None = None
+    previous_close: float | None = None
     open_price: float | None = None
     volume: int | None = None
     as_of: str = ""

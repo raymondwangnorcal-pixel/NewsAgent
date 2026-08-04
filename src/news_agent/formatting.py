@@ -193,13 +193,19 @@ def format_paragraph_item(
 ) -> str:
     options = options or FormatOptions()
     text = normalize_text(story.paragraph)
-    sources = format_sources(story.sources, max_sources=options.max_sources_per_story)
+    source_limit = (
+        max(options.max_sources_per_story, 5)
+        if story.is_merged
+        else options.max_sources_per_story
+    )
+    sources = format_sources(story.sources, max_sources=source_limit)
 
     lines = [text]
-    if include_sources and sources:
+    if (include_sources or story.is_merged) and sources:
         lines.append(f"(via {sources})")
     if options.include_links and story.urls:
-        lines.append(format_links(story.urls))
+        link_limit = source_limit if story.is_merged and options.mode == "email" else 1
+        lines.append(format_links(story.urls, max_links=link_limit))
     return "\n".join(lines)
 
 

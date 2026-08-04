@@ -1,0 +1,274 @@
+[
+  {
+    "category": "finance",
+    "cluster_id": "added alphabet amazon combined microsoft nearly this trillion",
+    "culture_lane": "",
+    "llm_importance": 65,
+    "outlier_urls": [],
+    "rationale": "This is a Finance story because its central significance is the nearly $1.5 trillion change in megacap market values following earnings and investor reassessment of AI spending."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "167m 357m all avengers beat box brand could",
+    "culture_lane": "film_tv",
+    "llm_importance": 55,
+    "outlier_urls": [],
+    "rationale": "This belongs in Culture + Media, film_tv lane, because it centers on a major film's record-setting box-office opening and audience performance."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "2027 antitrust april ask november paramount seeks states",
+    "culture_lane": "",
+    "llm_importance": 45,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because the antitrust litigation and trial timetable chiefly concern Paramount's proposed Warner Bros. transaction and its corporate consequences."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "business design dividing does fender feud global guitar",
+    "culture_lane": "",
+    "llm_importance": 30,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because the design-rights dispute affects musical-instrument companies and how the global guitar industry can operate."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "2014 500 decline ends first july led selloff",
+    "culture_lane": "",
+    "llm_importance": 45,
+    "outlier_urls": [],
+    "rationale": "This is Finance because the main development is the S&P 500's monthly decline and the chip-stock selloff driving market performance."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "backed commit fraud know more researchers startups they",
+    "culture_lane": "",
+    "llm_importance": 25,
+    "outlier_urls": [],
+    "rationale": "This belongs in Business + Tech because it examines fraud patterns among venture-backed startups and the role of their investors in the startup ecosystem."
+  },
+  {
+    "category": "global",
+    "cluster_id": "avalanche body climber pakistan recovered",
+    "culture_lane": "",
+    "llm_importance": 22,
+    "outlier_urls": [],
+    "rationale": "This is Global News because it concerns a fatal natural-disaster emergency and recovery operation in Pakistan."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "chief elevates executive hybe jenni officer people pfaff",
+    "culture_lane": "",
+    "llm_importance": 20,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because HYBE's appointment of a chief people and transformation officer is a company leadership and organizational-strategy development."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "deal forward lands morrow sun tempo",
+    "culture_lane": "sports",
+    "llm_importance": 25,
+    "outlier_urls": [],
+    "rationale": "This belongs in Culture + Media, sports lane, because it covers a WNBA player trade and its implications for the teams involved."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "apps download india just not pay starting them",
+    "culture_lane": "",
+    "llm_importance": 35,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because it concerns a shift in India's app-market business model toward paid AI, streaming, and productivity apps."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "anti blanche comments confirmation fight fund reignite trump",
+    "culture_lane": "",
+    "llm_importance": 35,
+    "outlier_urls": [],
+    "rationale": "This is U.S. News because it focuses on the Trump administration, Senate confirmation politics, and a Justice Department policy dispute."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "day deepfake earth google lasted one only tool",
+    "culture_lane": "",
+    "llm_importance": 35,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because Google withdrew a newly launched AI product feature after concerns about its misuse for fabricated satellite imagery."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "back characters demon fan favorite form hunters kpop",
+    "culture_lane": "film_tv",
+    "llm_importance": 20,
+    "outlier_urls": [],
+    "rationale": "This belongs in Culture + Media, film_tv lane, because it concerns consumer merchandise driven by the popularity of an animated Netflix hit."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "criticism day earth feature google launch misinformation nixes",
+    "culture_lane": "",
+    "llm_importance": 35,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because it covers Google's shutdown of an AI mapping feature amid misinformation and product-safety concerns."
+  },
+  {
+    "category": "global",
+    "cluster_id": "claim commitments depends disarmament gaza hamas honoring israel",
+    "culture_lane": "",
+    "llm_importance": 65,
+    "outlier_urls": [],
+    "rationale": "This is Global News because it concerns ceasefire commitments, disarmament conditions, and diplomatic consequences in the Gaza conflict."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "ballooning buildout cash costs dwindling memory price soaring",
+    "culture_lane": "",
+    "llm_importance": 50,
+    "outlier_urls": [],
+    "rationale": "This belongs in Business + Tech because it analyzes the operational costs, cash flow pressure, and component constraints created by major companies' AI infrastructure buildout."
+  },
+  {
+    "category": "global",
+    "cluster_id": "ceuta crossings mass migrant triggered",
+    "culture_lane": "",
+    "llm_importance": 50,
+    "outlier_urls": [],
+    "rationale": "This is Global News because it concerns a mass cross-border migration emergency involving Morocco and Spain's Ceuta enclave."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "armin cfo coo down group music one steps",
+    "culture_lane": "",
+    "llm_importance": 25,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because it is a senior leadership change at Warner Music Group, affecting the company's finance and operations roles."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "atlanta build cancels festival iteration musicfest one this",
+    "culture_lane": "music",
+    "llm_importance": 25,
+    "outlier_urls": [],
+    "rationale": "This belongs in Culture + Media, music lane, because it concerns the cancellation and planned reworking of a longstanding music festival."
+  },
+  {
+    "category": "global",
+    "cluster_id": "but delivery drone helps much only rwanda",
+    "culture_lane": "",
+    "llm_importance": 20,
+    "outlier_urls": [],
+    "rationale": "This is Global News because it examines healthcare delivery and infrastructure limitations in Rwanda, an important development outside the United States."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "back branch chart classic debut game makes michelle",
+    "culture_lane": "music",
+    "llm_importance": 15,
+    "outlier_urls": [],
+    "rationale": "This belongs in Culture + Media, music lane, because it covers a recording artist's new chart entry and radio airplay performance."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "airtags apple back best down price their",
+    "culture_lane": "",
+    "llm_importance": 10,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because it is a consumer-device product and retail-pricing update for Apple's AirTags."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "ags antitrust april judge merger november paramount pitches",
+    "culture_lane": "",
+    "llm_importance": 45,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because the story centers on antitrust proceedings that could determine the timing and viability of the Paramount-Warner Bros. merger."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "box brand day domestic man million office preview",
+    "culture_lane": "film_tv",
+    "llm_importance": 60,
+    "outlier_urls": [],
+    "rationale": "This belongs in Culture + Media, film_tv lane, because it reports a major film's record domestic preview sales and projected box-office debut."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "battle cup infantino progress risks soccer undermining women",
+    "culture_lane": "sports",
+    "llm_importance": 45,
+    "outlier_urls": [],
+    "rationale": "This belongs in Culture + Media, sports lane, because it concerns FIFA's World Cup plans, potential boycotts, and their effect on women's soccer."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "booster forward gold moving series won writer",
+    "culture_lane": "film_tv",
+    "llm_importance": 25,
+    "outlier_urls": [],
+    "rationale": "This belongs in Culture + Media, film_tv lane, because it concerns the cancellation of a planned DC television series."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "deal hbo john oliver one renews year",
+    "culture_lane": "film_tv",
+    "llm_importance": 20,
+    "outlier_urls": [],
+    "rationale": "This belongs in Culture + Media, film_tv lane, because it covers a prominent television host's contract renewal and the future of his HBO program."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "book break down episode erika iii kanan penultimate",
+    "culture_lane": "film_tv",
+    "llm_importance": 15,
+    "outlier_urls": [],
+    "rationale": "This belongs in Culture + Media, film_tv lane, because it is coverage of a television drama's penultimate episode and creative storyline."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "debuts man preview sex specialty spider want webs",
+    "culture_lane": "film_tv",
+    "llm_importance": 15,
+    "outlier_urls": [],
+    "rationale": "This belongs in Culture + Media, film_tv lane, because it covers a specialty film release and its counterprogramming box-office strategy."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "2027 challenger creates eye launch merger mma mvp",
+    "culture_lane": "",
+    "llm_importance": 30,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because the core development is a merger creating a new sports-promotion company and outlining its operating plans."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "across fresh funds index off payout raises three",
+    "culture_lane": "",
+    "llm_importance": 35,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because it concerns a venture-capital firm's new funds and available capital for startup investment."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "build china chips did itself model nvidia played",
+    "culture_lane": "",
+    "llm_importance": 45,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because it concerns the use of Nvidia chips in Chinese AI-model development and the semiconductor supply implications."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "apple chain cook crunch finally his legend match",
+    "culture_lane": "",
+    "llm_importance": 40,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because it focuses on Apple's supply-chain operations and component shortages caused by the AI-driven memory crunch."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "been crisis elephant everyone funding mouse overlooked room",
+    "culture_lane": "",
+    "llm_importance": 35,
+    "outlier_urls": [],
+    "rationale": "This is U.S. News because it centers on the long-term funding and policy consequences of the U.S. Social Security system."
+  }
+]

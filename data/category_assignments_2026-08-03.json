@@ -1,0 +1,242 @@
+[
+  {
+    "category": "finance",
+    "cluster_id": "anthropic big corporate distorting earnings openai picture stakes",
+    "culture_lane": "",
+    "llm_importance": 55,
+    "outlier_urls": [],
+    "rationale": "The central significance is how soaring private-company valuations are inflating reported corporate earnings, making this an investment and financial-performance story."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "bessent effort federal japan may pulled reserve support",
+    "culture_lane": "",
+    "llm_importance": 65,
+    "outlier_urls": [],
+    "rationale": "This centers on potential Federal Reserve support for the yen and consequences for the Treasury market, fitting monetary policy, currencies, and bond-market risk."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "big cramer flipped jim market spending switch tech",
+    "culture_lane": "",
+    "llm_importance": 35,
+    "outlier_urls": [],
+    "rationale": "The story is principally about Wall Street\u2019s changed assessment of Big Tech AI capital spending and its implications for market valuations."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "beat earnings forecast jumps sales snap stock strong",
+    "culture_lane": "",
+    "llm_importance": 30,
+    "outlier_urls": [],
+    "rationale": "Snap\u2019s earnings beat, outlook, and immediate 8% share-price move make this a market-moving earnings report."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "call ceo earnings preorder questions sidesteps snap specs",
+    "culture_lane": "",
+    "llm_importance": 22,
+    "outlier_urls": [],
+    "rationale": "The focus is demand and launch execution for Snap\u2019s new Specs smart-glasses product, a company product-development story rather than its stock move."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "150 blowout commercial nearly palantir quarter revenue soaring",
+    "culture_lane": "",
+    "llm_importance": 45,
+    "outlier_urls": [],
+    "rationale": "Palantir\u2019s quarterly results and 12% stock surge are a materially market-moving earnings development."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "achieves action biggest deadpool devil disney hulu movie",
+    "culture_lane": "film_tv",
+    "llm_importance": 42,
+    "outlier_urls": [],
+    "rationale": "The story concerns the streaming audience performance of a major film release, which is entertainment consumption and media performance."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "apple can connect data directly fitbit health now",
+    "culture_lane": "",
+    "llm_importance": 24,
+    "outlier_urls": [],
+    "rationale": "Google\u2019s rollout of direct Fitbit-to-Apple Health syncing is a consumer technology platform and product-feature update."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "ahead bracing financial important market most stretch traders",
+    "culture_lane": "",
+    "llm_importance": 48,
+    "outlier_urls": [],
+    "rationale": "Rising volatility and anticipated yield moves in the Treasury market squarely concern bond-market conditions and financial-system risk."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "2027 bros dashes sheridan summer taylor warner written",
+    "culture_lane": "film_tv",
+    "llm_importance": 16,
+    "outlier_urls": [],
+    "rationale": "Warner Bros.\u2019 scheduling change for a forthcoming feature film is an entertainment-release development."
+  },
+  {
+    "category": "global",
+    "cluster_id": "borders calls ceuta crossings migrant stronger",
+    "culture_lane": "",
+    "llm_importance": 60,
+    "outlier_urls": [],
+    "rationale": "EU leaders\u2019 response to a deadly mass-migration event at Spain\u2019s Ceuta border is an international humanitarian and diplomatic development."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "349 discounted lowest monitor price samsung smart yet",
+    "culture_lane": "",
+    "llm_importance": 8,
+    "outlier_urls": [],
+    "rationale": "This is a routine consumer-device pricing and product recommendation story, which belongs with technology products despite its narrow significance."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "democrats expulsion house max miller mull people pissed",
+    "culture_lane": "",
+    "llm_importance": 30,
+    "outlier_urls": [],
+    "rationale": "Possible House action against a U.S. representative over allegations is primarily a congressional and domestic political story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "actually collab express features hang her out outfits",
+    "culture_lane": "music",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "The focus is a music celebrity\u2019s fashion collaboration and public-facing pop-cultural campaign."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "climbs drives earnings growth palantir stock turbocharged",
+    "culture_lane": "",
+    "llm_importance": 42,
+    "outlier_urls": [],
+    "rationale": "Palantir\u2019s post-earnings stock rise and AI-driven growth are presented chiefly as a market reaction to financial results."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "analysts astrazeneca bristol but call cancer could create",
+    "culture_lane": "",
+    "llm_importance": 55,
+    "outlier_urls": [],
+    "rationale": "Reported merger talks between two pharmaceutical companies are primarily a major corporate-strategy and industry-consolidation story."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "date erasing losses microsoft not run stock year",
+    "culture_lane": "",
+    "llm_importance": 35,
+    "outlier_urls": [],
+    "rationale": "The article\u2019s main news value is Microsoft\u2019s unusually strong share-price rally and what is sustaining it, making it a markets story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "all griffin guardians nationals star trade",
+    "culture_lane": "sports",
+    "llm_importance": 26,
+    "outlier_urls": [],
+    "rationale": "The Guardians\u2019 acquisition of an All-Star pitcher is a major professional baseball roster move."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "another bull giving indicator lease life market this",
+    "culture_lane": "",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "This is analysis of investor positioning and its implications for the broader stock-market bull run."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "berg commissioner larry league major named next soccer",
+    "culture_lane": "sports",
+    "llm_importance": 38,
+    "outlier_urls": [],
+    "rationale": "The appointment of Major League Soccer\u2019s next commissioner is a consequential sports-league leadership change."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "always been benson boone canceled featuring festival sombr",
+    "culture_lane": "music",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "The cancellation of a planned pop-music festival is an entertainment-event development."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "brand cretton daniel day destin director ending man",
+    "culture_lane": "film_tv",
+    "llm_importance": 32,
+    "outlier_urls": [],
+    "rationale": "This is coverage of a major superhero film\u2019s box-office run and creative direction, placing it in film and television culture."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "beatles future holland jumanji man move next rothman",
+    "culture_lane": "film_tv",
+    "llm_importance": 28,
+    "outlier_urls": [],
+    "rationale": "Sony\u2019s film chief discussing the studio\u2019s major franchises and theatrical strategy is a film-industry and entertainment story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "album all beyonc britney especially her lately listen",
+    "culture_lane": "music",
+    "llm_importance": 10,
+    "outlier_urls": [],
+    "rationale": "Britney Spears\u2019 public comments about Beyonc\u00e9 are a celebrity and music-culture item."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "beyond episodes guide out place release roll season",
+    "culture_lane": "film_tv",
+    "llm_importance": 10,
+    "outlier_urls": [],
+    "rationale": "The release schedule for a Disney television series is an entertainment programming update."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "caa chris comedian distefano signs",
+    "culture_lane": "media_creators",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "A comedian signing with a major talent agency is a creator and entertainment-industry representation development."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "broadcaster distribution doubles down explores france group production",
+    "culture_lane": "",
+    "llm_importance": 30,
+    "outlier_urls": [],
+    "rationale": "TF1\u2019s exploration of a sale of its production-distribution unit is chiefly a corporate strategy and media-business transaction."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "appoints berg commissioner lafc mls next",
+    "culture_lane": "sports",
+    "llm_importance": 38,
+    "outlier_urls": [],
+    "rationale": "MLS selecting Larry Berg as its next commissioner is a major sports-league leadership development."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "all box brand broken day man office records",
+    "culture_lane": "film_tv",
+    "llm_importance": 52,
+    "outlier_urls": [],
+    "rationale": "Spider-Man\u2019s record-breaking box-office performance is a major film-industry and entertainment audience story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "but catch controversial doctor month most next officially",
+    "culture_lane": "film_tv",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "The return of a Doctor Who character pairing is a television-franchise and fan-culture development."
+  }
+]

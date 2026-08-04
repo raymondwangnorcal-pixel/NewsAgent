@@ -1,0 +1,250 @@
+[
+  {
+    "category": "culture",
+    "cluster_id": "black console dwayne hart jack johnson jumanji kevin",
+    "culture_lane": "film_tv",
+    "llm_importance": 32,
+    "outlier_urls": [],
+    "rationale": "This is a major film-franchise trailer and release announcement, which the guidelines place in Culture + Media."
+  },
+  {
+    "category": "global",
+    "cluster_id": "attack ballistic east forces iran launches middle missile",
+    "culture_lane": "",
+    "llm_importance": 68,
+    "outlier_urls": [],
+    "rationale": "Iran's ballistic-missile attack on U.S. forces is a military development in the Middle East, making its international conflict consequences the central focus."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "boutique created europe festivals finest friends group norwegian",
+    "culture_lane": "music",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "The story profiles the creation and operation of a European music festival, an entertainment and cultural-event subject."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "banning foreign robots",
+    "culture_lane": "",
+    "llm_importance": 51,
+    "outlier_urls": [],
+    "rationale": "The FCC import restriction principally affects robotics technology and its industry supply chain, which the guidelines assign to Business + Tech."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "eric mccormack mukerji nimisha now psychological safe set",
+    "culture_lane": "film_tv",
+    "llm_importance": 14,
+    "outlier_urls": [],
+    "rationale": "Casting and production news for a psychological thriller is a film-and-television entertainment development."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "attend both convention dallas johnson plan thune trump",
+    "culture_lane": "",
+    "llm_importance": 34,
+    "outlier_urls": [],
+    "rationale": "The attendance of congressional Republican leaders at Trump's midterm convention is chiefly a U.S. political and campaign story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "contender director disappearing doc dosa elegy her ice",
+    "culture_lane": "film_tv",
+    "llm_importance": 21,
+    "outlier_urls": [],
+    "rationale": "This is an interview about an Oscar-contending documentary, fitting Culture + Media's coverage of films and awards-related releases."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "battered earnings seagate trade welcome",
+    "culture_lane": "",
+    "llm_importance": 30,
+    "outlier_urls": [],
+    "rationale": "Seagate's above-forecast earnings and resulting share rally are significant primarily for the market reaction and the AI trade."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "2026 chain daisy festival fields heating just lollapalooza",
+    "culture_lane": "music",
+    "llm_importance": 24,
+    "outlier_urls": [],
+    "rationale": "The upcoming Lollapalooza and new music-festival slate is an entertainment-events story."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "ask award carroll court defamation doj jean supreme",
+    "culture_lane": "",
+    "llm_importance": 54,
+    "outlier_urls": [],
+    "rationale": "The president and DOJ petitioning the Supreme Court over a major civil defamation judgment is a U.S. legal and governmental story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "avatars core four group jumanji life open real",
+    "culture_lane": "film_tv",
+    "llm_importance": 30,
+    "outlier_urls": [],
+    "rationale": "The release of a trailer for the final Jumanji film is entertainment-franchise news under Culture + Media."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "far lineup more returns rock ryman see wynonna",
+    "culture_lane": "music",
+    "llm_importance": 16,
+    "outlier_urls": [],
+    "rationale": "The Ryman concert lineup is a music-event announcement, which belongs in Culture + Media."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "russia sanction senate sets ukraine votes war",
+    "culture_lane": "",
+    "llm_importance": 55,
+    "outlier_urls": [],
+    "rationale": "This centers on the U.S. Senate's legislative action on sanctions, so the principal significance is American government policy rather than battlefield developments."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "bill forward graham move russia sanctions senators vote",
+    "culture_lane": "",
+    "llm_importance": 57,
+    "outlier_urls": [],
+    "rationale": "The bipartisan Senate procedural vote on a Russia-Iran sanctions bill is primarily a U.S. congressional-policy development."
+  },
+  {
+    "category": "global",
+    "cluster_id": "base first iran launches missiles paused since strikes",
+    "culture_lane": "",
+    "llm_importance": 68,
+    "outlier_urls": [],
+    "rationale": "Iran's missile launch toward a U.S. base in Jordan is a battlefield escalation with regional consequences, fitting Global News."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "accessed account agent cyber openai safety scoop second",
+    "culture_lane": "",
+    "llm_importance": 43,
+    "outlier_urls": [],
+    "rationale": "The reported OpenAI agent access incident concerns AI-agent behavior and cyber-safety testing, a core Business + Tech subject."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "administration bans chinese humanoid robots trump",
+    "culture_lane": "",
+    "llm_importance": 51,
+    "outlier_urls": [],
+    "rationale": "The ban's main effect is on Chinese humanoid-robot technology and the robotics industry, meeting the guideline for technology regulation affecting companies."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "crucial ford jumps matches one stock way",
+    "culture_lane": "",
+    "llm_importance": 24,
+    "outlier_urls": [],
+    "rationale": "Ford's share-price jump following its sales performance is a market-movement story, which the guidelines place in Finance."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "about book evan following like magic not practical",
+    "culture_lane": "film_tv",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "An actor's comments about casting and adaptation choices for a film sequel are entertainment-industry news."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "2026 additions away impactful most moves nfl offseason",
+    "culture_lane": "sports",
+    "llm_importance": 19,
+    "outlier_urls": [],
+    "rationale": "This is analysis of NFL offseason player moves and their expected on-field impact, fitting sports coverage."
+  },
+  {
+    "category": "global",
+    "cluster_id": "brief fighting iran lull shattering strikes trade",
+    "culture_lane": "",
+    "llm_importance": 72,
+    "outlier_urls": [],
+    "rationale": "The renewal of direct U.S.-Iran strikes is an international military escalation whose main focus is the regional conflict."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "brief iran jumps oil pause resume strikes",
+    "culture_lane": "",
+    "llm_importance": 61,
+    "outlier_urls": [],
+    "rationale": "The central development is a sharp oil-price move caused by renewed U.S.-Iran fighting, matching Finance's market-reaction rule."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "big cfp petitti push reiterates team ten",
+    "culture_lane": "sports",
+    "llm_importance": 34,
+    "outlier_urls": [],
+    "rationale": "The Big Ten's proposed expansion of the College Football Playoff is a major sports-governance development."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "clayton confirms director intelligence jay national pulte replacing",
+    "culture_lane": "",
+    "llm_importance": 56,
+    "outlier_urls": [],
+    "rationale": "Senate confirmation of a director of national intelligence is a U.S. federal-government and national-security appointment."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "boycott fifa plan sources uefa weighs",
+    "culture_lane": "sports",
+    "llm_importance": 53,
+    "outlier_urls": [],
+    "rationale": "UEFA's potential World Cup boycott over FIFA's investment proposal is principally an international sports-governance controversy."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "camp cousins gets mendoza nod open",
+    "culture_lane": "sports",
+    "llm_importance": 17,
+    "outlier_urls": [],
+    "rationale": "The Raiders' choice of starting quarterback entering camp is routine NFL sports news."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "all american avengers brings horror like murphy previous",
+    "culture_lane": "film_tv",
+    "llm_importance": 25,
+    "outlier_urls": [],
+    "rationale": "Ryan Murphy's announcement about the cast and concept of American Horror Story's next season is television entertainment news."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "baldur bg3 camera changes completely gate mod person",
+    "culture_lane": "gaming",
+    "llm_importance": 14,
+    "outlier_urls": [],
+    "rationale": "A notable fan-made Baldur's Gate 3 camera modification is a gaming-culture story."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "could defensive fits five land nfl tackle talented",
+    "culture_lane": "sports",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "Potential landing spots for an NFL player's requested trade are sports roster analysis."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "1990 about advanced cup every game say since",
+    "culture_lane": "sports",
+    "llm_importance": 16,
+    "outlier_urls": [],
+    "rationale": "The retrospective statistical analysis of U.S. men's World Cup performances is a sports story."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "arabia export oil pricier saudi workaround",
+    "culture_lane": "",
+    "llm_importance": 38,
+    "outlier_urls": [],
+    "rationale": "Saudi Arabia's more expensive export-routing workaround is chiefly an oil-industry logistics and operations development rather than a market-price movement."
+  }
+]

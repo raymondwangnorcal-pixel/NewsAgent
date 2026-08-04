@@ -1,0 +1,317 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.0235,
+  "created_at": "2026-07-28T01:35:03.135278+00:00",
+  "guard_deltas": {},
+  "input_tokens": 0,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 0,
+  "stories": [
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Anthropic CEO Dario Amodei said the company has never backed a ban on open-weight AI models, pushing back against industry claims that it favors broad restrictions. He said such bans would not be useful, but warned that Chinese labs can advance through alleged intellectual-property theft, including model distillation. The statement puts Anthropic outside a coalition urging policymakers against premature open-model limits while keeping the U.S.-China AI-security debate alive.",
+      "evidence": [
+        {
+          "canonical_url": "https://techcrunch.com/2026/07/27/anthropics-dario-amodei-responds-doesnt-oppose-open-weight-models-but-fears-chinese-ai/",
+          "evidence_type": "extracted",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/07/27/anthropics-dario-amodei-responds-doesnt-oppose-open-weight-models-but-fears-chinese-ai/"
+        }
+      ],
+      "full_paragraph": "Anthropic CEO Dario Amodei said the company has never backed a ban on open-weight AI models, pushing back against industry claims that it favors broad restrictions. He said such bans would not be useful, but warned that Chinese labs can advance through alleged intellectual-property theft, including model distillation. The statement puts Anthropic outside a coalition urging policymakers against premature open-model limits while keeping the U.S.-China AI-security debate alive.",
+      "guard_result": "not_run",
+      "story_id": "amodei anthropic but chinese dario doesn fears models"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Anthropic CEO Dario Amodei said his company is not seeking a ban on downloadable, modifiable open-weight AI models after criticism from other technology companies. Nvidia, Microsoft, Meta and Palantir joined a letter warning policymakers against premature restrictions, while Anthropic did not sign it. The dispute highlights a widening divide between companies selling proprietary systems, including Anthropic\u2019s Claude, and supporters of more freely distributed models.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/27/anthropic-ceo-dario-amodei-isnt-advocating-open-weight-model-ban.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/27/anthropic-ceo-dario-amodei-isnt-advocating-open-weight-model-ban.html"
+        }
+      ],
+      "full_paragraph": "Anthropic CEO Dario Amodei said his company is not seeking a ban on downloadable, modifiable open-weight AI models after criticism from other technology companies. Nvidia, Microsoft, Meta and Palantir joined a letter warning policymakers against premature restrictions, while Anthropic did not sign it. The dispute highlights a widening divide between companies selling proprietary systems, including Anthropic\u2019s Claude, and supporters of more freely distributed models.",
+      "guard_result": "not_run",
+      "story_id": "advocating amodei anthropic ban ceo company dario isn"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "X has begun rolling out X Money to U.S. Premium and Premium Plus subscribers, expanding Elon Musk\u2019s push to turn the social platform into an \u201ceverything app.\u201d The service offers a digital wallet, peer-to-peer transfers, Apple Wallet support and a metal Visa card; it advertises yields of up to 6% APY for eligible users. The broader release follows an invite-only test and will intensify scrutiny of consumer and security safeguards around X\u2019s financial products.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/tech/971649/x-money-launch-elon-musk",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/tech/971649/x-money-launch-elon-musk"
+        }
+      ],
+      "full_paragraph": "X has begun rolling out X Money to U.S. Premium and Premium Plus subscribers, expanding Elon Musk\u2019s push to turn the social platform into an \u201ceverything app.\u201d The service offers a digital wallet, peer-to-peer transfers, Apple Wallet support and a metal Visa card; it advertises yields of up to 6% APY for eligible users. The broader release follows an invite-only test and will intensify scrutiny of consumer and security safeguards around X\u2019s financial products.",
+      "guard_result": "not_run",
+      "story_id": "launching money starting"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Seattle police now believe at least three people fired guns during the shooting at the Bite of Seattle festival near the Space Needle, revising their initial assessment of two shooters. Three people were killed and at least four injured, including a two-year-old; one suspected shooter died at the scene, a 15-year-old was detained, and another suspect is being sought. The revised account widens the investigation into violence at one of the city\u2019s busiest tourist events.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c78gjyx4q2yo",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c78gjyx4q2yo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Seattle police now believe at least three people fired guns during the shooting at the Bite of Seattle festival near the Space Needle, revising their initial assessment of two shooters. Three people were killed and at least four injured, including a two-year-old; one suspected shooter died at the scene, a 15-year-old was detained, and another suspect is being sought. The revised account widens the investigation into violence at one of the city\u2019s busiest tourist events.",
+      "guard_result": "not_run",
+      "story_id": "fatal festival food number rises seattle shooting suspects"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Small businesses have filed new lawsuits to block the Trump administration\u2019s latest import tariffs, imposed under Section 301 after temporary Section 122 levies expired. The measures generally set duties of 10% or 12.5% on imports from more than 60 economies that Washington says did not sufficiently block forced-labor goods. The cases bring another court test for the administration\u2019s trade strategy after earlier tariff programs were rejected or legally questioned.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/07/27/trump-tariff-court-small-business",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/07/27/trump-tariff-court-small-business"
+        }
+      ],
+      "full_paragraph": "Small businesses have filed new lawsuits to block the Trump administration\u2019s latest import tariffs, imposed under Section 301 after temporary Section 122 levies expired. The measures generally set duties of 10% or 12.5% on imports from more than 60 economies that Washington says did not sufficiently block forced-labor goods. The cases bring another court test for the administration\u2019s trade strategy after earlier tariff programs were rejected or legally questioned.",
+      "guard_result": "not_run",
+      "story_id": "businesses challenge launch small tariff trump"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "A federal magistrate judge ruled that Donald Trump\u2019s trust must provide the BBC with some business financial records as the network defends against Trump\u2019s $10 billion defamation lawsuit. Judge Enjoliqu\u00e9 Aytch Lett granted part of the BBC\u2019s request to compel documents but narrowed the subpoena\u2019s scope. The records could be relevant to arguments over damages, while the limits reduce how much of Trump\u2019s business information the broadcaster can obtain before trial.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/07/trump-bbc-financial-records-defamation-lawsuit-1237005006/",
+          "evidence_type": "feed_content",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/07/trump-bbc-financial-records-defamation-lawsuit-1237005006/"
+        }
+      ],
+      "full_paragraph": "A federal magistrate judge ruled that Donald Trump\u2019s trust must provide the BBC with some business financial records as the network defends against Trump\u2019s $10 billion defamation lawsuit. Judge Enjoliqu\u00e9 Aytch Lett granted part of the BBC\u2019s request to compel documents but narrowed the subpoena\u2019s scope. The records could be relevant to arguments over damages, while the limits reduce how much of Trump\u2019s business information the broadcaster can obtain before trial.",
+      "guard_result": "not_run",
+      "story_id": "bbc but defamation documents financial judge lawsuit limits"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Sen. Rand Paul released a tranche of Dr. Anthony Fauci\u2019s COVID-19-era diary entries ahead of Fauci\u2019s scheduled Senate appearance Wednesday on the coronavirus\u2019s origins. The release places Fauci\u2019s contemporaneous notes at the center of renewed congressional scrutiny of the pandemic and the lab-leak debate. What the documents establish will depend on their contents and lawmakers\u2019 examination, rather than their release alone.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.npr.org/2026/07/27/nx-s1-5909531/rand-paul-anthony-fauci-coronavirus-diary-lab-leak-origin",
+          "evidence_type": "feed_content",
+          "source": "NPR News",
+          "url": "https://www.npr.org/2026/07/27/nx-s1-5909531/rand-paul-anthony-fauci-coronavirus-diary-lab-leak-origin"
+        }
+      ],
+      "full_paragraph": "Sen. Rand Paul released a tranche of Dr. Anthony Fauci\u2019s COVID-19-era diary entries ahead of Fauci\u2019s scheduled Senate appearance Wednesday on the coronavirus\u2019s origins. The release places Fauci\u2019s contemporaneous notes at the center of renewed congressional scrutiny of the pandemic and the lab-leak debate. What the documents establish will depend on their contents and lawmakers\u2019 examination, rather than their release alone.",
+      "guard_result": "not_run",
+      "story_id": "anthony diary era fauci notes pandemic paul rand"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Senior U.S. officials believe economic pressure on Iran may ultimately damage its government more than the recent bombing campaign, citing signs of a worsening domestic crisis that includes gasoline shortages. President Trump paused strikes after 13 consecutive days and said Tehran sought talks, a claim Iran denied. Mediators including Oman, Qatar and Pakistan are trying to turn the pause into a durable ceasefire, with Strait of Hormuz traffic among the issues under discussion.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/07/27/iran-war-trump-sanctions-blockade-economy",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/07/27/iran-war-trump-sanctions-blockade-economy"
+        }
+      ],
+      "full_paragraph": "Senior U.S. officials believe economic pressure on Iran may ultimately damage its government more than the recent bombing campaign, citing signs of a worsening domestic crisis that includes gasoline shortages. President Trump paused strikes after 13 consecutive days and said Tehran sought talks, a claim Iran denied. Mediators including Oman, Qatar and Pakistan are trying to turn the pause into a durable ceasefire, with Strait of Hormuz traffic among the issues under discussion.",
+      "guard_result": "not_run",
+      "story_id": "believe bombs could hurt iran more officials sanctions"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Shots were fired at the U.S. consulate in Toronto for the second time this year, and the suspect remains at large after police pursued a vehicle in a high-speed chase. The incident follows a similar attack in June, when three people were arrested. Repeated targeting of the consulate raises pressure on Canadian authorities to identify whether the attacks are connected and to strengthen security around the diplomatic site.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/ckgvnw44rz9o?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/ckgvnw44rz9o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Shots were fired at the U.S. consulate in Toronto for the second time this year, and the suspect remains at large after police pursued a vehicle in a high-speed chase. The incident follows a similar attack in June, when three people were arrested. Repeated targeting of the consulate raises pressure on Canadian authorities to identify whether the attacks are connected and to strengthen security around the diplomatic site.",
+      "guard_result": "not_run",
+      "story_id": "consulate fired second shots this time toronto year"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Ukrainian President Volodymyr Zelensky and Israeli Prime Minister Benjamin Netanyahu are expected to make separate White House visits while in Washington for Republican Sen. Lindsey Graham\u2019s funeral. Their meetings are set to focus on the wars in their regions, according to the BBC. Bringing both leaders to Washington gives the U.S. administration an opportunity for direct talks on two conflicts where American military, diplomatic and political support remains central.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/videos/cd0xlnz2yk1o?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/videos/cd0xlnz2yk1o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Ukrainian President Volodymyr Zelensky and Israeli Prime Minister Benjamin Netanyahu are expected to make separate White House visits while in Washington for Republican Sen. Lindsey Graham\u2019s funeral. Their meetings are set to focus on the wars in their regions, according to the BBC. Bringing both leaders to Washington gives the U.S. administration an opportunity for direct talks on two conflicts where American military, diplomatic and political support remains central.",
+      "guard_result": "not_run",
+      "story_id": "expect netanyahu visit washington zelensky"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "A Los Angeles judge ordered singer D4vd, whose legal name is David Anthony Burke, to stand trial on charges including murder, sexual abuse of a child and mutilating human remains in the death of 14-year-old Celeste Rivas Hernandez. Burke pleaded not guilty and will remain held without bail. If convicted, he could face life without parole or the death penalty, though prosecutors have not yet decided whether to seek execution.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/07/d4vd-plea-murder-charges-ordered-to-trial-1236866545/",
+          "evidence_type": "extracted",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/07/d4vd-plea-murder-charges-ordered-to-trial-1236866545/"
+        }
+      ],
+      "full_paragraph": "A Los Angeles judge ordered singer D4vd, whose legal name is David Anthony Burke, to stand trial on charges including murder, sexual abuse of a child and mutilating human remains in the death of 14-year-old Celeste Rivas Hernandez. Burke pleaded not guilty and will remain held without bail. If convicted, he could face life without parole or the death penalty, though prosecutors have not yet decided whether to seek execution.",
+      "guard_result": "not_run",
+      "story_id": "d4vd dismembering girl murdering old ordered stand trial"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "A Los Angeles judge ruled that musician D4vd, 21, must stand trial over the death of 14-year-old Celeste Rivas Hernandez after a five-day preliminary hearing featuring testimony from a dozen witnesses. Prosecutors allege he stabbed and dismembered the girl after years of sexual abuse; he has pleaded not guilty. Her remains were found last September in a Tesla registered to his address, and arraignment is set for Aug. 31.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c70gkg62w0ro",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c70gkg62w0ro?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "A Los Angeles judge ruled that musician D4vd, 21, must stand trial over the death of 14-year-old Celeste Rivas Hernandez after a five-day preliminary hearing featuring testimony from a dozen witnesses. Prosecutors allege he stabbed and dismembered the girl after years of sexual abuse; he has pleaded not guilty. Her remains were found last September in a Tesla registered to his address, and arraignment is set for Aug. 31.",
+      "guard_result": "not_run",
+      "story_id": "d4vd death murder old singer trial year"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Major League Baseball\u2019s trade market remains largely stalled with the Aug. 3 deadline a week away, as all but eight teams sit within four games of a playoff position. That parity has left clubs reluctant to decide whether to buy or sell, despite speculation around stars such as Detroit\u2019s Tarik Skubal. The next several games may determine which contenders make aggressive moves and whether available talent actually reaches the market.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/mlb/story/_/id/49410877/2026-mlb-trade-deadline-tracker-rumors-alerts-news-latest-updates-analysis",
+          "evidence_type": "extracted",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/mlb/story/_/id/49410877/2026-mlb-trade-deadline-tracker-rumors-alerts-news-latest-updates-analysis"
+        }
+      ],
+      "full_paragraph": "Major League Baseball\u2019s trade market remains largely stalled with the Aug. 3 deadline a week away, as all but eight teams sit within four games of a playoff position. That parity has left clubs reluctant to decide whether to buy or sell, despite speculation around stars such as Detroit\u2019s Tarik Skubal. The next several games may determine which contenders make aggressive moves and whether available talent actually reaches the market.",
+      "guard_result": "not_run",
+      "story_id": "all buzz deadline intel mlb our trade"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "National League contenders are weighing deadline upgrades as they try to catch the Los Angeles Dodgers, who hold a 12-game NL West lead over Arizona and are on course for a 14th straight postseason berth. Milwaukee and Atlanta lead their divisions, while Chicago and Philadelphia hold the league\u2019s two wild-card spots. Their moves before the Aug. 3 trade deadline could shape whether any club is equipped to challenge the reigning champions in October.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/mlb/story/_/id/49457076/mlb-2026-trade-deadline-nl-contenders-dodgers-brewers-cubs-braves-phillies",
+          "evidence_type": "extracted",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/mlb/story/_/id/49457076/mlb-2026-trade-deadline-nl-contenders-dodgers-brewers-cubs-braves-phillies"
+        }
+      ],
+      "full_paragraph": "National League contenders are weighing deadline upgrades as they try to catch the Los Angeles Dodgers, who hold a 12-game NL West lead over Arizona and are on course for a 14th straight postseason berth. Milwaukee and Atlanta lead their divisions, while Chicago and Philadelphia hold the league\u2019s two wild-card spots. Their moves before the Aug. 3 trade deadline could shape whether any club is equipped to challenge the reigning champions in October.",
+      "guard_result": "not_run",
+      "story_id": "braves deadline mlb phillies plans trade"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Marvel Studios has outlined parts of its post-\u201cAvengers: Secret Wars\u201d film slate, with \u201cBlack Panther 3\u201d scheduled for Dec. 15, 2028 and a Ryan Gosling-led \u201cGhost Rider\u201d also planned for 2028. \u201cSecret Wars\u201d is currently set for December 2027, and the studio also signaled future projects including X-Men. The announcements give Marvel a clearer path beyond its next crossover event, though several theater-release slots remain unassigned.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.polygon.com/marvel-phase-7-movies-predictions-release-release-dates/",
+          "evidence_type": "feed_content",
+          "source": "Polygon",
+          "url": "https://www.polygon.com/marvel-phase-7-movies-predictions-release-release-dates/"
+        }
+      ],
+      "full_paragraph": "Marvel Studios has outlined parts of its post-\u201cAvengers: Secret Wars\u201d film slate, with \u201cBlack Panther 3\u201d scheduled for Dec. 15, 2028 and a Ryan Gosling-led \u201cGhost Rider\u201d also planned for 2028. \u201cSecret Wars\u201d is currently set for December 2027, and the studio also signaled future projects including X-Men. The announcements give Marvel a clearer path beyond its next crossover event, though several theater-release slots remain unassigned.",
+      "guard_result": "not_run",
+      "story_id": "beyond black dates ghostrider marvel men movie panther"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "South Korea\u2019s Kospi and the Nasdaq 100 have become more tightly linked as AI spending ties U.S. technology companies to Korean memory-chip makers, with their 60-day correlation reaching about 0.50, the highest since 2021. Samsung Electronics and SK Hynix account for more than half the Kospi, while data centers now use more than half of global DRAM demand. That concentration means a Wall Street tech downturn can increasingly reverberate through Korean equities.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/nasdaq-kospi-wall-street-korea-markets-skhynox-samsung.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/nasdaq-kospi-wall-street-korea-markets-skhynox-samsung.html"
+        }
+      ],
+      "full_paragraph": "South Korea\u2019s Kospi and the Nasdaq 100 have become more tightly linked as AI spending ties U.S. technology companies to Korean memory-chip makers, with their 60-day correlation reaching about 0.50, the highest since 2021. Samsung Electronics and SK Hynix account for more than half the Kospi, while data centers now use more than half of global DRAM demand. That concentration means a Wall Street tech downturn can increasingly reverberate through Korean equities.",
+      "guard_result": "not_run",
+      "story_id": "could investors korean linked now stocks street tech"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "SK Hynix shares fell 10% in Seoul on Tuesday as a broader semiconductor selloff extended after another weak Wall Street session. The drop underscores how exposed Korean chip makers have become to swings in global technology sentiment, particularly around AI investment and demand for memory used in data centers. With Samsung and SK Hynix carrying outsized weight in Korean markets, the rout can also amplify pressure on the broader Kospi.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/sk-hynix-plunges-semiconductor-selloff-deepens-samsung-softbank.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/sk-hynix-plunges-semiconductor-selloff-deepens-samsung-softbank.html"
+        }
+      ],
+      "full_paragraph": "SK Hynix shares fell 10% in Seoul on Tuesday as a broader semiconductor selloff extended after another weak Wall Street session. The drop underscores how exposed Korean chip makers have become to swings in global technology sentiment, particularly around AI investment and demand for memory used in data centers. With Samsung and SK Hynix carrying outsized weight in Korean markets, the rout can also amplify pressure on the broader Kospi.",
+      "guard_result": "not_run",
+      "story_id": "deepens hynix plunge selloff semiconductor seoul shares"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Investors are scrutinizing reports that Nvidia could backstop an OpenAI data-center lease, an arrangement that would be the largest of its kind, amid warnings that it resembles a tech-bubble financing practice. The concern is that a chip supplier could indirectly support the infrastructure spending that helps drive demand for its own products. Any deal would therefore add to questions about how independently sustainable the AI industry\u2019s rapid data-center buildout is.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/nvidias-potential-new-deal-with-openai-would-revive-a-spooky-tech-bubble-habit-analyst-warns-ae34ed64?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/nvidias-potential-new-deal-with-openai-would-revive-a-spooky-tech-bubble-habit-analyst-warns-ae34ed64?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Investors are scrutinizing reports that Nvidia could backstop an OpenAI data-center lease, an arrangement that would be the largest of its kind, amid warnings that it resembles a tech-bubble financing practice. The concern is that a chip supplier could indirectly support the infrastructure spending that helps drive demand for its own products. Any deal would therefore add to questions about how independently sustainable the AI industry\u2019s rapid data-center buildout is.",
+      "guard_result": "not_run",
+      "story_id": "analyst bubble deal habit nvidia openai potential revive"
+    }
+  ]
+}

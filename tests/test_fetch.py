@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 
-from news_agent.fetch import parse_feed, select_articles_with_category_reserves
+import pytest
+
+import news_agent.fetch as fetch
+from news_agent.fetch import fetch_feed_with_status, parse_feed, select_articles_with_category_reserves
 from news_agent.models import Article, FeedConfig
 
 
@@ -84,6 +87,25 @@ def test_parse_feed_marks_valid_feed_timestamp() -> None:
     article = parse_feed(xml, feed())[0]
 
     assert article.feed_timestamp_valid is True
+
+
+def test_fetch_feed_rejects_a_valid_html_provider_error_page(monkeypatch: pytest.MonkeyPatch) -> None:
+    class Response:
+        def __enter__(self) -> Response:
+            return self
+
+        def __exit__(self, *_args: object) -> None:
+            return None
+
+        def read(self) -> bytes:
+            return b"<html><head><title>Yahoo</title></head><body>Will be right back</body></html>"
+
+    monkeypatch.setattr(fetch.urllib.request, "urlopen", lambda *_args, **_kwargs: Response())
+
+    articles, error = fetch_feed_with_status(feed())
+
+    assert articles == []
+    assert error == "invalid_feed"
 
 
 def _article(key: str, minutes_old: int, categories: tuple[str, ...]) -> Article:

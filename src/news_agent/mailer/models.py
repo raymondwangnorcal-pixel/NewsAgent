@@ -37,7 +37,9 @@ class RecipientOutcome:
 class EmailEdition:
     edition_id: int
     local_date: str
+    revision: int
     subject: str
     plain_text: str
     html: str
     state: DeliveryState
+    edition_kind: str = "production"

@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-31T16:30:00-04:00",
+  "tickers": {
+    "AAPL": {
+      "legal_issuer": "Apple Inc.",
+      "cik": "0000320193",
+      "filing": {
+        "legal_regime": "us_domestic",
+        "required_edgar": true,
+        "observed_forms": ["8-K", "10-Q", "10-K"],
+        "annual_form": "10-K",
+        "subsidiary_exhibit": "observed_exhibit_21",
+        "omission_allowance": "may_apply_under_item_601",
+        "evidence_url": "https://data.sec.gov/submissions/CIK0000320193.json",
+        "verified_at": "2026-07-31"
+      },
+      "names": [
+        {"name": "Apple Inc.", "relationship": "self", "source": "https://data.sec.gov/submissions/CIK0000320193.json", "verified_at": "2026-07-31", "expires_at": null},
+        {"name": "Apple", "relationship": "self", "source": "https://data.sec.gov/submissions/CIK0000320193.json", "verified_at": "2026-07-31", "expires_at": null}
+      ],
+      "negative_names": ["Apple Bank", "Apple Hospitality"],
+      "discovery_keys": ["AAPL"],
+      "notes": ["Exhibit 21 is positive evidence only; omitted subsidiaries are not classified as unrelated."]
+    },
+    "BN": {
+      "legal_issuer": "Brookfield Corporation",
+      "cik": "0001001085",
+      "filing": {
+        "legal_regime": "foreign_private_issuer",
+        "required_edgar": true,
+        "observed_forms": ["6-K", "40-F"],
+        "annual_form": "40-F",
+        "subsidiary_exhibit": "annual_report_exhibits_vary",
+        "omission_allowance": "not_determined_from_40_f",
+        "evidence_url": "https://www.sec.gov/Archives/edgar/data/1001085/000100108526000006/0001001085-26-000006-index.html",
+        "verified_at": "2026-07-31"
+      },
+      "names": [
+        {"name": "Brookfield Corporation", "relationship": "self", "source": "https://www.sec.gov/Archives/edgar/data/1001085/000100108526000006/0001001085-26-000006-index.html", "verified_at": "2026-07-31", "expires_at": null},
+        {"name": "Brookfield Asset Management", "relationship": "managed_capital", "source": "https://www.sec.gov/Archives/edgar/data/1001085/000100108526000006/bn-20251231.htm", "verified_at": "2026-07-31", "expires_at": "2027-03-17", "verified_against_accession": "0001001085-26-000006"},
+        {"name": "Brookfield", "relationship": "family_ambiguous", "source": "https://www.sec.gov/Archives/edgar/data/1001085/000100108526000006/bn-20251231.htm", "verified_at": "2026-07-31", "expires_at": "2027-03-17", "verified_against_accession": "0001001085-26-000006"}
+      ],
+      "negative_names": ["Brookfield, Wisconsin", "Brookfield Properties Retail"],
+      "discovery_keys": ["BN"],
+      "notes": ["Bare Brookfield is an accepted family-level relationship. Editorial stories remain eligible for BN with hedged family-level wording and must not imply that BN itself acted."]
+    },
+    "COST": {
+      "legal_issuer": "Costco Wholesale Corporation",
+      "cik": "0000909832",
+      "filing": {
+        "legal_regime": "us_domestic",
+        "required_edgar": true,
+        "observed_forms": ["8-K", "10-Q", "10-K"],
+        "annual_form": "10-K",
+        "subsidiary_exhibit": "observed_exhibit_21",
+        "omission_allowance": "may_apply_under_item_601",
+        "evidence_url": "https://data.sec.gov/submissions/CIK0000909832.json",
+        "verified_at": "2026-07-31"
+      },
+      "names": [
+        {"name": "Costco Wholesale Corporation", "relationship": "self", "source": "https://data.sec.gov/submissions/CIK0000909832.json", "verified_at": "2026-07-31", "expires_at": null},
+        {"name": "Costco", "relationship": "self", "source": "https://data.sec.gov/submissions/CIK0000909832.json", "verified_at": "2026-07-31", "expires_at": null}
+      ],
+      "negative_names": [],
+      "discovery_keys": ["COST"],
+      "notes": ["Exhibit 21 omissions cannot prove an entity is unrelated."]
+    },
+    "CURI": {
+      "legal_issuer": "CuriosityStream Inc.",
+      "cik": "0001776909",
+      "filing": {
+        "legal_regime": "us_domestic",
+        "required_edgar": true,
+        "observed_forms": ["8-K", "10-Q", "10-K"],
+        "annual_form": "10-K",
+        "subsidiary_exhibit": "not_verified",
+        "omission_allowance": "unknown",
+        "evidence_url": "https://data.sec.gov/submissions/CIK0001776909.json",
+        "verified_at": "2026-07-31"
+      },
+      "names": [
+        {"name": "CuriosityStream Inc.", "relationship": "self", "source": "https://data.sec.gov/submissions/CIK0001776909.json", "verified_at": "2026-07-31", "expires_at": null},
+        {"name": "CuriosityStream", "relationship": "self", "source": "https://data.sec.gov/submissions/CIK0001776909.json", "verified_at": "2026-07-31", "expires_at": null}
+      ],
+      "negative_names": [],
+      "discovery_keys": ["CURI"],
+      "notes": ["Subsidiary-exhibit format and omission use remain unresolved and do not create negative evidence."]
+    },
+    "ETHB": {
+      "legal_issuer": "iShares Staked Ethereum Trust ETF",
+      "cik": "0002099103",
+      "filing": {
+        "legal_regime": "trust",
+        "required_edgar": true,
+        "observed_forms": ["8-K", "10-Q", "S-1", "S-1/A"],
+        "annual_form": null,
+        "subsidiary_exhibit": "not_applicable",
+        "omission_allowance": "not_applicable",
+        "evidence_url": "https://www.sec.gov/Archives/edgar/data/2099103/000143774926015530/0001437749-26-015530-index.html",
+        "verified_at": "2026-07-31"
+      },
+      "names": [
+        {"name": "iShares Staked Ethereum Trust ETF", "relationship": "self", "source": "https://www.sec.gov/Archives/edgar/data/2099103/000143774926015530/0001437749-26-015530-index.html", "verified_at": "2026-07-31", "expires_at": null},
+        {"name": "Ethereum", "relationship": "underlying_asset", "source": "https://www.sec.gov/Archives/edgar/data/2099103/000143774926004276/iset20260214_s1a.htm", "verified_at": "2026-07-31", "expires_at": "2027-02-17", "verified_against_accession": "0001437749-26-004276"},
+        {"name": "ether", "relationship": "underlying_asset", "source": "https://www.sec.gov/Archives/edgar/data/2099103/000143774926004276/iset20260214_s1a.htm", "verified_at": "2026-07-31", "expires_at": "2027-02-17", "verified_against_accession": "0001437749-26-004276"}
+      ],
+      "negative_names": [],
+      "discovery_keys": ["ETHB", "ETH-USD"],
+      "notes": ["Annual form is not yet established; observed 8-K and 10-Q coverage remains required."]
+    },
+    "META": {
+      "legal_issuer": "Meta Platforms, Inc.",
+      "cik": "0001326801",
+      "filing": {
+        "legal_regime": "us_domestic",
+        "required_edgar": true,
+        "observed_forms": ["8-K", "10-Q", "10-K"],
+        "annual_form": "10-K",
+        "subsidiary_exhibit": "observed_exhibit_21",
+        "omission_allowance": "may_apply_under_item_601",
+        "evidence_url": "https://data.sec.gov/submissions/CIK0001326801.json",
+        "verified_at": "2026-07-31"
+      },
+      "names": [
+        {"name": "Meta Platforms, Inc.", "relationship": "self", "source": "https://data.sec.gov/submissions/CIK0001326801.json", "verified_at": "2026-07-31", "expires_at": null},
+        {"name": "Meta", "relationship": "self", "source": "https://data.sec.gov/submissions/CIK0001326801.json", "verified_at": "2026-07-31", "expires_at": null, "requires_context": ["Facebook", "Instagram", "WhatsApp", "Platforms"]},
+        {"name": "Facebook", "relationship": "controlled_affiliate", "source": "https://data.sec.gov/submissions/CIK0001326801.json", "verified_at": "2026-07-31", "expires_at": "2027-07-31"}
+      ],
+      "negative_names": ["metaphysics", "metadata"],
+      "discovery_keys": ["META"],
+      "notes": ["The short alias Meta requires a company-context term."]
+    },
+    "NET": {
+      "legal_issuer": "Cloudflare, Inc.",
+      "cik": "0001477333",
+      "filing": {
+        "legal_regime": "us_domestic",
+        "required_edgar": true,
+        "observed_forms": ["8-K", "10-Q", "10-K"],
+        "annual_form": "10-K",
+        "subsidiary_exhibit": "observed_exhibit_21",
+        "omission_allowance": "may_apply_under_item_601",
+        "evidence_url": "https://data.sec.gov/submissions/CIK0001477333.json",
+        "verified_at": "2026-07-31"
+      },
+      "names": [
+        {"name": "Cloudflare, Inc.", "relationship": "self", "source": "https://data.sec.gov/submissions/CIK0001477333.json", "verified_at": "2026-07-31", "expires_at": null},
+        {"name": "Cloudflare", "relationship": "self", "source": "https://data.sec.gov/submissions/CIK0001477333.json", "verified_at": "2026-07-31", "expires_at": null},
+        {"name": "NET", "relationship": "self", "source": "https://data.sec.gov/submissions/CIK0001477333.json", "verified_at": "2026-07-31", "expires_at": null, "requires_context": ["Cloudflare"]}
+      ],
+      "negative_names": ["net income", "net loss", "net sales"],
+      "discovery_keys": ["NET"],
+      "notes": ["Ticker alias NET requires Cloudflare context."]
+    },
+    "NVO": {
+      "legal_issuer": "Novo Nordisk A/S",
+      "cik": "0000353278",
+      "filing": {
+        "legal_regime": "foreign_private_issuer",
+        "required_edgar": true,
+        "observed_forms": ["6-K", "20-F"],
+        "annual_form": "20-F",
+        "subsidiary_exhibit": "annual_report_exhibits_vary",
+        "omission_allowance": "not_determined_from_20_f",
+        "evidence_url": "https://data.sec.gov/submissions/CIK0000353278.json",
+        "verified_at": "2026-07-31"
+      },
+      "names": [
+        {"name": "Novo Nordisk A/S", "relationship": "self", "source": "https://data.sec.gov/submissions/CIK0000353278.json", "verified_at": "2026-07-31", "expires_at": null},
+        {"name": "Novo Nordisk", "relationship": "self", "source": "https://data.sec.gov/submissions/CIK0000353278.json", "verified_at": "2026-07-31", "expires_at": null}
+      ],
+      "negative_names": ["Novo Holdings"],
+      "discovery_keys": ["NVO"],
+      "notes": ["6-K has no item taxonomy and requires content-based materiality review."]
+    },
+    "SHOP": {
+      "legal_issuer": "Shopify Inc.",
+      "cik": "0001594805",
+      "filing": {
+        "legal_regime": "foreign_private_issuer",
+        "required_edgar": true,
+        "observed_forms": ["8-K", "10-Q", "10-K"],
+        "annual_form": "10-K",
+        "subsidiary_exhibit": "observed_exhibit_21",
+        "omission_allowance": "may_apply_under_item_601",
+        "evidence_url": "https://www.sec.gov/Archives/edgar/data/1594805/000159480526000022/shop-20260508.htm",
+        "verified_at": "2026-07-31"
+      },
+      "names": [
+        {"name": "Shopify Inc.", "relationship": "self", "source": "https://www.sec.gov/Archives/edgar/data/1594805/000159480526000022/shop-20260508.htm", "verified_at": "2026-07-31", "expires_at": null},
+        {"name": "Shopify", "relationship": "self", "source": "https://www.sec.gov/Archives/edgar/data/1594805/000159480526000022/shop-20260508.htm", "verified_at": "2026-07-31", "expires_at": null}
+      ],
+      "negative_names": [],
+      "discovery_keys": ["SHOP"],
+      "notes": ["Legal status is foreign private issuer; observed domestic forms select current processing and must be refreshed if reporting changes."]
+    }
+  }
+}

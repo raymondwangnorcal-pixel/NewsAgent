@@ -144,6 +144,7 @@ def fetch_yahoo_quote(symbol: str) -> StockQuote | None:
         symbol=symbol,
         price=price,
         change_percent=change_percent,
+        previous_close=previous_close,
         open_price=open_price,
         volume=volume,
         as_of=as_of,
@@ -233,7 +234,8 @@ async def build_stock_snapshot(
     mentions = collect_stock_mentions(articles)
     mega_caps = mega_cap_tickers()
     mentioned_symbols = [mention.symbol for mention in mentions]
-    quote_symbols = sorted(set(mega_caps) | set(mentioned_symbols))
+    watchlist_symbols = [entry.ticker for entry in watchlist_entries]
+    quote_symbols = sorted(set(mega_caps) | set(mentioned_symbols) | set(watchlist_symbols))
     quotes = await asyncio.to_thread(fetch_yahoo_quotes, quote_symbols)
     movers = await asyncio.to_thread(detect_market_movers, list(articles), watchlist_entries)
     return StockSnapshot(news_mentions=mentions, mega_caps=mega_caps, quotes=quotes, market_movers=movers)

@@ -35,6 +35,18 @@ input_cost_usd_per_million_tokens = 2.5
 output_cost_usd_per_million_tokens = 15.0
 watchlist_reserve_usd = 0.25
 
+[duplicate_gate]
+enabled = true
+candidate_window_hours = 24.0
+# Measured July 27 duplicates score 0.3529 (Anthropic) and 0.25 (D4vd).
+# A July 28 no-send calibration yielded 3 eligible pairs at 0.20; Terra affirmed 1.
+candidate_title_jaccard_threshold = 0.20
+max_clusters_per_request = 40
+max_output_tokens_per_request = 2000
+reasoning_effort = "medium"
+max_component_size = 4
+summary_truncate_chars = 250
+
 [drafting]
 model = "gpt-5.6-terra"
 max_output_tokens_per_batch = 6000

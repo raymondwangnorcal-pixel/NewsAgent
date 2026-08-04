@@ -1,0 +1,419 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.0252375,
+  "created_at": "2026-07-29T01:02:42.321070+00:00",
+  "guard_deltas": {},
+  "input_tokens": 0,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 0,
+  "stories": [
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "TKO chief Ari Emanuel endorsed Paramount\u2019s proposed $110 billion acquisition of Warner Bros. Discovery in a Wall Street Journal op-ed, calling the antitrust case brought by 12 state attorneys general \u201ctrash.\u201d Paramount has agreed not to close before June 1, 2027, or until it wins a favorable ruling, after the challenge put a deal once expected to close this summer into legal limbo. The case will determine whether the companies can pursue the consolidation Emanuel argues could help Hollywood compete.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/07/ari-emanuel-paramount-warner-bros-discovery-merger-wsj-1237006229/",
+          "evidence_type": "extracted",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/07/ari-emanuel-paramount-warner-bros-discovery-merger-wsj-1237006229/"
+        }
+      ],
+      "full_paragraph": "TKO chief Ari Emanuel endorsed Paramount\u2019s proposed $110 billion acquisition of Warner Bros. Discovery in a Wall Street Journal op-ed, calling the antitrust case brought by 12 state attorneys general \u201ctrash.\u201d Paramount has agreed not to close before June 1, 2027, or until it wins a favorable ruling, after the challenge put a deal once expected to close this summer into legal limbo. The case will determine whether the companies can pursue the consolidation Emanuel argues could help Hollywood compete.",
+      "guard_result": "not_run",
+      "story_id": "antitrust ari backs blasts deal emanuel lawsuit paramount"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Elon Musk\u2019s xAI, now owned by SpaceX, sued Minnesota Attorney General Keith Ellison to block a state law banning tools that generate non-consensual sexualized images. The statute, due to take effect Saturday, permits fines of $500,000 for each explicit deepfake a user creates; xAI says it is an overbroad, content-based restriction on speech. Minnesota\u2019s defense will test how far states can go in regulating AI image generators without violating First Amendment protections.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/spacexs-xai-sues-minnesota-over-law-to-ban-nudify-apps-.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/spacexs-xai-sues-minnesota-over-law-to-ban-nudify-apps-.html"
+        }
+      ],
+      "full_paragraph": "Elon Musk\u2019s xAI, now owned by SpaceX, sued Minnesota Attorney General Keith Ellison to block a state law banning tools that generate non-consensual sexualized images. The statute, due to take effect Saturday, permits fines of $500,000 for each explicit deepfake a user creates; xAI says it is an overbroad, content-based restriction on speech. Minnesota\u2019s defense will test how far states can go in regulating AI image generators without violating First Amendment protections.",
+      "guard_result": "not_run",
+      "story_id": "apps ban elon law minnesota musk nudify sues"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Federal Communications Commission announced an import ban on foreign-made \u201cadvanced robotic devices\u201d and power inverters, including mobile humanoid and quadruped robots. Although the agency did not name a country, the policy is expected to hit Chinese robot makers and major inverter suppliers such as Sungrow and already-blacklisted Huawei, citing what the FCC calls unacceptable risks. The move extends U.S. technology restrictions beyond chips and telecom equipment into robotics and renewable-energy supply chains.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/tech/972259/us-foreign-robots-power-inverter-ban",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/tech/972259/us-foreign-robots-power-inverter-ban"
+        }
+      ],
+      "full_paragraph": "The Federal Communications Commission announced an import ban on foreign-made \u201cadvanced robotic devices\u201d and power inverters, including mobile humanoid and quadruped robots. Although the agency did not name a country, the policy is expected to hit Chinese robot makers and major inverter suppliers such as Sungrow and already-blacklisted Huawei, citing what the FCC calls unacceptable risks. The move extends U.S. technology restrictions beyond chips and telecom equipment into robotics and renewable-energy supply chains.",
+      "guard_result": "not_run",
+      "story_id": "banning foreign robots"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Federal Aviation Administration is moving to waive some environmental rules for launch approvals, a change that could speed missions by SpaceX, Blue Origin and other U.S. space companies. Transportation Secretary Sean Duffy framed the proposal as an effort to cut red tape and preserve America\u2019s edge in a renewed space race. The practical question will be whether faster licensing can be achieved without weakening scrutiny of launches\u2019 effects on surrounding communities and wildlife.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/space-launches-faa-environmental-spacex-blue-origin-sean-duffy.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/space-launches-faa-environmental-spacex-blue-origin-sean-duffy.html"
+        }
+      ],
+      "full_paragraph": "The Federal Aviation Administration is moving to waive some environmental rules for launch approvals, a change that could speed missions by SpaceX, Blue Origin and other U.S. space companies. Transportation Secretary Sean Duffy framed the proposal as an effort to cut red tape and preserve America\u2019s edge in a renewed space race. The practical question will be whether faster licensing can be achieved without weakening scrutiny of launches\u2019 effects on surrounding communities and wildlife.",
+      "guard_result": "not_run",
+      "story_id": "approval blue could environmental faa get launch move"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Trump administration has moved to bar new Chinese humanoid robots from the U.S. market, placing robotics alongside artificial intelligence in its expanding technology competition with Beijing. The restriction comes as both countries invest heavily in machines designed to work in factories, warehouses and homes. It could limit choices for U.S. buyers and manufacturers while encouraging domestic and allied suppliers, but also deepen the separation of the two countries\u2019 technology ecosystems.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cp9e2ex3ekyo?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cp9e2ex3ekyo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "The Trump administration has moved to bar new Chinese humanoid robots from the U.S. market, placing robotics alongside artificial intelligence in its expanding technology competition with Beijing. The restriction comes as both countries invest heavily in machines designed to work in factories, warehouses and homes. It could limit choices for U.S. buyers and manufacturers while encouraging domestic and allied suppliers, but also deepen the separation of the two countries\u2019 technology ecosystems.",
+      "guard_result": "not_run",
+      "story_id": "administration bans chinese humanoid robots trump"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Senate Majority Leader John Thune and House Speaker Mike Johnson plan to attend President Trump\u2019s two-day midterm convention in Dallas in September, joining a party gathering designed to project unity and draw major donors. Several candidates, including Alaska Sen. Dan Sullivan and Michigan Senate hopeful Mike Rogers, are also expected, while Maine Sen. Susan Collins is unlikely to attend. The event forces Republicans in competitive races to weigh the fundraising benefits of appearing with Trump against political risks at home.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/07/29/republicans-midterm-convention-dallas-john-thune-mike-johnson-trump",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/07/29/republicans-midterm-convention-dallas-john-thune-mike-johnson-trump"
+        }
+      ],
+      "full_paragraph": "Senate Majority Leader John Thune and House Speaker Mike Johnson plan to attend President Trump\u2019s two-day midterm convention in Dallas in September, joining a party gathering designed to project unity and draw major donors. Several candidates, including Alaska Sen. Dan Sullivan and Michigan Senate hopeful Mike Rogers, are also expected, while Maine Sen. Susan Collins is unlikely to attend. The event forces Republicans in competitive races to weigh the fundraising benefits of appearing with Trump against political risks at home.",
+      "guard_result": "not_run",
+      "story_id": "attend both convention dallas johnson plan thune trump"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "President Trump and the Justice Department separately asked the Supreme Court to overturn the $83.3 million defamation verdict won by writer E. Jean Carroll. Trump argues he was immune because his 2019 denials of Carroll\u2019s sexual-assault allegation were made while president; the DOJ says the federal government should have replaced him as defendant, which would have ended the case. The petitions seek to broaden protections for presidents and federal employees over statements made in office.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/trump-asks-supreme-court-to-toss-83point3m-defamation-award-to-e-jean-carroll.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/trump-asks-supreme-court-to-toss-83point3m-defamation-award-to-e-jean-carroll.html"
+        }
+      ],
+      "full_paragraph": "President Trump and the Justice Department separately asked the Supreme Court to overturn the $83.3 million defamation verdict won by writer E. Jean Carroll. Trump argues he was immune because his 2019 denials of Carroll\u2019s sexual-assault allegation were made while president; the DOJ says the federal government should have replaced him as defendant, which would have ended the case. The petitions seek to broaden protections for presidents and federal employees over statements made in office.",
+      "guard_result": "not_run",
+      "story_id": "ask award carroll court defamation doj jean supreme"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Senate has set up votes on a sanctions package aimed at punishing Russia over its war in Ukraine, targeting officials, oligarchs and relatives, banks, financial institutions and the oil-export \u201cshadow fleet.\u201d The measure also seeks to pressure foreign actors aiding Russia\u2019s economy and war effort. Its progress would signal whether Congress is prepared to impose new costs on Moscow and its trading partners as the conflict continues.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/russia-sanctions-congress-key-vote-lindsey-graham-ukraine.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/russia-sanctions-congress-key-vote-lindsey-graham-ukraine.html"
+        }
+      ],
+      "full_paragraph": "The Senate has set up votes on a sanctions package aimed at punishing Russia over its war in Ukraine, targeting officials, oligarchs and relatives, banks, financial institutions and the oil-export \u201cshadow fleet.\u201d The measure also seeks to pressure foreign actors aiding Russia\u2019s economy and war effort. Its progress would signal whether Congress is prepared to impose new costs on Moscow and its trading partners as the conflict continues.",
+      "guard_result": "not_run",
+      "story_id": "russia sanction senate sets ukraine votes war"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Senate voted 86-12 to advance a Russia and Iran sanctions bill previously championed by the late Sen. Lindsey Graham, shortly after lawmakers met with Ukrainian President Volodymyr Zelenskyy. The proposal would impose 100% secondary tariffs on countries buying Russian oil and gas, target Moscow\u2019s tanker \u201cshadow fleet,\u201d and renew expiring Iran sanctions. The overwhelming procedural vote gives leaders room to seek faster final passage despite earlier White House concerns.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/07/29/senate-russia-sanctions-lindsey-graham",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/07/29/senate-russia-sanctions-lindsey-graham"
+        }
+      ],
+      "full_paragraph": "The Senate voted 86-12 to advance a Russia and Iran sanctions bill previously championed by the late Sen. Lindsey Graham, shortly after lawmakers met with Ukrainian President Volodymyr Zelenskyy. The proposal would impose 100% secondary tariffs on countries buying Russian oil and gas, target Moscow\u2019s tanker \u201cshadow fleet,\u201d and renew expiring Iran sanctions. The overwhelming procedural vote gives leaders room to seek faster final passage despite earlier White House concerns.",
+      "guard_result": "not_run",
+      "story_id": "bill forward graham move russia sanctions senators vote"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Senate confirmed Jay Clayton as President Trump\u2019s director of national intelligence, replacing Bill Pulte, who had served in the role for months after Tulsi Gabbard resigned. The appointment puts Clayton in charge of coordinating the U.S. intelligence community and advising the president on national-security threats. His confirmation ends an extended interim arrangement at a post central to overseeing information shared among civilian and military intelligence agencies.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/28/jay-clayton-bill-pulte-senate-vote-trump-spy-chief.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/28/jay-clayton-bill-pulte-senate-vote-trump-spy-chief.html"
+        }
+      ],
+      "full_paragraph": "The Senate confirmed Jay Clayton as President Trump\u2019s director of national intelligence, replacing Bill Pulte, who had served in the role for months after Tulsi Gabbard resigned. The appointment puts Clayton in charge of coordinating the U.S. intelligence community and advising the president on national-security threats. His confirmation ends an extended interim arrangement at a post central to overseeing information shared among civilian and military intelligence agencies.",
+      "guard_result": "not_run",
+      "story_id": "clayton confirms director intelligence jay national pulte replacing"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Iran\u2019s Revolutionary Guard launched multiple ballistic missiles at U.S. forces in the Middle East, but all were intercepted, U.S. Central Command said. U.S. officials told Axios the apparent target was a base in Jordan; later, U.S. and Saudi forces struck logistics and weapons sites in eastern Iraq after more than 30 drone attacks over three days by Iran-aligned groups. The exchange threatens a brief diplomatic pause and raises pressure for a decision on further U.S. military action.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/29/us-iran-war-hormuz-centcom.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/29/us-iran-war-hormuz-centcom.html"
+        }
+      ],
+      "full_paragraph": "Iran\u2019s Revolutionary Guard launched multiple ballistic missiles at U.S. forces in the Middle East, but all were intercepted, U.S. Central Command said. U.S. officials told Axios the apparent target was a base in Jordan; later, U.S. and Saudi forces struck logistics and weapons sites in eastern Iraq after more than 30 drone attacks over three days by Iran-aligned groups. The exchange threatens a brief diplomatic pause and raises pressure for a decision on further U.S. military action.",
+      "guard_result": "not_run",
+      "story_id": "attack ballistic east forces iran launches middle missile"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Iran fired multiple ballistic missiles toward a U.S. military base in Jordan, its first such attack since President Trump paused strikes against Iran on Friday, according to U.S. Central Command. CENTCOM said every missile was intercepted, while U.S. and Saudi aircraft later hit weapons and logistics sites in eastern Iraq. The attack disrupts the fragile pause intended to allow diplomacy and increases the risk that the United States resumes direct military operations.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/07/28/iran-missile-attack-us-base-jordan",
+          "evidence_type": "feed_content",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/07/28/iran-missile-attack-us-base-jordan"
+        }
+      ],
+      "full_paragraph": "Iran fired multiple ballistic missiles toward a U.S. military base in Jordan, its first such attack since President Trump paused strikes against Iran on Friday, according to U.S. Central Command. CENTCOM said every missile was intercepted, while U.S. and Saudi aircraft later hit weapons and logistics sites in eastern Iraq. The attack disrupts the fragile pause intended to allow diplomacy and increases the risk that the United States resumes direct military operations.",
+      "guard_result": "not_run",
+      "story_id": "base first iran launches missiles paused since strikes"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Iran and the United States traded strikes after a short lull in fighting, with U.S. Central Command reporting that it intercepted multiple ballistic missiles fired from Iran. The renewed exchange follows a pause meant to create space for diplomacy, but the available reporting indicates that military forces remain on high alert. Whether either side can restore that pause now matters for regional security, shipping and the risk of a wider confrontation.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c70g6y24d76o?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c70g6y24d76o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Iran and the United States traded strikes after a short lull in fighting, with U.S. Central Command reporting that it intercepted multiple ballistic missiles fired from Iran. The renewed exchange follows a pause meant to create space for diplomacy, but the available reporting indicates that military forces remain on high alert. Whether either side can restore that pause now matters for regional security, shipping and the risk of a wider confrontation.",
+      "guard_result": "not_run",
+      "story_id": "brief fighting iran lull shattering strikes trade"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Mexican drug cartels are increasingly shifting methamphetamine production activity toward Nigeria, part of a broader effort to exploit West Africa\u2019s growing role in illicit-drug manufacturing and export, the BBC reports. The development would extend cartel-linked supply chains far beyond their traditional base and take advantage of routes connecting Africa to overseas markets. It also raises the enforcement burden for Nigerian and regional authorities confronting a more internationalized synthetic-drug trade.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/crmrnxp4nllo?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/crmrnxp4nllo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Mexican drug cartels are increasingly shifting methamphetamine production activity toward Nigeria, part of a broader effort to exploit West Africa\u2019s growing role in illicit-drug manufacturing and export, the BBC reports. The development would extend cartel-linked supply chains far beyond their traditional base and take advantage of routes connecting Africa to overseas markets. It also raises the enforcement burden for Nigerian and regional authorities confronting a more internationalized synthetic-drug trade.",
+      "guard_result": "not_run",
+      "story_id": "cartels drug labs meth mexican nigeria outsourced"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Eric McCormack has joined the cast of \u201cYou\u2019re Safe Now,\u201d a psychological thriller directed by Nimisha Mukerji and written by Jess Mastro, with production underway in Toronto. The \u201cWill & Grace\u201d Emmy winner will appear alongside Anja Savcic, Jesse Rath and Bo Martynowska in a story described as a character-driven drama about loneliness, mortality and destructive forms of love. The project adds another film role to McCormack\u2019s recent work across television, film and stage.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/07/eric-mccormack-youre-safe-now-1237006284/",
+          "evidence_type": "extracted",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/07/eric-mccormack-youre-safe-now-1237006284/"
+        }
+      ],
+      "full_paragraph": "Eric McCormack has joined the cast of \u201cYou\u2019re Safe Now,\u201d a psychological thriller directed by Nimisha Mukerji and written by Jess Mastro, with production underway in Toronto. The \u201cWill & Grace\u201d Emmy winner will appear alongside Anja Savcic, Jesse Rath and Bo Martynowska in a story described as a character-driven drama about loneliness, mortality and destructive forms of love. The project adds another film role to McCormack\u2019s recent work across television, film and stage.",
+      "guard_result": "not_run",
+      "story_id": "eric mccormack mukerji nimisha now psychological safe set"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Christopher Nolan\u2019s \u201cThe Odyssey\u201d is expected to pass the $330 million domestic lifetime total of \u201cOppenheimer\u201d on its 13th day in theaters, compared with 595 days for Nolan\u2019s 2023 hit. Its second Monday brought in $14.7 million, lifting the running U.S. total to about $320.1 million, while \u201cHadestown\u201d earned $2.2 million that day. The rapid run would make \u201cThe Odyssey\u201d Nolan\u2019s third-highest-grossing domestic release, before its next test against a new \u201cSpider-Man\u201d film.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/07/box-office-the-odyssey-oppenheimer-record-hadestown-1237006246/",
+          "evidence_type": "extracted",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/07/box-office-the-odyssey-oppenheimer-record-hadestown-1237006246/"
+        }
+      ],
+      "full_paragraph": "Christopher Nolan\u2019s \u201cThe Odyssey\u201d is expected to pass the $330 million domestic lifetime total of \u201cOppenheimer\u201d on its 13th day in theaters, compared with 595 days for Nolan\u2019s 2023 hit. Its second Monday brought in $14.7 million, lifting the running U.S. total to about $320.1 million, while \u201cHadestown\u201d earned $2.2 million that day. The rapid run would make \u201cThe Odyssey\u201d Nolan\u2019s third-highest-grossing domestic release, before its next test against a new \u201cSpider-Man\u201d film.",
+      "guard_result": "not_run",
+      "story_id": "box days hadestown lifetime monday odyssey office oppenheimer"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Ariana Grande sued unidentified hackers in Los Angeles Superior Court, alleging they stole and sold or posted unreleased music, videos and photos online. The complaint says 45 unreleased songs were leaked in 2023 alone and that hundreds of leaks have occurred since her 2011 debut, including masters, demos and recording-session footage. The suit seeks to identify the defendants and halt distribution of material whose leaks can undermine an artist\u2019s control over releases and commercial plans.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/entertainment/972233/ariana-grande-hacking-lawsuit",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/entertainment/972233/ariana-grande-hacking-lawsuit"
+        }
+      ],
+      "full_paragraph": "Ariana Grande sued unidentified hackers in Los Angeles Superior Court, alleging they stole and sold or posted unreleased music, videos and photos online. The complaint says 45 unreleased songs were leaked in 2023 alone and that hundreds of leaks have occurred since her 2011 debut, including masters, demos and recording-session footage. The suit seeks to identify the defendants and halt distribution of material whose leaks can undermine an artist\u2019s control over releases and commercial plans.",
+      "guard_result": "not_run",
+      "story_id": "ariana been grande hackers her leaking songs suing"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "FIFA is considering selling minority stakes in commercial rights connected to the World Cup to raise billions of dollars, including through a firm run by Joshua Kushner, brother of Jared Kushner, NPR reports. The complex proposal would bring outside investors into revenue streams associated with football\u2019s biggest tournament while leaving FIFA to manage the competition. It could reshape how World Cup income is financed and distributed, prompting scrutiny from national and regional football bodies.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.npr.org/2026/07/28/nx-s1-5910773/fifa-world-cup-gianni-infantino",
+          "evidence_type": "feed_content",
+          "source": "NPR News",
+          "url": "https://www.npr.org/2026/07/28/nx-s1-5910773/fifa-world-cup-gianni-infantino"
+        }
+      ],
+      "full_paragraph": "FIFA is considering selling minority stakes in commercial rights connected to the World Cup to raise billions of dollars, including through a firm run by Joshua Kushner, brother of Jared Kushner, NPR reports. The complex proposal would bring outside investors into revenue streams associated with football\u2019s biggest tournament while leaving FIFA to manage the competition. It could reshape how World Cup income is financed and distributed, prompting scrutiny from national and regional football bodies.",
+      "guard_result": "not_run",
+      "story_id": "billions cup dollars fifa plan raise selling stakes"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "UEFA will hold an emergency meeting to discuss possible resistance, including a potential World Cup boycott, to FIFA\u2019s plan to raise $20 billion by selling equity to outside investors, ESPN reported. European football\u2019s governing body is objecting to a proposal that could give private investors a stake in World Cup commercial rights. Even the prospect of a boycott underscores how a financial restructuring could trigger a confrontation between FIFA and the confederation representing many of the sport\u2019s strongest teams.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/soccer/story/_/id/49470028/uefa-blasts-fifa-proposal-10-billion-world-cup-private-investment",
+          "evidence_type": "feed_content",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/soccer/story/_/id/49470028/uefa-blasts-fifa-proposal-10-billion-world-cup-private-investment"
+        }
+      ],
+      "full_paragraph": "UEFA will hold an emergency meeting to discuss possible resistance, including a potential World Cup boycott, to FIFA\u2019s plan to raise $20 billion by selling equity to outside investors, ESPN reported. European football\u2019s governing body is objecting to a proposal that could give private investors a stake in World Cup commercial rights. Even the prospect of a boycott underscores how a financial restructuring could trigger a confrontation between FIFA and the confederation representing many of the sport\u2019s strongest teams.",
+      "guard_result": "not_run",
+      "story_id": "boycott fifa plan sources uefa weighs"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Seagate reported June-quarter results above Wall Street expectations, sending the data-storage maker\u2019s shares higher after hours and offering a positive signal for the bruised AI trade. Investors have been looking for evidence that spending on AI infrastructure is translating into demand beyond the chip makers at the center of the boom. Stronger storage results suggest that data-heavy AI systems may support a wider set of technology suppliers, though one quarter does not settle the durability of that demand.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/seagates-earnings-are-welcome-news-for-the-battered-ai-trade-92dfc30f?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/seagates-earnings-are-welcome-news-for-the-battered-ai-trade-92dfc30f?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Seagate reported June-quarter results above Wall Street expectations, sending the data-storage maker\u2019s shares higher after hours and offering a positive signal for the bruised AI trade. Investors have been looking for evidence that spending on AI infrastructure is translating into demand beyond the chip makers at the center of the boom. Stronger storage results suggest that data-heavy AI systems may support a wider set of technology suppliers, though one quarter does not settle the durability of that demand.",
+      "guard_result": "not_run",
+      "story_id": "battered earnings seagate trade welcome"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Ford shares rose after the automaker matched General Motors in relying on pickup trucks and other traditionally powered vehicles to limit a sales decline. The result highlights how demand for higher-margin combustion-engine models remains important to Detroit carmakers even as they spend heavily on electric vehicles. Investors welcomed the evidence that Ford can protect sales through its established truck franchise, but the company still faces the longer-term challenge of balancing that strength with its EV transition.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/ford-matches-gm-in-one-crucial-way-and-the-stock-jumps-bf2f708c?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/ford-matches-gm-in-one-crucial-way-and-the-stock-jumps-bf2f708c?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Ford shares rose after the automaker matched General Motors in relying on pickup trucks and other traditionally powered vehicles to limit a sales decline. The result highlights how demand for higher-margin combustion-engine models remains important to Detroit carmakers even as they spend heavily on electric vehicles. Investors welcomed the evidence that Ford can protect sales through its established truck franchise, but the company still faces the longer-term challenge of balancing that strength with its EV transition.",
+      "guard_result": "not_run",
+      "story_id": "crucial ford jumps matches one stock way"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Micron\u2019s shares were heading toward their worst monthly decline in 11 years as investors grew more worried about China\u2019s expanding domestic supply of memory chips and manufacturing tools. Analysts say those concerns have intensified pressure on the U.S. chipmaker, whose business is exposed to shifts in Chinese competition and demand. The selloff shows that even companies closely tied to AI infrastructure remain vulnerable to changing expectations about China\u2019s ability to build its own semiconductor ecosystem.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/microns-stock-sinks-toward-worst-monthly-drop-in-11-years-as-china-fears-escalate-3c956a67?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/microns-stock-sinks-toward-worst-monthly-drop-in-11-years-as-china-fears-escalate-3c956a67?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Micron\u2019s shares were heading toward their worst monthly decline in 11 years as investors grew more worried about China\u2019s expanding domestic supply of memory chips and manufacturing tools. Analysts say those concerns have intensified pressure on the U.S. chipmaker, whose business is exposed to shifts in Chinese competition and demand. The selloff shows that even companies closely tied to AI infrastructure remain vulnerable to changing expectations about China\u2019s ability to build its own semiconductor ecosystem.",
+      "guard_result": "not_run",
+      "story_id": "china drop escalate fears micron monthly sinks stock"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Oil prices rose sharply after Iran launched ballistic missiles at U.S. forces and the United States and its allies resumed strikes following a brief pause in Middle East hostilities. Markets are reacting to the risk that a wider conflict could disrupt production or shipping routes in a region central to global crude supply. The move puts renewed attention on geopolitical risk premiums in energy prices, which can feed through to fuel costs and inflation.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/07/29/oil-prices-today-brent-wti-iran-us-hormuz.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/07/29/oil-prices-today-brent-wti-iran-us-hormuz.html"
+        }
+      ],
+      "full_paragraph": "Oil prices rose sharply after Iran launched ballistic missiles at U.S. forces and the United States and its allies resumed strikes following a brief pause in Middle East hostilities. Markets are reacting to the risk that a wider conflict could disrupt production or shipping routes in a region central to global crude supply. The move puts renewed attention on geopolitical risk premiums in energy prices, which can feed through to fuel costs and inflation.",
+      "guard_result": "not_run",
+      "story_id": "brief iran jumps oil pause resume strikes"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Saudi Arabia is increasing loadings through a Mediterranean port to reach oil buyers by a longer, more expensive route, MarketWatch reports. The workaround is intended to keep exports moving even though the alternative route adds transport costs and complexity. For crude markets, the shift illustrates how regional security and logistics disruptions can raise the cost of supplying customers without necessarily cutting Saudi production, potentially supporting prices and narrowing trading margins.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/saudi-arabia-has-a-new-and-pricier-workaround-to-export-its-oil-fb5085a5?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/saudi-arabia-has-a-new-and-pricier-workaround-to-export-its-oil-fb5085a5?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Saudi Arabia is increasing loadings through a Mediterranean port to reach oil buyers by a longer, more expensive route, MarketWatch reports. The workaround is intended to keep exports moving even though the alternative route adds transport costs and complexity. For crude markets, the shift illustrates how regional security and logistics disruptions can raise the cost of supplying customers without necessarily cutting Saudi production, potentially supporting prices and narrowing trading margins.",
+      "guard_result": "not_run",
+      "story_id": "arabia export oil pricier saudi workaround"
+    }
+  ]
+}
