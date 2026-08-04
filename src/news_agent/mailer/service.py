@@ -5,6 +5,7 @@ import hashlib
 import uuid
 from dataclasses import replace
 from datetime import datetime
+from collections.abc import Mapping
 from urllib.parse import urlparse
 
 from news_agent.formatting import FormattedMessage
@@ -18,6 +19,7 @@ from news_agent.mailer.quotes import (
     EndOfDayQuote,
     expected_quote_close_date,
     fetch_quotes_with_shared_deadline,
+    is_regular_nyse_market_hours,
     validate_quote_provider_configuration,
 )
 from news_agent.mailer.watchlist import load_email_watchlist, validate_shared_watchlist_consistency
@@ -28,8 +30,9 @@ from news_agent.mailer.watchlist_news import (
     serialize_articles,
     summarize_watchlist,
 )
-from news_agent.models import Article, EnrichmentConfig
+from news_agent.models import Article, EnrichmentConfig, StockQuote
 from news_agent.openai_budget import OpenAIBudget
+from news_agent.stocks import fetch_yahoo_quotes
 from news_agent.time import briefing_now
 from news_agent.watchlist.edgar import EdgarClient, sec_contact_email_from_env
 from news_agent.watchlist.entity_map import classify_text, load_entity_map, load_relationship_ambiguities
@@ -64,6 +67,7 @@ class EmailService:
         *,
         test_revision: bool = False,
         general_articles: tuple[Article, ...] = (),
+        market_quotes: Mapping[str, StockQuote] | None = None,
         use_openai: bool = True,
         read_edgar_state: bool = False,
     ) -> EmailEdition:
@@ -76,6 +80,7 @@ class EmailService:
             allow_cached_quotes=not test_revision,
             bypass_sent_suppression=test_revision,
             general_articles=general_articles,
+            market_quotes=market_quotes,
             persist_watchlist_state=not test_revision,
             use_openai=use_openai,
             read_edgar_state=read_edgar_state,
@@ -109,6 +114,7 @@ class EmailService:
         allow_cached_quotes: bool = True,
         bypass_sent_suppression: bool = False,
         general_articles: tuple[Article, ...] = (),
+        market_quotes: Mapping[str, StockQuote] | None = None,
         persist_watchlist_state: bool = True,
         use_openai: bool = True,
         read_edgar_state: bool = False,
@@ -133,10 +139,20 @@ class EmailService:
         )
         quotes: dict[str, EndOfDayQuote | None] = {}
         stories: list[WatchlistStory] = []
+        market_is_open = is_regular_nyse_market_hours()
         expected_close_date = expected_quote_close_date()
-        live_quotes = fetch_quotes_with_shared_deadline(
-            tuple(entry.ticker for entry in entries), expected_close_date=expected_close_date
-        )
+        if market_is_open:
+            shared_quotes = dict(market_quotes or {})
+            missing_tickers = [entry.ticker for entry in entries if entry.ticker not in shared_quotes]
+            shared_quotes.update(fetch_yahoo_quotes(missing_tickers))
+            live_quotes = {
+                entry.ticker: _live_watchlist_quote(entry.ticker, shared_quotes.get(entry.ticker))
+                for entry in entries
+            }
+        else:
+            live_quotes = fetch_quotes_with_shared_deadline(
+                tuple(entry.ticker for entry in entries), expected_close_date=expected_close_date
+            )
         briefing_date = briefing_now().date().isoformat()
         discovery_by_key: dict[str, tuple[tuple[Article, ...], str]] = {}
         missing_keys: list[str] = []
@@ -177,14 +193,14 @@ class EmailService:
             discovered_articles[ticker] = (tuple(routed.values()), errors[0] if errors else "")
         for entry in entries:
             quote = live_quotes[entry.ticker]
-            if quote is None and allow_cached_quotes:
+            if quote is None and not market_is_open and allow_cached_quotes:
                 cached = self.store.cached_quote(
                     entry.ticker, expected_close_date=expected_close_date.isoformat()
                 )
                 if cached is not None:
                     close_date, close_price, previous_close, provider = cached
                     quote = EndOfDayQuote(entry.ticker, close_date, close_price, previous_close, provider)
-            elif persist_quotes:
+            elif quote is not None and not market_is_open and persist_quotes:
                 self.store.cache_quote(entry.ticker, quote.close_date, quote.close_price, quote.previous_close, quote.provider)
                 self.store.record_quote_history(entry.ticker, quote.close_date, quote.close_price, quote.previous_close, quote.provider)
             quotes[entry.ticker] = quote
@@ -377,6 +393,20 @@ class EmailService:
         if edition is None:
             raise ValueError(f"Unknown email edition: {edition_id}")
         return self.send_edition(edition, retry_indeterminate=True, force_resend=True)
+
+
+def _live_watchlist_quote(ticker: str, quote: StockQuote | None) -> EndOfDayQuote | None:
+    """Adapt the Finance section's Yahoo quote for the Watchlist renderer."""
+    if quote is None or quote.price is None or quote.previous_close in (None, 0):
+        return None
+    return EndOfDayQuote(
+        ticker=ticker,
+        close_date=briefing_now().date().isoformat(),
+        close_price=quote.price,
+        previous_close=quote.previous_close,
+        provider=quote.provider,
+        quote_kind="live",
+    )
 
 
 def _watchlist_run_record(story: WatchlistStory) -> dict[str, object]:

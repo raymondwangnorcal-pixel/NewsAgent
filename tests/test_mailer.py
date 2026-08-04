@@ -13,14 +13,14 @@ from news_agent import cli
 from news_agent.formatting import FormattedMessage
 from news_agent.mailer import quotes, service as mailer_service, watchlist_news
 from news_agent.mailer.models import EmailSettings, EmailWatchlistEntry, RecipientOutcome
-from news_agent.mailer.quotes import EndOfDayQuote, EodhdQuoteProvider, TiingoQuoteProvider, expected_quote_close_date, fetch_quote_with_fallback, fetch_quotes_with_shared_deadline
+from news_agent.mailer.quotes import EndOfDayQuote, EodhdQuoteProvider, TiingoQuoteProvider, expected_quote_close_date, fetch_quote_with_fallback, fetch_quotes_with_shared_deadline, is_regular_nyse_market_hours
 from news_agent.mailer.render import RenderedEmail, render_minimal_newsletter, render_parity_email, render_watchlist_section
 from news_agent.mailer.settings import email_settings_from_env
 from news_agent.mailer.smtp import send_email
 from news_agent.mailer.state import EmailStateStore
 from news_agent.mailer.watchlist import load_email_watchlist, validate_shared_watchlist_consistency
 from news_agent.mailer.schedule import scheduled_email_is_due
-from news_agent.models import Article, EnrichmentConfig, ExtractionPolicyConfig, OpenAICostConfig
+from news_agent.models import Article, EnrichmentConfig, ExtractionPolicyConfig, OpenAICostConfig, StockQuote
 from news_agent.openai_budget import OpenAIBudget
 
 
@@ -447,6 +447,39 @@ def test_expected_quote_close_date_uses_same_day_after_regular_close() -> None:
     from zoneinfo import ZoneInfo
 
     assert expected_quote_close_date(datetime(2026, 7, 31, 17, 0, tzinfo=ZoneInfo("America/New_York"))) == date(2026, 7, 31)
+
+
+def test_regular_nyse_market_hours_cover_open_session_only() -> None:
+    from zoneinfo import ZoneInfo
+
+    ny = ZoneInfo("America/New_York")
+    assert is_regular_nyse_market_hours(datetime(2026, 8, 3, 12, 0, tzinfo=ny))
+    assert not is_regular_nyse_market_hours(datetime(2026, 8, 3, 9, 29, tzinfo=ny))
+    assert not is_regular_nyse_market_hours(datetime(2026, 8, 3, 16, 0, tzinfo=ny))
+    assert not is_regular_nyse_market_hours(datetime(2026, 8, 1, 12, 0, tzinfo=ny))
+
+
+def test_live_watchlist_quote_uses_finance_snapshot_price() -> None:
+    quote = mailer_service._live_watchlist_quote(
+        "AAPL", StockQuote("AAPL", price=306.01, previous_close=308.91, provider="Yahoo Finance")
+    )
+
+    assert quote is not None
+    assert quote.close_price == 306.01
+    assert quote.previous_close == 308.91
+    assert quote.quote_kind == "live"
+
+
+def test_live_watchlist_quote_requires_a_previous_close() -> None:
+    assert mailer_service._live_watchlist_quote("AAPL", StockQuote("AAPL", price=306.01)) is None
+
+
+def test_watchlist_renderer_marks_intraday_prices_as_live() -> None:
+    plain, _html = render_watchlist_section(
+        {"AAPL": EndOfDayQuote("AAPL", "2026-08-03", 306.01, 308.91, "Yahoo Finance", "live")}, []
+    )
+
+    assert "AAPL: 306.01 (-0.94%) · live" in plain
 
 
 def test_quote_cache_rejects_a_stale_close_date(tmp_path: Path, caplog: pytest.LogCaptureFixture) -> None:

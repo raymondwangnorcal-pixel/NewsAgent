@@ -11,7 +11,7 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from datetime import date, datetime, time as clock_time, timedelta
 from collections.abc import Callable
-from typing import Protocol
+from typing import Literal, Protocol
 
 from news_agent.fetch import USER_AGENT, _ssl_context
 from news_agent.time import briefing_now, briefing_timezone, briefing_today
@@ -19,6 +19,7 @@ from news_agent.time import briefing_now, briefing_timezone, briefing_today
 
 logger = logging.getLogger(__name__)
 REGULAR_NYSE_CLOSE = clock_time(16, 15)
+REGULAR_NYSE_OPEN = clock_time(9, 30)
 
 
 @dataclass(frozen=True)
@@ -28,6 +29,7 @@ class EndOfDayQuote:
     close_price: float
     previous_close: float
     provider: str
+    quote_kind: Literal["close", "live"] = "close"
 
     @property
     def percent_change(self) -> float:
@@ -107,6 +109,16 @@ def expected_quote_close_date(as_of: datetime | None = None) -> date:
     while not is_nyse_trading_day(candidate):
         candidate -= timedelta(days=1)
     return candidate
+
+
+def is_regular_nyse_market_hours(as_of: datetime | None = None) -> bool:
+    """Whether a Watchlist run should show live regular-session prices."""
+    now = as_of or briefing_now()
+    if now.tzinfo is None:
+        now = now.replace(tzinfo=briefing_timezone())
+    else:
+        now = now.astimezone(briefing_timezone())
+    return is_nyse_trading_day(now.date()) and REGULAR_NYSE_OPEN <= now.time() < clock_time(16, 0)
 
 
 def _get_json(url: str, headers: dict[str, str]) -> object:

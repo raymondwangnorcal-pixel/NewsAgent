@@ -1,0 +1,346 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.0238375,
+  "created_at": "2026-08-03T16:28:54.202186+00:00",
+  "guard_deltas": {},
+  "input_tokens": 0,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 0,
+  "stories": [
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Hugging Face CEO Cl\u00e9ment Delangue said China is leading the race for open-source AI models and may reach the frontier of the most advanced systems by the end of this year or next. He credited China\u2019s collaborative model-sharing ecosystem, contrasting it with U.S. companies he said are building in silos. The warning adds to pressure on U.S. developers to weigh proprietary advantages against faster open-model innovation and growing cybersecurity risks.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/hugging-face-china-ai-race-open-models.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/hugging-face-china-ai-race-open-models.html"
+        }
+      ],
+      "full_paragraph": "Hugging Face CEO Cl\u00e9ment Delangue said China is leading the race for open-source AI models and may reach the frontier of the most advanced systems by the end of this year or next. He credited China\u2019s collaborative model-sharing ecosystem, contrasting it with U.S. companies he said are building in silos. The warning adds to pressure on U.S. developers to weigh proprietary advantages against faster open-model innovation and growing cybersecurity risks.",
+      "guard_result": "not_run",
+      "story_id": "ceo china dominating face hugging models open race"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The White House will meet AI companies Tuesday to review a voluntary framework for testing the cybersecurity capabilities of the industry\u2019s most advanced models. The framework was ordered by President Donald Trump in June, and Anthropic, OpenAI and Google are expected to participate, according to sources cited by CNBC and The Information. The effort signals that the administration is seeking common safeguards for increasingly capable models without imposing a mandatory regime.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/white-house-ai-companies-voluntary-framework-meeting.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/white-house-ai-companies-voluntary-framework-meeting.html"
+        }
+      ],
+      "full_paragraph": "The White House will meet AI companies Tuesday to review a voluntary framework for testing the cybersecurity capabilities of the industry\u2019s most advanced models. The framework was ordered by President Donald Trump in June, and Anthropic, OpenAI and Google are expected to participate, according to sources cited by CNBC and The Information. The effort signals that the administration is seeking common safeguards for increasingly capable models without imposing a mandatory regime.",
+      "guard_result": "not_run",
+      "story_id": "companies framework host house model review testing tuesday"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Toni Schneider has formally taken over as Bluesky\u2019s CEO after serving briefly on an interim basis, while former chief Jay Graber becomes chief innovation officer. Schneider inherits both Bluesky\u2019s consumer social app and its underlying AT Protocol, which lets outside developers build interoperable social products in an expanding ecosystem known as the ATmosphere. His challenge is to broaden the service beyond a like-minded user bubble while preserving user control and the protocol\u2019s open ambitions.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/podcast/974387/bluesky-toni-schneider-interview-ai-atproto-atmosphere",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/podcast/974387/bluesky-toni-schneider-interview-ai-atproto-atmosphere"
+        }
+      ],
+      "full_paragraph": "Toni Schneider has formally taken over as Bluesky\u2019s CEO after serving briefly on an interim basis, while former chief Jay Graber becomes chief innovation officer. Schneider inherits both Bluesky\u2019s consumer social app and its underlying AT Protocol, which lets outside developers build interoperable social products in an expanding ecosystem known as the ATmosphere. His challenge is to broaden the service beyond a like-minded user bubble while preserving user control and the protocol\u2019s open ambitions.",
+      "guard_result": "not_run",
+      "story_id": "big bluesky bubble ceo not tent wants"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The supplied source material does not provide enough evidence to independently confirm the reported Senate move involving Todd Blanche, John Cornyn and the attorney general post. Its only supporting text instead refers to President Donald Trump\u2019s lawyers challenging a judicial order over a settlement, without identifying Blanche, Cornyn, a Senate agreement or a vote. Those missing details make the reported nomination development impossible to summarize reliably from the available evidence.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/todd-blanche-doj-ag-senate-cornyn.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/todd-blanche-doj-ag-senate-cornyn.html"
+        }
+      ],
+      "full_paragraph": "The supplied source material does not provide enough evidence to independently confirm the reported Senate move involving Todd Blanche, John Cornyn and the attorney general post. Its only supporting text instead refers to President Donald Trump\u2019s lawyers challenging a judicial order over a settlement, without identifying Blanche, Cornyn, a Senate agreement or a vote. Those missing details make the reported nomination development impossible to summarize reliably from the available evidence.",
+      "guard_result": "not_run",
+      "story_id": "advance appears attorney blanche cornyn deal general ready"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "A MarketWatch report describes homeowners who spent tens of thousands of dollars on renovations only to regret the work afterward. The available evidence does not specify the projects, the reasons for their dissatisfaction, or whether the costs exceeded budgets, but it underscores how disruptive expensive remodeling can be even when intended to improve a home. For owners considering upgrades, the accounts highlight the financial and personal stakes of planning scope, timing and contractors carefully.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/they-spent-tens-of-thousands-of-dollars-on-home-remodels-only-to-regret-it-8cfa23e6?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/they-spent-tens-of-thousands-of-dollars-on-home-remodels-only-to-regret-it-8cfa23e6?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "A MarketWatch report describes homeowners who spent tens of thousands of dollars on renovations only to regret the work afterward. The available evidence does not specify the projects, the reasons for their dissatisfaction, or whether the costs exceeded budgets, but it underscores how disruptive expensive remodeling can be even when intended to improve a home. For owners considering upgrades, the accounts highlight the financial and personal stakes of planning scope, timing and contractors carefully.",
+      "guard_result": "not_run",
+      "story_id": "been dollars home just much only regret remodels"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Russian anti-war politician Boris Nadezhdin says he has left Russia after authorities labeled him a \u201cforeign agent\u201d last month, posting a video from Paris saying he was alive and free. The 63-year-old was barred from challenging Vladimir Putin in the last presidential election and had planned to run in September\u2019s Duma elections before the designation effectively disqualified him. His departure further narrows the space for anti-war political opposition inside Russia.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c70gjw60033o",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c70gjw60033o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Russian anti-war politician Boris Nadezhdin says he has left Russia after authorities labeled him a \u201cforeign agent\u201d last month, posting a video from Paris saying he was alive and free. The 63-year-old was barred from challenging Vladimir Putin in the last presidential election and had planned to run in September\u2019s Duma elections before the designation effectively disqualified him. His departure further narrows the space for anti-war political opposition inside Russia.",
+      "guard_result": "not_run",
+      "story_id": "anti country fled politician russian war"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Attacks on vessels in the Red Sea have made the threat to Middle East oil shipping its worst since the Iran war began, analysts say, as tankers also avoid the blocked Strait of Hormuz. Only eight ships used the strait Sunday, versus more than 100 daily before the war, and roughly 20% of global oil and gas had previously moved through it. Disruption across both routes is tightening a crucial energy chokepoint and raising risks for global supplies.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cjrv0dy2e90o",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cjrv0dy2e90o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Attacks on vessels in the Red Sea have made the threat to Middle East oil shipping its worst since the Iran war began, analysts say, as tankers also avoid the blocked Strait of Hormuz. Only eight ships used the strait Sunday, versus more than 100 daily before the war, and roughly 20% of global oil and gas had previously moved through it. Disruption across both routes is tightening a crucial energy chokepoint and raising risks for global supplies.",
+      "guard_result": "not_run",
+      "story_id": "analysts east iran middle oil say since start"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Iran said it is talking with Oman but not holding negotiations with the United States, directly contradicting President Donald Trump\u2019s assertion that talks would resume. The BBC reports that Tehran\u2019s denial prompted Trump to strongly condemn Iran\u2019s leadership, underscoring the gap between the two sides\u2019 public accounts. With Oman acting as a potential intermediary, whether contacts can develop into direct diplomacy remains central to easing the wider regional confrontation.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c23579jzv08o?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c23579jzv08o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Iran said it is talking with Oman but not holding negotiations with the United States, directly contradicting President Donald Trump\u2019s assertion that talks would resume. The BBC reports that Tehran\u2019s denial prompted Trump to strongly condemn Iran\u2019s leadership, underscoring the gap between the two sides\u2019 public accounts. With Oman acting as a potential intermediary, whether contacts can develop into direct diplomacy remains central to easing the wider regional confrontation.",
+      "guard_result": "not_run",
+      "story_id": "but iran negotiations not oman resume talks trump"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Myanmar\u2019s military government released photos showing detained former leader Aung San Suu Kyi meeting an International Committee of the Red Cross official, the first confirmed outside contact in 2.5 years. The images appear to show Suu Kyi, who has been held since the military\u2019s 2021 coup, in good health. They offer a rare public glimpse of the Nobel laureate but do not resolve concerns over her detention, legal status or access to independent visitors.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c1e1d5j6660o?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c1e1d5j6660o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Myanmar\u2019s military government released photos showing detained former leader Aung San Suu Kyi meeting an International Committee of the Red Cross official, the first confirmed outside contact in 2.5 years. The images appear to show Suu Kyi, who has been held since the military\u2019s 2021 coup, in good health. They offer a rare public glimpse of the Nobel laureate but do not resolve concerns over her detention, legal status or access to independent visitors.",
+      "guard_result": "not_run",
+      "story_id": "appears aung confirmed contact first healthy kyi outside"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The CW renewed \u201cScrabble\u201d and \u201cTrivial Pursuit\u201d for third seasons and \u201cPolice 24/7\u201d for a fourth, extending a slate that has become one of the network\u2019s stronger entertainment performers. The three shows have collectively reached more than 31.4 million viewers since debuting and have been cleared for syndication in over 85% of U.S. markets. The pickups reinforce the network\u2019s reliance on relatively low-cost unscripted programming with value beyond its initial broadcasts.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/08/scrabble-trivial-pursuit-police-24-7-renewed-the-cw-1237015820/",
+          "evidence_type": "extracted",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/08/scrabble-trivial-pursuit-police-24-7-renewed-the-cw-1237015820/"
+        },
+        {
+          "canonical_url": "https://variety.com/2026/tv/news/the-cw-more-scrabble-trivial-pursuit-police-24-7-1236826440/",
+          "evidence_type": "extracted",
+          "source": "Variety",
+          "url": "https://variety.com/2026/tv/news/the-cw-more-scrabble-trivial-pursuit-police-24-7-1236826440/"
+        },
+        {
+          "canonical_url": "https://www.hollywoodreporter.com/tv/tv-news/cw-renews-scrabble-trivial-pursuit-police-24-7-1236663078/",
+          "evidence_type": "feed_content",
+          "source": "The Hollywood Reporter",
+          "url": "https://www.hollywoodreporter.com/tv/tv-news/cw-renews-scrabble-trivial-pursuit-police-24-7-1236663078/"
+        }
+      ],
+      "full_paragraph": "The CW renewed \u201cScrabble\u201d and \u201cTrivial Pursuit\u201d for third seasons and \u201cPolice 24/7\u201d for a fourth, extending a slate that has become one of the network\u2019s stronger entertainment performers. The three shows have collectively reached more than 31.4 million viewers since debuting and have been cleared for syndication in over 85% of U.S. markets. The pickups reinforce the network\u2019s reliance on relatively low-cost unscripted programming with value beyond its initial broadcasts.",
+      "guard_result": "not_run",
+      "story_id": "police pursuit renewed scrabble trivial"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Radio Hall of Fame named nine posthumous Legends inductees for 2026, including broadcaster and game-show host Wink Martindale, Vee-Jay Records co-founder Vivian Carter and radio executive Gary Krantz. Other honorees are D.E. \u201cDuke\u201d Wright and on-air personalities Lin Brehmer, Dale Dorman, B. Mitchell Reed, Pierre Robert and Polito Vega. The selections recognize figures whose work ranged from local radio to record-label and syndication businesses that shaped the medium\u2019s reach.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/pro/radio-hall-of-fame-2026-inductees-full-list/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/pro/radio-hall-of-fame-2026-inductees-full-list/"
+        }
+      ],
+      "full_paragraph": "The Radio Hall of Fame named nine posthumous Legends inductees for 2026, including broadcaster and game-show host Wink Martindale, Vee-Jay Records co-founder Vivian Carter and radio executive Gary Krantz. Other honorees are D.E. \u201cDuke\u201d Wright and on-air personalities Lin Brehmer, Dale Dorman, B. Mitchell Reed, Pierre Robert and Polito Vega. The selections recognize figures whose work ranged from local radio to record-label and syndication businesses that shaped the medium\u2019s reach.",
+      "guard_result": "not_run",
+      "story_id": "2026 announces fame full hall inductees list radio"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Garena will bring \u201cPalworld\u201d to iOS and Android later this year with \u201cPalworld Online,\u201d an open-world MMORPG based on the PC survival and creature-collecting game. The mobile version will retain crafting, creature collection and cooperative, player-versus-player and player-versus-environment modes, while adding a new setting, original stories and touch-focused controls. The release expands the franchise into mobile gaming, where its simplified interface and online design will be key to reaching a much larger audience.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/games/974450/palworld-online-mobile-mmo",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/games/974450/palworld-online-mobile-mmo"
+        }
+      ],
+      "full_paragraph": "Garena will bring \u201cPalworld\u201d to iOS and Android later this year with \u201cPalworld Online,\u201d an open-world MMORPG based on the PC survival and creature-collecting game. The mobile version will retain crafting, creature collection and cooperative, player-versus-player and player-versus-environment modes, while adding a new setting, original stories and touch-focused controls. The release expands the franchise into mobile gaming, where its simplified interface and online design will be key to reaching a much larger audience.",
+      "guard_result": "not_run",
+      "story_id": "expanding mmorpg mobile palworld"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Major League Baseball clubs were approaching the 6 p.m. ET trade deadline as contenders weighed late additions and teams out of contention considered selling players, ESPN reported. The supplied evidence does not list completed transactions or identify specific players under discussion, so it does not support a detailed accounting of deals. The deadline can reshape postseason races immediately, with teams prioritizing short-term roster needs over longer-term prospect depth.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/mlb/story/_/id/49410877/2026-mlb-trade-deadline-tracker-rumors-alerts-news-latest-updates-analysis",
+          "evidence_type": "feed_content",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/mlb/story/_/id/49410877/2026-mlb-trade-deadline-tracker-rumors-alerts-news-latest-updates-analysis"
+        }
+      ],
+      "full_paragraph": "Major League Baseball clubs were approaching the 6 p.m. ET trade deadline as contenders weighed late additions and teams out of contention considered selling players, ESPN reported. The supplied evidence does not list completed transactions or identify specific players under discussion, so it does not support a detailed accounting of deals. The deadline can reshape postseason races immediately, with teams prioritizing short-term roster needs over longer-term prospect depth.",
+      "guard_result": "not_run",
+      "story_id": "buzz completed deadline deals intel mlb tracker trade"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Sony Pictures chairman Tom Rothman hailed \u201cSpider-Man: Brand New Day\u201d after the Tom Holland superhero film opened to $360 million domestically and $932 million worldwide. Variety described the global total as the second-largest of its kind, while Rothman argued the result rebutted claims that theatrical movies are fading. The performance gives Sony a powerful commercial win, though it also highlights how heavily the theatrical business still depends on a small number of global franchise events.",
+      "evidence": [
+        {
+          "canonical_url": "https://variety.com/2026/film/news/sony-tom-rothman-spider-man-brand-new-day-box-office-record-1236826285/",
+          "evidence_type": "feed_content",
+          "source": "Variety",
+          "url": "https://variety.com/2026/film/news/sony-tom-rothman-spider-man-brand-new-day-box-office-record-1236826285/"
+        }
+      ],
+      "full_paragraph": "Sony Pictures chairman Tom Rothman hailed \u201cSpider-Man: Brand New Day\u201d after the Tom Holland superhero film opened to $360 million domestically and $932 million worldwide. Variety described the global total as the second-largest of its kind, while Rothman argued the result rebutted claims that theatrical movies are fading. The performance gives Sony a powerful commercial win, though it also highlights how heavily the theatrical business still depends on a small number of global franchise events.",
+      "guard_result": "not_run",
+      "story_id": "all aren booth boss box cliff dead historic"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Amazon\u2019s market value topped $3 trillion for the first time after its shares rose roughly 4% to a record high Monday, extending a post-earnings rally. Second-quarter revenue reached $200.61 billion, above the $196.47 billion analysts expected, while AWS revenue climbed to $42.2 billion on AI demand. Amazon also raised its 2026 capital-expenditure estimate to $220 billion, showing that its cloud growth is coming with an increasingly costly race to add computing capacity.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/amazon-amzn-stock-market-cap-earnings.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/amazon-amzn-stock-market-cap-earnings.html"
+        }
+      ],
+      "full_paragraph": "Amazon\u2019s market value topped $3 trillion for the first time after its shares rose roughly 4% to a record high Monday, extending a post-earnings rally. Second-quarter revenue reached $200.61 billion, above the $196.47 billion analysts expected, while AWS revenue climbed to $42.2 billion on AI demand. Amazon also raised its 2026 capital-expenditure estimate to $220 billion, showing that its cloud growth is coming with an increasingly costly race to add computing capacity.",
+      "guard_result": "not_run",
+      "story_id": "amazon cap continues earnings market post stock surge"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "JPMorgan strategists expect technology stocks to take a back seat for the rest of 2026, preferring semiconductor shares to hyperscale cloud companies and seeing stronger performance from non-U.S. equities. The supplied MarketWatch evidence does not provide the bank\u2019s forecasts, valuation measures or specific catalysts behind the call. Still, the view points to a more selective market phase after tech leadership, with investors encouraged to look beyond the biggest AI-linked companies.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/why-tech-stocks-are-likely-to-take-a-back-seat-for-the-rest-of-2026-according-to-jpmorgan-strategists-93e1c61f?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/why-tech-stocks-are-likely-to-take-a-back-seat-for-the-rest-of-2026-according-to-jpmorgan-strategists-93e1c61f?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "JPMorgan strategists expect technology stocks to take a back seat for the rest of 2026, preferring semiconductor shares to hyperscale cloud companies and seeing stronger performance from non-U.S. equities. The supplied MarketWatch evidence does not provide the bank\u2019s forecasts, valuation measures or specific catalysts behind the call. Still, the view points to a more selective market phase after tech leadership, with investors encouraged to look beyond the biggest AI-linked companies.",
+      "guard_result": "not_run",
+      "story_id": "2026 according back jpmorgan likely rest seat stocks"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Oil prices fell Monday after President Donald Trump said he had called off a planned U.S. strike on Iran, prompting investors to reduce the geopolitical risk premium built into crude. The supplied CNBC evidence does not give the size of the price move or identify benchmark levels. The reaction shows how quickly energy markets can reprice on signs of reduced military escalation, even as shipping disruptions in the region continue to threaten supply routes.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/oil-prices-today-wti-brent-hormuz-trump-iran.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/oil-prices-today-wti-brent-hormuz-trump-iran.html"
+        }
+      ],
+      "full_paragraph": "Oil prices fell Monday after President Donald Trump said he had called off a planned U.S. strike on Iran, prompting investors to reduce the geopolitical risk premium built into crude. The supplied CNBC evidence does not give the size of the price move or identify benchmark levels. The reaction shows how quickly energy markets can reprice on signs of reduced military escalation, even as shipping disruptions in the region continue to threaten supply routes.",
+      "guard_result": "not_run",
+      "story_id": "attack calls iran off oil prices trump tumble"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Kalshi traders put just under 50-50 odds on U.S. employers adding more than 80,000 jobs in July, implying a slightly cooler report than economists\u2019 forecasts, CNBC reported. The market reflects speculative expectations rather than an official estimate, and its pricing can shift before the data release. A weaker-than-expected payroll figure would sharpen attention on the labor market\u2019s momentum and could influence expectations for the Federal Reserve\u2019s next policy decisions.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/kalshi-traders-think-july-jobs-will-come-in-cooler-than-estimates.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/kalshi-traders-think-july-jobs-will-come-in-cooler-than-estimates.html"
+        }
+      ],
+      "full_paragraph": "Kalshi traders put just under 50-50 odds on U.S. employers adding more than 80,000 jobs in July, implying a slightly cooler report than economists\u2019 forecasts, CNBC reported. The market reflects speculative expectations rather than an official estimate, and its pricing can shift before the data release. A weaker-than-expected payroll figure would sharpen attention on the labor market\u2019s momentum and could influence expectations for the Federal Reserve\u2019s next policy decisions.",
+      "guard_result": "not_run",
+      "story_id": "come cooler economists jobs july kalshi predictions slightly"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The U.S. Treasury and Federal Reserve joined Japanese authorities in a coordinated intervention to support the yen, Japan\u2019s Finance Ministry said Monday. The reported move is described as historic, though the available evidence does not state the intervention\u2019s scale or the exchange-rate level targeted. Joint action by Washington and Tokyo signals concern about the currency\u2019s weakness, but its durability will depend on market conditions and the economic policies behind the yen.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/joint-u-s-japanese-intervention-boosts-the-yen-but-will-it-be-enough-069451f5?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/joint-u-s-japanese-intervention-boosts-the-yen-but-will-it-be-enough-069451f5?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "The U.S. Treasury and Federal Reserve joined Japanese authorities in a coordinated intervention to support the yen, Japan\u2019s Finance Ministry said Monday. The reported move is described as historic, though the available evidence does not state the intervention\u2019s scale or the exchange-rate level targeted. Joint action by Washington and Tokyo signals concern about the currency\u2019s weakness, but its durability will depend on market conditions and the economic policies behind the yen.",
+      "guard_result": "not_run",
+      "story_id": "boosting decided flailing help japan yen"
+    }
+  ]
+}

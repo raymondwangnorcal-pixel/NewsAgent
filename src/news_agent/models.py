@@ -397,6 +397,7 @@ class StockQuote:
     symbol: str
     price: float | None = None
     change_percent: float | None = None
+    previous_close: float | None = None
     open_price: float | None = None
     volume: int | None = None
     as_of: str = ""

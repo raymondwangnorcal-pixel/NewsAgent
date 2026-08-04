@@ -970,3 +970,16 @@
 - Implementation commit: `6f6009ccb80952728858902cc48fe021be995430` — feat(watchlist): accept Brookfield family coverage for BN
 - Superseded by: none
 - Note: The review seed is accepted and a regression test preserves hedged family-level BN classification for bare Brookfield stories.
+
+## DEC-0052 — Show live Watchlist prices during regular market hours
+
+- Date: 2026-08-03
+- Owner: user
+- Status at record: active
+- Decision: During regular NYSE market hours, render Watchlist prices from the same Yahoo Finance live-price source used by the Finance section; outside those hours, render the latest completed NYSE close.
+- Rationale: The Watchlist should show current prices while trading is open and retain a clear final-price fallback after the market closes.
+- Scope: Watchlist quote selection, quote labels, cache behavior, and price consistency with the Finance section.
+- Implementation: pending
+- Recorded against HEAD: `2e9a3bd512cccf9b993de936e60c4574ea91166c`
+- Supersedes: none
+- Evidence: User-approved Watchlist live-price request on 2026-08-03.

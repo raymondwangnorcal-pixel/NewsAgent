@@ -1,0 +1,278 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.022945,
+  "created_at": "2026-08-03T22:34:54.096305+00:00",
+  "guard_deltas": {},
+  "input_tokens": 0,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 0,
+  "stories": [
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Snap CEO Evan Spiegel declined to disclose preorder demand for the company\u2019s Specs smart glasses on its earnings call, saying consumers will need hands-on experience ahead of a September launch event. The $2,195 device, developed over more than a decade, costs far more than Meta\u2019s Ray-Ban smart glasses, which start around $350. Investors are left without a clear early read on whether Snap can turn its costly augmented-reality bet into consumer sales.",
+      "evidence": [
+        {
+          "canonical_url": "https://techcrunch.com/2026/08/03/snap-ceo-sidesteps-specs-pre-order-questions-on-q2-earnings-call/",
+          "evidence_type": "extracted",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/08/03/snap-ceo-sidesteps-specs-pre-order-questions-on-q2-earnings-call/"
+        }
+      ],
+      "full_paragraph": "Snap CEO Evan Spiegel declined to disclose preorder demand for the company\u2019s Specs smart glasses on its earnings call, saying consumers will need hands-on experience ahead of a September launch event. The $2,195 device, developed over more than a decade, costs far more than Meta\u2019s Ray-Ban smart glasses, which start around $350. Investors are left without a clear early read on whether Snap can turn its costly augmented-reality bet into consumer sales.",
+      "guard_result": "not_run",
+      "story_id": "call ceo earnings order pre questions sidesteps snap"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Google is rolling out a Google Health update that lets Fitbit users directly sync workouts, steps and vital data to Apple Health. The feature reverses a previous one-way arrangement, under which Apple Health data could enter Google Health but Fitbit data required third-party syncing apps to reach Apple\u2019s platform. The change makes it easier for people using iPhones and Fitbit devices to keep health records in one place after Google replaced the Fitbit app in May.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/gadgets/974778/google-health-fitbit-data-apple-health-syncing",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/gadgets/974778/google-health-fitbit-data-apple-health-syncing"
+        }
+      ],
+      "full_paragraph": "Google is rolling out a Google Health update that lets Fitbit users directly sync workouts, steps and vital data to Apple Health. The feature reverses a previous one-way arrangement, under which Apple Health data could enter Google Health but Fitbit data required third-party syncing apps to reach Apple\u2019s platform. The change makes it easier for people using iPhones and Fitbit devices to keep health records in one place after Google replaced the Fitbit app in May.",
+      "guard_result": "not_run",
+      "story_id": "apple can connect data directly fitbit health now"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Amazon and B&H Photo have cut Samsung\u2019s 32-inch M80F 4K smart monitor to $349.99, its lowest listed price and below its usual $400 price. The display doubles as a TV-like streaming hub and supports cloud-gaming apps, picture-in-picture, a removable webcam, USB-C charging up to 65 watts and Bluetooth headphones. The discount makes the hybrid screen a cheaper option for buyers who need one display for a computer, console and streaming services.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/gadgets/974583/samsungs-m80f-smart-monitor-deal-sale",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/gadgets/974583/samsungs-m80f-smart-monitor-deal-sale"
+        }
+      ],
+      "full_paragraph": "Amazon and B&H Photo have cut Samsung\u2019s 32-inch M80F 4K smart monitor to $349.99, its lowest listed price and below its usual $400 price. The display doubles as a TV-like streaming hub and supports cloud-gaming apps, picture-in-picture, a removable webcam, USB-C charging up to 65 watts and Bluetooth headphones. The discount makes the hybrid screen a cheaper option for buyers who need one display for a computer, console and streaming services.",
+      "guard_result": "not_run",
+      "story_id": "349 discounted lowest monitor price samsung smart yet"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "AstraZeneca shares fell and Bristol Myers Squibb stock rose Monday after reports that the drugmakers were discussing a possible deal. The companies have major cancer-drug businesses, so a combination could create a much larger oncology player, but analysts cited by MarketWatch questioned the strategic logic of bringing the two pharmaceutical groups together. No agreement has been announced, leaving investors to weigh both the potential scale benefits and the uncertainty around whether talks can produce a transaction.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/astrazeneca-tie-up-talks-with-bristol-myers-squibb-are-moving-stocks-analysts-are-puzzled-7ae60fef?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/astrazeneca-tie-up-talks-with-bristol-myers-squibb-are-moving-stocks-analysts-are-puzzled-7ae60fef?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "AstraZeneca shares fell and Bristol Myers Squibb stock rose Monday after reports that the drugmakers were discussing a possible deal. The companies have major cancer-drug businesses, so a combination could create a much larger oncology player, but analysts cited by MarketWatch questioned the strategic logic of bringing the two pharmaceutical groups together. No agreement has been announced, leaving investors to weigh both the potential scale benefits and the uncertainty around whether talks can produce a transaction.",
+      "guard_result": "not_run",
+      "story_id": "analysts astrazeneca bristol but call cancer could create"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "France\u2019s TF1 has begun exploring a sale of Studio TF1, its production-and-distribution arm, and hired Rothschild to oversee the early-stage process, Variety reported. The broadcaster rebranded the unit only about 18 months ago and is now focusing more heavily on streaming under chief executive Rodolphe Belmer, who has led TF1 since 2023. A sale would mark a sharper division between TF1\u2019s streaming ambitions and its content-production business, though no buyer or deal terms have been disclosed.",
+      "evidence": [
+        {
+          "canonical_url": "https://variety.com/2026/tv/global/tf1-production-distribution-studio-tf1-broadcaster-sale-1236826748/",
+          "evidence_type": "feed_content",
+          "source": "Variety",
+          "url": "https://variety.com/2026/tv/global/tf1-production-distribution-studio-tf1-broadcaster-sale-1236826748/"
+        }
+      ],
+      "full_paragraph": "France\u2019s TF1 has begun exploring a sale of Studio TF1, its production-and-distribution arm, and hired Rothschild to oversee the early-stage process, Variety reported. The broadcaster rebranded the unit only about 18 months ago and is now focusing more heavily on streaming under chief executive Rodolphe Belmer, who has led TF1 since 2023. A sale would mark a sharper division between TF1\u2019s streaming ambitions and its content-production business, though no buyer or deal terms have been disclosed.",
+      "guard_result": "not_run",
+      "story_id": "broadcaster distribution doubles down explores france group production"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "House Democrats are privately considering whether to force a vote to expel Rep. Max Miller, an Ohio Republican, over domestic-abuse allegations that he denies. Miller said Sunday he will continue his reelection campaign; his former father-in-law, Sen. Bernie Moreno, also an Ohio Republican, publicly called him a danger to Moreno\u2019s daughter and granddaughter. Expulsion is rare, but the prospect of such a vote has prompted several House members to resign this year, Axios reported.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/08/03/max-miller-expel-congress-democrats-allegations",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/08/03/max-miller-expel-congress-democrats-allegations"
+        }
+      ],
+      "full_paragraph": "House Democrats are privately considering whether to force a vote to expel Rep. Max Miller, an Ohio Republican, over domestic-abuse allegations that he denies. Miller said Sunday he will continue his reelection campaign; his former father-in-law, Sen. Bernie Moreno, also an Ohio Republican, publicly called him a danger to Moreno\u2019s daughter and granddaughter. Expulsion is rare, but the prospect of such a vote has prompted several House members to resign this year, Axios reported.",
+      "guard_result": "not_run",
+      "story_id": "democrats expulsion house max miller mull people pissed"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "European Commission President Ursula von der Leyen called for joint action to strengthen EU borders after tens of thousands of migrants crossed from Morocco into Spain\u2019s Ceuta exclave last week. Spain says about 69,500 people have returned to Morocco, while 72 people died on the Spanish side and 11 on the Moroccan side. EU interior ministers are due to hold emergency talks as the crisis strains relations among member states and has prompted Italy to suspend Schengen arrangements with Spain temporarily.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cyvl84zmgyro",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cyvl84zmgyro?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "European Commission President Ursula von der Leyen called for joint action to strengthen EU borders after tens of thousands of migrants crossed from Morocco into Spain\u2019s Ceuta exclave last week. Spain says about 69,500 people have returned to Morocco, while 72 people died on the Spanish side and 11 on the Moroccan side. EU interior ministers are due to hold emergency talks as the crisis strains relations among member states and has prompted Italy to suspend Schengen arrangements with Spain temporarily.",
+      "guard_result": "not_run",
+      "story_id": "borders calls ceuta crossings migrant stronger"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Leaks suggest Xbox could begin a program in August to digitize physical games while keeping their licenses tied to the original disc, Polygon reported; Microsoft has not confirmed the plan. The approach could let players access games without swapping discs while preserving the ability to resell them, unlike code-only boxes. It comes as the industry moves further toward digital sales, raising fresh concerns among players and collectors about lending, resale and long-term ownership of games.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.polygon.com/xbox-disc-to-digital-plan-leak-release-date/",
+          "evidence_type": "extracted",
+          "source": "Polygon",
+          "url": "https://www.polygon.com/xbox-disc-to-digital-plan-leak-release-date/"
+        }
+      ],
+      "full_paragraph": "Leaks suggest Xbox could begin a program in August to digitize physical games while keeping their licenses tied to the original disc, Polygon reported; Microsoft has not confirmed the plan. The approach could let players access games without swapping discs while preserving the ability to resell them, unlike code-only boxes. It comes as the industry moves further toward digital sales, raising fresh concerns among players and collectors about lending, resale and long-term ownership of games.",
+      "guard_result": "not_run",
+      "story_id": "august could digital disc leaks plan say start"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Major League Soccer has named LAFC co-owner Larry Berg as its next commissioner, succeeding Don Garber on Jan. 1, 2027. Berg will sell his stake in Los Angeles FC before taking the job, separating him from one of the league\u2019s clubs. The appointment sets up the first leadership transition in years for MLS as it seeks to build on its growing U.S. profile and manage the commercial opportunities around the 2026 World Cup.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/soccer/story/_/id/49524364/larry-berg-selected-next-mls-commissioner-set-take-2027",
+          "evidence_type": "feed_content",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/soccer/story/_/id/49524364/larry-berg-selected-next-mls-commissioner-set-take-2027"
+        },
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/larry-berg-major-league-soccer-commissioner.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/larry-berg-major-league-soccer-commissioner.html"
+        }
+      ],
+      "full_paragraph": "Major League Soccer has named LAFC co-owner Larry Berg as its next commissioner, succeeding Don Garber on Jan. 1, 2027. Berg will sell his stake in Los Angeles FC before taking the job, separating him from one of the league\u2019s clubs. The appointment sets up the first leadership transition in years for MLS as it seeks to build on its growing U.S. profile and manage the commercial opportunities around the 2026 World Cup.",
+      "guard_result": "not_run",
+      "story_id": "berg commissioner larry league major named next soccer"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Sony film chief Tom Rothman said the studio\u2019s record-breaking weekend challenged claims that theatrical movies are finished, while discussing plans involving Tom Holland\u2019s Spider-Man, Jumanji and the Beatles. His comments followed a huge opening for Sony and Marvel\u2019s latest Spider-Man film, underscoring the franchise\u2019s importance to Sony\u2019s slate. The studio is leaning on established global properties while trying to show that cinema releases can still generate event-level audiences.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.hollywoodreporter.com/movies/movie-news/spider-man-the-beatles-jumanji-sony-tom-rothman-interview-1236663221/",
+          "evidence_type": "feed_content",
+          "source": "The Hollywood Reporter",
+          "url": "https://www.hollywoodreporter.com/movies/movie-news/spider-man-the-beatles-jumanji-sony-tom-rothman-interview-1236663221/"
+        }
+      ],
+      "full_paragraph": "Sony film chief Tom Rothman said the studio\u2019s record-breaking weekend challenged claims that theatrical movies are finished, while discussing plans involving Tom Holland\u2019s Spider-Man, Jumanji and the Beatles. His comments followed a huge opening for Sony and Marvel\u2019s latest Spider-Man film, underscoring the franchise\u2019s importance to Sony\u2019s slate. The studio is leaning on established global properties while trying to show that cinema releases can still generate event-level audiences.",
+      "guard_result": "not_run",
+      "story_id": "beatles future holland jumanji man move next rothman"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Sony and Marvel\u2019s \u201cSpider-Man: Brand New Day\u201d opened to $360 million domestically and $932 million worldwide, Deadline reported. Its U.S. debut narrowly surpassed the $357.1 million opening set by \u201cAvengers: Endgame\u201d in 2019, making it the biggest domestic launch on record. The result gives theaters and studios unusually strong evidence that a well-known franchise can still draw enormous crowds, even as the industry wrestles with streaming and uneven box-office demand.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/08/spider-man-brand-new-day-box-office-records-1237016328/",
+          "evidence_type": "feed_content",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/08/spider-man-brand-new-day-box-office-records-1237016328/"
+        }
+      ],
+      "full_paragraph": "Sony and Marvel\u2019s \u201cSpider-Man: Brand New Day\u201d opened to $360 million domestically and $932 million worldwide, Deadline reported. Its U.S. debut narrowly surpassed the $357.1 million opening set by \u201cAvengers: Endgame\u201d in 2019, making it the biggest domestic launch on record. The result gives theaters and studios unusually strong evidence that a well-known franchise can still draw enormous crowds, even as the industry wrestles with streaming and uneven box-office demand.",
+      "guard_result": "not_run",
+      "story_id": "all box brand broken day man office records"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Microsoft, Amazon and Alphabet booked large quarterly investment gains from their stakes in OpenAI, Anthropic and, in one case, SpaceX, making their reported profits look stronger than their core businesses alone. OpenAI and Anthropic are each valued just below $1 trillion in private markets, so rising valuations flow into investors\u2019 income statements. LSEG estimates S&P 500 earnings growth at about 48% year over year, but says growth is far weaker after stripping out such private-AI investment gains.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/big-techs-anthropic-and-openai-stakes-distort-corporate-earnings.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/big-techs-anthropic-and-openai-stakes-distort-corporate-earnings.html"
+        }
+      ],
+      "full_paragraph": "Microsoft, Amazon and Alphabet booked large quarterly investment gains from their stakes in OpenAI, Anthropic and, in one case, SpaceX, making their reported profits look stronger than their core businesses alone. OpenAI and Anthropic are each valued just below $1 trillion in private markets, so rising valuations flow into investors\u2019 income statements. LSEG estimates S&P 500 earnings growth at about 48% year over year, but says growth is far weaker after stripping out such private-AI investment gains.",
+      "guard_result": "not_run",
+      "story_id": "anthropic big corporate distorting earnings openai picture stakes"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Snap shares rose about 8% in after-hours trading after the company reported second-quarter revenue of $1.6 billion, above the $1.54 billion analysts expected, and forecast stronger-than-expected current-quarter sales. Revenue rose 19% from a year earlier, while global daily active users reached 493 million, topping forecasts. The results suggest Snap\u2019s advertising business is gaining traction, though its projected adjusted earnings midpoint of $325 million was slightly below Wall Street\u2019s estimate.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/snap-q2-earnings-report-2026.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/snap-q2-earnings-report-2026.html"
+        }
+      ],
+      "full_paragraph": "Snap shares rose about 8% in after-hours trading after the company reported second-quarter revenue of $1.6 billion, above the $1.54 billion analysts expected, and forecast stronger-than-expected current-quarter sales. Revenue rose 19% from a year earlier, while global daily active users reached 493 million, topping forecasts. The results suggest Snap\u2019s advertising business is gaining traction, though its projected adjusted earnings midpoint of $325 million was slightly below Wall Street\u2019s estimate.",
+      "guard_result": "not_run",
+      "story_id": "beat earnings forecast jumps sales snap stock strong"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Palantir shares surged 12% after the software company reported second-quarter revenue of $1.94 billion and adjusted earnings of 41 cents a share, beating forecasts of $1.80 billion and 35 cents. Revenue rose 93% year over year, driven by a 149% jump in U.S. commercial sales to $764 million, while government revenue grew 90% to $809 million. The company raised its 2026 U.S. commercial-revenue outlook, reinforcing investor confidence in demand for its AI software.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/palantir-pltr-earnings-q2-2026.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/palantir-pltr-earnings-q2-2026.html"
+        },
+        {
+          "canonical_url": "https://www.marketwatch.com/story/palantirs-stock-gains-as-ai-drives-turbocharged-growth-e006b70a?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/palantirs-stock-gains-as-ai-drives-turbocharged-growth-e006b70a?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Palantir shares surged 12% after the software company reported second-quarter revenue of $1.94 billion and adjusted earnings of 41 cents a share, beating forecasts of $1.80 billion and 35 cents. Revenue rose 93% year over year, driven by a 149% jump in U.S. commercial sales to $764 million, while government revenue grew 90% to $809 million. The company raised its 2026 U.S. commercial-revenue outlook, reinforcing investor confidence in demand for its AI software.",
+      "guard_result": "not_run",
+      "story_id": "150 blowout commercial nearly palantir quarter revenue soaring"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Traders are bracing for higher volatility in the $30 trillion U.S. Treasury market as investors increasingly bet that yields will rise, MarketWatch reported. Treasury yields influence borrowing costs across mortgages, corporate debt and global financial markets, making sharp moves especially consequential. The growing volatility signals that investors see a less settled path for rates and government debt prices, which can quickly spill into stocks, currencies and consumer financing costs.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/traders-in-the-worlds-most-important-financial-market-are-bracing-for-a-wild-stretch-ahead-4a1507dc?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/traders-in-the-worlds-most-important-financial-market-are-bracing-for-a-wild-stretch-ahead-4a1507dc?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Traders are bracing for higher volatility in the $30 trillion U.S. Treasury market as investors increasingly bet that yields will rise, MarketWatch reported. Treasury yields influence borrowing costs across mortgages, corporate debt and global financial markets, making sharp moves especially consequential. The growing volatility signals that investors see a less settled path for rates and government debt prices, which can quickly spill into stocks, currencies and consumer financing costs.",
+      "guard_result": "not_run",
+      "story_id": "ahead bracing financial important market most stretch traders"
+    }
+  ]
+}

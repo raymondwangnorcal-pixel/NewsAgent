@@ -1,0 +1,295 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.0231775,
+  "created_at": "2026-08-03T22:47:24.507259+00:00",
+  "guard_deltas": {},
+  "input_tokens": 0,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 0,
+  "stories": [
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Snap CEO Evan Spiegel declined to give investors preorder-demand figures for the company\u2019s Specs smart glasses, saying potential buyers need hands-on experience ahead of a September launch event. The glasses cost $2,195 after more than a decade of development, far above Meta\u2019s Ray-Ban smart glasses, which start around $350. The evasive answer leaves investors without an early gauge of whether Snap can turn its costly augmented-reality hardware bet into a consumer business.",
+      "evidence": [
+        {
+          "canonical_url": "https://techcrunch.com/2026/08/03/snap-ceo-sidesteps-specs-pre-order-questions-on-q2-earnings-call/",
+          "evidence_type": "extracted",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/08/03/snap-ceo-sidesteps-specs-pre-order-questions-on-q2-earnings-call/"
+        }
+      ],
+      "full_paragraph": "Snap CEO Evan Spiegel declined to give investors preorder-demand figures for the company\u2019s Specs smart glasses, saying potential buyers need hands-on experience ahead of a September launch event. The glasses cost $2,195 after more than a decade of development, far above Meta\u2019s Ray-Ban smart glasses, which start around $350. The evasive answer leaves investors without an early gauge of whether Snap can turn its costly augmented-reality hardware bet into a consumer business.",
+      "guard_result": "not_run",
+      "story_id": "call ceo earnings preorder questions sidesteps snap specs"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Google is rolling out Google Health version 5.05 with direct syncing of Fitbit workouts, steps and vital-sign data to Apple Health. Previously, users could import Apple Health data into Google Health but needed third-party apps or workarounds to send Fitbit information in the other direction. The change makes it easier for people using Fitbit devices alongside iPhones to keep their health records in one place after Google replaced the Fitbit app in May.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/gadgets/974778/google-health-fitbit-data-apple-health-syncing",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/gadgets/974778/google-health-fitbit-data-apple-health-syncing"
+        }
+      ],
+      "full_paragraph": "Google is rolling out Google Health version 5.05 with direct syncing of Fitbit workouts, steps and vital-sign data to Apple Health. Previously, users could import Apple Health data into Google Health but needed third-party apps or workarounds to send Fitbit information in the other direction. The change makes it easier for people using Fitbit devices alongside iPhones to keep their health records in one place after Google replaced the Fitbit app in May.",
+      "guard_result": "not_run",
+      "story_id": "apple can connect data directly fitbit health now"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Amazon and B&H Photo have cut Samsung\u2019s 32-inch M80F 4K smart monitor to $349.99, its lowest reported price and below its usual $400-or-higher level. The display doubles as a computer or console monitor and a Tizen-based streaming screen, with picture-in-picture, a removable webcam, USB-C charging up to 65 watts, and cloud-gaming apps. The deal targets buyers who want TV-style features without adding a separate television in a limited space.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/gadgets/974583/samsungs-m80f-smart-monitor-deal-sale",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/gadgets/974583/samsungs-m80f-smart-monitor-deal-sale"
+        }
+      ],
+      "full_paragraph": "Amazon and B&H Photo have cut Samsung\u2019s 32-inch M80F 4K smart monitor to $349.99, its lowest reported price and below its usual $400-or-higher level. The display doubles as a computer or console monitor and a Tizen-based streaming screen, with picture-in-picture, a removable webcam, USB-C charging up to 65 watts, and cloud-gaming apps. The deal targets buyers who want TV-style features without adding a separate television in a limited space.",
+      "guard_result": "not_run",
+      "story_id": "349 discounted lowest monitor price samsung smart yet"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "AstraZeneca shares fell and Bristol Myers Squibb stock rose Monday after reports that the drugmakers were in deal talks, though neither company\u2019s plans were detailed in the available reporting. A tie-up would combine two major cancer-drug businesses, but analysts described the prospective pairing as \u201codd\u201d and questioned its strategic logic. Investors are now weighing whether the reported talks develop into a formal proposal and how a merger might reshape the companies\u2019 oncology portfolios.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/astrazeneca-tie-up-talks-with-bristol-myers-squibb-are-moving-stocks-analysts-are-puzzled-7ae60fef?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/astrazeneca-tie-up-talks-with-bristol-myers-squibb-are-moving-stocks-analysts-are-puzzled-7ae60fef?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "AstraZeneca shares fell and Bristol Myers Squibb stock rose Monday after reports that the drugmakers were in deal talks, though neither company\u2019s plans were detailed in the available reporting. A tie-up would combine two major cancer-drug businesses, but analysts described the prospective pairing as \u201codd\u201d and questioned its strategic logic. Investors are now weighing whether the reported talks develop into a formal proposal and how a merger might reshape the companies\u2019 oncology portfolios.",
+      "guard_result": "not_run",
+      "story_id": "analysts astrazeneca bristol but call cancer could create"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "French commercial broadcaster TF1 has begun an early-stage process to sell its production-and-distribution arm, Studio TF1, hiring Rothschild to oversee it, Variety reported. The unit was rebranded only about a year and a half ago, while TF1 under president Rodolphe Belmer has been putting greater emphasis on streaming. A sale would signal a sharper focus on the broadcaster\u2019s direct digital business while potentially separating it from its content-production operation.",
+      "evidence": [
+        {
+          "canonical_url": "https://variety.com/2026/tv/global/tf1-production-distribution-studio-tf1-broadcaster-sale-1236826748/",
+          "evidence_type": "feed_content",
+          "source": "Variety",
+          "url": "https://variety.com/2026/tv/global/tf1-production-distribution-studio-tf1-broadcaster-sale-1236826748/"
+        }
+      ],
+      "full_paragraph": "French commercial broadcaster TF1 has begun an early-stage process to sell its production-and-distribution arm, Studio TF1, hiring Rothschild to oversee it, Variety reported. The unit was rebranded only about a year and a half ago, while TF1 under president Rodolphe Belmer has been putting greater emphasis on streaming. A sale would signal a sharper focus on the broadcaster\u2019s direct digital business while potentially separating it from its content-production operation.",
+      "guard_result": "not_run",
+      "story_id": "broadcaster distribution doubles down explores france group production"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "House Democrats are privately considering whether to force a vote to expel Rep. Max Miller, an Ohio Republican, over domestic-abuse allegations he denies. Miller said Sunday that he would continue his reelection campaign and rejected claims involving his ex-wife, Emily Moreno, and their young daughter; his former father-in-law, Sen. Bernie Moreno, called him a danger to his daughter. Expulsion is rare, but the prospect of one has reportedly prompted several congressional resignations this year.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/08/03/max-miller-expel-congress-democrats-allegations",
+          "evidence_type": "feed_content",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/08/03/max-miller-expel-congress-democrats-allegations"
+        }
+      ],
+      "full_paragraph": "House Democrats are privately considering whether to force a vote to expel Rep. Max Miller, an Ohio Republican, over domestic-abuse allegations he denies. Miller said Sunday that he would continue his reelection campaign and rejected claims involving his ex-wife, Emily Moreno, and their young daughter; his former father-in-law, Sen. Bernie Moreno, called him a danger to his daughter. Expulsion is rare, but the prospect of one has reportedly prompted several congressional resignations this year.",
+      "guard_result": "not_run",
+      "story_id": "democrats expulsion house max miller mull people pissed"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "European Commission President Ursula von der Leyen called for coordinated action to strengthen EU borders after tens of thousands of migrants crossed from Morocco into Spain\u2019s Ceuta exclave last week. Spain says about 69,500 people have returned to Morocco, while 72 people died on the Spanish side and 11 on the Moroccan side. EU interior ministers were due to hold emergency talks as the episode strains relations among member states and prompts renewed debate over Schengen travel rules.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cyvl84zmgyro",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cyvl84zmgyro?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "European Commission President Ursula von der Leyen called for coordinated action to strengthen EU borders after tens of thousands of migrants crossed from Morocco into Spain\u2019s Ceuta exclave last week. Spain says about 69,500 people have returned to Morocco, while 72 people died on the Spanish side and 11 on the Moroccan side. EU interior ministers were due to hold emergency talks as the episode strains relations among member states and prompts renewed debate over Schengen travel rules.",
+      "guard_result": "not_run",
+      "story_id": "borders calls ceuta crossings migrant stronger"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "\u201cThe Devil Wears Prada 2\u201d drew 15.2 million global views in its first five days on Disney+ and Hulu, Disney\u2019s biggest live-action streaming-film debut since 2024\u2019s \u201cDeadpool & Wolverine.\u201d The sequel had already earned about $691 million worldwide in theaters, making its streaming start notable because it came more than two months after release. The result shows the fashion comedy\u2019s audience continued to expand after a successful theatrical run, strengthening the case for its long-tail value to Disney.",
+      "evidence": [
+        {
+          "canonical_url": "https://variety.com/2026/film/news/the-devil-wears-prada-2-ratings-views-streaming-1236826857/",
+          "evidence_type": "extracted",
+          "source": "Variety",
+          "url": "https://variety.com/2026/film/news/the-devil-wears-prada-2-ratings-views-streaming-1236826857/"
+        },
+        {
+          "canonical_url": "https://deadline.com/2026/08/the-devil-wears-prada-2-streaming-viewership-1237016483/",
+          "evidence_type": "extracted",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/08/the-devil-wears-prada-2-streaming-viewership-1237016483/"
+        }
+      ],
+      "full_paragraph": "\u201cThe Devil Wears Prada 2\u201d drew 15.2 million global views in its first five days on Disney+ and Hulu, Disney\u2019s biggest live-action streaming-film debut since 2024\u2019s \u201cDeadpool & Wolverine.\u201d The sequel had already earned about $691 million worldwide in theaters, making its streaming start notable because it came more than two months after release. The result shows the fashion comedy\u2019s audience continued to expand after a successful theatrical run, strengthening the case for its long-tail value to Disney.",
+      "guard_result": "not_run",
+      "story_id": "achieves action biggest deadpool devil disney hulu movie"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Tinashe has partnered with Express on the \u201cToo Easy to Look This Good\u201d collection and campaign, timed ahead of her album \u201cPopstar,\u201d due September 25. The singer said she wanted clothing that felt authentic to what she would \u201cactually hang out in,\u201d with styles spanning bold, relaxed and sporty looks in XS through XL. The collaboration extends her fashion-brand work after much of her 2025 Urban Outfitters collection reportedly sold out soon after launch.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/culture/product-recommendations/tinashe-express-clothing-shop-outfits-online-exclusive-1236307458/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/culture/product-recommendations/tinashe-express-clothing-shop-outfits-online-exclusive-1236307458/"
+        }
+      ],
+      "full_paragraph": "Tinashe has partnered with Express on the \u201cToo Easy to Look This Good\u201d collection and campaign, timed ahead of her album \u201cPopstar,\u201d due September 25. The singer said she wanted clothing that felt authentic to what she would \u201cactually hang out in,\u201d with styles spanning bold, relaxed and sporty looks in XS through XL. The collaboration extends her fashion-brand work after much of her 2025 Urban Outfitters collection reportedly sold out soon after launch.",
+      "guard_result": "not_run",
+      "story_id": "actually collab express features hang her out outfits"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Major League Soccer has named Los Angeles FC co-owner Larry Berg as its next commissioner, succeeding Don Garber on January 1, 2027. Berg will sell his stake in LAFC before taking the role, separating himself from ownership in one of the league\u2019s clubs. The appointment sets up MLS\u2019s leadership transition after Garber\u2019s long tenure and puts an executive with direct experience in the league\u2019s ownership ranks in charge of its next phase.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/soccer/story/_/id/49524364/larry-berg-selected-next-mls-commissioner-set-take-2027",
+          "evidence_type": "feed_content",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/soccer/story/_/id/49524364/larry-berg-selected-next-mls-commissioner-set-take-2027"
+        },
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/larry-berg-major-league-soccer-commissioner.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/larry-berg-major-league-soccer-commissioner.html"
+        }
+      ],
+      "full_paragraph": "Major League Soccer has named Los Angeles FC co-owner Larry Berg as its next commissioner, succeeding Don Garber on January 1, 2027. Berg will sell his stake in LAFC before taking the role, separating himself from ownership in one of the league\u2019s clubs. The appointment sets up MLS\u2019s leadership transition after Garber\u2019s long tenure and puts an executive with direct experience in the league\u2019s ownership ranks in charge of its next phase.",
+      "guard_result": "not_run",
+      "story_id": "berg commissioner larry league major named next soccer"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Sony and Marvel\u2019s \u201cSpider-Man: Brand New Day\u201d opened to a record $360 million domestically and $932 million worldwide, Deadline reported. Its U.S. opening surpassed the $357.1 million debut of \u201cAvengers: Endgame\u201d in 2019, previously the domestic benchmark. The start gives the studios an unusually large theatrical launch and resets the standard for opening-weekend performance, though the film\u2019s longer-term result will depend on whether it maintains audience demand beyond its first weekend.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/08/spider-man-brand-new-day-box-office-records-1237016328/",
+          "evidence_type": "feed_content",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/08/spider-man-brand-new-day-box-office-records-1237016328/"
+        }
+      ],
+      "full_paragraph": "Sony and Marvel\u2019s \u201cSpider-Man: Brand New Day\u201d opened to a record $360 million domestically and $932 million worldwide, Deadline reported. Its U.S. opening surpassed the $357.1 million debut of \u201cAvengers: Endgame\u201d in 2019, previously the domestic benchmark. The start gives the studios an unusually large theatrical launch and resets the standard for opening-weekend performance, though the film\u2019s longer-term result will depend on whether it maintains audience demand beyond its first weekend.",
+      "guard_result": "not_run",
+      "story_id": "all box brand broken day man office records"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Microsoft, Amazon and Alphabet boosted recent quarterly profits with gains on stakes in private AI companies including OpenAI and Anthropic, whose valuations are now just below $1 trillion, CNBC reported. LSEG estimates S&P 500 earnings growth at roughly 48% year over year, but says growth is far weaker after removing gains from those investments. The accounting gains reflect rising portfolio values rather than revenue from software or services, complicating comparisons of Big Tech\u2019s underlying operating performance.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/big-techs-anthropic-and-openai-stakes-distort-corporate-earnings.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/big-techs-anthropic-and-openai-stakes-distort-corporate-earnings.html"
+        }
+      ],
+      "full_paragraph": "Microsoft, Amazon and Alphabet boosted recent quarterly profits with gains on stakes in private AI companies including OpenAI and Anthropic, whose valuations are now just below $1 trillion, CNBC reported. LSEG estimates S&P 500 earnings growth at roughly 48% year over year, but says growth is far weaker after removing gains from those investments. The accounting gains reflect rising portfolio values rather than revenue from software or services, complicating comparisons of Big Tech\u2019s underlying operating performance.",
+      "guard_result": "not_run",
+      "story_id": "anthropic big corporate distorting earnings openai picture stakes"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Treasury Secretary Scott Bessent wants the Federal Reserve to expand a lending facility that could help Japan support the yen without disrupting the U.S. Treasury market, CNBC reported. Bessent said the United States intervened in currency markets to back the yen, an unusual step; the U.S. last joined a broader Japanese-support effort in 2011 after the earthquake and tsunami. Any Fed role could test its independence while affecting management of the roughly $29 trillion Treasury market.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/bessent-fed-japan-yen-fima-repo-facility.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/bessent-fed-japan-yen-fima-repo-facility.html"
+        }
+      ],
+      "full_paragraph": "Treasury Secretary Scott Bessent wants the Federal Reserve to expand a lending facility that could help Japan support the yen without disrupting the U.S. Treasury market, CNBC reported. Bessent said the United States intervened in currency markets to back the yen, an unusual step; the U.S. last joined a broader Japanese-support effort in 2011 after the earthquake and tsunami. Any Fed role could test its independence while affecting management of the roughly $29 trillion Treasury market.",
+      "guard_result": "not_run",
+      "story_id": "bessent effort federal japan may pulled reserve support"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "CNBC\u2019s Jim Cramer said Amazon CEO Andy Jassy\u2019s latest earnings call shifted Wall Street\u2019s view of Big Tech\u2019s enormous AI spending by explaining how data-center investment could produce long-term cash flow. Amazon raised its capital-expenditure budget from $200 billion to $220 billion, yet its stock posted its biggest one-day gain in more than a decade. The market reaction suggests investors are becoming more willing to fund AI buildouts when companies provide clearer evidence of potential returns.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/jim-cramer-market-warmed-up-big-tech-ai-spending.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/jim-cramer-market-warmed-up-big-tech-ai-spending.html"
+        }
+      ],
+      "full_paragraph": "CNBC\u2019s Jim Cramer said Amazon CEO Andy Jassy\u2019s latest earnings call shifted Wall Street\u2019s view of Big Tech\u2019s enormous AI spending by explaining how data-center investment could produce long-term cash flow. Amazon raised its capital-expenditure budget from $200 billion to $220 billion, yet its stock posted its biggest one-day gain in more than a decade. The market reaction suggests investors are becoming more willing to fund AI buildouts when companies provide clearer evidence of potential returns.",
+      "guard_result": "not_run",
+      "story_id": "big cramer flipped jim market spending switch tech"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Treasury-market volatility is rising as investors position for higher yields in the roughly $30 trillion U.S. government-debt market, MarketWatch reported. Because Treasury yields set benchmark borrowing costs across mortgages, corporate debt and many other assets, sharp moves can quickly ripple through the wider financial system. The increased volatility leaves traders bracing for a more unsettled period in the market that anchors global borrowing and pricing.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/traders-in-the-worlds-most-important-financial-market-are-bracing-for-a-wild-stretch-ahead-4a1507dc?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/traders-in-the-worlds-most-important-financial-market-are-bracing-for-a-wild-stretch-ahead-4a1507dc?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Treasury-market volatility is rising as investors position for higher yields in the roughly $30 trillion U.S. government-debt market, MarketWatch reported. Because Treasury yields set benchmark borrowing costs across mortgages, corporate debt and many other assets, sharp moves can quickly ripple through the wider financial system. The increased volatility leaves traders bracing for a more unsettled period in the market that anchors global borrowing and pricing.",
+      "guard_result": "not_run",
+      "story_id": "ahead bracing financial important market most stretch traders"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Palantir shares rose after the company reported earnings, with its AI business driving what MarketWatch described as turbocharged growth. Chief Executive Alex Karp said customers are turning to Palantir for greater control over their AI models and data. The market response highlights investor demand for companies showing commercial AI adoption, while placing added attention on whether Palantir can sustain that growth as more businesses build and manage their own AI systems.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/palantirs-stock-gains-as-ai-drives-turbocharged-growth-e006b70a?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/palantirs-stock-gains-as-ai-drives-turbocharged-growth-e006b70a?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Palantir shares rose after the company reported earnings, with its AI business driving what MarketWatch described as turbocharged growth. Chief Executive Alex Karp said customers are turning to Palantir for greater control over their AI models and data. The market response highlights investor demand for companies showing commercial AI adoption, while placing added attention on whether Palantir can sustain that growth as more businesses build and manage their own AI systems.",
+      "guard_result": "not_run",
+      "story_id": "climbs drives earnings growth palantir stock turbocharged"
+    }
+  ]
+}

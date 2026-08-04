@@ -127,7 +127,8 @@ def render_watchlist_section(
         if quote is None:
             quote_line = f"{ticker}: quote unavailable"
         else:
-            quote_line = f"{ticker}: {quote.close_price:.2f} ({quote.percent_change:+.2f}%) · close {quote.close_date}"
+            timing = "live" if quote.quote_kind == "live" else f"close {quote.close_date}"
+            quote_line = f"{ticker}: {quote.close_price:.2f} ({quote.percent_change:+.2f}%) · {timing}"
         lines.append(quote_line)
         row_parts = [f"<div><strong>{html.escape(quote_line)}</strong>"]
         story = by_ticker.get(ticker)

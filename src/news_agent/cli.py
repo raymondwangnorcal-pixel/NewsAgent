@@ -363,6 +363,7 @@ def _main(argv: list[str] | None = None) -> None:
                     budget,
                     persist_quotes=False,
                     general_articles=getattr(result, "watchlist_candidates", ()),
+                    market_quotes=getattr(getattr(result, "stock_snapshot", None), "quotes", {}),
                     use_openai=openai_mode != "off",
                     persist_watchlist_state=not args.restart_after_gate_failure,
                     read_edgar_state=args.restart_after_gate_failure,
@@ -470,6 +471,7 @@ def _main(argv: list[str] | None = None) -> None:
                     budget,
                     test_revision=args.email_rebuild_today,
                     general_articles=getattr(result, "watchlist_candidates", ()),
+                    market_quotes=getattr(getattr(result, "stock_snapshot", None), "quotes", {}),
                     use_openai=openai_mode != "off",
                 )
             )
@@ -493,6 +495,7 @@ def _main(argv: list[str] | None = None) -> None:
                     config.enrichment,
                     budget,
                     general_articles=getattr(result, "watchlist_candidates", ()),
+                    market_quotes=getattr(getattr(result, "stock_snapshot", None), "quotes", {}),
                     use_openai=openai_mode != "off",
                 )
             )

@@ -1,0 +1,380 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.02419,
+  "created_at": "2026-08-04T13:48:55.060741+00:00",
+  "guard_deltas": {},
+  "input_tokens": 0,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 0,
+  "stories": [
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "India has introduced legislation that could let merchants be charged for some Unified Payments Interface transactions, challenging the zero-fee regime that has applied since 2020. UPI processed a record 23.66 billion payments worth \u20b929.88 trillion, about $313.4 billion, in July, while banks and fintechs argue state incentives are no longer enough to fund the network. The bill opens a politically sensitive debate over how to sustain a payment system used across the economy.",
+      "evidence": [
+        {
+          "canonical_url": "https://techcrunch.com/2026/08/04/india-moves-to-give-its-instant-payments-network-a-business-model/",
+          "evidence_type": "extracted",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/08/04/india-moves-to-give-its-instant-payments-network-a-business-model/"
+        }
+      ],
+      "full_paragraph": "India has introduced legislation that could let merchants be charged for some Unified Payments Interface transactions, challenging the zero-fee regime that has applied since 2020. UPI processed a record 23.66 billion payments worth \u20b929.88 trillion, about $313.4 billion, in July, while banks and fintechs argue state incentives are no longer enough to fund the network. The bill opens a politically sensitive debate over how to sustain a payment system used across the economy.",
+      "guard_result": "not_run",
+      "story_id": "business give india instant model moves network payments"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Trump Media & Technology Group has launched Truth API, a paid data feed promising Wall Street firms and institutional investors the fastest access to influential Truth Social posts. The offering raises ethical and legal questions because President Donald Trump\u2019s account, with about 13 million followers, can move markets and his family remains the company\u2019s majority shareholder. The service could intensify scrutiny over whether privileged speed in receiving presidential statements should be sold commercially.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c4gdkl9zn8wo",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c4gdkl9zn8wo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Trump Media & Technology Group has launched Truth API, a paid data feed promising Wall Street firms and institutional investors the fastest access to influential Truth Social posts. The offering raises ethical and legal questions because President Donald Trump\u2019s account, with about 13 million followers, can move markets and his family remains the company\u2019s majority shareholder. The service could intensify scrutiny over whether privileged speed in receiving presidential statements should be sold commercially.",
+      "guard_result": "not_run",
+      "story_id": "access controversial fast market media moving posts sale"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "AI infrastructure company Runware has launched the Sonic Inference Pod, a transportable modular data center designed to add computing capacity wherever power is available. The company says its closed-loop cooling system uses no water and can be built in days rather than the months or years needed for conventional facilities. Runware is betting that distributed compute placed closer to users will lower costs and speed AI responses as demand for inference grows.",
+      "evidence": [
+        {
+          "canonical_url": "https://techcrunch.com/2026/08/04/is-the-future-of-data-centers-portable-runware-builds-a-pod-to-find-out/",
+          "evidence_type": "extracted",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/08/04/is-the-future-of-data-centers-portable-runware-builds-a-pod-to-find-out/"
+        }
+      ],
+      "full_paragraph": "AI infrastructure company Runware has launched the Sonic Inference Pod, a transportable modular data center designed to add computing capacity wherever power is available. The company says its closed-loop cooling system uses no water and can be built in days rather than the months or years needed for conventional facilities. Runware is betting that distributed compute placed closer to users will lower costs and speed AI responses as demand for inference grows.",
+      "guard_result": "not_run",
+      "story_id": "builds centers data find future out pod portable"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Pfizer beat quarterly estimates and raised the lower end of its full-year revenue outlook, citing strength in Eliquis and other medicines, but cut its expected 2026 revenue from Covid products to $4 billion from roughly $5 billion. The revision underscores how sharply the pandemic business is fading even as the drugmaker\u2019s established portfolio supports its broader forecast. Investors will be watching whether newer products can further offset lost Covid sales.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/04/pfizer-pfe-earnings-q2-2026.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/04/pfizer-pfe-earnings-q2-2026.html"
+        }
+      ],
+      "full_paragraph": "Pfizer beat quarterly estimates and raised the lower end of its full-year revenue outlook, citing strength in Eliquis and other medicines, but cut its expected 2026 revenue from Covid products to $4 billion from roughly $5 billion. The revision underscores how sharply the pandemic business is fading even as the drugmaker\u2019s established portfolio supports its broader forecast. Investors will be watching whether newer products can further offset lost Covid sales.",
+      "guard_result": "not_run",
+      "story_id": "drugs eliquis end estimates guidance hikes low other"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Prediction-market operator Polymarket is reportedly in talks to raise funding at a valuation above $20 billion, following rapid growth in trading tied to politics, economics and other real-world events. The company told CNBC in June that its annualized revenue had risen above $1 billion. A deal at that price would mark a major vote of confidence in event-contract markets, while putting more focus on their regulatory treatment and ability to sustain activity beyond major news cycles.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/04/polymarket-seeks-fundraising-round-at-more-than-20-billion-valuation.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/04/polymarket-seeks-fundraising-round-at-more-than-20-billion-valuation.html"
+        }
+      ],
+      "full_paragraph": "Prediction-market operator Polymarket is reportedly in talks to raise funding at a valuation above $20 billion, following rapid growth in trading tied to politics, economics and other real-world events. The company told CNBC in June that its annualized revenue had risen above $1 billion. A deal at that price would mark a major vote of confidence in event-contract markets, while putting more focus on their regulatory treatment and ability to sustain activity beyond major news cycles.",
+      "guard_result": "not_run",
+      "story_id": "billion fundraising more polymarket round talks than valuation"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Michigan voters are hearing escalating Republican attacks branding Democrats as \u201ccommunists\u201d as they vote Tuesday, a message pushed by President Donald Trump and his allies after progressive candidates won recent elections and primaries. The rhetoric seeks to turn local contests into a broader ideological fight rather than a debate over individual candidates or policies. Its reception may offer an early indication of whether the label can mobilize conservative voters or alienate persuadable ones.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/04/trump-election-republicans-democrats-communist.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/04/trump-election-republicans-democrats-communist.html"
+        }
+      ],
+      "full_paragraph": "Michigan voters are hearing escalating Republican attacks branding Democrats as \u201ccommunists\u201d as they vote Tuesday, a message pushed by President Donald Trump and his allies after progressive candidates won recent elections and primaries. The rhetoric seeks to turn local contests into a broader ideological fight rather than a debate over individual candidates or policies. Its reception may offer an early indication of whether the label can mobilize conservative voters or alienate persuadable ones.",
+      "guard_result": "not_run",
+      "story_id": "communist hearing michigan they tuesday vote voters"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Authorities have made an arson arrest connected to Washington state\u2019s largest wildfire as three fires around Spokane forced about 60,000 people from their homes. Investigators have not publicly detailed the evidence or the full scope of the allegations. The case adds a criminal inquiry to an emergency response already stretching local resources, with evacuation orders and fire conditions remaining the immediate concern for residents.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c5y3ppmmev1o?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c5y3ppmmev1o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Authorities have made an arson arrest connected to Washington state\u2019s largest wildfire as three fires around Spokane forced about 60,000 people from their homes. Investigators have not publicly detailed the evidence or the full scope of the allegations. The case adds a criminal inquiry to an emergency response already stretching local resources, with evacuation orders and fire conditions remaining the immediate concern for residents.",
+      "guard_result": "not_run",
+      "story_id": "arrest arson largest made state washington wildfires"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Cameroon\u2019s 93-year-old President Paul Biya reshuffled senior military posts after being absent from public view for nearly two months, promoting five colonels to brigadier general. He reappointed Raymond Jean Charles Beko\u2019o Abondo to command the elite presidential guard, a job he has held since 2013. Although such shake-ups are common under Biya, the timing is fueling concern about stability and succession around the world\u2019s oldest serving president.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/ckg9kd27lkpo",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/ckg9kd27lkpo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Cameroon\u2019s 93-year-old President Paul Biya reshuffled senior military posts after being absent from public view for nearly two months, promoting five colonels to brigadier general. He reappointed Raymond Jean Charles Beko\u2019o Abondo to command the elite presidential guard, a job he has held since 2013. Although such shake-ups are common under Biya, the timing is fueling concern about stability and succession around the world\u2019s oldest serving president.",
+      "guard_result": "not_run",
+      "story_id": "absence army his oldest president reshuffles stokes unease"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Ukrainian drone strikes hit two Wildberries sites in Russia and damaged another industrial location near Moscow, where local officials said five people were killed and 10 injured. Kyiv says the warehouses help supply Russia\u2019s military, an allegation Moscow denies; Russia said it intercepted 320 drones overnight. Russia\u2019s strikes across Ukraine killed at least four people, showing both sides continue to target infrastructure as the war\u2019s aerial campaign expands.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c151pkww79zo",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c151pkww79zo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Ukrainian drone strikes hit two Wildberries sites in Russia and damaged another industrial location near Moscow, where local officials said five people were killed and 10 injured. Kyiv says the warehouses help supply Russia\u2019s military, an allegation Moscow denies; Russia said it intercepted 320 drones overnight. Russia\u2019s strikes across Ukraine killed at least four people, showing both sides continue to target infrastructure as the war\u2019s aerial campaign expands.",
+      "guard_result": "not_run",
+      "story_id": "five hits kills more moscow region sites strike"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Guatemala\u2019s Fuego volcano erupted, sending lava into the air from one of Central America\u2019s most active volcanoes. The stratovolcano is also a popular hiking destination, increasing the need for authorities and visitors to monitor official safety warnings during eruptive periods. The event highlights the recurring hazard faced by communities and travelers around Fuego, where activity can change quickly.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c2lqpvv1wlxo?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c2lqpvv1wlxo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Guatemala\u2019s Fuego volcano erupted, sending lava into the air from one of Central America\u2019s most active volcanoes. The stratovolcano is also a popular hiking destination, increasing the need for authorities and visitors to monitor official safety warnings during eruptive periods. The event highlights the recurring hazard faced by communities and travelers around Fuego, where activity can change quickly.",
+      "guard_result": "not_run",
+      "story_id": "air eruption guatemala lava sends spewing volcano"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "French authorities rescued more than 150 migrants after the engine of a boat attempting to cross the English Channel to the UK caught fire. The scale of the rescue again illustrates the danger of overcrowded, improvised crossings on one of Europe\u2019s busiest shipping routes. Officials will need to determine whether anyone requires further medical care and investigate the circumstances of the vessel\u2019s departure.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c4gkpeppjyqo?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c4gkpeppjyqo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "French authorities rescued more than 150 migrants after the engine of a boat attempting to cross the English Channel to the UK caught fire. The scale of the rescue again illustrates the danger of overcrowded, improvised crossings on one of Europe\u2019s busiest shipping routes. Officials will need to determine whether anyone requires further medical care and investigate the circumstances of the vessel\u2019s departure.",
+      "guard_result": "not_run",
+      "story_id": "150 boat catches channel fire migrants more rescued"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "A landslide struck a mountain monastery in Ethiopia during an overnight prayer service, sending rocks and earth onto worshippers and causing deaths, authorities said. Emergency officials have not provided a fuller casualty count in the available reporting. The disaster leaves rescuers and local authorities facing the immediate task of reaching victims and assessing whether unstable ground poses a continuing threat to the religious site and nearby community.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c2lqpx1qd8lo?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c2lqpx1qd8lo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "A landslide struck a mountain monastery in Ethiopia during an overnight prayer service, sending rocks and earth onto worshippers and causing deaths, authorities said. Emergency officials have not provided a fuller casualty count in the available reporting. The disaster leaves rescuers and local authorities facing the immediate task of reaching victims and assessing whether unstable ground poses a continuing threat to the religious site and nearby community.",
+      "guard_result": "not_run",
+      "story_id": "deadly during ethiopia hits landslide monastery mountain prayer"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Ariana Grande said she will step back from public life after her Eternal Sunshine tour ends September 1 and withdrew from the planned London revival of Sunday in the Park With George. Her mother, Joan Grande, responded publicly by calling the 33-year-old singer \u201cmagnificent\u201d while praising her new \u201cPetal\u201d video. The pause signals a retreat from upcoming high-profile work after the tour rather than a new release or project announcement.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/music/pop/ariana-grande-mom-joan-sweet-message-magnificent-daughter-1236308691/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/music/pop/ariana-grande-mom-joan-sweet-message-magnificent-daughter-1236308691/"
+        }
+      ],
+      "full_paragraph": "Ariana Grande said she will step back from public life after her Eternal Sunshine tour ends September 1 and withdrew from the planned London revival of Sunday in the Park With George. Her mother, Joan Grande, responded publicly by calling the 33-year-old singer \u201cmagnificent\u201d while praising her new \u201cPetal\u201d video. The pause signals a retreat from upcoming high-profile work after the tour rather than a new release or project announcement.",
+      "guard_result": "not_run",
+      "story_id": "ariana back chin daughter grande her magnificent message"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Merlin has licensed music represented by its independent-label members for Spotify\u2019s AI remixing tool, giving participating artists the choice to opt in. Spotify says the arrangement will credit and compensate artists and direct listeners back to original songs; Universal Music Group was the first label partner when the tool was announced in May. The deal broadens Spotify\u2019s experiment beyond major labels while leaving artists to decide whether AI alterations suit their work.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/pro/merlin-spotify-licensing-agreement-ai-remixing/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/pro/merlin-spotify-licensing-agreement-ai-remixing/"
+        }
+      ],
+      "full_paragraph": "Merlin has licensed music represented by its independent-label members for Spotify\u2019s AI remixing tool, giving participating artists the choice to opt in. Spotify says the arrangement will credit and compensate artists and direct listeners back to original songs; Universal Music Group was the first label partner when the tool was announced in May. The deal broadens Spotify\u2019s experiment beyond major labels while leaving artists to decide whether AI alterations suit their work.",
+      "guard_result": "not_run",
+      "story_id": "agreement licensing merlin remixing signs spotify tool"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Tokyo\u2019s TIFFCOM market will expand its IP adaptation and remake program in 2026 and add conferences on AI and anime, running October 28-30 alongside the Tokyo International Film Festival. Organizers said a related Japan IP Market at Cannes in May drew more than 700 registrants. The expansion reflects rising overseas demand for Japanese manga, novels, film and television rights, and gives rights holders a larger venue to seek international deals.",
+      "evidence": [
+        {
+          "canonical_url": "https://variety.com/2026/film/markets-festivals/tokyo-tiffcom-2026-ip-market-ai-anime-conferences-1236827466/",
+          "evidence_type": "extracted",
+          "source": "Variety",
+          "url": "https://variety.com/2026/film/markets-festivals/tokyo-tiffcom-2026-ip-market-ai-anime-conferences-1236827466/"
+        }
+      ],
+      "full_paragraph": "Tokyo\u2019s TIFFCOM market will expand its IP adaptation and remake program in 2026 and add conferences on AI and anime, running October 28-30 alongside the Tokyo International Film Festival. Organizers said a related Japan IP Market at Cannes in May drew more than 700 registrants. The expansion reflects rising overseas demand for Japanese manga, novels, film and television rights, and gives rights holders a larger venue to seek international deals.",
+      "guard_result": "not_run",
+      "story_id": "2026 adds anime conferences expands market tiffcom tokyo"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The San Sebasti\u00e1n Film Festival will stage a 20-film retrospective of Jos\u00e9 Giovanni, the French writer-director whose work helped define postwar crime cinema. The program at the festival\u2019s 74th edition spans films released from 1960 to 2001, including nearly all his directing work and eight screenplays for other filmmakers. It will revisit a career shaped by Giovanni\u2019s own imprisonment and death sentence, which was later commuted to hard labor.",
+      "evidence": [
+        {
+          "canonical_url": "https://variety.com/2026/film/global/san-sebastian-jose-giovanni-retrospective-1236827399/",
+          "evidence_type": "extracted",
+          "source": "Variety",
+          "url": "https://variety.com/2026/film/global/san-sebastian-jose-giovanni-retrospective-1236827399/"
+        }
+      ],
+      "full_paragraph": "The San Sebasti\u00e1n Film Festival will stage a 20-film retrospective of Jos\u00e9 Giovanni, the French writer-director whose work helped define postwar crime cinema. The program at the festival\u2019s 74th edition spans films released from 1960 to 2001, including nearly all his directing work and eight screenplays for other filmmakers. It will revisit a career shaped by Giovanni\u2019s own imprisonment and death sentence, which was later commuted to hard labor.",
+      "guard_result": "not_run",
+      "story_id": "cinema crime french giovanni honoring jos pioneer retrospective"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Developer Strange Scaffold has released Truck-kun is Supporting Me from Another World?!, a driving game positioned as a chaotic alternative for players awaiting Grand Theft Auto 6. GTA 6 is due November 19, more than three months away, and Rockstar has released cinematic trailers but no official gameplay footage. The new game is trying to capture demand for free-roaming vehicle mayhem during a long wait for 2026\u2019s biggest scheduled release.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.polygon.com/truck-kun-supporting-me-another-world-review-impressions/",
+          "evidence_type": "feed_content",
+          "source": "Polygon",
+          "url": "https://www.polygon.com/truck-kun-supporting-me-another-world-review-impressions/"
+        }
+      ],
+      "full_paragraph": "Developer Strange Scaffold has released Truck-kun is Supporting Me from Another World?!, a driving game positioned as a chaotic alternative for players awaiting Grand Theft Auto 6. GTA 6 is due November 19, more than three months away, and Rockstar has released cinematic trailers but no official gameplay footage. The new game is trying to capture demand for free-roaming vehicle mayhem during a long wait for 2026\u2019s biggest scheduled release.",
+      "guard_result": "not_run",
+      "story_id": "2026 crazy game gta meets taxi weirdest"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Philadelphia Fed President Anna Paulson said the central bank\u2019s 3.5%-3.75% benchmark rate is sufficiently restrictive for now to return inflation to its 2% goal, though she remains open-minded about later changes. She backed last week\u2019s 9-3 decision to hold rates steady, while dissenters questioned whether policy is restrictive enough. Her comments reinforce the Fed\u2019s cautious stance as officials seek clearer evidence that inflation is easing.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/04/philadelphia-fed-president-paulson-content-with-current-rates-but-keeping-an-open-mind.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/04/philadelphia-fed-president-paulson-content-with-current-rates-but-keeping-an-open-mind.html"
+        },
+        {
+          "canonical_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNN3NqMHIzbmloX0gtRi1uNWtqaTlHRkd1NnB6VHI3YTJlNk54aThYU25OYmkwaWZzRjFnSFRnXzBWZ01yVllteVB5MmdLWjdRLVpQaGRHbmxycFVFNFZxLTRWODBzWjJzbTRLUF9wTTd4RXdVNVZiLVVWTVJkYy14OW1Mdy1CWXBsekdKaGo5eFMtcG5QQTYzRF9TMTVTbVZ1VG40a3g1NEtqQk1wR0tB?oc=5",
+          "evidence_type": "feed_content",
+          "source": "Bloomberg.com",
+          "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNN3NqMHIzbmloX0gtRi1uNWtqaTlHRkd1NnB6VHI3YTJlNk54aThYU25OYmkwaWZzRjFnSFRnXzBWZ01yVllteVB5MmdLWjdRLVpQaGRHbmxycFVFNFZxLTRWODBzWjJzbTRLUF9wTTd4RXdVNVZiLVVWTVJkYy14OW1Mdy1CWXBsekdKaGo5eFMtcG5QQTYzRF9TMTVTbVZ1VG40a3g1NEtqQk1wR0tB?oc=5"
+        }
+      ],
+      "full_paragraph": "Philadelphia Fed President Anna Paulson said the central bank\u2019s 3.5%-3.75% benchmark rate is sufficiently restrictive for now to return inflation to its 2% goal, though she remains open-minded about later changes. She backed last week\u2019s 9-3 decision to hold rates steady, while dissenters questioned whether policy is restrictive enough. Her comments reinforce the Fed\u2019s cautious stance as officials seek clearer evidence that inflation is easing.",
+      "guard_result": "not_run",
+      "story_id": "but content current fed keeping level mind open"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Treasury Secretary Scott Bessent wants the Federal Reserve to expand a lending facility that could help Japan support the yen without disrupting the $29 trillion US Treasury market, CNBC reported. Bessent has framed yen stability as important to global markets and said the US intervened in foreign exchange markets to support the currency. The proposal would draw the Fed more directly into financial diplomacy, though its support within the central bank is unclear.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/03/bessent-fed-japan-yen-fima-repo-facility.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/03/bessent-fed-japan-yen-fima-repo-facility.html"
+        }
+      ],
+      "full_paragraph": "Treasury Secretary Scott Bessent wants the Federal Reserve to expand a lending facility that could help Japan support the yen without disrupting the $29 trillion US Treasury market, CNBC reported. Bessent has framed yen stability as important to global markets and said the US intervened in foreign exchange markets to support the currency. The proposal would draw the Fed more directly into financial diplomacy, though its support within the central bank is unclear.",
+      "guard_result": "not_run",
+      "story_id": "backstop bessent defense expand fed japan pushing warsh"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "US stock futures rose Tuesday as oil prices fell on reports of possible US-Iran talks to reopen the Strait of Hormuz, while strong results from Palantir and Caterpillar added support. The S&P 500 was on track for a record high, though DuPont fell more than 6% before the bell despite beating second-quarter expectations and raising targets. Markets are treating a potential reopening of the chokepoint as a relief for energy supplies and inflation risks.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/04/jim-cramers-top-10-things-to-watch-in-the-stock-market-tuesday.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/04/jim-cramers-top-10-things-to-watch-in-the-stock-market-tuesday.html"
+        },
+        {
+          "canonical_url": "https://www.marketwatch.com/story/oil-prices-rise-after-vessel-reports-being-hit-in-strait-of-hormuz-db6ce867?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/oil-prices-rise-after-vessel-reports-being-hit-in-strait-of-hormuz-db6ce867?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "US stock futures rose Tuesday as oil prices fell on reports of possible US-Iran talks to reopen the Strait of Hormuz, while strong results from Palantir and Caterpillar added support. The S&P 500 was on track for a record high, though DuPont fell more than 6% before the bell despite beating second-quarter expectations and raising targets. Markets are treating a potential reopening of the chokepoint as a relief for energy supplies and inflation risks.",
+      "guard_result": "not_run",
+      "story_id": "cramer jim market stock things top tuesday"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Palantir shares jumped about 20% after the software company reported second-quarter revenue up 93% from a year earlier to $1.94 billion, ahead of the $1.8 billion expected by analysts. Commercial revenue rose 149% to $764 million as customers sought AI tools that keep their data under their own control, while government revenue grew 90%. The results strengthen Palantir\u2019s case that demand for enterprise and sovereign AI is becoming a meaningful growth engine.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/04/palantir-2q-earnings-ai-sovereign-tools.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/04/palantir-2q-earnings-ai-sovereign-tools.html"
+        }
+      ],
+      "full_paragraph": "Palantir shares jumped about 20% after the software company reported second-quarter revenue up 93% from a year earlier to $1.94 billion, ahead of the $1.8 billion expected by analysts. Commercial revenue rose 149% to $764 million as customers sought AI tools that keep their data under their own control, while government revenue grew 90%. The results strengthen Palantir\u2019s case that demand for enterprise and sovereign AI is becoming a meaningful growth engine.",
+      "guard_result": "not_run",
+      "story_id": "commercial demand driving jumps otherworldly palantir revenue"
+    }
+  ]
+}
