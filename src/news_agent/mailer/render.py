@@ -181,11 +181,16 @@ def render_watchlist_section(
                 headline = story.articles[0].title
                 lines.append(f"    Summary unavailable: {headline}")
                 body = "Summary unavailable: " + html.escape(headline)
-            links = " ".join(
+            source_articles = story.articles[:2]
+            source_names = ", ".join(dict.fromkeys(article.source for article in source_articles))
+            links = ", ".join(
                 f'<a href="{html.escape(article.canonical_url or article.url, quote=True)}">{html.escape(article.source)}</a>'
-                for article in story.articles[:2]
+                for article in source_articles
             )
-            row_parts.append(f"<p>{body} {links}</p>")
+            if source_names:
+                lines.append(f"    (via {source_names})")
+            source_html = f" (via {links})" if links else ""
+            row_parts.append(f"<p>{body}{source_html}</p>")
             if story.relationship_label:
                 relation = _relationship_wording(ticker, str(story.relationship_label))
                 lines.append(f"    {relation}")

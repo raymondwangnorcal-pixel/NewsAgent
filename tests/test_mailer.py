@@ -554,6 +554,8 @@ def test_render_watchlist_shows_summary_unavailable_headline() -> None:
     plain, html = render_watchlist_section({"AAPL": EndOfDayQuote("AAPL", "2026-07-24", 105.0, 100.0, "Tiingo")}, [story])
 
     assert "Summary unavailable: Company reports earnings" in plain
+    assert "(via Reuters)" in plain
+    assert "(via <a href=" in html
     assert "https://reuters.com/a" in html
 
 

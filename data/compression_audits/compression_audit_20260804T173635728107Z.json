@@ -1,0 +1,385 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.02457,
+  "created_at": "2026-08-04T17:36:35.728129+00:00",
+  "guard_deltas": {},
+  "input_tokens": 0,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 0,
+  "stories": [
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Hackers have stolen about $130 million in cryptocurrency from Coldcard hardware-wallet users, exploiting a flaw in devices designed to keep assets offline, blockchain-security firms say. At least a dozen attackers appear to be involved, and both Galaxy Research and Elliptic consider the estimate broadly credible. The theft exposes a weak point in a product category marketed as one of the safest ways to hold crypto, amid more than $950 million lost in over 200 crypto-company hacks this year.",
+      "evidence": [
+        {
+          "canonical_url": "https://techcrunch.com/2026/08/04/hackers-steal-over-130-million-by-exploiting-bug-in-offline-hardware-wallets/",
+          "evidence_type": "extracted",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/08/04/hackers-steal-over-130-million-by-exploiting-bug-in-offline-hardware-wallets/"
+        }
+      ],
+      "full_paragraph": "Hackers have stolen about $130 million in cryptocurrency from Coldcard hardware-wallet users, exploiting a flaw in devices designed to keep assets offline, blockchain-security firms say. At least a dozen attackers appear to be involved, and both Galaxy Research and Elliptic consider the estimate broadly credible. The theft exposes a weak point in a product category marketed as one of the safest ways to hold crypto, amid more than $950 million lost in over 200 crypto-company hacks this year.",
+      "guard_result": "not_run",
+      "story_id": "130m bug exploiting hackers hardware offline steal wallets"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "OpenAI agreed to pay $3.2 million to settle Justice Department allegations that it discriminated against U.S. workers by favoring temporary visa holders in hiring. The company said it disagreed with the findings but settled the case, while the DOJ said OpenAI must change its recruiting practices. The penalty puts a prominent AI employer at the center of the Trump administration\u2019s broader effort to police companies\u2019 use of temporary-worker visa programs.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/08/04/trump-doj-openai-hiring-settlement",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/08/04/trump-doj-openai-hiring-settlement"
+        }
+      ],
+      "full_paragraph": "OpenAI agreed to pay $3.2 million to settle Justice Department allegations that it discriminated against U.S. workers by favoring temporary visa holders in hiring. The company said it disagreed with the findings but settled the case, while the DOJ said OpenAI must change its recruiting practices. The penalty puts a prominent AI employer at the center of the Trump administration\u2019s broader effort to police companies\u2019 use of temporary-worker visa programs.",
+      "guard_result": "not_run",
+      "story_id": "case discrimination doj openai pay settle worker"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "T-Mobile is introducing EIP Flex 36, a device-financing option that lets qualifying customers spread a phone, tablet or watch\u2019s price, sales taxes and fees over 36 months with no upfront payment. The plan carries 0% APR for a limited time and can be combined with device promotions, though T-Mobile has not said what less-qualified customers will pay. It shifts costs usually due at checkout into monthly bills, potentially making new devices easier to obtain but extending repayment.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/tech/975115/t-mobile-financing-eip-flex-36-plan",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/tech/975115/t-mobile-financing-eip-flex-36-plan"
+        }
+      ],
+      "full_paragraph": "T-Mobile is introducing EIP Flex 36, a device-financing option that lets qualifying customers spread a phone, tablet or watch\u2019s price, sales taxes and fees over 36 months with no upfront payment. The plan carries 0% APR for a limited time and can be combined with device promotions, though T-Mobile has not said what less-qualified customers will pay. It shifts costs usually due at checkout into monthly bills, potentially making new devices easier to obtain but extending repayment.",
+      "guard_result": "not_run",
+      "story_id": "bundles down fees financing mobile plan taxes"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "BMW is displaying Spider-Man: Brand New Day banner ads on some drivers\u2019 dashboard screens at vehicle startup as part of a partnership with the Marvel film. The campaign runs from July 27 through August 10 in more than 70 countries on BMW vehicles built after July 2020 and using several recent operating systems. Tapping the ad opens an animation featuring the iX3 SUV, highlighting how carmakers are increasingly using infotainment displays for promotional content.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/transportation/975172/bmw-spider-man-movie-infotainment-ad",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/transportation/975172/bmw-spider-man-movie-infotainment-ad"
+        }
+      ],
+      "full_paragraph": "BMW is displaying Spider-Man: Brand New Day banner ads on some drivers\u2019 dashboard screens at vehicle startup as part of a partnership with the Marvel film. The campaign runs from July 27 through August 10 in more than 70 countries on BMW vehicles built after July 2020 and using several recent operating systems. Tapping the ad opens an animation featuring the iX3 SUV, highlighting how carmakers are increasingly using infotainment displays for promotional content.",
+      "guard_result": "not_run",
+      "story_id": "behavior bmw car man spider villain"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Waymo has removed the waitlist for its Dallas robotaxi service, opening rides to the public in another step toward wider commercial deployment of its self-driving technology. The Alphabet-owned company is using Dallas as part of a broader expansion strategy across the United States, the United Kingdom and Europe. Opening access tests whether Waymo can turn limited launches into a scalable transport service while maintaining safety and operational reliability in new cities.",
+      "evidence": [
+        {
+          "canonical_url": "https://techcrunch.com/2026/08/04/waymo-opens-up-robotaxi-service-in-dallas-to-everyone/",
+          "evidence_type": "feed_content",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/08/04/waymo-opens-up-robotaxi-service-in-dallas-to-everyone/"
+        }
+      ],
+      "full_paragraph": "Waymo has removed the waitlist for its Dallas robotaxi service, opening rides to the public in another step toward wider commercial deployment of its self-driving technology. The Alphabet-owned company is using Dallas as part of a broader expansion strategy across the United States, the United Kingdom and Europe. Opening access tests whether Waymo can turn limited launches into a scalable transport service while maintaining safety and operational reliability in new cities.",
+      "guard_result": "not_run",
+      "story_id": "dallas everyone opens robotaxi service waymo"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Rep. Max Miller, an Ohio Republican, said he will ask the House Ethics Committee to investigate him after his ex-wife accused him in court filings of hitting and threatening her. Miller denies the allegations, has sued Emily Moreno for defamation and says he will provide documents to the committee. The former Trump aide insists he will remain in his competitive reelection race, but the allegations have drawn public criticism from Moreno\u2019s father, Sen. Bernie Moreno.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/08/04/max-miller-ethics-probe-allegations",
+          "evidence_type": "feed_content",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/08/04/max-miller-ethics-probe-allegations"
+        }
+      ],
+      "full_paragraph": "Rep. Max Miller, an Ohio Republican, said he will ask the House Ethics Committee to investigate him after his ex-wife accused him in court filings of hitting and threatening her. Miller denies the allegations, has sued Emily Moreno for defamation and says he will provide documents to the committee. The former Trump aide insists he will remain in his competitive reelection race, but the allegations have drawn public criticism from Moreno\u2019s father, Sen. Bernie Moreno.",
+      "guard_result": "not_run",
+      "story_id": "abuse allegations calls ethics following his miller own"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Senate Judiciary Committee approved Attorney General nominee Todd Blanche, advancing him to a vote by the full Senate. Blanche still needs at least 50 votes on the Senate floor to be confirmed. The committee action moves President Trump\u2019s nominee closer to leading the Justice Department, where confirmation would place a key administration ally atop federal law-enforcement policy and prosecutions.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/04/todd-blanche-weaponization-fund-senate-confirmation.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/04/todd-blanche-weaponization-fund-senate-confirmation.html"
+        }
+      ],
+      "full_paragraph": "The Senate Judiciary Committee approved Attorney General nominee Todd Blanche, advancing him to a vote by the full Senate. Blanche still needs at least 50 votes on the Senate floor to be confirmed. The committee action moves President Trump\u2019s nominee closer to leading the Justice Department, where confirmation would place a key administration ally atop federal law-enforcement policy and prosecutions.",
+      "guard_result": "not_run",
+      "story_id": "approved blanche committee full judiciary nominee senate sending"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "College students are moving into retirement communities not just for cheaper housing, but to build relationships with older residents through game nights, fitness classes and other shared activities. The arrangements can offer students a quieter alternative to conventional campus housing while giving residents more social contact. Their growth points to an intergenerational response to housing costs and isolation, although the communities\u2019 early-evening routines may not suit every student.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/college-kids-are-moving-into-retirement-communities-for-reasons-beyond-cheap-rent-577dc94b?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/college-kids-are-moving-into-retirement-communities-for-reasons-beyond-cheap-rent-577dc94b?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "College students are moving into retirement communities not just for cheaper housing, but to build relationships with older residents through game nights, fitness classes and other shared activities. The arrangements can offer students a quieter alternative to conventional campus housing while giving residents more social contact. Their growth points to an intergenerational response to housing costs and isolation, although the communities\u2019 early-evening routines may not suit every student.",
+      "guard_result": "not_run",
+      "story_id": "beyond cheap college communities kids moving reasons rent"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Crowds in Gaza City held a mass funeral for 112 Palestinians, mostly women and children, whose bodies were recently recovered from a residential block struck by Israel in November 2023. A two-week recovery operation pulled members of the Abu Sharia and Hassayna families from rubble in the Sabra neighborhood; the dead included 44 children and 38 women. The delayed burial illustrates how destruction from the early Gaza war continues to leave families searching for and identifying victims.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cn0n99npjejo",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cn0n99npjejo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Crowds in Gaza City held a mass funeral for 112 Palestinians, mostly women and children, whose bodies were recently recovered from a residential block struck by Israel in November 2023. A two-week recovery operation pulled members of the Abu Sharia and Hassayna families from rubble in the Sabra neighborhood; the dead included 44 children and 38 women. The delayed burial illustrates how destruction from the early Gaza war continues to leave families searching for and identifying victims.",
+      "guard_result": "not_run",
+      "story_id": "112 2023 funeral gaza israeli killed mass palestinians"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Ukraine released video showing a Russian drone pursuing a street vendor in the Kherson region before diving toward him and exploding. The man survived with shrapnel wounds, concussion and trauma, according to a doctor; President Volodymyr Zelensky and Ukraine\u2019s foreign minister called the attack evidence of deliberate targeting of civilians. The footage adds to allegations that remotely operated drones are being used to terrorize residents near the front line, which Russia has not addressed in the report.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cn4n03xg981o",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cn4n03xg981o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Ukraine released video showing a Russian drone pursuing a street vendor in the Kherson region before diving toward him and exploding. The man survived with shrapnel wounds, concussion and trauma, according to a doctor; President Volodymyr Zelensky and Ukraine\u2019s foreign minister called the attack evidence of deliberate targeting of civilians. The footage adds to allegations that remotely operated drones are being used to terrorize residents near the front line, which Russia has not addressed in the report.",
+      "guard_result": "not_run",
+      "story_id": "attack chasing drone human russian safari shows street"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "More than 170 migrants attempting to cross the English Channel were rescued after their boat caught fire, British authorities said. The UK government said all of those rescued would be returned to France rather than allowed to continue their journey to Britain. The incident underscores the continuing danger of small-boat crossings and the pressure on British and French authorities to prevent overloaded, unsafe vessels from leaving the French coast.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c4gkpeppjyqo?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c4gkpeppjyqo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "More than 170 migrants attempting to cross the English Channel were rescued after their boat caught fire, British authorities said. The UK government said all of those rescued would be returned to France rather than allowed to continue their journey to Britain. The incident underscores the continuing danger of small-boat crossings and the pressure on British and French authorities to prevent overloaded, unsafe vessels from leaving the French coast.",
+      "guard_result": "not_run",
+      "story_id": "170 boat catches channel fire migrants more rescued"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The European Union praised Spain\u2019s response after about 72,000 people entered the Spanish enclave of Ceuta illegally last week, Spanish officials said. Spain says roughly 70,000 of them have since been returned to Morocco. The rapid returns have contained the immediate pressure on Ceuta, but the scale of the episode highlights the enclave\u2019s vulnerability as a gateway into the EU and the importance of Spanish-Moroccan cooperation on migration enforcement.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c80n3j55g0do?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c80n3j55g0do?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "The European Union praised Spain\u2019s response after about 72,000 people entered the Spanish enclave of Ceuta illegally last week, Spanish officials said. Spain says roughly 70,000 of them have since been returned to Morocco. The rapid returns have contained the immediate pressure on Ceuta, but the scale of the episode highlights the enclave\u2019s vulnerability as a gateway into the EU and the importance of Spanish-Moroccan cooperation on migration enforcement.",
+      "guard_result": "not_run",
+      "story_id": "ceuta commends crisis migrant response spain swift"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Europe\u2019s heat wave is worsening drought conditions, fueling wildfires and creating energy risks as low river levels expose old wrecks in the Danube and strain nuclear-reactor cooling systems. Greece is battling deadly fires, while the drying Danube and Rhine show how extreme heat can disrupt transport and infrastructure as well as daily life. The combination of water shortages, fire danger and power-system stress leaves governments managing several climate-linked emergencies at once.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.npr.org/2026/08/04/nx-s1-5919214/europe-heatwave-danube-rhine-wildfires",
+          "evidence_type": "feed_content",
+          "source": "NPR News",
+          "url": "https://www.npr.org/2026/08/04/nx-s1-5919214/europe-heatwave-danube-rhine-wildfires"
+        }
+      ],
+      "full_paragraph": "Europe\u2019s heat wave is worsening drought conditions, fueling wildfires and creating energy risks as low river levels expose old wrecks in the Danube and strain nuclear-reactor cooling systems. Greece is battling deadly fires, while the drying Danube and Rhine show how extreme heat can disrupt transport and infrastructure as well as daily life. The combination of water shortages, fire danger and power-system stress leaves governments managing several climate-linked emergencies at once.",
+      "guard_result": "not_run",
+      "story_id": "drought energy europe fears fires fuels heat wave"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Hangar 13\u2019s upcoming Man of Honor expansion for Mafia: The Old Country will add side activities and missions intended to make the game\u2019s Sicily setting feel less empty. Players will receive jobs from returning character Salieri, alongside standoffs, assassinations, circuit races, time trials and road sprints in Free Ride mode. The update builds on last November\u2019s Free Ride overhaul and aims to give the largely linear crime drama a more substantial open-world afterlife.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.polygon.com/mafia-the-old-country-man-of-honor-free-ride/",
+          "evidence_type": "extracted",
+          "source": "Polygon",
+          "url": "https://www.polygon.com/mafia-the-old-country-man-of-honor-free-ride/"
+        }
+      ],
+      "full_paragraph": "Hangar 13\u2019s upcoming Man of Honor expansion for Mafia: The Old Country will add side activities and missions intended to make the game\u2019s Sicily setting feel less empty. Players will receive jobs from returning character Salieri, alongside standoffs, assassinations, circuit races, time trials and road sprints in Free Ride mode. The update builds on last November\u2019s Free Ride overhaul and aims to give the largely linear crime drama a more substantial open-world afterlife.",
+      "guard_result": "not_run",
+      "story_id": "change country honor mafia man old open will"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Killers frontman Brandon Flowers says he is questioning how much longer he wants to live as a rock star as he prepares to release his third solo album, Thrasher, on August 21. Flowers, 45, told The Times that touring routinely leaves him ill, though powerful moments onstage still pull him back. His first solo record in more than a decade arrives as he reassesses the personal cost of a career spanning over 20 years.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/music/rock/killers-brandon-flowers-contemplates-retiring-thrasher-1236308755/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/music/rock/killers-brandon-flowers-contemplates-retiring-thrasher-1236308755/"
+        }
+      ],
+      "full_paragraph": "The Killers frontman Brandon Flowers says he is questioning how much longer he wants to live as a rock star as he prepares to release his third solo album, Thrasher, on August 21. Flowers, 45, told The Times that touring routinely leaves him ill, though powerful moments onstage still pull him back. His first solo record in more than a decade arrives as he reassesses the personal cost of a career spanning over 20 years.",
+      "guard_result": "not_run",
+      "story_id": "brandon contemplates end flowers killers longer much road"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Jamie Foxx will star in Deadlocked, an Amazon MGM action film about a grieving former Marine on jury duty when a defendant\u2019s daughter takes a courthouse hostage to free her father. Nikhil Bhat, director of the Hindi-language action thriller Kill, will direct from a script by Eric Scot Anderson and Matt Takejiro Bosack. The film is set for worldwide release on Prime Video, extending Foxx\u2019s run of major streaming action projects.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/08/jamie-foxx-to-star-deadlocked-amazon-mgm-1237017119/",
+          "evidence_type": "extracted",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/08/jamie-foxx-to-star-deadlocked-amazon-mgm-1237017119/"
+        }
+      ],
+      "full_paragraph": "Jamie Foxx will star in Deadlocked, an Amazon MGM action film about a grieving former Marine on jury duty when a defendant\u2019s daughter takes a courthouse hostage to free her father. Nikhil Bhat, director of the Hindi-language action thriller Kill, will direct from a script by Eric Scot Anderson and Matt Takejiro Bosack. The film is set for worldwide release on Prime Video, extending Foxx\u2019s run of major streaming action projects.",
+      "guard_result": "not_run",
+      "story_id": "actioner amazon deadlocked foxx hostage jamie lead mgm"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Billboard Pro has launched a music-industry events calendar designed to collect conferences, festivals, awards shows and networking events in one place. Its August listings range from Warner Music Group\u2019s August 5 earnings call to Outside Lands in San Francisco and the L.A. Jazz Festival, which runs August 7-23. The resource aims to make Billboard a planning hub for industry professionals as well as a source of music news, charts and analysis.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/pro/music-industry-events-calendar-festivals-awards-conferences/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/pro/music-industry-events-calendar-festivals-awards-conferences/"
+        }
+      ],
+      "full_paragraph": "Billboard Pro has launched a music-industry events calendar designed to collect conferences, festivals, awards shows and networking events in one place. Its August listings range from Warner Music Group\u2019s August 5 earnings call to Outside Lands in San Francisco and the L.A. Jazz Festival, which runs August 7-23. The resource aims to make Billboard a planning hub for industry professionals as well as a source of music news, charts and analysis.",
+      "guard_result": "not_run",
+      "story_id": "calendar events industry music"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Science communicator Hank Green says he is stepping back from production after criticism over his use of AI, which he described as \u201cnot healthy,\u201d though he said he used chatbots to find research sources rather than write scripts. The backlash has focused on whether a creator built on credibility can rely on systems prone to convincing falsehoods and trained on others\u2019 work. His case spotlights a poorly understood middle ground between casual AI use and more overtly harmful dependence.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/ai-artificial-intelligence/975180/llm-ai-chatbot-use-not-healthy",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/975180/llm-ai-chatbot-use-not-healthy"
+        }
+      ],
+      "full_paragraph": "Science communicator Hank Green says he is stepping back from production after criticism over his use of AI, which he described as \u201cnot healthy,\u201d though he said he used chatbots to find research sources rather than write scripts. The backlash has focused on whether a creator built on credibility can rely on systems prone to convincing falsehoods and trained on others\u2019 work. His case spotlights a poorly understood middle ground between casual AI use and more overtly harmful dependence.",
+      "guard_result": "not_run",
+      "story_id": "common healthy llm more not than think use"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Oil prices fell nearly 5% to a three-week low after U.S. officials said talks with Iran had advanced toward reopening the Strait of Hormuz. Brent crude dropped below $80 a barrel and U.S. West Texas Intermediate fell more than 5% to $76, as markets priced in the prospect of resumed shipments as soon as this week. Officials stressed that no agreement was final, so fuel-price relief remains vulnerable to another breakdown in negotiations.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cpw9v0gnzxwo",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cpw9v0gnzxwo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Oil prices fell nearly 5% to a three-week low after U.S. officials said talks with Iran had advanced toward reopening the Strait of Hormuz. Brent crude dropped below $80 a barrel and U.S. West Texas Intermediate fell more than 5% to $76, as markets priced in the prospect of resumed shipments as soon as this week. Officials stressed that no agreement was final, so fuel-price relief remains vulnerable to another breakdown in negotiations.",
+      "guard_result": "not_run",
+      "story_id": "could fall hopes hormuz oil prices reopen strait"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The wealthiest 20% of U.S. households are buying most new cars, with the AI-driven stock-market rally helping affluent Americans spend more on vehicles, MarketWatch reports. The pattern suggests auto demand is increasingly concentrated among buyers who have benefited from rising asset values rather than spread broadly across households. That concentration can support sales of expensive vehicles, but it also leaves the market more exposed if financial-market gains fade or affordability worsens for other consumers.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/the-richest-20-are-buying-most-of-the-new-cars-sold-in-the-u-s-6e470ad4?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/the-richest-20-are-buying-most-of-the-new-cars-sold-in-the-u-s-6e470ad4?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "The wealthiest 20% of U.S. households are buying most new cars, with the AI-driven stock-market rally helping affluent Americans spend more on vehicles, MarketWatch reports. The pattern suggests auto demand is increasingly concentrated among buyers who have benefited from rising asset values rather than spread broadly across households. That concentration can support sales of expensive vehicles, but it also leaves the market more exposed if financial-market gains fade or affordability worsens for other consumers.",
+      "guard_result": "not_run",
+      "story_id": "buying cars most richest sold"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Pfizer beat quarterly estimates and raised the low end of its full-year revenue guidance, citing strength in Eliquis and other medicines. At the same time, it reduced its expected 2026 revenue from Covid products to $4 billion from roughly $5 billion. The results show Pfizer relying more heavily on its established and newer drug portfolio as the pandemic-era business continues to shrink, a central challenge for the company\u2019s longer-term growth outlook.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/04/pfizer-pfe-earnings-q2-2026.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/04/pfizer-pfe-earnings-q2-2026.html"
+        }
+      ],
+      "full_paragraph": "Pfizer beat quarterly estimates and raised the low end of its full-year revenue guidance, citing strength in Eliquis and other medicines. At the same time, it reduced its expected 2026 revenue from Covid products to $4 billion from roughly $5 billion. The results show Pfizer relying more heavily on its established and newer drug portfolio as the pandemic-era business continues to shrink, a central challenge for the company\u2019s longer-term growth outlook.",
+      "guard_result": "not_run",
+      "story_id": "drugs eliquis end estimates guidance hikes low other"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Fundstrat research head Tom Lee argues U.S. stocks could reach a new high in August, identifying six possible catalysts for a further rally. The call is a market forecast rather than a confirmed trend, and the available report does not specify the full list of drivers or a target level. It reflects continued bullish sentiment after strong equity gains, but investors will still be watching economic data, corporate results and policy signals that can quickly alter that outlook.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/stocks-could-soar-in-august-here-are-six-potential-drivers-89d91780?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/stocks-could-soar-in-august-here-are-six-potential-drivers-89d91780?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "Fundstrat research head Tom Lee argues U.S. stocks could reach a new high in August, identifying six possible catalysts for a further rally. The call is a market forecast rather than a confirmed trend, and the available report does not specify the full list of drivers or a target level. It reflects continued bullish sentiment after strong equity gains, but investors will still be watching economic data, corporate results and policy signals that can quickly alter that outlook.",
+      "guard_result": "not_run",
+      "story_id": "august could drivers potential six soar stocks"
+    }
+  ]
+}
