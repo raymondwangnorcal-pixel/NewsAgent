@@ -7,7 +7,7 @@ import re
 from typing import Protocol
 
 from news_agent.watchlist.edgar import EdgarClient
-from news_agent.watchlist.materiality import filing_is_material, six_k_content_is_material, six_k_metadata_is_material
+from news_agent.watchlist.materiality import filing_is_material, official_content_is_material, six_k_metadata_is_material
 from news_agent.watchlist.models import EntityMap, Filing, SourceState
 
 
@@ -103,12 +103,19 @@ def discover_material_filings(
                 body = _document_text(document_result.data) if document_result and document_result.data else ""
                 if body:
                     filing_bodies.append((filing.accession, body))
-                    determination = six_k_content_is_material(body)
+                    determination = official_content_is_material(body)
                     reason = "rendered_content" if determination else "excluded_content_not_material"
                 else:
                     determination = six_k_metadata_is_material(filing.description)
-                    reason = "rendered_metadata_fallback" if determination else "excluded_indeterminate_6k"
-                    incomplete_required_document = incomplete_required_document or not determination
+                    if determination:
+                        reason = "rendered_metadata_fallback"
+                    elif filing.form.removesuffix("/A") == "8-K":
+                        # Item 7.01 is optional content review: a transient document
+                        # fetch failure must not make the entire EDGAR source fail.
+                        reason = "excluded_document_unavailable"
+                    else:
+                        reason = "excluded_indeterminate_6k"
+                        incomplete_required_document = True
             else:
                 reason = "rendered" if determination else "excluded_by_form_policy"
             dispositions.append((filing.accession, reason))

@@ -12,6 +12,7 @@ MATERIAL_8K_ITEMS = frozenset(
         "8.01",
     }
 )
+CONTENT_REVIEW_8K_ITEMS = frozenset({"7.01"})
 MATERIAL_PERIODIC_FORMS = frozenset({"10-Q", "10-K", "20-F", "40-F"})
 ETHEREUM_MATERIAL_TERMS = (
     "protocol upgrade", "hard fork", "staking", "exchange-traded", "etf approval",
@@ -32,7 +33,11 @@ EDITORIAL_MATERIAL_TERMS = SIX_K_MATERIAL_TERMS + (
 def filing_is_material(filing: Filing) -> bool | None:
     form = filing.form.removesuffix("/A")
     if form == "8-K":
-        return bool(MATERIAL_8K_ITEMS.intersection(filing.items))
+        if MATERIAL_8K_ITEMS.intersection(filing.items):
+            return True
+        if CONTENT_REVIEW_8K_ITEMS.intersection(filing.items):
+            return None
+        return False
     if form in MATERIAL_PERIODIC_FORMS:
         return True
     if form == "6-K":
@@ -51,9 +56,14 @@ def six_k_metadata_is_material(text: str) -> bool:
     return any(term in lowered for term in SIX_K_MATERIAL_TERMS)
 
 
+def official_content_is_material(text: str) -> bool:
+    """Evaluate official filing text when form metadata alone is indeterminate."""
+    return six_k_metadata_is_material(text)
+
+
 def six_k_content_is_material(text: str) -> bool:
     """Apply the configured material-event categories to extracted 6-K text."""
-    return six_k_metadata_is_material(text)
+    return official_content_is_material(text)
 
 
 def editorial_metadata_is_material(text: str) -> bool:

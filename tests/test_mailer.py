@@ -88,7 +88,7 @@ def test_parity_email_plain_text_is_header_and_exact_messages() -> None:
 
     assert rendered.plain_text == "Morning Briefing - 2026-07-25\n\nFINANCE\nA story\n\nWORLD\nAnother story\n"
     assert "<pre style=" in rendered.html
-    assert "font-family: Helvetica, Arial, sans-serif" in rendered.html
+    assert "font-family: Lato, Helvetica, Arial, sans-serif" in rendered.html
 
 
 def test_native_newsletter_links_source_label_and_keeps_plain_text_url() -> None:
@@ -105,8 +105,8 @@ def test_native_newsletter_links_source_label_and_keeps_plain_text_url() -> None
     assert '<a href="https://www.bbc.co.uk/news/example">(via BBC)</a>' in rendered.html
     assert ">https://www.bbc.co.uk/news/example<" not in rendered.html
     assert "<pre" not in rendered.html
-    assert 'font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif' in rendered.html
-    assert 'padding: 22px 0' in rendered.html
+    assert "font-family: Lato, Helvetica, Arial, sans-serif" in rendered.html
+    assert 'padding: 8.5px 0' in rendered.html
 
 
 def test_native_newsletter_links_each_source_in_merged_story() -> None:

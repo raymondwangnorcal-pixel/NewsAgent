@@ -10,7 +10,7 @@ from news_agent.time import briefing_today
 from news_agent.mailer.quotes import EndOfDayQuote
 from news_agent.mailer.watchlist_news import WatchlistStory
 
-SYSTEM_FONT_STACK = '-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif'
+SYSTEM_FONT_STACK = 'Lato, Helvetica, Arial, sans-serif'
 
 
 @dataclass(frozen=True)
@@ -24,8 +24,8 @@ def render_parity_email(messages: list[FormattedMessage], header: str) -> Render
     plain_text = "\n\n".join((header, *(message.text for message in messages))).strip() + "\n"
     subject = f"Morning Briefing — {briefing_today().isoformat()}"
     rendered_html = (
-        '<html><body style="font-family: Helvetica, Arial, sans-serif;">'
-        '<pre style="font-family: Helvetica, Arial, sans-serif; white-space: pre-wrap;">'
+        f'<html><body style="font-family: {SYSTEM_FONT_STACK};">'
+        f'<pre style="font-family: {SYSTEM_FONT_STACK}; white-space: pre-wrap;">'
         + html.escape(plain_text)
         + "</pre></body></html>"
     )
@@ -100,7 +100,7 @@ def _render_story_block(block: str) -> str:
         rendered.append(html.escape(line))
         index += 1
     return (
-        f'<div style="padding: 22px 0; font-family: {SYSTEM_FONT_STACK}; '
+        f'<div style="padding: 8.5px 0; font-family: {SYSTEM_FONT_STACK}; '
         'font-size: 16px; line-height: 1.5;">'
         + "<br>".join(rendered)
         + "</div>"

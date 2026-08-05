@@ -1013,3 +1013,145 @@
 - Superseded by: none
 - Note: Finance no longer receives ticker-price lead lines, while the Watchlist quote snapshot and alerts remain available.
 - Privacy waivers: none
+
+## DEC-0054 — Evaluate Form 8-K Item 7.01 by official content
+
+- Date: 2026-08-04
+- Owner: shared
+- Status at record: active
+- Decision: Keep the deterministic Form 8-K materiality allowlist for directly qualifying items, but treat Item 7.01 as indeterminate and render it only when the official filing text establishes a configured material event.
+- Rationale: CuriosityStream disclosed a completed acquisition under Items 7.01 and 9.01, so blanket exclusion caused a material miss; content review captures such events without admitting every routine Regulation FD notice.
+- Scope: EDGAR Form 8-K materiality classification, filing-body retrieval, Watchlist dispositions, and regression tests.
+- Implementation: pending
+- Recorded against HEAD: `efcefa859325f4d551ee6e4d29808434767fa0f9`
+- Supersedes: DEC-0008
+- Evidence: User-reported CuriosityStream miss on 2026-08-04 and SEC accession 0001628280-26-047438.
+- Privacy waivers: none
+
+## Update — 2026-08-04 — DEC-0008
+
+- Type: supersession
+- Implementation commit: not applicable
+- Superseded by: DEC-0054
+- Note: The fixed item allowlist remains the direct-accept path, while Item 7.01 now receives fail-closed official-content review.
+- Privacy waivers: none
+
+## DEC-0055 — Count general-news stories as sent only after SMTP acceptance
+
+- Date: 2026-08-04
+- Owner: user
+- Status at record: active
+- Decision: Count a general-news story as sent in newsletter quality metrics only when its edition reached SMTP acceptance; retain selected and non-accepted outcomes only for operational diagnostics.
+- Rationale: Reader-facing relevance measurements must describe stories that actually reached the mail provider, not merely stories selected during an unsuccessful delivery attempt.
+- Scope: Newsletter review candidate delivery states, sent-story denominators, metrics, and reporting.
+- Implementation: pending
+- Recorded against HEAD: `efcefa859325f4d551ee6e4d29808434767fa0f9`
+- Supersedes: none
+- Evidence: User-selected first grilling decision on 2026-08-04.
+- Privacy waivers: none
+
+## DEC-0056 — Keep newsletter review material local by default
+
+- Date: 2026-08-04
+- Owner: user
+- Status at record: active
+- Decision: Keep raw newsletter review material, source links, and reviewer notes local only; never automatically export, commit, or push them, and permit repository fixtures only after separate privacy review removes raw text, URLs, and notes.
+- Rationale: Human evaluation needs durable local context without publishing source-derived material or reviewer notes through the repository.
+- Scope: Newsletter review retention, exports, regression fixtures, and Git workflow.
+- Implementation: pending
+- Recorded against HEAD: `efcefa859325f4d551ee6e4d29808434767fa0f9`
+- Supersedes: none
+- Evidence: User-approved second grilling decision on 2026-08-04.
+- Privacy waivers: none
+
+## DEC-0057 — Judge filtered newsletter candidates against the finished daily deck
+
+- Date: 2026-08-04
+- Owner: user
+- Status at record: active
+- Decision: Label a filtered general-news candidate relevant only when it deserved a place in that day's finished newsletter after considering the stories selected that day; factual truth alone does not make it relevant.
+- Rationale: The quality gate should be measured against reader value and finite daily capacity, not against whether every discarded article contains true information.
+- Scope: Newsletter review rubric, false-negative labels, manual evaluation, and quality metrics.
+- Implementation: pending
+- Recorded against HEAD: `efcefa859325f4d551ee6e4d29808434767fa0f9`
+- Supersedes: none
+- Evidence: User-approved third grilling decision on 2026-08-04.
+- Privacy waivers: none
+
+## DEC-0058 — Include strict-filter candidates in newsletter review sampling
+
+- Date: 2026-08-04
+- Owner: user
+- Status at record: active
+- Decision: Include deeply filtered and hard-rejected general-news candidates in the initial randomized review sample at their combined 20 percent share.
+- Rationale: Low-frequency review of the strictest filters is needed to expose serious false negatives that a near-miss-only sample would hide.
+- Scope: Newsletter review strata, sample composition, false-negative measurement, and reviewer workload.
+- Implementation: pending
+- Recorded against HEAD: `efcefa859325f4d551ee6e4d29808434767fa0f9`
+- Supersedes: none
+- Evidence: User-approved fourth grilling decision on 2026-08-04.
+- Privacy waivers: none
+
+## DEC-0059 — Require a reason for clear newsletter review labels
+
+- Date: 2026-08-04
+- Owner: user
+- Status at record: active
+- Decision: Require a fixed reason code for every relevant or irrelevant newsletter review label, while allowing unclear labels without a reason.
+- Rationale: Aggregate labels show whether the quality gate disagrees with the reviewer, but required reason codes identify what should be investigated or changed.
+- Scope: Newsletter review CLI, adjudication schema, reviewer workflow, metrics, and controlled quality-gate improvements.
+- Implementation: pending
+- Recorded against HEAD: `efcefa859325f4d551ee6e4d29808434767fa0f9`
+- Supersedes: none
+- Evidence: User-approved fifth grilling decision on 2026-08-04.
+- Privacy waivers: none
+
+## DEC-0060 — Limit newsletter review-content retention
+
+- Date: 2026-08-04
+- Owner: user
+- Status at record: active
+- Decision: Retain raw newsletter review excerpts and free-text notes for 30 days only, and retain non-text candidate metadata and structured review labels for up to one year.
+- Rationale: Thirty days provides enough context for active review while limiting retained source-derived text; one year preserves enough structured measurement history for controlled quality-gate evaluation.
+- Scope: Newsletter review retention jobs, local database records, manual examples, and exports.
+- Implementation: pending
+- Recorded against HEAD: `efcefa859325f4d551ee6e4d29808434767fa0f9`
+- Supersedes: none
+- Evidence: User-approved sixth grilling decision on 2026-08-04.
+- Privacy waivers: none
+
+## DEC-0061 — Require owner-approved shadow evaluation before newsletter gate changes
+
+- Date: 2026-08-04
+- Owner: user
+- Status at record: active
+- Decision: Do not apply a newsletter quality-gate change to daily emails until it has been shadow-tested against the reviewed corpus, its improvements and regressions have been shown to the owner, and the owner explicitly approves it.
+- Rationale: Review labels should improve the gate through measured, reversible human-approved changes rather than unobserved automatic tuning.
+- Scope: Newsletter review metrics, regression fixtures, quality-gate change workflow, and delivery safety.
+- Implementation: pending
+- Recorded against HEAD: `efcefa859325f4d551ee6e4d29808434767fa0f9`
+- Supersedes: none
+- Evidence: User-approved seventh grilling decision on 2026-08-04.
+- Privacy waivers: none
+
+## DEC-0062 — Do not fail EDGAR retrieval for unavailable Item 7.01 text
+
+- Date: 2026-08-04
+- Owner: shared
+- Status at record: active
+- Decision: Review Form 8-K Item 7.01 by official content when available, but skip it and advance the EDGAR watermark when its document cannot be fetched; continue treating an indeterminate Form 6-K without qualifying metadata or readable content as incomplete.
+- Rationale: An optional Regulation FD content check must not let a transient document outage block the whole ticker, while the existing Form 6-K completeness guarantee remains intact.
+- Scope: EDGAR filing retrieval, Watchlist dispositions, source health, and watermark advancement.
+- Implementation: pending
+- Recorded against HEAD: `efcefa859325f4d551ee6e4d29808434767fa0f9`
+- Supersedes: DEC-0054
+- Evidence: Claude review finding and regression test in tests/test_watchlist_reliability.py on 2026-08-04.
+- Privacy waivers: none
+
+## Update — 2026-08-04 — DEC-0054
+
+- Type: supersession
+- Implementation commit: not applicable
+- Superseded by: DEC-0062
+- Note: Item 7.01 remains subject to official-content review, with unavailable documents now treated as an optional skipped filing rather than a ticker failure.
+- Privacy waivers: none
