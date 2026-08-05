@@ -1155,3 +1155,11 @@
 - Superseded by: DEC-0062
 - Note: Item 7.01 remains subject to official-content review, with unavailable documents now treated as an optional skipped filing rather than a ticker failure.
 - Privacy waivers: none
+
+## Update — 2026-08-04 — DEC-0062
+
+- Type: implementation
+- Implementation commit: `e4be4e4335baf3e5fd4b54e5a05167f3676fa3fa` — feat(newsletter): refine watchlist and review workflow
+- Superseded by: none
+- Note: Unavailable Item 7.01 documents now skip only that filing and permit the EDGAR watermark to advance; regression coverage passed.
+- Privacy waivers: none
