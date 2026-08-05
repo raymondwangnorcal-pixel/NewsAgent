@@ -1,25 +1,25 @@
 # NewsAgent Handoff
 
 Schema-Version: 1
-Last-Updated: 2026-08-05T16:58:51-04:00
-Current-Origin: origin-f7f48ce1564413a552e0ec84
+Last-Updated: 2026-08-05T17:17:55-04:00
+Current-Origin: origin-accc63098e89f7827b47ef23
 
 ## Origins
 
 | Origin-ID | Branch | Created-At |
 |---|---|---|
+| origin-accc63098e89f7827b47ef23 | feat/watchlist-retrieval | 2026-08-05T17:17:55-04:00 |
 | origin-ef90d50d79410372371123be | feat/watchlist-retrieval | 2026-08-05T15:07:21-04:00 |
-| origin-f7f48ce1564413a552e0ec84 | feat/watchlist-retrieval | 2026-08-05T16:58:51-04:00 |
 
 ## Current Goal
 
-Origin-ID: origin-f7f48ce1564413a552e0ec84
-Text: Preserve the completed Newsletter training-plan post-review revisions and durable decisions while the pre-existing 2026-08-05 data artifacts await disposition.
+Origin-ID: origin-accc63098e89f7827b47ef23
+Text: Preserve the completed Newsletter training-plan third-pass revisions and durable decisions while the pre-existing 2026-08-05 data artifacts await disposition.
 
 ## Accomplished in Latest Material Session
 
-Origin-ID: origin-f7f48ce1564413a552e0ec84
-Text: Revised Newsletter_trainplan.md to define retry-safe pre-SMTP preparation and history handling, explicit pilot review availability, and deck-aware diagnostically blind review prompts; resolved Claude's post-revision note and recorded DEC-0066 through DEC-0068.
+Origin-ID: origin-accc63098e89f7827b47ef23
+Text: Validated Claude's third-pass append against the code; revised Newsletter_trainplan.md for frozen run clocks, exact post-backfill classification finalization, gated outbox rollout, version-attributed manual examples, and version-reset costs; recorded DEC-0069 and DEC-0070.
 
 ## Outstanding Tasks
 
@@ -37,22 +37,22 @@ Reason: The only outstanding item is the uncommitted 2026-08-05 run output; ever
 
 | Path | Origin-ID | Presence | State | Notes |
 |---|---|---|---|---|
-| Newsletter_trainplan.md | origin-f7f48ce1564413a552e0ec84 | present | uncommitted | Resolved all four post-revision observations with normative design, rollout, failure, retention, and test contracts. |
+| Newsletter_trainplan.md | origin-accc63098e89f7827b47ef23 | present | uncommitted | Replaced the third-pass append with a resolution and added normative clock, classification, rollout, version-attribution, test, phase, and risk contracts. |
 | data/category_assignments_2026-08-05.json | origin-ef90d50d79410372371123be | present | untracked | New dated run artifact; equivalents through 2026-08-04 are tracked. |
 | data/compression_audits/compression_audit_20260805T153051764529Z.json | origin-ef90d50d79410372371123be | present | untracked | New compression audit from the 2026-08-05 run. |
 | data/email_state.lock | origin-ef90d50d79410372371123be | present | uncommitted | Rewritten by the 2026-08-05 newsletter run; not modified by hand. |
 | data/quality_gate_rejections_2026-08-05.json | origin-ef90d50d79410372371123be | present | untracked | New dated run artifact from the 2026-08-05 run. |
 | data/skipped_stories_2026-08-05.json | origin-ef90d50d79410372371123be | present | untracked | New dated run artifact from the 2026-08-05 run. |
 | data/story_history.json | origin-ef90d50d79410372371123be | present | uncommitted | Large rewrite from the 2026-08-05 run; preserved untouched during plan work. |
-| docs/decisions.md | origin-f7f48ce1564413a552e0ec84 | present | uncommitted | Appended validated DEC-0066 through DEC-0068 without changing earlier entries. |
+| docs/decisions.md | origin-accc63098e89f7827b47ef23 | present | uncommitted | Appended validated DEC-0069 and DEC-0070 without changing earlier entries. |
 
 ## Git / Remote State
 
-Origin-ID: origin-f7f48ce1564413a552e0ec84
+Origin-ID: origin-accc63098e89f7827b47ef23
 Branch: feat/watchlist-retrieval
-Head: b88534311b6322f11893f4ea2fb06c653fc8ced0
+Head: 9ed7eab60c3afd8b49d14c671560a7ae7e83e7fd
 Upstream: origin/feat/watchlist-retrieval
-Ahead: 2
+Ahead: 3
 Behind: 0
 Remote-Freshness: verified
 Remote-Freshness-Reason: none
@@ -64,6 +64,7 @@ Handoff-Commit-Exception: none
 
 | Commit | Subject |
 |---|---|
+| 9ed7eab60c3afd8b49d14c671560a7ae7e83e7fd | docs: update handoff (2026-08-05) |
 | b88534311b6322f11893f4ea2fb06c653fc8ced0 | docs: update handoff (2026-08-05) |
 | 99e502309063417db257beb73b129ee7046f5501 | docs: update handoff (2026-08-05) |
 
@@ -71,16 +72,15 @@ Handoff-Commit-Exception: none
 
 | Validation-ID | Origin-ID | Command | Result | Evidence |
 |---|---|---|---|---|
-| validation-2021c73da3f742556bdf2ab0 | origin-f7f48ce1564413a552e0ec84 | git diff --check | passed | Documentation and ledger changes contain no whitespace errors. |
-| validation-de5ba23eeb010e694a62a276 | origin-f7f48ce1564413a552e0ec84 | decisiontracker validate-ledger --repo NewsAgent --input docs/decisions.md | passed | Ledger schema, lifecycle, reachable Git attribution, and privacy checks passed after recording DEC-0066 through DEC-0068. |
+| validation-be44fb46151eb396cc54c6ce | origin-accc63098e89f7827b47ef23 | git diff --check | passed | Documentation and ledger changes contain no whitespace errors. |
+| validation-cc4239d69c1a3337848f0bdc | origin-accc63098e89f7827b47ef23 | decisiontracker validate-ledger --repo NewsAgent --input docs/decisions.md | passed | Ledger schema, lifecycle, reachable Git attribution, and privacy checks passed after recording DEC-0069 and DEC-0070. |
 
 ## Risks / Decisions
 
 | Item-ID | Origin-ID | Kind | Status | Description |
 |---|---|---|---|---|
-| decision-a0443837278b810eed8061c7 | origin-f7f48ce1564413a552e0ec84 | decision | accepted | Production SMTP waits for transactional review state and an acknowledged hash-checked history update; complete same-date editions resume, while stale pending editions are abandoned. |
-| decision-cff16cf3e0ea3857d7eaddd9 | origin-f7f48ce1564413a552e0ec84 | decision | accepted | Review prompts expose the accepted daily deck on demand and hide filter diagnostics until explicitly requested to reduce anchoring. |
-| decision-fa40e30167fe8a7e6d5932ef | origin-f7f48ce1564413a552e0ec84 | decision | accepted | Filtered adjudication is unavailable until seven eligible version-matched pilot days exist and an explicit immutable randomized batch is frozen. |
+| decision-9afa773a7d9d3a930494476c | origin-accc63098e89f7827b47ef23 | decision | accepted | One invocation-captured date governs every production artifact, and durable history acknowledgement commits the edition's delivery lease. |
+| decision-bd4558dc99251a75f1106421 | origin-accc63098e89f7827b47ef23 | decision | accepted | Sent, filtered, and manual-example metrics remain scoped to their producing pipeline and rubric versions; old labels stay visible but never pool forward. |
 | risk-e8336f76c256b34d2275795f | origin-ef90d50d79410372371123be | risk | open | The 2026-08-05 run left six uncommitted data artifacts, including a very large story_history.json rewrite, so a careless checkout or reset would discard that run's output. |
 
 ## Archive Decision
