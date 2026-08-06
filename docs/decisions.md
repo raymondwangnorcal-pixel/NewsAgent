@@ -1395,3 +1395,99 @@
 - Supersedes: none
 - Evidence: User direction on 2026-08-06; prior handoff outstanding task.
 - Privacy waivers: none
+
+## Update — 2026-08-06 — DEC-0063
+
+- Type: implementation
+- Implementation commit: `9952128ff5cae1a20abe1f4bc536d41eaf2c29fa` — feat: implement newsletter review workflow
+- Superseded by: none
+- Note: Candidate review eligibility derives reader exposure by joining the linked production edition state.
+- Privacy waivers: none
+
+## Update — 2026-08-06 — DEC-0064
+
+- Type: implementation
+- Implementation commit: `9952128ff5cae1a20abe1f4bc536d41eaf2c29fa` — feat: implement newsletter review workflow
+- Superseded by: none
+- Note: The store freezes version-scoped filtered populations, targets, seed, and sampled candidate IDs after a seven-day pilot.
+- Privacy waivers: none
+
+## Update — 2026-08-06 — DEC-0065
+
+- Type: implementation
+- Implementation commit: `9952128ff5cae1a20abe1f4bc536d41eaf2c29fa` — feat: implement newsletter review workflow
+- Superseded by: none
+- Note: Retention redacts raw review fields after 30 days and expires dependent newsletter records safely.
+- Privacy waivers: none
+
+## Update — 2026-08-06 — DEC-0066
+
+- Type: implementation
+- Implementation commit: `9952128ff5cae1a20abe1f4bc536d41eaf2c29fa` — feat: implement newsletter review workflow
+- Superseded by: none
+- Note: Newsletter preparation, history acknowledgement, and stale-history abandonment remain guarded before delivery.
+- Privacy waivers: none
+
+## Update — 2026-08-06 — DEC-0067
+
+- Type: implementation
+- Implementation commit: `9952128ff5cae1a20abe1f4bc536d41eaf2c29fa` — feat: implement newsletter review workflow
+- Superseded by: none
+- Note: Filtered labels are accepted only for candidates in an explicit frozen batch.
+- Privacy waivers: none
+
+## Update — 2026-08-06 — DEC-0068
+
+- Type: implementation
+- Implementation commit: `9952128ff5cae1a20abe1f4bc536d41eaf2c29fa` — feat: implement newsletter review workflow
+- Superseded by: none
+- Note: The review loop exposes accepted deck context and filtered diagnostics only on explicit commands.
+- Privacy waivers: none
+
+## Update — 2026-08-06 — DEC-0069
+
+- Type: implementation
+- Implementation commit: `9952128ff5cae1a20abe1f4bc536d41eaf2c29fa` — feat: implement newsletter review workflow
+- Superseded by: none
+- Note: The committed workflow retains the frozen-date history lease and rollover cleanup path.
+- Privacy waivers: none
+
+## Update — 2026-08-06 — DEC-0071
+
+- Type: implementation
+- Implementation commit: `9952128ff5cae1a20abe1f4bc536d41eaf2c29fa` — feat: implement newsletter review workflow
+- Superseded by: none
+- Note: Existing terminal pipeline decisions are persisted as durable newsletter review records.
+- Privacy waivers: none
+
+## Update — 2026-08-06 — DEC-0072
+
+- Type: implementation
+- Implementation commit: `9952128ff5cae1a20abe1f4bc536d41eaf2c29fa` — feat: implement newsletter review workflow
+- Superseded by: none
+- Note: Final selection captures one deterministic terminal reason, including the settled Culture precedence.
+- Privacy waivers: none
+
+## Update — 2026-08-06 — DEC-0073
+
+- Type: implementation
+- Implementation commit: `9952128ff5cae1a20abe1f4bc536d41eaf2c29fa` — feat: implement newsletter review workflow
+- Superseded by: none
+- Note: Non-metric pending evaluation rows are ordered oldest first.
+- Privacy waivers: none
+
+## Update — 2026-08-06 — DEC-0075
+
+- Type: implementation
+- Implementation commit: `9952128ff5cae1a20abe1f4bc536d41eaf2c29fa` — feat: implement newsletter review workflow
+- Superseded by: none
+- Note: The review corpus begins only with durable current-pipeline candidate records; no historical-log backfill is added.
+- Privacy waivers: none
+
+## Update — 2026-08-06 — DEC-0077
+
+- Type: implementation
+- Implementation commit: `9952128ff5cae1a20abe1f4bc536d41eaf2c29fa` — feat: implement newsletter review workflow
+- Superseded by: none
+- Note: Production newsletter runs retain their OpenAI mode for review and reporting eligibility decisions.
+- Privacy waivers: none
