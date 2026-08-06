@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import tempfile
+from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
@@ -11,6 +14,40 @@ from news_agent.models import StoryCluster
 
 
 DEFAULT_HISTORY_PATH = Path("data/story_history.json")
+
+
+@dataclass(frozen=True)
+class HistoryUpdate:
+    """A deterministic, hash-checked replacement for the story-history file."""
+
+    input_sha256: str
+    target_sha256: str
+    target_json: str
+
+    def to_json(self) -> str:
+        return json.dumps(
+            {
+                "input_sha256": self.input_sha256,
+                "target_sha256": self.target_sha256,
+                "target_json": self.target_json,
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+
+    @classmethod
+    def from_json(cls, value: str) -> "HistoryUpdate":
+        payload = json.loads(value)
+        if not isinstance(payload, dict):
+            raise ValueError("Invalid history update payload.")
+        input_sha256 = payload.get("input_sha256")
+        target_sha256 = payload.get("target_sha256")
+        target_json = payload.get("target_json")
+        if not all(isinstance(item, str) for item in (input_sha256, target_sha256, target_json)):
+            raise ValueError("Invalid history update payload.")
+        if _sha256(target_json) != target_sha256:
+            raise ValueError("History update target hash does not match payload.")
+        return cls(input_sha256, target_sha256, target_json)
 
 
 def utc_now() -> datetime:
@@ -56,6 +93,27 @@ def load_history(path: Path = DEFAULT_HISTORY_PATH) -> dict[str, Any]:
         return {"stories": []}
     stories = data.get("stories", [])
     return {"stories": stories if isinstance(stories, list) else []}
+
+
+def _sha256(value: str) -> str:
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def _canonical_history_json(stories: list[dict[str, Any]]) -> str:
+    return json.dumps(
+        {"stories": stories},
+        indent=2,
+        sort_keys=True,
+    )
+
+
+def _history_text(path: Path) -> str:
+    if not path.exists():
+        return _canonical_history_json([])
+    try:
+        return path.read_text(encoding="utf-8")
+    except OSError:
+        raise
 
 
 def keyword_overlap(left: set[str], right: set[str]) -> float:
@@ -131,13 +189,15 @@ def story_record(cluster: StoryCluster, now: datetime) -> dict[str, Any]:
     return record
 
 
-def save_story_history(
+def build_history_update(
     clusters: list[StoryCluster],
     path: Path = DEFAULT_HISTORY_PATH,
     retention_days: int = 7,
-) -> None:
-    now = utc_now()
-    cutoff = now - timedelta(days=retention_days)
+    *,
+    now: datetime | None = None,
+) -> HistoryUpdate:
+    resolved_now = now or utc_now()
+    cutoff = resolved_now - timedelta(days=retention_days)
     existing = load_history(path)["stories"]
     by_id: dict[str, dict[str, Any]] = {}
     for record in existing:
@@ -146,11 +206,46 @@ def save_story_history(
             by_id[str(record.get("cluster_id"))] = dict(record)
 
     for cluster in clusters:
-        record = story_record(cluster, now)
+        record = story_record(cluster, resolved_now)
         existing_record = by_id.get(record["cluster_id"])
         if existing_record:
             record["first_seen_time"] = existing_record.get("first_seen_time", record["first_seen_time"])
         by_id[record["cluster_id"]] = record
 
+    target_json = _canonical_history_json([by_id[key] for key in sorted(by_id)])
+    return HistoryUpdate(_sha256(_history_text(path)), _sha256(target_json), target_json)
+
+
+def apply_history_update(update: HistoryUpdate, path: Path = DEFAULT_HISTORY_PATH) -> None:
+    """Atomically install ``update`` unless the history changed unexpectedly.
+
+    Re-applying an already installed target is intentionally a no-op, allowing a
+    crash between filesystem installation and database acknowledgement to resume
+    safely.
+    """
+
+    current_text = _history_text(path)
+    current_hash = _sha256(current_text)
+    if current_hash == update.target_sha256:
+        return
+    if current_hash != update.input_sha256:
+        raise RuntimeError("Story history changed after this newsletter was prepared.")
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps({"stories": list(by_id.values())}, indent=2, sort_keys=True), encoding="utf-8")
+    descriptor, temp_name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent, text=True)
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
+            handle.write(update.target_json)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temp_name, path)
+    finally:
+        if os.path.exists(temp_name):
+            os.unlink(temp_name)
+
+
+def save_story_history(
+    clusters: list[StoryCluster],
+    path: Path = DEFAULT_HISTORY_PATH,
+    retention_days: int = 7,
+) -> None:
+    apply_history_update(build_history_update(clusters, path, retention_days), path)

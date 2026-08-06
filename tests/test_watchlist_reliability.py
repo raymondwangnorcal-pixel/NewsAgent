@@ -24,7 +24,7 @@ from news_agent.watchlist.models import ActivationPreflight, EdgarResult, Entity
 from news_agent.mailer.watchlist_news import deserialize_articles, serialize_articles
 from news_agent.models import Article
 from news_agent.mailer.models import RecipientOutcome
-from news_agent.mailer.state import EmailStateStore
+from news_agent.mailer.state import SCHEMA_VERSION, EmailStateStore
 
 
 def test_entity_map_captures_observed_ethb_and_shop_forms() -> None:
@@ -341,9 +341,18 @@ def test_v2_migration_creates_backup_and_watchlist_schema(tmp_path: Path) -> Non
     backups = list(tmp_path.glob("state.db.v2-backup-*"))
     assert len(backups) == 1
     with sqlite3.connect(path) as migrated:
-        assert migrated.execute("PRAGMA user_version").fetchone()[0] == 3
+        assert migrated.execute("PRAGMA user_version").fetchone()[0] == SCHEMA_VERSION
         tables = {row[0] for row in migrated.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-    assert {"watchlist_source_cache", "watchlist_gate_windows", "watchlist_benchmark_events"}.issubset(tables)
+    assert {
+        "watchlist_source_cache",
+        "watchlist_gate_windows",
+        "watchlist_benchmark_events",
+        "newsletter_runs",
+        "newsletter_candidates",
+        "newsletter_adjudications",
+        "newsletter_manual_examples",
+        "newsletter_review_batches",
+    }.issubset(tables)
 
 
 def test_failed_fetch_does_not_become_successful_daily_cache_entry(tmp_path: Path) -> None:

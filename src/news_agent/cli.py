@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -100,6 +102,16 @@ def _main(argv: list[str] | None = None) -> None:
     parser.add_argument("--review-watchlist-benchmark", action="store_true", help="Review imported benchmark events one at a time and exit.")
     parser.add_argument("--review-watchlist-relationships", action="store_true", help="Review ambiguous Watchlist relationships one at a time and exit.")
     parser.add_argument("--review-watchlist-evaluations", action="store_true", help="Adjudicate rendered Watchlist events and large-move quiet days one at a time.")
+    parser.add_argument("--review-newsletter-evaluations", action="store_true", help="Adjudicate sent and filtered newsletter candidates one at a time.")
+    parser.add_argument("--review-scope", choices=("all", "sent", "filtered"), default="all")
+    parser.add_argument("--review-limit", type=int, default=20)
+    parser.add_argument("--review-days", type=int, default=30)
+    parser.add_argument("--newsletter-review-batch-create", action="store_true", help="Freeze a randomized newsletter filtered-review batch.")
+    parser.add_argument("--newsletter-example-add", action="store_true", help="Add an independently sourced newsletter example.")
+    parser.add_argument("--newsletter-example-import", type=Path, help="Import newsletter examples from JSON or JSONL.")
+    parser.add_argument("--review-newsletter-examples", action="store_true", help="Review independently sourced newsletter examples.")
+    parser.add_argument("--newsletter-evaluation-report", action="store_true", help="Print newsletter relevance metrics and exit.")
+    parser.add_argument("--newsletter-labels-export", type=Path, help="Export newsletter labels as JSONL and exit.")
     parser.add_argument("--activate-watchlist-gate", action="store_true", help="Run a full no-send preflight and activate Gate A.")
     parser.add_argument("--restart-after-gate-failure", action="store_true", help="Run the confirmed no-send recovery health check.")
     parser.add_argument("--implementation-version", help="Version identifier evaluated by the Watchlist preflight.")
@@ -222,6 +234,47 @@ def _main(argv: list[str] | None = None) -> None:
             parser.error("--review-watchlist-evaluations cannot be combined with delivery options")
         _review_watchlist_evaluations(EmailStateStore())
         return
+    if args.review_newsletter_evaluations:
+        if args.dry_run or args.send or args.alerts:
+            parser.error("--review-newsletter-evaluations cannot be combined with delivery options")
+        _review_newsletter_evaluations(EmailStateStore(), args.review_scope, args.review_limit)
+        return
+    if args.newsletter_review_batch_create:
+        if args.dry_run or args.send or args.alerts:
+            parser.error("--newsletter-review-batch-create cannot be combined with delivery options")
+        from news_agent.newsletter_review import LABEL_SCHEMA_VERSION
+        store = EmailStateStore()
+        version, days = store.newsletter_pilot_status(LABEL_SCHEMA_VERSION)
+        batch = store.create_newsletter_review_batch(LABEL_SCHEMA_VERSION)
+        print(f"Created newsletter review batch {batch['batch_id']}." if batch else f"Filtered review unavailable — pilot {days} of 7 eligible days.")
+        return
+    if args.newsletter_example_add or args.newsletter_example_import or args.review_newsletter_examples:
+        if args.dry_run or args.send or args.alerts:
+            parser.error("newsletter example commands cannot be combined with delivery options")
+        store = EmailStateStore()
+        if args.newsletter_example_import:
+            raw = args.newsletter_example_import.read_text(encoding="utf-8")
+            loaded = json.loads(raw) if raw.lstrip().startswith("[") else [json.loads(line) for line in raw.splitlines() if line.strip()]
+            print(f"Imported {store.import_newsletter_examples(loaded)} example(s).")
+        elif args.newsletter_example_add:
+            _add_newsletter_examples(store)
+        else:
+            _review_newsletter_examples(store)
+        return
+    if args.newsletter_evaluation_report:
+        if args.dry_run or args.send or args.alerts:
+            parser.error("--newsletter-evaluation-report cannot be combined with delivery options")
+        from news_agent.newsletter_review import format_newsletter_metrics, newsletter_metrics
+        print(format_newsletter_metrics(newsletter_metrics(EmailStateStore().newsletter_label_rows())))
+        return
+    if args.newsletter_labels_export:
+        if args.dry_run or args.send or args.alerts:
+            parser.error("--newsletter-labels-export cannot be combined with delivery options")
+        rows = EmailStateStore().export_newsletter_labels()
+        args.newsletter_labels_export.parent.mkdir(parents=True, exist_ok=True)
+        args.newsletter_labels_export.write_text("".join(json.dumps(row, sort_keys=True) + "\n" for row in rows), encoding="utf-8")
+        print(f"Exported {len(rows)} newsletter label(s).")
+        return
     if args.email_status:
         if args.dry_run or args.send or args.alerts or args.email_resend is not None:
             parser.error("--email-status cannot be combined with delivery options")
@@ -326,12 +379,15 @@ def _main(argv: list[str] | None = None) -> None:
     openai_mode: OpenAIMode = (
         "off" if args.no_openai else "classify-only" if args.no_openai_drafting else args.openai_mode
     )
+    briefing_date = briefing_today().isoformat()
     result = build_briefing_result_sync(
         openai_mode=openai_mode,
         config=config,
         watchlist_path=args.watchlist,
         history_path=args.history_path,
-        persist_history=args.send and not args.email_rebuild_today,
+        # Production email installs the prepared update only after its edition
+        # and review rows commit; non-email deliveries retain the legacy path.
+        persist_history=args.send and delivery_target not in {"email", "both"} and not args.email_rebuild_today,
         ignore_history=args.ignore_history or args.email_rebuild_today,
     )
     options = FormatOptions.from_config(config.formatting, mode=format_mode)
@@ -458,7 +514,7 @@ def _main(argv: list[str] | None = None) -> None:
                 options=FormatOptions.from_config(config.formatting, mode="email"),
             )
             budget = getattr(result, "openai_budget", None) or OpenAIBudget(config.openai_costs)
-            header = f"Morning Briefing - {briefing_today().isoformat()}"
+            header = f"Morning Briefing - {briefing_date}"
             if args.email_rebuild_today:
                 header += " [Test resend]"
             edition = (
@@ -473,6 +529,14 @@ def _main(argv: list[str] | None = None) -> None:
                     general_articles=getattr(result, "watchlist_candidates", ()),
                     market_quotes=getattr(getattr(result, "stock_snapshot", None), "quotes", {}),
                     use_openai=openai_mode != "off",
+                    briefing_date=briefing_date,
+                    candidate_records=getattr(result, "candidate_records", ()),
+                    history_update=getattr(result, "history_update", None),
+                    pipeline_version=config.importance.calibration_version,
+                    config_hash=hashlib.sha256(repr(config).encode("utf-8")).hexdigest(),
+                    deck_target=config.importance.deck_target,
+                    openai_mode=openai_mode,
+                    history_path=args.history_path,
                 )
             )
             outcomes = service.send_edition(edition)
@@ -491,12 +555,20 @@ def _main(argv: list[str] | None = None) -> None:
                 if args.email_parity
                 else service.prepare_newsletter_edition(
                     email_messages,
-                    f"Morning Briefing - {briefing_today().isoformat()}",
+                    f"Morning Briefing - {briefing_date}",
                     config.enrichment,
                     budget,
                     general_articles=getattr(result, "watchlist_candidates", ()),
                     market_quotes=getattr(getattr(result, "stock_snapshot", None), "quotes", {}),
                     use_openai=openai_mode != "off",
+                    briefing_date=briefing_date,
+                    candidate_records=getattr(result, "candidate_records", ()),
+                    history_update=getattr(result, "history_update", None),
+                    pipeline_version=config.importance.calibration_version,
+                    config_hash=hashlib.sha256(repr(config).encode("utf-8")).hexdigest(),
+                    deck_target=config.importance.deck_target,
+                    openai_mode=openai_mode,
+                    history_path=args.history_path,
                 )
             )
             outcomes = service.send_edition(edition)
@@ -688,6 +760,88 @@ def _review_watchlist_evaluations(store: EmailStateStore) -> None:
             print("Invalid verdict; item left pending.")
             continue
         store.record_adjudication("large_move", str(item["subject_id"]), mapped)
+
+
+def _review_newsletter_evaluations(store: EmailStateStore, scope: str = "all", limit: int = 20) -> None:
+    from news_agent.newsletter_review import LABEL_SCHEMA_VERSION
+    if scope == "filtered":
+        pending = store.pending_newsletter_batch(LABEL_SCHEMA_VERSION)
+        if not pending:
+            _, days = store.newsletter_pilot_status(LABEL_SCHEMA_VERSION)
+            print(f"Filtered review unavailable — pilot {days} of 7 eligible days.")
+            return
+    elif scope == "sent":
+        pending = store.pending_newsletter_evaluations(disposition="selected")
+    else:
+        pending = store.pending_newsletter_evaluations(disposition="selected")
+        filtered = store.pending_newsletter_batch(LABEL_SCHEMA_VERSION)
+        if filtered:
+            pending = [item for pair in zip(pending, filtered) for item in pair] + pending[len(filtered):] + filtered[len(pending):]
+    if not pending:
+        print("No pending newsletter evaluations.")
+        return
+    for item in pending[:limit]:
+        print(f"\n{item['briefing_date']} | {item['disposition']} | {item['headline'] or '(purged headline)'}")
+        if item["canonical_url"]:
+            print(item["canonical_url"])
+        if item["delivered_paragraph"]:
+            print(item["delivered_paragraph"])
+        verdict = input("Verdict [relevant/irrelevant/unclear/deck/details/skip/quit]: ").strip().casefold()
+        if verdict == "deck":
+            for row in store.pending_newsletter_evaluations(disposition="selected"):
+                if row["briefing_date"] == item["briefing_date"]:
+                    print(f"{row['category']}: {row['headline']}")
+            continue
+        if verdict == "details" and item["disposition"] == "filtered":
+            print(f"{item['filter_stage']} / {item['filter_reason_code']} ({item['legacy_skip_reason']})")
+            continue
+        if verdict == "skip":
+            continue
+        if verdict == "quit":
+            return
+        if verdict not in {"relevant", "irrelevant", "unclear"}:
+            print("Invalid verdict; item left pending.")
+            continue
+        reason = ""
+        if verdict != "unclear":
+            reason = input("Reason code: ").strip()
+            if not reason:
+                print("A reason code is required; item left pending.")
+                continue
+        note = input("Optional note: ").strip()
+        store.record_newsletter_label(
+            str(item["candidate_id"]),
+            "sent_story" if item["disposition"] == "selected" else "filtered_candidate",
+            verdict,
+            reason,
+            note,
+            LABEL_SCHEMA_VERSION,
+        )
+
+
+def _add_newsletter_examples(store: EmailStateStore) -> None:
+    while True:
+        date = input("Briefing date (or done): ").strip()
+        if date == "done": return
+        item = {"example_date": date, "headline": input("Headline: ").strip(), "source_url": input("HTTPS URL: ").strip(),
+                "publisher": input("Publisher: ").strip(), "expected_category": input("Category (optional): ").strip(),
+                "why_it_matters": input("Why it matters: ").strip(), "provenance": input("Provenance: ").strip()}
+        try: print(f"Imported {store.import_newsletter_examples([item])} example(s).")
+        except ValueError as exc: print(exc)
+
+
+def _review_newsletter_examples(store: EmailStateStore) -> None:
+    from news_agent.newsletter_review import LABEL_SCHEMA_VERSION
+    for example in store.pending_newsletter_examples():
+        print(f"\n{example['example_date']} | {example['headline']}")
+        matches = store.candidates_for_example(example)
+        candidate_id = str(matches[0]['candidate_id']) if matches else None
+        if candidate_id: print(f"Matched: {matches[0]['headline']}")
+        verdict = input("Verdict [relevant/irrelevant/unclear/skip/quit]: ").strip().casefold()
+        if verdict == "quit": return
+        if verdict == "skip": continue
+        if verdict not in {"relevant", "irrelevant", "unclear"}: print("Invalid verdict."); continue
+        store.review_newsletter_example(int(example['id']), verdict, candidate_id, LABEL_SCHEMA_VERSION)
 
 
 def print_quality_gate_rejections(quality_gate_rejections: object) -> None:

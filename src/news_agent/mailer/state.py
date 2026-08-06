@@ -6,8 +6,10 @@ import html
 import json
 import logging
 import os
+import random
 import sqlite3
 import threading
+import uuid
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -18,7 +20,7 @@ from news_agent.mailer.models import DeliveryState, EmailEdition, RecipientOutco
 
 DEFAULT_STATE_PATH = Path("data/email_state.db")
 DEFAULT_LOCK_PATH = Path("data/email_state.lock")
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 _HELD_LOCKS: set[tuple[Path, int]] = set()
 logger = logging.getLogger(__name__)
 
@@ -35,6 +37,7 @@ class EmailStateStore:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         connection = sqlite3.connect(self.path)
         connection.row_factory = sqlite3.Row
+        connection.execute("PRAGMA foreign_keys = ON")
         self._migrate(connection)
         return connection
 
@@ -43,10 +46,11 @@ class EmailStateStore:
         if version > SCHEMA_VERSION:
             raise RuntimeError("Email state database was created by a newer NewsAgent version.")
         if version == SCHEMA_VERSION:
-            # Version 3 is the unreleased Watchlist migration. Keep additive tables
-            # self-healing while the implementation is developed against local v3
-            # fixtures and databases created by earlier iterations.
+            # Keep additive schemas self-healing while the implementation is
+            # developed against local fixtures and databases created by earlier
+            # iterations.
             self._create_watchlist_schema(connection)
+            self._create_newsletter_schema(connection)
             connection.commit()
             return
         if version == 0:
@@ -82,15 +86,35 @@ class EmailStateStore:
                 "INSERT OR REPLACE INTO schema_migrations(version, applied_at, backup_path) VALUES (3, ?, '')",
                 (_now(),),
             )
+            connection.execute(
+                "INSERT OR REPLACE INTO schema_migrations(version, applied_at, backup_path) VALUES (4, ?, '')",
+                (_now(),),
+            )
             connection.execute(f"PRAGMA user_version = {SCHEMA_VERSION}")
             connection.commit()
             return
         if version == 2:
-            backup_path = self._backup_v2(connection)
+            backup_path = self._backup(connection, version=2)
             connection.execute("ALTER TABLE editions ADD COLUMN edition_kind TEXT NOT NULL DEFAULT 'production'")
             self._create_watchlist_schema(connection)
+            self._create_newsletter_schema(connection)
             connection.execute(
                 "INSERT INTO schema_migrations(version, applied_at, backup_path) VALUES (3, ?, ?)",
+                (_now(), str(backup_path) if backup_path else ""),
+            )
+            connection.execute(
+                "INSERT INTO schema_migrations(version, applied_at, backup_path) VALUES (4, ?, ?)",
+                (_now(), str(backup_path) if backup_path else ""),
+            )
+            connection.execute(f"PRAGMA user_version = {SCHEMA_VERSION}")
+            connection.commit()
+            return
+        if version == 3:
+            backup_path = self._backup(connection, version=3)
+            self._create_watchlist_schema(connection)
+            self._create_newsletter_schema(connection)
+            connection.execute(
+                "INSERT INTO schema_migrations(version, applied_at, backup_path) VALUES (4, ?, ?)",
                 (_now(), str(backup_path) if backup_path else ""),
             )
             connection.execute(f"PRAGMA user_version = {SCHEMA_VERSION}")
@@ -126,18 +150,19 @@ class EmailStateStore:
             """
         )
         self._create_watchlist_schema(connection)
+        self._create_newsletter_schema(connection)
         connection.execute(f"PRAGMA user_version = {SCHEMA_VERSION}")
         if commit:
             connection.commit()
 
-    def _backup_v2(self, connection: sqlite3.Connection) -> Path | None:
+    def _backup(self, connection: sqlite3.Connection, *, version: int) -> Path | None:
         if not self.path.exists() or self.path == Path(":memory:"):
             return None
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-        backup_path = self.path.with_name(f"{self.path.name}.v2-backup-{timestamp}")
+        backup_path = self.path.with_name(f"{self.path.name}.v{version}-backup-{timestamp}")
         suffix = 1
         while backup_path.exists():
-            backup_path = self.path.with_name(f"{self.path.name}.v2-backup-{timestamp}-{suffix}")
+            backup_path = self.path.with_name(f"{self.path.name}.v{version}-backup-{timestamp}-{suffix}")
             suffix += 1
         backup = sqlite3.connect(backup_path)
         try:
@@ -310,6 +335,113 @@ class EmailStateStore:
                 (now, now),
             )
 
+    def _create_newsletter_schema(self, connection: sqlite3.Connection) -> None:
+        connection.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS newsletter_runs (
+                run_id TEXT PRIMARY KEY,
+                briefing_date TEXT NOT NULL,
+                edition_id INTEGER REFERENCES editions(id) ON DELETE SET NULL,
+                pipeline_version TEXT NOT NULL,
+                config_hash TEXT NOT NULL,
+                deck_target INTEGER NOT NULL,
+                candidates_total INTEGER NOT NULL,
+                openai_mode TEXT NOT NULL,
+                history_update_json TEXT,
+                history_applied_at TEXT,
+                history_abandoned_at TEXT,
+                created_at TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS newsletter_candidates (
+                candidate_id TEXT PRIMARY KEY,
+                story_key TEXT NOT NULL,
+                candidate_kind TEXT NOT NULL,
+                run_id TEXT NOT NULL REFERENCES newsletter_runs(run_id) ON DELETE CASCADE,
+                briefing_date TEXT NOT NULL,
+                disposition TEXT NOT NULL CHECK(disposition IN ('selected', 'filtered')),
+                filter_stage TEXT NOT NULL DEFAULT '',
+                filter_reason_code TEXT NOT NULL DEFAULT '',
+                legacy_skip_reason TEXT NOT NULL DEFAULT '',
+                review_stratum TEXT NOT NULL,
+                headline TEXT,
+                category TEXT NOT NULL,
+                culture_lane TEXT NOT NULL DEFAULT '',
+                canonical_url TEXT,
+                all_urls_json TEXT,
+                url_hashes_json TEXT NOT NULL DEFAULT '[]',
+                sources_json TEXT NOT NULL DEFAULT '[]',
+                source_count INTEGER NOT NULL DEFAULT 0,
+                summary_excerpt TEXT,
+                delivered_paragraph TEXT,
+                total_score REAL NOT NULL DEFAULT 0,
+                importance REAL NOT NULL DEFAULT 0,
+                evidence_score REAL NOT NULL DEFAULT 0,
+                quality_score REAL NOT NULL DEFAULT 0,
+                content_quality_penalty REAL NOT NULL DEFAULT 0,
+                llm_importance INTEGER,
+                deck_rank INTEGER,
+                selection_phase TEXT NOT NULL DEFAULT '',
+                is_update INTEGER NOT NULL DEFAULT 0,
+                merged_from_json TEXT NOT NULL DEFAULT '[]',
+                excerpt_purged_at TEXT,
+                created_at TEXT NOT NULL,
+                UNIQUE(run_id, candidate_kind, story_key)
+            );
+            CREATE INDEX IF NOT EXISTS idx_newsletter_candidates_date_disposition
+                ON newsletter_candidates(briefing_date, disposition);
+            CREATE INDEX IF NOT EXISTS idx_newsletter_candidates_run_disposition
+                ON newsletter_candidates(run_id, disposition);
+            CREATE INDEX IF NOT EXISTS idx_newsletter_candidates_story_key
+                ON newsletter_candidates(story_key);
+            CREATE INDEX IF NOT EXISTS idx_newsletter_candidates_stratum_disposition
+                ON newsletter_candidates(review_stratum, disposition);
+            CREATE TABLE IF NOT EXISTS newsletter_adjudications (
+                id INTEGER PRIMARY KEY,
+                subject_type TEXT NOT NULL CHECK(subject_type IN ('sent_story', 'filtered_candidate')),
+                subject_id TEXT NOT NULL REFERENCES newsletter_candidates(candidate_id) ON DELETE CASCADE,
+                verdict TEXT NOT NULL CHECK(verdict IN ('relevant', 'irrelevant', 'unclear')),
+                reason_code TEXT NOT NULL DEFAULT '',
+                reviewer_note TEXT,
+                label_schema_version TEXT NOT NULL,
+                pipeline_version TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                UNIQUE(subject_type, subject_id)
+            );
+            CREATE TABLE IF NOT EXISTS newsletter_manual_examples (
+                id INTEGER PRIMARY KEY,
+                example_date TEXT NOT NULL,
+                headline TEXT,
+                source_url TEXT,
+                source_url_hash TEXT NOT NULL,
+                publisher TEXT NOT NULL,
+                expected_category TEXT NOT NULL DEFAULT '',
+                why_it_matters TEXT,
+                provenance TEXT NOT NULL,
+                verdict TEXT NOT NULL DEFAULT 'pending' CHECK(verdict IN ('pending', 'relevant', 'irrelevant', 'unclear')),
+                matched_candidate_id TEXT REFERENCES newsletter_candidates(candidate_id) ON DELETE SET NULL,
+                match_state TEXT NOT NULL DEFAULT 'unmatched' CHECK(match_state IN ('unmatched', 'matched_sent', 'matched_filtered', 'not_retrieved')),
+                matched_by TEXT NOT NULL DEFAULT '' CHECK(matched_by IN ('', 'url', 'manual')),
+                pipeline_version TEXT,
+                label_schema_version TEXT,
+                imported_at TEXT NOT NULL,
+                reviewed_at TEXT,
+                UNIQUE(example_date, source_url_hash)
+            );
+            CREATE TABLE IF NOT EXISTS newsletter_review_batches (
+                batch_id TEXT PRIMARY KEY,
+                pipeline_version TEXT NOT NULL,
+                label_schema_version TEXT NOT NULL,
+                seed TEXT NOT NULL,
+                window_start TEXT NOT NULL,
+                window_end TEXT NOT NULL,
+                stratum_population_json TEXT NOT NULL,
+                stratum_target_json TEXT NOT NULL,
+                candidate_ids_json TEXT NOT NULL,
+                created_at TEXT NOT NULL
+            );
+            """
+        )
+
     @contextmanager
     def lock(self, path: Path = DEFAULT_LOCK_PATH) -> Iterator[None]:
         lock_key = (path.resolve(), threading.get_ident())
@@ -363,6 +495,312 @@ class EmailStateStore:
                 )
                 row = connection.execute("SELECT * FROM editions WHERE id = ?", (edition_id,)).fetchone()
             return _edition_from_row(row)
+
+    def prepare_newsletter_run(
+        self,
+        *,
+        run_id: str,
+        briefing_date: str,
+        pipeline_version: str,
+        config_hash: str,
+        deck_target: int,
+        openai_mode: str,
+        history_update_json: str | None,
+        subject: str,
+        plain_text: str,
+        html: str,
+        story_ids: list[tuple[str, str]],
+        candidates: list[dict[str, object]],
+    ) -> EmailEdition:
+        """Durably pair the production edition, review frame, and history outbox."""
+        now = _now()
+        with self.connect() as connection:
+            row = connection.execute(
+                "SELECT * FROM editions WHERE local_date = ? AND revision = 1", (briefing_date,)
+            ).fetchone()
+            if row is None:
+                cursor = connection.execute(
+                    """INSERT INTO editions(local_date, subject, plain_text, html, state, article_window_end, created_at, updated_at)
+                       VALUES (?, ?, ?, ?, 'prepared', ?, ?, ?)""",
+                    (briefing_date, subject, plain_text, html, now, now, now),
+                )
+                edition_id = int(cursor.lastrowid)
+                connection.executemany(
+                    "INSERT INTO edition_stories(edition_id, story_id, category, position) VALUES (?, ?, ?, ?)",
+                    [(edition_id, story_id, category, index) for index, (story_id, category) in enumerate(story_ids)],
+                )
+                row = connection.execute("SELECT * FROM editions WHERE id = ?", (edition_id,)).fetchone()
+            edition = _edition_from_row(row)
+            connection.execute(
+                """INSERT INTO newsletter_runs(run_id, briefing_date, edition_id, pipeline_version, config_hash, deck_target,
+                   candidates_total, openai_mode, history_update_json, created_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (run_id, briefing_date, edition.edition_id, pipeline_version, config_hash, deck_target,
+                 len(candidates), openai_mode, history_update_json, now),
+            )
+            columns = (
+                "candidate_id, story_key, candidate_kind, run_id, briefing_date, disposition, filter_stage, filter_reason_code, "
+                "legacy_skip_reason, review_stratum, headline, category, culture_lane, canonical_url, all_urls_json, url_hashes_json, "
+                "sources_json, source_count, summary_excerpt, delivered_paragraph, total_score, importance, evidence_score, quality_score, "
+                "content_quality_penalty, llm_importance, deck_rank, selection_phase, is_update, merged_from_json, created_at"
+            )
+            placeholders = ", ".join("?" for _ in columns.split(", "))
+            for candidate in candidates:
+                values = dict(candidate)
+                values.update(run_id=run_id, briefing_date=briefing_date, created_at=now)
+                connection.execute(
+                    f"INSERT INTO newsletter_candidates({columns}) VALUES ({placeholders})",
+                    tuple(values.get(column) for column in columns.split(", ")),
+                )
+            return edition
+
+    def newsletter_history_update(self, edition_id: int) -> tuple[str, str | None, str | None] | None:
+        with self.connect() as connection:
+            row = connection.execute(
+                "SELECT run_id, history_update_json, history_abandoned_at FROM newsletter_runs WHERE edition_id = ? ORDER BY created_at DESC LIMIT 1",
+                (edition_id,),
+            ).fetchone()
+        return (str(row["run_id"]), row["history_update_json"], row["history_abandoned_at"]) if row else None
+
+    def mark_newsletter_history_applied(self, run_id: str) -> None:
+        with self.connect() as connection:
+            connection.execute(
+                "UPDATE newsletter_runs SET history_applied_at = ?, history_update_json = NULL WHERE run_id = ? AND history_abandoned_at IS NULL",
+                (_now(), run_id),
+            )
+
+    def newsletter_send_allowed(self, edition_id: int) -> bool:
+        with self.connect() as connection:
+            row = connection.execute(
+                "SELECT history_update_json, history_applied_at, history_abandoned_at FROM newsletter_runs WHERE edition_id = ? ORDER BY created_at DESC LIMIT 1",
+                (edition_id,),
+            ).fetchone()
+        return row is None or (row["history_abandoned_at"] is None and (row["history_update_json"] is None or row["history_applied_at"] is not None))
+
+    def record_newsletter_label(
+        self, candidate_id: str, subject_type: str, verdict: str, reason_code: str, reviewer_note: str, label_schema_version: str
+    ) -> None:
+        allowed_reasons = {
+            "trivial", "duplicate_of_other_story", "wrong_category", "thin_evidence", "stale", "promotional",
+            "misleading_framing", "compression_lost_meaning", "gate_too_strict", "evidence_underrated",
+            "single_source_but_credible", "classifier_missed_category", "wrongly_merged", "stale_rule_too_aggressive",
+        }
+        if subject_type not in {"sent_story", "filtered_candidate"} or verdict not in {"relevant", "irrelevant", "unclear"}:
+            raise ValueError("Invalid newsletter review label.")
+        if verdict != "unclear" and reason_code not in allowed_reasons:
+            raise ValueError("A valid reason code is required for conclusive newsletter labels.")
+        with self.connect() as connection:
+            row = connection.execute(
+                "SELECT r.pipeline_version FROM newsletter_candidates c JOIN newsletter_runs r ON r.run_id = c.run_id WHERE c.candidate_id = ?",
+                (candidate_id,),
+            ).fetchone()
+            if row is None:
+                raise ValueError("Unknown newsletter candidate.")
+            if subject_type == "filtered_candidate":
+                batches = connection.execute("SELECT candidate_ids_json FROM newsletter_review_batches WHERE label_schema_version = ?", (label_schema_version,)).fetchall()
+                if not any(candidate_id in json.loads(str(batch["candidate_ids_json"])) for batch in batches):
+                    raise ValueError("Filtered candidates may be labelled only from a frozen review batch.")
+            connection.execute(
+                """INSERT INTO newsletter_adjudications(subject_type, subject_id, verdict, reason_code, reviewer_note,
+                   label_schema_version, pipeline_version, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                (subject_type, candidate_id, verdict, reason_code, reviewer_note, label_schema_version, row["pipeline_version"], _now()),
+            )
+
+    def newsletter_label_rows(self, pipeline_version: str | None = None) -> list[dict[str, object]]:
+        query = "SELECT a.subject_type, a.verdict, a.pipeline_version, a.label_schema_version, c.category, c.review_stratum FROM newsletter_adjudications a JOIN newsletter_candidates c ON c.candidate_id=a.subject_id"
+        args: tuple[object, ...] = ()
+        if pipeline_version:
+            query += " WHERE a.pipeline_version = ?"
+            args = (pipeline_version,)
+        with self.connect() as connection:
+            return [dict(row) for row in connection.execute(query, args).fetchall()]
+
+    def pending_newsletter_evaluations(self, *, disposition: str | None = None) -> list[dict[str, object]]:
+        query = """
+            SELECT c.*, r.pipeline_version FROM newsletter_candidates c
+            JOIN newsletter_runs r ON r.run_id = c.run_id
+            LEFT JOIN newsletter_adjudications a ON a.subject_id = c.candidate_id
+            JOIN editions e ON e.id = r.edition_id
+            WHERE a.id IS NULL AND e.edition_kind = 'production'
+              AND (c.disposition = 'filtered' OR e.state = 'smtp_accepted')
+        """
+        params: list[object] = []
+        if disposition:
+            query += " AND c.disposition = ?"
+            params.append(disposition)
+        # Diagnostics are non-metric work; keep their review order predictable and
+        # oldest-first. Frozen randomized batches supply population estimates.
+        query += " ORDER BY c.briefing_date ASC, c.created_at ASC, c.candidate_id ASC"
+        with self.connect() as connection:
+            return [dict(row) for row in connection.execute(query, params).fetchall()]
+
+    def newsletter_pilot_status(self, label_schema_version: str) -> tuple[str | None, int]:
+        """Return the newest comparable production version and its eligible days."""
+        with self.connect() as connection:
+            row = connection.execute("""
+                SELECT r.pipeline_version, COUNT(DISTINCT r.briefing_date) AS days
+                FROM newsletter_runs r JOIN editions e ON e.id = r.edition_id
+                WHERE e.edition_kind = 'production' AND e.state = 'smtp_accepted'
+                  AND r.openai_mode != 'off'
+                GROUP BY r.pipeline_version ORDER BY MAX(r.created_at) DESC LIMIT 1
+            """).fetchone()
+        return (str(row["pipeline_version"]), int(row["days"])) if row else (None, 0)
+
+    def create_newsletter_review_batch(self, label_schema_version: str) -> dict[str, object] | None:
+        version, days = self.newsletter_pilot_status(label_schema_version)
+        if version is None or days < 7:
+            return None
+        with self.connect() as connection:
+            existing = connection.execute("""
+                SELECT * FROM newsletter_review_batches WHERE pipeline_version = ?
+                  AND label_schema_version = ? ORDER BY created_at DESC LIMIT 1
+            """, (version, label_schema_version)).fetchone()
+            if existing is not None:
+                return dict(existing)
+            rows = connection.execute("""
+                SELECT c.candidate_id, c.review_stratum, c.briefing_date
+                FROM newsletter_candidates c JOIN newsletter_runs r ON r.run_id = c.run_id
+                JOIN editions e ON e.id = r.edition_id
+                LEFT JOIN newsletter_adjudications a ON a.subject_id = c.candidate_id
+                WHERE c.disposition = 'filtered' AND a.id IS NULL AND r.pipeline_version = ?
+                  AND r.openai_mode != 'off' AND e.edition_kind = 'production' AND e.state = 'smtp_accepted'
+                ORDER BY c.candidate_id
+            """, (version,)).fetchall()
+            if not rows:
+                return None
+            grouped: dict[str, list[str]] = {}
+            for row in rows:
+                grouped.setdefault(str(row["review_stratum"]), []).append(str(row["candidate_id"]))
+            population = {key: len(value) for key, value in grouped.items()}
+            total = sum(population.values())
+            targets = {key: (25 if count / total >= .15 or key in {"near_miss", "mid"} else 10) for key, count in population.items()}
+            seed = hashlib.sha256(uuid.uuid4().bytes).hexdigest()
+            rng = random.Random(seed)
+            chosen: list[str] = []
+            for key in sorted(grouped):
+                pool = grouped[key]
+                chosen.extend(rng.sample(pool, min(len(pool), (targets[key] + 4) // 5)))
+            batch = {
+                "batch_id": uuid.uuid4().hex, "pipeline_version": version, "label_schema_version": label_schema_version,
+                "seed": seed, "window_start": min(str(row["briefing_date"]) for row in rows),
+                "window_end": max(str(row["briefing_date"]) for row in rows),
+                "stratum_population_json": json.dumps(population, sort_keys=True),
+                "stratum_target_json": json.dumps(targets, sort_keys=True),
+                "candidate_ids_json": json.dumps(sorted(chosen)), "created_at": _now(),
+            }
+            connection.execute("""INSERT INTO newsletter_review_batches VALUES
+                (:batch_id, :pipeline_version, :label_schema_version, :seed, :window_start, :window_end,
+                 :stratum_population_json, :stratum_target_json, :candidate_ids_json, :created_at)""", batch)
+            return batch
+
+    def pending_newsletter_batch(self, label_schema_version: str) -> list[dict[str, object]]:
+        with self.connect() as connection:
+            batches = connection.execute("""SELECT * FROM newsletter_review_batches WHERE label_schema_version = ?
+                ORDER BY created_at ASC""", (label_schema_version,)).fetchall()
+            for batch in batches:
+                ids = json.loads(str(batch["candidate_ids_json"]))
+                if not ids:
+                    continue
+                marks = ",".join("?" for _ in ids)
+                rows = connection.execute(f"""SELECT c.*, r.pipeline_version FROM newsletter_candidates c
+                    JOIN newsletter_runs r ON r.run_id=c.run_id LEFT JOIN newsletter_adjudications a ON a.subject_id=c.candidate_id
+                    WHERE c.candidate_id IN ({marks}) AND a.id IS NULL ORDER BY c.briefing_date, c.candidate_id""", ids).fetchall()
+                if rows:
+                    return [dict(row) for row in rows]
+        return []
+
+    @staticmethod
+    def _newsletter_url_hash(url: str) -> str:
+        from news_agent.newsletter_review import _normal_url
+        return hashlib.sha256(_normal_url(url).encode("utf-8")).hexdigest()
+
+    def import_newsletter_examples(self, items: list[dict[str, str]]) -> int:
+        allowed = {"manual_recall", "external_outlet", "reader_report", "historical_case"}
+        inserted = 0
+        with self.connect() as connection:
+            for item in items:
+                url = item.get("source_url", "").strip()
+                if not url.startswith("https://") or not item.get("headline", "").strip() or not item.get("why_it_matters", "").strip() or item.get("provenance") not in allowed:
+                    raise ValueError("Newsletter examples require headline, HTTPS URL, rationale, and independent provenance.")
+                cursor = connection.execute("""INSERT OR IGNORE INTO newsletter_manual_examples
+                    (example_date, headline, source_url, source_url_hash, publisher, expected_category, why_it_matters, provenance, imported_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""", (item["example_date"], item["headline"], url,
+                    self._newsletter_url_hash(url), item.get("publisher", ""), item.get("expected_category", ""),
+                    item["why_it_matters"], item["provenance"], _now()))
+                inserted += cursor.rowcount
+        return inserted
+
+    def pending_newsletter_examples(self) -> list[dict[str, object]]:
+        with self.connect() as connection:
+            return [dict(row) for row in connection.execute("SELECT * FROM newsletter_manual_examples WHERE verdict='pending' ORDER BY example_date, id").fetchall()]
+
+    def candidates_for_example(self, example: dict[str, object]) -> list[dict[str, object]]:
+        with self.connect() as connection:
+            rows = connection.execute("""SELECT c.*, r.pipeline_version FROM newsletter_candidates c JOIN newsletter_runs r ON r.run_id=c.run_id
+                JOIN editions e ON e.id=r.edition_id WHERE r.briefing_date=? AND e.edition_kind='production' AND e.state='smtp_accepted'
+                ORDER BY c.candidate_id""", (example["example_date"],)).fetchall()
+        hash_value = str(example["source_url_hash"])
+        return [dict(row) for row in rows if hash_value in json.loads(str(row["url_hashes_json"]))]
+
+    def review_newsletter_example(self, example_id: int, verdict: str, candidate_id: str | None, label_schema_version: str) -> None:
+        if verdict not in {"relevant", "irrelevant", "unclear"}:
+            raise ValueError("Invalid newsletter example verdict.")
+        with self.connect() as connection:
+            version = None
+            state = "not_retrieved"
+            if candidate_id:
+                row = connection.execute("SELECT c.disposition, r.pipeline_version FROM newsletter_candidates c JOIN newsletter_runs r ON r.run_id=c.run_id WHERE c.candidate_id=?", (candidate_id,)).fetchone()
+                if row is None: raise ValueError("Unknown newsletter candidate.")
+                version, state = str(row["pipeline_version"]), "matched_sent" if row["disposition"] == "selected" else "matched_filtered"
+            else:
+                example = connection.execute("SELECT example_date FROM newsletter_manual_examples WHERE id=?", (example_id,)).fetchone()
+                if example is not None:
+                    run = connection.execute("""SELECT r.pipeline_version FROM newsletter_runs r JOIN editions e ON e.id=r.edition_id
+                        WHERE r.briefing_date=? AND e.edition_kind='production' AND e.state='smtp_accepted' ORDER BY r.created_at DESC LIMIT 1""", (example["example_date"],)).fetchone()
+                    version = str(run["pipeline_version"]) if run else None
+            connection.execute("""UPDATE newsletter_manual_examples SET verdict=?, matched_candidate_id=?, match_state=?, matched_by=?,
+                pipeline_version=?, label_schema_version=?, reviewed_at=? WHERE id=? AND verdict='pending'""",
+                (verdict, candidate_id, state, "url" if candidate_id else "manual", version, label_schema_version, _now(), example_id))
+
+    def export_newsletter_labels(self) -> list[dict[str, object]]:
+        with self.connect() as connection:
+            return [dict(row) for row in connection.execute("""SELECT a.*, c.briefing_date, c.category, c.review_stratum
+                FROM newsletter_adjudications a JOIN newsletter_candidates c ON c.candidate_id=a.subject_id
+                ORDER BY c.briefing_date, a.subject_type, a.subject_id""").fetchall()]
+
+    def cleanup_newsletter_retention(self, *, now: datetime | None = None) -> dict[str, int]:
+        now = now or datetime.now(timezone.utc)
+        def cutoff(days: int) -> str: return (now - timedelta(days=days)).isoformat()
+        with self.connect() as connection:
+            values: dict[str, int] = {}
+            for table, fields, days in (("newsletter_candidates", "headline=NULL, canonical_url=NULL, all_urls_json=NULL, summary_excerpt=NULL, delivered_paragraph=NULL, excerpt_purged_at=?", 30),
+                                        ("newsletter_adjudications", "reviewer_note=NULL", 30),
+                                        ("newsletter_manual_examples", "headline=NULL, source_url=NULL, why_it_matters=NULL", 30)):
+                params = (_now(), cutoff(days)) if table == "newsletter_candidates" else (cutoff(days),)
+                condition = "created_at < ? AND excerpt_purged_at IS NULL" if table == "newsletter_candidates" else ("created_at < ? AND reviewer_note IS NOT NULL" if table == "newsletter_adjudications" else "imported_at < ? AND (headline IS NOT NULL OR source_url IS NOT NULL OR why_it_matters IS NOT NULL)")
+                cursor = connection.execute(f"UPDATE {table} SET {fields} WHERE {condition}", params)
+                values[table] = cursor.rowcount
+            connection.execute("DELETE FROM newsletter_adjudications WHERE created_at < ?", (cutoff(365),))
+            cursor = connection.execute("""DELETE FROM newsletter_candidates WHERE created_at < ? AND candidate_id NOT IN
+                (SELECT subject_id FROM newsletter_adjudications)""", (cutoff(180),))
+            values["expired_candidates"] = cursor.rowcount
+            values["expired_examples"] = connection.execute(
+                "DELETE FROM newsletter_manual_examples WHERE imported_at < ?", (cutoff(365),)
+            ).rowcount
+            values["expired_batches"] = connection.execute(
+                "DELETE FROM newsletter_review_batches WHERE created_at < ?", (cutoff(400),)
+            ).rowcount
+            values["expired_runs"] = connection.execute("""DELETE FROM newsletter_runs WHERE created_at < ?
+                AND run_id NOT IN (SELECT run_id FROM newsletter_candidates)""", (cutoff(400),)).rowcount
+            stale = connection.execute("""SELECT run_id, edition_id FROM newsletter_runs
+                WHERE briefing_date < ? AND history_update_json IS NOT NULL AND history_applied_at IS NULL AND history_abandoned_at IS NULL""",
+                (now.date().isoformat(),)).fetchall()
+            for row in stale:
+                connection.execute("UPDATE newsletter_runs SET history_update_json=NULL, history_abandoned_at=? WHERE run_id=?", (_now(), row["run_id"]))
+                if row["edition_id"] is not None:
+                    connection.execute("UPDATE editions SET state='failed', updated_at=? WHERE id=? AND state='prepared'", (_now(), row["edition_id"]))
+            values["abandoned_history"] = len(stale)
+            return values
 
     def prepare_test_revision(self, local_date: str, subject: str, plain_text: str, html: str, story_ids: list[tuple[str, str]]) -> EmailEdition:
         now = _now()

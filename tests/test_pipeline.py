@@ -253,6 +253,42 @@ def test_floor_relaxes_non_culture_source_cap_only_as_needed() -> None:
     assert result.source_cap_relaxed_by_category["finance"] == 1
 
 
+def test_selection_outcomes_record_source_cap_before_culture_lane_cap() -> None:
+    config = minimal_config()
+    selected = []
+    for index in range(2):
+        story = cluster(f"culture-selected-{index}", "Culture", 20 - index, category="culture")
+        story.culture_lane = "music"
+        story.articles = [make_article(story.title, f"https://example.com/culture/{index}", "Context", "Shared")]
+        selected.append(story)
+    blocked = cluster("culture-blocked", "Culture", 10, category="culture")
+    blocked.culture_lane = "music"
+    blocked.articles = [make_article(blocked.title, "https://example.com/culture/blocked", "Context", "Shared")]
+
+    result = pipeline.select_importance_deck([*selected, blocked], config)
+    outcomes = {outcome.subject.key: outcome for outcome in result.outcomes}
+
+    assert outcomes["culture-blocked"].filter_reason_code == "selection_source_cap"
+
+
+def test_selection_outcomes_record_culture_lane_cap_when_source_has_capacity() -> None:
+    config = minimal_config()
+    selected = []
+    for index in range(2):
+        story = cluster(f"culture-selected-{index}", "Culture", 20 - index, category="culture")
+        story.culture_lane = "music"
+        story.articles = [make_article(story.title, f"https://example.com/culture/{index}", "Context", f"Source {index}")]
+        selected.append(story)
+    blocked = cluster("culture-blocked", "Culture", 10, category="culture")
+    blocked.culture_lane = "music"
+    blocked.articles = [make_article(blocked.title, "https://example.com/culture/blocked", "Context", "Available")]
+
+    result = pipeline.select_importance_deck([*selected, blocked], config)
+    outcomes = {outcome.subject.key: outcome for outcome in result.outcomes}
+
+    assert outcomes["culture-blocked"].filter_reason_code == "selection_culture_lane_cap"
+
+
 def test_big_day_phase_never_exceeds_deck_target_or_category_maximum() -> None:
     stories: list[StoryCluster] = []
     for category in ("business_tech", "domestic", "global", "finance"):

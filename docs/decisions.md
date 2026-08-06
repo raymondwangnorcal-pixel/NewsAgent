@@ -1163,3 +1163,235 @@
 - Superseded by: none
 - Note: Unavailable Item 7.01 documents now skip only that filing and permit the EDGAR watermark to advance; regression coverage passed.
 - Privacy waivers: none
+
+## DEC-0063 — Derive newsletter delivery exposure from edition state
+
+- Date: 2026-08-05
+- Owner: shared
+- Status at record: active
+- Decision: Determine whether a selected newsletter candidate was sent by joining its run to the existing production edition state, and do not duplicate delivery state on candidate rows.
+- Rationale: The existing edition and per-recipient delivery records already define SMTP acceptance, while a second candidate-level state machine could drift and introduced an unsupported repair state.
+- Scope: Newsletter candidate schema, edition persistence, SMTP outcome attribution, sent-story metrics, and operational diagnostics.
+- Implementation: pending
+- Recorded against HEAD: `99e502309063417db257beb73b129ee7046f5501`
+- Supersedes: none
+- Evidence: `Newsletter_trainplan.md` §§3.2, 4, 8.1, and 8.3, revised after the user-requested design review on 2026-08-05.
+- Privacy waivers: none
+
+## DEC-0064 — Calibrate newsletter review sampling from a production pilot
+
+- Date: 2026-08-05
+- Owner: shared
+- Status at record: active
+- Decision: Replace fixed newsletter review-slot percentages with a seven-production-day pilot, frozen per-stratum population counts, and explicit conclusive-label targets while retaining every nonempty strict-filter stratum.
+- Rationale: Available production logs show that a fixed five-percent hard-reject allocation can underpower a materially large stratum and conflict with the minimum denominators required for a population estimate.
+- Scope: Newsletter review batches, strata, reviewer workload, false-negative estimation, confidence reporting, and Phase N7 completion.
+- Implementation: pending
+- Recorded against HEAD: `99e502309063417db257beb73b129ee7046f5501`
+- Supersedes: DEC-0058
+- Evidence: `Newsletter_trainplan.md` §§3.5, 6.2, 7.2, and 7.5, revised after the user-requested design review on 2026-08-05.
+- Privacy waivers: none
+
+## DEC-0065 — Purge raw newsletter review fields after 30 days
+
+- Date: 2026-08-05
+- Owner: shared
+- Status at record: active
+- Decision: Null source-derived newsletter titles, excerpts, delivered text, direct source URLs, manual-example rationale, and reviewer notes after 30 days while retaining one-way URL or content hashes and structured metadata for their approved longer periods.
+- Rationale: The clarified boundary preserves occurrence matching and aggregate evaluation without retaining raw review material longer than the active review window.
+- Scope: Newsletter candidate and manual-example schema, retention cleanup, matching, exports, fixtures, and privacy tests.
+- Implementation: pending
+- Recorded against HEAD: `99e502309063417db257beb73b129ee7046f5501`
+- Supersedes: none
+- Evidence: `Newsletter_trainplan.md` §§3.2, 3.4, 6.4, 8.2, and 11.1, revised after the user-requested design review on 2026-08-05.
+- Privacy waivers: none
+
+## Update — 2026-08-05 — DEC-0058
+
+- Type: supersession
+- Implementation commit: not applicable
+- Superseded by: DEC-0064
+- Note: Strict-filter candidates remain mandatory, but pilot-calibrated targets replace the fixed combined twenty-percent allocation.
+- Privacy waivers: none
+
+## DEC-0066 — Gate newsletter SMTP on resumable review and history state
+
+- Date: 2026-08-05
+- Owner: shared
+- Status at record: active
+- Decision: Persist each production newsletter, its review frame, and a hash-checked history outbox before SMTP; retry only bounded SQLite lock failures, resume a complete edition within the same briefing date, and abandon any still-pending edition at date rollover.
+- Rationale: Review persistence must not create an unmeasurable send, while transient database or history acknowledgement failures should reuse the already-rendered edition without repeating model work or risking a stale delivery.
+- Scope: Newsletter preparation transactions, story history, SMTP and resend guards, CLI error handling, launchd retry behaviour, retention, and reliability tests.
+- Implementation: pending
+- Recorded against HEAD: `b88534311b6322f11893f4ea2fb06c653fc8ced0`
+- Supersedes: none
+- Evidence: `Newsletter_trainplan.md` §§3.1, 4, 8.2, 8.3, and 9, revised after the post-revision review on 2026-08-05.
+- Privacy waivers: none
+
+## DEC-0067 — Freeze the first filtered review frame before labelling
+
+- Date: 2026-08-05
+- Owner: shared
+- Status at record: active
+- Decision: Allow sent-story and manual-example review during the seven-day newsletter pilot, but reject every filtered-candidate adjudication until an eligible version-scoped pilot completes and an explicit immutable randomized batch is frozen.
+- Rationale: Early ad hoc filtered labels could consume or bias candidates that must remain eligible for the first population-estimating sample.
+- Scope: Newsletter review CLI, pilot progress, batch creation, adjudication validation, sampling, and false-negative metrics.
+- Implementation: pending
+- Recorded against HEAD: `b88534311b6322f11893f4ea2fb06c653fc8ced0`
+- Supersedes: none
+- Evidence: `Newsletter_trainplan.md` §§5, 6.2, 9, and 10, revised after the post-revision review on 2026-08-05.
+- Privacy waivers: none
+
+## DEC-0068 — Hide newsletter filter diagnostics before the initial verdict
+
+- Date: 2026-08-05
+- Owner: shared
+- Status at record: active
+- Decision: Present the accepted daily deck on demand during newsletter review while hiding terminal and legacy filter diagnostics until the reviewer explicitly requests details.
+- Rationale: The comparative deck is required to judge finite newsletter capacity, whereas showing the pipeline's rejection reason first can anchor the human verdict on the rule under evaluation.
+- Scope: Newsletter review prompt, reviewer commands, rubric application, and interaction tests.
+- Implementation: pending
+- Recorded against HEAD: `b88534311b6322f11893f4ea2fb06c653fc8ced0`
+- Supersedes: none
+- Evidence: `Newsletter_trainplan.md` §§5.1, 6.1, 9, and 16, revised after the post-revision review on 2026-08-05.
+- Privacy waivers: none
+
+## DEC-0069 — Freeze the briefing date and commit a delivery lease with history
+
+- Date: 2026-08-05
+- Owner: shared
+- Status at record: active
+- Decision: Capture one briefing date under the production build lock, use it for every dated artifact, abandon the edition if that date expires before history installation, and treat durable history acknowledgement as the commit point after which the exact edition proceeds to SMTP without another date check.
+- Rationale: A single clock snapshot prevents mixed-date rows and files, while the delivery lease avoids abandoning an edition after history has already been mutated but before SMTP begins.
+- Scope: Production CLI clock handling, pipeline inputs, dated diagnostics, newsletter runs, history outbox, rollover abandonment, SMTP, and fault tests.
+- Implementation: pending
+- Recorded against HEAD: `9ed7eab60c3afd8b49d14c671560a7ae7e83e7fd`
+- Supersedes: none
+- Evidence: `Newsletter_trainplan.md` §§3.1, 4, 8.3, 9, and 17, revised after the third-pass review on 2026-08-05.
+- Privacy waivers: none
+
+## DEC-0070 — Keep newsletter metrics scoped to the producing pipeline version
+
+- Date: 2026-08-05
+- Owner: shared
+- Status at record: active
+- Decision: Never pool sent, filtered, or manual-example newsletter metrics across pipeline or rubric versions; retain earlier labels as version-scoped historical evidence and stamp resolved manual examples with both versions.
+- Rationale: The reviewer rubric may remain stable, but false-positive, false-negative, and miss rates measure the selector that produced or missed each story, so cross-version pooling would obscure regressions and invalidate attribution.
+- Scope: Newsletter manual-example schema and review, pilot resets, metric grouping, minimum denominators, reports, retention, and Phase N7 scheduling.
+- Implementation: pending
+- Recorded against HEAD: `9ed7eab60c3afd8b49d14c671560a7ae7e83e7fd`
+- Supersedes: none
+- Evidence: `Newsletter_trainplan.md` §§3.4, 6.2, 6.4, 7, 9, 10, and 17, revised after the third-pass review on 2026-08-05.
+- Privacy waivers: none
+
+## DEC-0071 — Capture newsletter review outcomes at existing terminal decision points
+
+- Date: 2026-08-05
+- Owner: user
+- Status at record: active
+- Decision: Refactor only the existing quality, history, evidence, classification, duplicate, and final-selection discard points to emit durable review decision events, without redesigning briefing scoring, selection, or rendering.
+- Rationale: Durable metrics require the exact terminal reason for every reviewed occurrence, but the pipeline currently discards some candidates before the final result can observe them.
+- Scope: Pipeline decision-event plumbing, newsletter candidate records, persistence, and tests.
+- Implementation: pending
+- Recorded against HEAD: `b1b2b853d8532582fd24c17d91bca3c38c6835c4`
+- Supersedes: none
+- Evidence: User direction following the Newsletter training-plan implementation review on 2026-08-05.
+- Privacy waivers: none
+
+## DEC-0072 — Prefer Culture source-cap reason when both Culture constraints bind
+
+- Date: 2026-08-06
+- Owner: user
+- Status at record: active
+- Decision: Record `selection_source_cap` for a Culture candidate when both source and lane capacity bind; record `selection_culture_lane_cap` only when source capacity remains.
+- Rationale: This preserves the selector's established constraint-check order and yields one deterministic terminal reason for review metrics.
+- Scope: Final Culture selection outcomes, candidate review records, and selection precedence tests.
+- Implementation: pending
+- Recorded against HEAD: `72adcb70e9037de6523dbf0c307a1abf662db1e6`
+- Supersedes: none
+- Evidence: User confirmation on 2026-08-06; `Newsletter_trainplan.md` §4.
+- Privacy waivers: none
+
+## DEC-0073 — Order non-metric newsletter diagnostics oldest first
+
+- Date: 2026-08-06
+- Owner: user
+- Status at record: active
+- Decision: Present the separate non-metric newsletter diagnostic queue oldest first, while keeping population metrics limited to immutable randomized batches.
+- Rationale: Oldest-first review is simple, predictable, and preserves the randomized sampling frame from diagnostic-order bias.
+- Scope: Newsletter review pending queries and CLI ordering; it does not alter frozen-batch membership or metric calculations.
+- Implementation: pending
+- Recorded against HEAD: `72adcb70e9037de6523dbf0c307a1abf662db1e6`
+- Supersedes: none
+- Evidence: User direction on 2026-08-06; `Newsletter_trainplan.md` §§6.2 and 14.
+- Privacy waivers: none
+
+## DEC-0074 — Sample sent-story reviews across briefing days
+
+- Date: 2026-08-06
+- Owner: user
+- Status at record: active
+- Decision: Sample SMTP-accepted sent stories across multiple briefing days instead of requiring complete review of selected daily decks.
+- Rationale: Sampling across days provides broader coverage and avoids treating one highly correlated day's deck as a representative precision sample.
+- Scope: Sent-story pending queries, review-loop ordering, review limits, and newsletter false-positive metrics.
+- Implementation: pending
+- Recorded against HEAD: `72adcb70e9037de6523dbf0c307a1abf662db1e6`
+- Supersedes: none
+- Evidence: User direction on 2026-08-06; `Newsletter_trainplan.md` §14.
+- Privacy waivers: none
+
+## DEC-0075 — Start newsletter review history clean
+
+- Date: 2026-08-06
+- Owner: user
+- Status at record: active
+- Decision: Do not import historical newsletter JSON logs into the review corpus; begin with durable candidate records captured by the current pipeline.
+- Rationale: Older logs lack reliable terminal decision stages and occurrence identities, so importing them would weaken review attribution even if excluded from metrics.
+- Scope: Newsletter backfill, review corpus eligibility, pilot framing, and import commands.
+- Implementation: pending
+- Recorded against HEAD: `72adcb70e9037de6523dbf0c307a1abf662db1e6`
+- Supersedes: none
+- Evidence: User direction on 2026-08-06; `Newsletter_trainplan.md` §§3.6 and 14.
+- Privacy waivers: none
+
+## DEC-0076 — Keep the initial per-category sent-story label floor at 15
+
+- Date: 2026-08-06
+- Owner: user
+- Status at record: active
+- Decision: Require at least 15 sent-story labels per category initially, including Culture, and reassess only after a version-scoped pilot.
+- Rationale: A common initial floor keeps the first review window comparable; Culture's lane-diversity behavior should justify a higher threshold with observed evidence rather than speculation.
+- Scope: Sent-story review coverage, per-category false-positive reporting, pilot thresholds, and future metric-policy changes.
+- Implementation: pending
+- Recorded against HEAD: `72adcb70e9037de6523dbf0c307a1abf662db1e6`
+- Supersedes: none
+- Evidence: User direction on 2026-08-06; `Newsletter_trainplan.md` §§7.5 and 14.
+- Privacy waivers: none
+
+## DEC-0077 — Persist production sends made with OpenAI disabled
+
+- Date: 2026-08-06
+- Owner: user
+- Status at record: active
+- Decision: Persist and tag production newsletter sends made with `--openai-mode off` for review rather than omitting them.
+- Rationale: Budget-constrained or degraded-mode days are important operational evidence; version-scoped metrics prevent them from being inappropriately pooled with incompatible runs.
+- Scope: Newsletter run persistence, candidate capture, review eligibility, version tagging, and reports.
+- Implementation: pending
+- Recorded against HEAD: `72adcb70e9037de6523dbf0c307a1abf662db1e6`
+- Supersedes: none
+- Evidence: User direction on 2026-08-06; `Newsletter_trainplan.md` §14.
+- Privacy waivers: none
+
+## DEC-0078 — Discard generated August 5 newsletter run artifacts
+
+- Date: 2026-08-06
+- Owner: user
+- Status at record: active
+- Decision: Discard the generated August 5 newsletter run artifacts and restore the generated lock and story-history files to their tracked state.
+- Rationale: These local run outputs are not part of the intended implementation change and should not remain as ambiguous working-tree state.
+- Scope: August 5 category-assignment, compression-audit, quality-rejection, skipped-story, lock, and story-history artifacts.
+- Implementation: pending
+- Recorded against HEAD: `72adcb70e9037de6523dbf0c307a1abf662db1e6`
+- Supersedes: none
+- Evidence: User direction on 2026-08-06; prior handoff outstanding task.
+- Privacy waivers: none

@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from news_agent.history import apply_history, save_story_history
+import pytest
+
+from news_agent.history import apply_history, apply_history_update, build_history_update, save_story_history
 from news_agent.models import Article, StoryCluster
 
 
@@ -70,3 +72,28 @@ def test_history_keeps_same_company_different_story(tmp_path) -> None:
 
     assert not different.skip_reason
     assert different.is_update is False
+
+
+def test_history_update_is_idempotent_after_database_acknowledgement_failure(tmp_path) -> None:
+    path = tmp_path / "story_history.json"
+    fixed_now = datetime(2026, 8, 5, tzinfo=timezone.utc)
+    update = build_history_update([cluster("Nvidia rises after earnings beat")], path, now=fixed_now)
+
+    apply_history_update(update, path)
+    first_text = path.read_text(encoding="utf-8")
+    apply_history_update(update, path)
+
+    assert path.read_text(encoding="utf-8") == first_text
+
+
+def test_history_update_refuses_unexpected_history_change(tmp_path) -> None:
+    path = tmp_path / "story_history.json"
+    update = build_history_update(
+        [cluster("Nvidia rises after earnings beat")],
+        path,
+        now=datetime(2026, 8, 5, tzinfo=timezone.utc),
+    )
+    path.write_text('{"stories": [{"cluster_id": "other"}]}', encoding="utf-8")
+
+    with pytest.raises(RuntimeError, match="changed after"):
+        apply_history_update(update, path)

@@ -6,6 +6,7 @@ import uuid
 from dataclasses import replace
 from datetime import datetime
 from collections.abc import Mapping
+from pathlib import Path
 from urllib.parse import urlparse
 
 from news_agent.formatting import FormattedMessage
@@ -15,6 +16,8 @@ from news_agent.mailer.render import render_minimal_newsletter, render_watchlist
 from news_agent.mailer.settings import email_settings_from_env
 from news_agent.mailer.smtp import SMTPFactory, send_email
 from news_agent.mailer.state import EmailStateStore
+from news_agent.history import HistoryUpdate, apply_history_update
+from news_agent.newsletter_review import CandidateRecord, bind_run_id
 from news_agent.mailer.quotes import (
     EndOfDayQuote,
     expected_quote_close_date,
@@ -70,6 +73,14 @@ class EmailService:
         market_quotes: Mapping[str, StockQuote] | None = None,
         use_openai: bool = True,
         read_edgar_state: bool = False,
+        briefing_date: str | None = None,
+        candidate_records: tuple[CandidateRecord, ...] = (),
+        history_update: HistoryUpdate | None = None,
+        pipeline_version: str = "",
+        config_hash: str = "",
+        deck_target: int = 0,
+        openai_mode: str = "",
+        history_path: Path | None = None,
     ) -> EmailEdition:
         rendered, stories = self.render_newsletter(
             messages,
@@ -85,7 +96,7 @@ class EmailService:
             use_openai=use_openai,
             read_edgar_state=read_edgar_state,
         )
-        today = briefing_now().date().isoformat()
+        today = briefing_date or briefing_now().date().isoformat()
         story_ids = [(message.title, "general") for message in messages]
         story_ids.extend(
             (event_id, f"watchlist:{story.ticker}")
@@ -101,7 +112,25 @@ class EmailService:
         )
         if gate_state == "FAIL":
             return self.store.prepare_gate_failure_alert(today)
-        return self.store.prepare_edition(today, rendered.subject, rendered.plain_text, rendered.html, story_ids)
+        run_id = uuid.uuid4().hex
+        edition = self.store.prepare_newsletter_run(
+            run_id=run_id,
+            briefing_date=today,
+            pipeline_version=pipeline_version or "unknown",
+            config_hash=config_hash or "unknown",
+            deck_target=deck_target,
+            openai_mode=openai_mode or "unknown",
+            history_update_json=history_update.to_json() if history_update else None,
+            subject=rendered.subject,
+            plain_text=rendered.plain_text,
+            html=rendered.html,
+            story_ids=story_ids,
+            candidates=[record.as_db_dict() for record in bind_run_id(candidate_records, run_id)],
+        )
+        if history_update is not None:
+            apply_history_update(history_update, history_path) if history_path else apply_history_update(history_update)
+            self.store.mark_newsletter_history_applied(run_id)
+        return edition
 
     def render_newsletter(
         self,
@@ -331,6 +360,8 @@ class EmailService:
         retry_indeterminate: bool = False,
         force_resend: bool = False,
     ) -> list[RecipientOutcome]:
+        if edition.edition_kind == "production" and not self.store.newsletter_send_allowed(edition.edition_id):
+            raise ValueError("Email edition cannot send until its newsletter history update is applied.")
         settings = email_settings_from_env()
         outcomes: list[RecipientOutcome] = []
         with self.store.lock():
@@ -376,6 +407,7 @@ class EmailService:
             self.store.record_failure_alert_terminal(terminal)
         if outcomes and all(item.state in {"smtp_accepted", "failed", "indeterminate"} for item in outcomes):
             self.store.cleanup_watchlist_retention()
+            self.store.cleanup_newsletter_retention()
         return outcomes
 
     def status_lines(self, limit: int = 10) -> list[str]:
