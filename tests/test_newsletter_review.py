@@ -63,6 +63,29 @@ def test_candidate_records_preserve_hard_rejected_article_and_terminal_reason() 
     assert hard_reject.review_stratum == "hard_reject"
 
 
+def test_candidate_records_deduplicate_hard_rejections_with_one_canonical_story() -> None:
+    first = Article(
+        title="Publisher story", url="https://feed.example.com/first", canonical_url="https://publisher.example.com/story",
+        source="First feed", published_at=datetime(2026, 8, 5, tzinfo=timezone.utc), summary="",
+    )
+    second = Article(
+        title="Publisher story", url="https://feed.example.com/second", canonical_url="https://publisher.example.com/story",
+        source="Second feed", published_at=datetime(2026, 8, 5, tzinfo=timezone.utc), summary="",
+    )
+
+    records = build_candidate_records(
+        [], [], run_id="run-1", deck_target=25,
+        decision_events=(
+            DecisionEvent(first, "hard_rejected_article", "quality_gate", "quality_gate_hard_reject", "empty_summary"),
+            DecisionEvent(second, "hard_rejected_article", "quality_gate", "quality_gate_hard_reject", "empty_summary"),
+        ),
+    )
+
+    assert len(records) == 1
+    assert records[0].candidate_kind == "hard_rejected_article"
+    assert records[0].story_key
+
+
 def test_candidate_records_preserve_selection_phase_and_exact_reason() -> None:
     selected = StoryCluster(key="selected", title="Selected", category="finance")
     filtered = StoryCluster(key="filtered", title="Filtered", category="finance")

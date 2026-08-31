@@ -162,7 +162,13 @@ def build_candidate_records(
             selection_phase=selection.selection_phase if selected and selection else "", is_update=cluster.is_update,
             merged_from_json=json.dumps(list(cluster.merged_from)),
         ))
-    return tuple(records)
+    # Persistence records one logical candidate per kind and normalized story
+    # identity. Feed aliases can otherwise produce duplicate hard rejections
+    # before cluster-level URL merging runs.
+    unique_records: dict[tuple[str, str], CandidateRecord] = {}
+    for record in records:
+        unique_records.setdefault((record.candidate_kind, record.story_key), record)
+    return tuple(unique_records.values())
 
 
 def bind_run_id(records: tuple[CandidateRecord, ...], run_id: str) -> tuple[CandidateRecord, ...]:

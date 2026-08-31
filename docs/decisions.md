@@ -1505,3 +1505,17 @@
 - Supersedes: none
 - Evidence: Failed scheduled-run trace on 2026-08-30 and `src/news_agent/cluster.py`.
 - Privacy waivers: none
+
+## DEC-0080 — Candidate persistence coalesces duplicate logical occurrences
+
+- Date: 2026-08-30
+- Owner: agent
+- Status at record: active
+- Decision: Newsletter candidate construction will keep one record for each `(candidate_kind, story_key)` identity within a run.
+- Rationale: The durable schema intentionally permits only one occurrence of a logical candidate per run; duplicate feed aliases, including pre-clustering hard rejections, must not abort delivery.
+- Scope: Newsletter review candidate construction and email-delivery reliability.
+- Implementation: pending
+- Recorded against HEAD: `94d22f64470701a9c35c7b60225b544b8a360868`
+- Supersedes: none
+- Evidence: Failed scheduled-run trace on 2026-08-30 and `src/news_agent/newsletter_review.py`.
+- Privacy waivers: none
