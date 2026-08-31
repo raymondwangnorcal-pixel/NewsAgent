@@ -1,298 +1,274 @@
 [
   {
     "category": "finance",
-    "cluster_id": "but content current fed keeping level mind open",
+    "cluster_id": "could fall hopes hormuz oil prices reopen strait",
     "culture_lane": "",
-    "llm_importance": 43,
+    "llm_importance": 60,
     "outlier_urls": [],
-    "rationale": "A Federal Reserve official\u2019s view on maintaining the benchmark rate is monetary-policy news, whose primary significance is interest-rate expectations."
+    "rationale": "This is Finance because Brent crude fell almost 5% to below $80 on expectations that Strait of Hormuz shipments may resume, making the asset-price move and its geopolitical driver the central significance."
   },
   {
-    "category": "finance",
-    "cluster_id": "backstop bessent defense expand fed japan pushing warsh",
+    "category": "business_tech",
+    "cluster_id": "control investments momentum our remix spotify strong tool",
     "culture_lane": "",
-    "llm_importance": 58,
+    "llm_importance": 35,
     "outlier_urls": [],
-    "rationale": "The proposed Fed facility for Japan concerns currency support and the functioning of the U.S. Treasury market, making it a financial-system story."
-  },
-  {
-    "category": "finance",
-    "cluster_id": "cramer jim market stock things top tuesday",
-    "culture_lane": "",
-    "llm_importance": 25,
-    "outlier_urls": [],
-    "rationale": "The story\u2019s central subject is the day\u2019s equity-market direction and the earnings and oil-price developments moving stocks."
+    "rationale": "This is Business + Tech because it centers on Spotify's AI product adoption, subscriber growth, and operating performance as developments in how a technology and media company operates."
   },
   {
     "category": "finance",
     "cluster_id": "commercial demand driving jumps otherworldly palantir revenue",
     "culture_lane": "",
-    "llm_importance": 42,
+    "llm_importance": 50,
     "outlier_urls": [],
-    "rationale": "Palantir\u2019s 20% share-price move following earnings is primarily a market reaction to financial results and guidance."
-  },
-  {
-    "category": "business_tech",
-    "cluster_id": "business give india instant model moves network payments",
-    "culture_lane": "",
-    "llm_importance": 48,
-    "outlier_urls": [],
-    "rationale": "India\u2019s planned overhaul of UPI\u2019s merchant-fee model is chiefly about how a major digital-payments platform and its participants operate."
-  },
-  {
-    "category": "business_tech",
-    "cluster_id": "access controversial fast market media moving posts sale",
-    "culture_lane": "",
-    "llm_importance": 30,
-    "outlier_urls": [],
-    "rationale": "Trump Media\u2019s paid rapid-access offering is a platform business-model change, even though its customers seek market-moving information."
+    "rationale": "This is Finance because the lead development is Palantir shares jumping 30% after earnings, with revenue growth and AI demand explaining a material market movement."
   },
   {
     "category": "global",
-    "cluster_id": "absence army his oldest president reshuffles stokes unease",
-    "culture_lane": "",
-    "llm_importance": 39,
-    "outlier_urls": [],
-    "rationale": "The Cameroonian president\u2019s military reshuffle amid concerns about his absence is an important foreign political and leadership development."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "ariana back chin daughter grande her magnificent message",
-    "culture_lane": "music",
-    "llm_importance": 12,
-    "outlier_urls": [],
-    "rationale": "The item is a celebrity-focused public and social-media moment involving Ariana Grande."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "agreement licensing merlin remixing signs spotify tool",
-    "culture_lane": "music",
-    "llm_importance": 34,
-    "outlier_urls": [],
-    "rationale": "Spotify\u2019s licensing deal for an AI music-remixing feature directly concerns music distribution, artists, and a streaming platform\u2019s cultural product."
-  },
-  {
-    "category": "global",
-    "cluster_id": "five hits kills more moscow region sites strike",
+    "cluster_id": "attack chasing drone human russian safari shows street",
     "culture_lane": "",
     "llm_importance": 55,
     "outlier_urls": [],
-    "rationale": "Ukrainian strikes on sites in Russia are a battlefield development in the Russia-Ukraine war with international consequences."
+    "rationale": "This is Global News because it reports a Russian military attack on a civilian in Ukraine, a battlefield and humanitarian development outside the United States."
   },
   {
     "category": "culture",
-    "cluster_id": "boston breakthrough country hit lefty loves northeast stella",
-    "culture_lane": "music",
+    "cluster_id": "2027 awards guild pencils timeline venues wga writers",
+    "culture_lane": "film_tv",
     "llm_importance": 20,
     "outlier_urls": [],
-    "rationale": "This is a music-chart story about the regional popularity and Hot 100 performance of Stella Lefty\u2019s song."
+    "rationale": "This is Culture + Media because it concerns the schedule, venues, and nominations process for the Writers Guild's major entertainment-industry awards."
+  },
+  {
+    "category": "global",
+    "cluster_id": "170 boat catches channel fire migrants more rescued",
+    "culture_lane": "",
+    "llm_importance": 40,
+    "outlier_urls": [],
+    "rationale": "This is Global News because the Channel rescue and planned returns to France concern cross-border migration and public safety involving the UK and France."
   },
   {
     "category": "business_tech",
-    "cluster_id": "builds centers data find future out pod portable",
+    "cluster_id": "down ever legion lenovo lowest price steamos",
     "culture_lane": "",
-    "llm_importance": 24,
+    "llm_importance": 10,
     "outlier_urls": [],
-    "rationale": "Runware\u2019s modular AI data-center launch is a technology and AI-infrastructure product development."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "2026 adds anime conferences expands market tiffcom tokyo",
-    "culture_lane": "film_tv",
-    "llm_importance": 21,
-    "outlier_urls": [],
-    "rationale": "TIFFCOM\u2019s expansion is a film-and-content-market event centered on screen IP, anime, and industry programming."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "cinema crime french giovanni honoring jos pioneer retrospective",
-    "culture_lane": "film_tv",
-    "llm_importance": 17,
-    "outlier_urls": [],
-    "rationale": "The San Sebasti\u00e1n retrospective is a film-festival programming announcement honoring a significant cinema figure."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "cmg donny exec forces former herran hugo joins",
-    "culture_lane": "film_tv",
-    "llm_importance": 15,
-    "outlier_urls": [],
-    "rationale": "A production executive joining a TV and film company is an entertainment-industry leadership and production development."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "ahead announces cast creative exclusive full hall midnight",
-    "culture_lane": "film_tv",
-    "llm_importance": 18,
-    "outlier_urls": [],
-    "rationale": "The announcement concerns the cast and creative team for an upcoming Off-Broadway theatrical production."
+    "rationale": "This is Business + Tech because it is a consumer-device pricing story about Lenovo's SteamOS gaming handheld, rather than a gaming-content development."
   },
   {
     "category": "domestic",
-    "cluster_id": "communist hearing michigan they tuesday vote voters",
+    "cluster_id": "framework house keep plans under white wraps",
     "culture_lane": "",
-    "llm_importance": 35,
+    "llm_importance": 50,
     "outlier_urls": [],
-    "rationale": "Campaign messaging aimed at Michigan voters is U.S. electoral politics and therefore belongs in U.S. News."
+    "rationale": "This is U.S. News because the focus is a White House decision on how to implement and disclose an advanced-AI evaluation framework, a federal policy action."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "90s ahead competitor emblem era fire sega time",
+    "culture_lane": "gaming",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it is a retrospective on Sega's Shining Force and its place in the tactical-RPG genre."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "common healthy llm more not than think use",
+    "culture_lane": "media_creators",
+    "llm_importance": 25,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it examines the backlash around a prominent YouTube creator's AI use, authenticity, and norms within the creator ecosystem."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "backfired influencer openai trip",
+    "culture_lane": "media_creators",
+    "llm_importance": 25,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because the story is about an influencer brand trip and the public backlash surrounding creator marketing for OpenAI."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "arnaud dark dramedy dudley fran godstar ois olivia",
+    "culture_lane": "film_tv",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it announces casting and completed production for an upcoming film comedy-drama."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "2026 camp free hard knocks online seahawks seattle",
+    "culture_lane": "sports",
+    "llm_importance": 15,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it concerns the latest season of an NFL training-camp documentary series centered on the Seattle Seahawks."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "500 bargain charts grain like looking salt suggest",
+    "culture_lane": "",
+    "llm_importance": 30,
+    "outlier_urls": [],
+    "rationale": "This is Finance because it assesses the S&P 500's valuation at a record high, directly concerning market pricing and investment conditions."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "buying cars most richest sold",
+    "culture_lane": "",
+    "llm_importance": 30,
+    "outlier_urls": [],
+    "rationale": "This is Finance because it links an AI-driven stock-market boom and wealth effects to measurable U.S. consumer demand for new cars."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "20th anna baryshnikov cast michele out romy round",
+    "culture_lane": "film_tv",
+    "llm_importance": 15,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it reports new casting for a sequel to the cult film Romy and Michele's High School Reunion."
   },
   {
     "category": "business_tech",
-    "cluster_id": "bags clever design hooks integrated peak",
+    "cluster_id": "exit job julie legal music promotes sony stephanie",
+    "culture_lane": "",
+    "llm_importance": 20,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because it is a major leadership change in Sony Music's legal and business-affairs operations."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "asia backed bessent help intervention japan stabilize yen",
+    "culture_lane": "",
+    "llm_importance": 55,
+    "outlier_urls": [],
+    "rationale": "This is Finance because the U.S.-backed intervention in the yen is explicitly intended to curb currency volatility and stabilize Asian financial markets."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "behavior bmw car man spider villain",
+    "culture_lane": "",
+    "llm_importance": 15,
+    "outlier_urls": [],
+    "rationale": "This is Business + Tech because it centers on BMW's deployment of dashboard advertising as a product and advertising-strategy change."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "ball butterfly cast chrysalis exclusive girl reunion set",
+    "culture_lane": "film_tv",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it covers a cast reunion for the television series New Girl at an entertainment-related gala."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "brand cameo could day hero man mcu next",
+    "culture_lane": "film_tv",
+    "llm_importance": 20,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it discusses a possible Marvel franchise character development and the reception of Spider-Man: Brand New Day."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "audible ear ghost horror immersive play premiere sets",
+    "culture_lane": "film_tv",
+    "llm_importance": 15,
+    "outlier_urls": [],
+    "rationale": "This is Culture + Media because it announces the New York premiere and run of an immersive off-Broadway horror production."
+  },
+  {
+    "category": "global",
+    "cluster_id": "demand east middle missiles patriot soaring ukraine",
+    "culture_lane": "",
+    "llm_importance": 60,
+    "outlier_urls": [],
+    "rationale": "This is Global News because it examines how wars involving Ukraine, Russia, Iran, and the Middle East are straining allied Patriot missile supplies and affecting international security."
+  },
+  {
+    "category": "global",
+    "cluster_id": "200 bezos dicaprio endangered fund jeff lauren leonardo",
+    "culture_lane": "",
+    "llm_importance": 45,
+    "outlier_urls": [],
+    "rationale": "This is Global News because the $200 million endangered-species initiative operates across 30 countries and addresses an international environmental crisis."
+  },
+  {
+    "category": "global",
+    "cluster_id": "ceuta commends crisis migrant response spain swift",
+    "culture_lane": "",
+    "llm_importance": 50,
+    "outlier_urls": [],
+    "rationale": "This is Global News because it concerns the EU response to Spain's Ceuta migration crisis and the return of migrants to Morocco."
+  },
+  {
+    "category": "business_tech",
+    "cluster_id": "chief erin levity officer programming promotes schonfeldt von",
     "culture_lane": "",
     "llm_importance": 12,
     "outlier_urls": [],
-    "rationale": "Peak Design\u2019s City Line is a consumer-product launch featuring a new bag design and hardware feature."
+    "rationale": "This is Business + Tech because it is a senior executive promotion at Levity Live, concerning the operation and programming strategy of an entertainment business."
   },
   {
-    "category": "finance",
-    "cluster_id": "amazon bezos billion falling filed jeff just sell",
-    "culture_lane": "",
-    "llm_importance": 30,
-    "outlier_urls": [],
-    "rationale": "The filing to sell $4 billion of Amazon shares and the accompanying stock decline are principally an equity-market development."
-  },
-  {
-    "category": "business_tech",
-    "cluster_id": "drugs eliquis end estimates guidance hikes low other",
-    "culture_lane": "",
-    "llm_importance": 37,
-    "outlier_urls": [],
-    "rationale": "Pfizer\u2019s results and revised revenue outlook are chiefly a major pharmaceutical company operating-performance and product-demand update."
-  },
-  {
-    "category": "business_tech",
-    "cluster_id": "cmf earbuds first launching nothing open",
-    "culture_lane": "",
+    "category": "culture",
+    "cluster_id": "bowen broadway debut mary snag tickets yang",
+    "culture_lane": "film_tv",
     "llm_importance": 15,
     "outlier_urls": [],
-    "rationale": "Nothing\u2019s CMF Clip Pro is a new consumer-electronics product launch."
-  },
-  {
-    "category": "finance",
-    "cluster_id": "2020 growth jumps more posts retailer since stock",
-    "culture_lane": "",
-    "llm_importance": 35,
-    "outlier_urls": [],
-    "rationale": "Wayfair\u2019s more-than-20% stock jump after quarterly results is primarily a material market move driven by earnings and sales growth."
+    "rationale": "This is Culture + Media because it covers Bowen Yang's Broadway debut in the Tony-winning play Oh, Mary!."
   },
   {
     "category": "culture",
-    "cluster_id": "august books days dog get summer through will",
+    "cluster_id": "2026 award festival film francisco grant institute jewish",
     "culture_lane": "film_tv",
-    "llm_importance": 10,
+    "llm_importance": 15,
     "outlier_urls": [],
-    "rationale": "This is an editorial selection of new books for readers, squarely within books and cultural releases."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "bow documentary linkin park september this",
-    "culture_lane": "music",
-    "llm_importance": 24,
-    "outlier_urls": [],
-    "rationale": "The release of a documentary about Linkin Park\u2019s return is a music and entertainment release announcement."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "august cast center guitars lincoln set seven theater",
-    "culture_lane": "film_tv",
-    "llm_importance": 16,
-    "outlier_urls": [],
-    "rationale": "The cast announcement for an August Wilson play is a theater and performing-arts development."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "2026 crazy game gta meets taxi weirdest",
-    "culture_lane": "gaming",
-    "llm_importance": 14,
-    "outlier_urls": [],
-    "rationale": "The article reviews and contextualizes a newly released video game, making it gaming culture coverage."
-  },
-  {
-    "category": "finance",
-    "cluster_id": "but buying draw fewer foreigners homebuilders luxury properties",
-    "culture_lane": "",
-    "llm_importance": 30,
-    "outlier_urls": [],
-    "rationale": "The pullback in foreign purchases of U.S. residential property is primarily a measurable real-estate market and investment trend."
+    "rationale": "This is Culture + Media because it announces film grants and jury and audience award winners at a major Jewish film festival."
   },
   {
     "category": "business_tech",
-    "cluster_id": "billion fundraising more polymarket round talks than valuation",
+    "cluster_id": "bendita bound exclusive film love monster rights sales",
     "culture_lane": "",
-    "llm_importance": 38,
+    "llm_importance": 12,
     "outlier_urls": [],
-    "rationale": "Polymarket\u2019s proposed fundraising at a high valuation is a startup funding and venture-capital story."
+    "rationale": "This is Business + Tech because the central event is Bendita Film Sales acquiring worldwide sales rights, an entertainment company's distribution transaction."
   },
   {
     "category": "domestic",
-    "cluster_id": "arrest arson largest made state washington wildfires",
+    "cluster_id": "banks blind democrats epstein eye jeffrey moves say",
     "culture_lane": "",
-    "llm_importance": 46,
+    "llm_importance": 40,
     "outlier_urls": [],
-    "rationale": "A major wildfire evacuation and an arson arrest in Washington state concern U.S. public safety and an emergency."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "acquires carnival day died exclusive films girl jackal",
-    "culture_lane": "film_tv",
-    "llm_importance": 16,
-    "outlier_urls": [],
-    "rationale": "Carnival Films\u2019 acquisition of television adaptation rights is an entertainment-content development."
-  },
-  {
-    "category": "global",
-    "cluster_id": "air eruption guatemala lava sends spewing volcano",
-    "culture_lane": "",
-    "llm_importance": 27,
-    "outlier_urls": [],
-    "rationale": "A volcanic eruption in Guatemala is an important natural-disaster development outside the United States."
-  },
-  {
-    "category": "finance",
-    "cluster_id": "bessent dive hormuz note oil prices qatar reopen",
-    "culture_lane": "",
-    "llm_importance": 52,
-    "outlier_urls": [],
-    "rationale": "The central development is a sharp move in oil prices caused by prospects for reopening the Strait of Hormuz."
-  },
-  {
-    "category": "global",
-    "cluster_id": "crimea four gun kills occupied rampage russian soldier",
-    "culture_lane": "",
-    "llm_importance": 21,
-    "outlier_urls": [],
-    "rationale": "The shooting occurred in Russian-occupied Crimea, a conflict-affected foreign territory, and is an international public-security development."
+    "rationale": "This is U.S. News because Senate Democrats' report alleging bank failures is a congressional investigation into domestic financial-law compliance and oversight."
   },
   {
     "category": "",
-    "cluster_id": "money rules swear they work",
+    "cluster_id": "100 2026 disrupt extra off only pass take",
     "culture_lane": "",
-    "llm_importance": 8,
+    "llm_importance": 5,
     "outlier_urls": [],
-    "rationale": "This is general personal-finance advice rather than a story primarily about markets, asset prices, monetary policy, banking, or economic performance."
+    "rationale": "This is a routine promotional offer for a conference pass rather than a substantive development covered by one of the briefing categories."
   },
   {
-    "category": "global",
-    "cluster_id": "150 boat catches channel fire migrants more rescued",
+    "category": "domestic",
+    "cluster_id": "beyond cheap college communities kids moving reasons rent",
     "culture_lane": "",
-    "llm_importance": 29,
+    "llm_importance": 20,
     "outlier_urls": [],
-    "rationale": "The rescue of migrants attempting a Channel crossing is part of an international migration and humanitarian issue."
+    "rationale": "This is U.S. News because it describes a domestic housing and social trend involving college students living in retirement communities."
   },
   {
-    "category": "global",
-    "cluster_id": "deadly during ethiopia hits landslide monastery mountain prayer",
+    "category": "business_tech",
+    "cluster_id": "app beloved bingers founder launches revive time tracking",
     "culture_lane": "",
-    "llm_importance": 34,
+    "llm_importance": 12,
     "outlier_urls": [],
-    "rationale": "A deadly landslide in Ethiopia is a natural-disaster and humanitarian development outside the United States."
+    "rationale": "This is Business + Tech because it announces a new TV-and-film tracking app and its product features, including imported viewing histories and social tools."
   },
   {
-    "category": "global",
-    "cluster_id": "000 airport caught ecstasy indonesian moment pills pilot",
+    "category": "business_tech",
+    "cluster_id": "dallas everyone opens robotaxi service waymo",
     "culture_lane": "",
-    "llm_importance": 14,
+    "llm_importance": 45,
     "outlier_urls": [],
-    "rationale": "The arrest of a pilot at an Indonesian airport is a foreign criminal-justice story, though relatively narrow in consequence."
+    "rationale": "This is Business + Tech because Waymo's public Dallas launch is a major expansion of a self-driving transportation product and the company's scaling strategy."
   }
 ]

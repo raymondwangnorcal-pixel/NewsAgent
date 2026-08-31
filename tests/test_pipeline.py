@@ -253,6 +253,42 @@ def test_floor_relaxes_non_culture_source_cap_only_as_needed() -> None:
     assert result.source_cap_relaxed_by_category["finance"] == 1
 
 
+def test_selection_outcomes_record_source_cap_before_culture_lane_cap() -> None:
+    config = minimal_config()
+    selected = []
+    for index in range(2):
+        story = cluster(f"culture-selected-{index}", "Culture", 20 - index, category="culture")
+        story.culture_lane = "music"
+        story.articles = [make_article(story.title, f"https://example.com/culture/{index}", "Context", "Shared")]
+        selected.append(story)
+    blocked = cluster("culture-blocked", "Culture", 10, category="culture")
+    blocked.culture_lane = "music"
+    blocked.articles = [make_article(blocked.title, "https://example.com/culture/blocked", "Context", "Shared")]
+
+    result = pipeline.select_importance_deck([*selected, blocked], config)
+    outcomes = {outcome.subject.key: outcome for outcome in result.outcomes}
+
+    assert outcomes["culture-blocked"].filter_reason_code == "selection_source_cap"
+
+
+def test_selection_outcomes_record_culture_lane_cap_when_source_has_capacity() -> None:
+    config = minimal_config()
+    selected = []
+    for index in range(2):
+        story = cluster(f"culture-selected-{index}", "Culture", 20 - index, category="culture")
+        story.culture_lane = "music"
+        story.articles = [make_article(story.title, f"https://example.com/culture/{index}", "Context", f"Source {index}")]
+        selected.append(story)
+    blocked = cluster("culture-blocked", "Culture", 10, category="culture")
+    blocked.culture_lane = "music"
+    blocked.articles = [make_article(blocked.title, "https://example.com/culture/blocked", "Context", "Available")]
+
+    result = pipeline.select_importance_deck([*selected, blocked], config)
+    outcomes = {outcome.subject.key: outcome for outcome in result.outcomes}
+
+    assert outcomes["culture-blocked"].filter_reason_code == "selection_culture_lane_cap"
+
+
 def test_big_day_phase_never_exceeds_deck_target_or_category_maximum() -> None:
     stories: list[StoryCluster] = []
     for category in ("business_tech", "domestic", "global", "finance"):
@@ -629,7 +665,7 @@ def test_build_draft_candidates_diversifies_sources_only_for_merged_stories() ->
     ]
 
 
-# --- build_briefing_sections: grouping + finance lead lines ------------------------
+# --- build_briefing_sections: grouping ---------------------------------------------
 
 
 def test_build_briefing_sections_groups_paragraphs_and_omits_empty_categories() -> None:
@@ -639,40 +675,17 @@ def test_build_briefing_sections_groups_paragraphs_and_omits_empty_categories() 
     ]
     config = minimal_config()
 
-    sections = pipeline.build_briefing_sections(paragraphs, config, StockSnapshot(news_mentions=(), mega_caps=(), quotes={}))
+    sections = pipeline.build_briefing_sections(paragraphs, config)
 
     by_category = {section.category: section for section in sections}
     assert set(by_category) == {"culture", "finance"}
     assert len(by_category["finance"].paragraphs) == 1
 
 
-def test_build_briefing_sections_finance_gets_lead_lines_other_categories_dont() -> None:
-    class FakeQuote:
-        def __init__(self, text: str) -> None:
-            self._text = text
-
-        def compact(self) -> str:
-            return self._text
-
-    class FakeSnapshot:
-        mega_caps = ("AAPL", "NVDA")
-
-        def quote_for(self, symbol: str) -> FakeQuote:
-            return FakeQuote(f"{symbol} 100.00 (+1.0%)")
-
-    config = minimal_config()
-    sections = pipeline.build_briefing_sections([], config, FakeSnapshot())
-    by_category = {section.category: section for section in sections}
-
-    assert set(by_category) == {"finance"}
-    assert by_category["finance"].lead_lines == ("AAPL 100.00 (+1.0%)", "NVDA 100.00 (+1.0%)")
-
-
-def test_build_briefing_sections_omits_finance_when_it_has_no_story_or_quotes() -> None:
+def test_build_briefing_sections_omits_finance_when_it_has_no_story() -> None:
     sections = pipeline.build_briefing_sections(
         [],
         minimal_config(),
-        StockSnapshot(news_mentions=(), mega_caps=(), quotes={}),
     )
 
     assert sections == []

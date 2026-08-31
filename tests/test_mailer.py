@@ -88,7 +88,7 @@ def test_parity_email_plain_text_is_header_and_exact_messages() -> None:
 
     assert rendered.plain_text == "Morning Briefing - 2026-07-25\n\nFINANCE\nA story\n\nWORLD\nAnother story\n"
     assert "<pre style=" in rendered.html
-    assert "font-family: Helvetica, Arial, sans-serif" in rendered.html
+    assert "font-family: Lato, Helvetica, Arial, sans-serif" in rendered.html
 
 
 def test_native_newsletter_links_source_label_and_keeps_plain_text_url() -> None:
@@ -105,8 +105,8 @@ def test_native_newsletter_links_source_label_and_keeps_plain_text_url() -> None
     assert '<a href="https://www.bbc.co.uk/news/example">(via BBC)</a>' in rendered.html
     assert ">https://www.bbc.co.uk/news/example<" not in rendered.html
     assert "<pre" not in rendered.html
-    assert 'font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif' in rendered.html
-    assert 'padding: 22px 0' in rendered.html
+    assert "font-family: Lato, Helvetica, Arial, sans-serif" in rendered.html
+    assert 'padding: 8.5px 0' in rendered.html
 
 
 def test_native_newsletter_links_each_source_in_merged_story() -> None:
@@ -475,11 +475,12 @@ def test_live_watchlist_quote_requires_a_previous_close() -> None:
 
 
 def test_watchlist_renderer_marks_intraday_prices_as_live() -> None:
-    plain, _html = render_watchlist_section(
+    plain, html = render_watchlist_section(
         {"AAPL": EndOfDayQuote("AAPL", "2026-08-03", 306.01, 308.91, "Yahoo Finance", "live")}, []
     )
 
     assert "AAPL: 306.01 (-0.94%) · live" in plain
+    assert 'style="color: #d93025;"' in html
 
 
 def test_quote_cache_rejects_a_stale_close_date(tmp_path: Path, caplog: pytest.LogCaptureFixture) -> None:
@@ -553,6 +554,8 @@ def test_render_watchlist_shows_summary_unavailable_headline() -> None:
     plain, html = render_watchlist_section({"AAPL": EndOfDayQuote("AAPL", "2026-07-24", 105.0, 100.0, "Tiingo")}, [story])
 
     assert "Summary unavailable: Company reports earnings" in plain
+    assert "(via Reuters)" in plain
+    assert "(via <a href=" in html
     assert "https://reuters.com/a" in html
 
 

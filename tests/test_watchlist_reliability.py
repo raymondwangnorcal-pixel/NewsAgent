@@ -24,7 +24,7 @@ from news_agent.watchlist.models import ActivationPreflight, EdgarResult, Entity
 from news_agent.mailer.watchlist_news import deserialize_articles, serialize_articles
 from news_agent.models import Article
 from news_agent.mailer.models import RecipientOutcome
-from news_agent.mailer.state import EmailStateStore
+from news_agent.mailer.state import SCHEMA_VERSION, EmailStateStore
 
 
 def test_entity_map_captures_observed_ethb_and_shop_forms() -> None:
@@ -113,10 +113,24 @@ def test_edgar_parses_compact_acceptance_time_and_description() -> None:
     assert filing.description == "Interim results"
 
 
-def test_non_allowlisted_8k_is_not_material() -> None:
+def test_exhibit_only_8k_is_not_material() -> None:
     filing = Filing("0000000001", "0000000001-26-000001", "8-K", date(2026, 7, 30), None, "x.htm", ("9.01",))
 
     assert filing_is_material(filing) is False
+
+
+def test_regulation_fd_8k_requires_content_review() -> None:
+    filing = Filing(
+        "0001776909",
+        "0001628280-26-047438",
+        "8-K",
+        date(2026, 7, 7),
+        datetime(2026, 7, 7, 13, 2, tzinfo=timezone.utc),
+        "curi-20260707.htm",
+        ("7.01", "9.01"),
+    )
+
+    assert filing_is_material(filing) is None
 
 
 @pytest.mark.parametrize(
@@ -327,9 +341,18 @@ def test_v2_migration_creates_backup_and_watchlist_schema(tmp_path: Path) -> Non
     backups = list(tmp_path.glob("state.db.v2-backup-*"))
     assert len(backups) == 1
     with sqlite3.connect(path) as migrated:
-        assert migrated.execute("PRAGMA user_version").fetchone()[0] == 3
+        assert migrated.execute("PRAGMA user_version").fetchone()[0] == SCHEMA_VERSION
         tables = {row[0] for row in migrated.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-    assert {"watchlist_source_cache", "watchlist_gate_windows", "watchlist_benchmark_events"}.issubset(tables)
+    assert {
+        "watchlist_source_cache",
+        "watchlist_gate_windows",
+        "watchlist_benchmark_events",
+        "newsletter_runs",
+        "newsletter_candidates",
+        "newsletter_adjudications",
+        "newsletter_manual_examples",
+        "newsletter_review_batches",
+    }.issubset(tables)
 
 
 def test_failed_fetch_does_not_become_successful_daily_cache_entry(tmp_path: Path) -> None:
@@ -449,6 +472,112 @@ def test_six_k_content_is_evaluated_before_metadata_fallback(tmp_path: Path) -> 
     assert outcome.filings == (filing,)
     assert outcome.dispositions == ((filing.accession, "rendered_content"),)
     assert outcome.filing_bodies[0][1] == "Quarterly results and updated guidance"
+
+
+def test_regulation_fd_acquisition_is_material_after_content_review(tmp_path: Path) -> None:
+    full_map = load_entity_map()
+    entity_map = EntityMap(full_map.schema_version, full_map.generated_at, {"CURI": full_map.tickers["CURI"]})
+    filing = Filing(
+        full_map.tickers["CURI"].cik,
+        "0001628280-26-047438",
+        "8-K",
+        date(2026, 7, 7),
+        datetime(2026, 7, 7, 13, 2, tzinfo=timezone.utc),
+        "curi-20260707.htm",
+        ("7.01", "9.01"),
+    )
+
+    class Client:
+        def fetch_submissions(self, *_args: object, **_kwargs: object) -> EdgarResult:
+            return EdgarResult(SourceState.OK, (filing,), payload=b'{"filings":{"recent":{}}}')
+
+        def fetch_filing_document(self, _filing: Filing) -> object:
+            return SimpleNamespace(data=(
+                b"<html><body>CuriosityStream announced the completion of its acquisition "
+                b"of the remaining ownership interests in its German operations.</body></html>"
+            ))
+
+    outcome = discover_material_filings(
+        entity_map,
+        Client(),  # type: ignore[arg-type]
+        briefing_date=date(2026, 7, 7),
+        cutoff=datetime(2026, 7, 7, 14, 0, tzinfo=timezone.utc),
+        state_store=EmailStateStore(tmp_path / "state.db"),
+    )["CURI"]
+
+    assert outcome.state is SourceState.OK
+    assert outcome.filings == (filing,)
+    assert outcome.dispositions == ((filing.accession, "rendered_content"),)
+
+
+def test_routine_regulation_fd_notice_is_excluded_after_content_review(tmp_path: Path) -> None:
+    full_map = load_entity_map()
+    entity_map = EntityMap(full_map.schema_version, full_map.generated_at, {"CURI": full_map.tickers["CURI"]})
+    filing = Filing(
+        full_map.tickers["CURI"].cik,
+        "0001628280-26-047439",
+        "8-K",
+        date(2026, 7, 7),
+        datetime(2026, 7, 7, 13, 3, tzinfo=timezone.utc),
+        "curi-conference.htm",
+        ("7.01", "9.01"),
+    )
+
+    class Client:
+        def fetch_submissions(self, *_args: object, **_kwargs: object) -> EdgarResult:
+            return EdgarResult(SourceState.OK, (filing,), payload=b'{"filings":{"recent":{}}}')
+
+        def fetch_filing_document(self, _filing: Filing) -> object:
+            return SimpleNamespace(data=b"<html><body>The company will participate in an investor conference.</body></html>")
+
+    outcome = discover_material_filings(
+        entity_map,
+        Client(),  # type: ignore[arg-type]
+        briefing_date=date(2026, 7, 7),
+        cutoff=datetime(2026, 7, 7, 14, 0, tzinfo=timezone.utc),
+        state_store=EmailStateStore(tmp_path / "state.db"),
+    )["CURI"]
+
+    assert outcome.state is SourceState.OK
+    assert outcome.filings == ()
+    assert outcome.dispositions == ((filing.accession, "excluded_content_not_material"),)
+
+
+def test_unavailable_regulation_fd_document_does_not_fail_or_block_watermark(tmp_path: Path) -> None:
+    full_map = load_entity_map()
+    entity = full_map.tickers["CURI"]
+    entity_map = EntityMap(full_map.schema_version, full_map.generated_at, {"CURI": entity})
+    filing = Filing(
+        entity.cik,
+        "0001628280-26-047440",
+        "8-K",
+        date(2026, 7, 7),
+        datetime(2026, 7, 7, 13, 4, tzinfo=timezone.utc),
+        "curi-unavailable.htm",
+        ("7.01", "9.01"),
+    )
+
+    class Client:
+        def fetch_submissions(self, *_args: object, **_kwargs: object) -> EdgarResult:
+            return EdgarResult(SourceState.OK, (filing,), payload=b'{"filings":{"recent":{}}}')
+
+        def fetch_filing_document(self, _filing: Filing) -> object:
+            return SimpleNamespace(data=None)
+
+    store = EmailStateStore(tmp_path / "state.db")
+    cutoff = datetime(2026, 7, 7, 14, 0, tzinfo=timezone.utc)
+    outcome = discover_material_filings(
+        entity_map,
+        Client(),  # type: ignore[arg-type]
+        briefing_date=date(2026, 7, 7),
+        cutoff=cutoff,
+        state_store=store,
+    )["CURI"]
+
+    assert outcome.state is SourceState.OK
+    assert outcome.filings == ()
+    assert outcome.dispositions == ((filing.accession, "excluded_document_unavailable"),)
+    assert store.source_watermark("edgar", entity.cik) == cutoff.isoformat()
 
 
 def test_test_delivery_does_not_write_watchlist_sent_history(tmp_path: Path) -> None:

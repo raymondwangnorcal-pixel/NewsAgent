@@ -1,0 +1,187 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.0175675,
+  "created_at": "2026-08-31T01:42:32.633443+00:00",
+  "guard_deltas": {
+    "2026 fantasy league predicting winners": {
+      "added_anchors": [],
+      "added_tokens": [],
+      "dropped_entities": [
+        "Among"
+      ],
+      "missing_anchors": [],
+      "missing_tokens": []
+    },
+    "canyon feared flash flooding grand hikers hits missing": {
+      "added_anchors": [
+        "attribution:said"
+      ],
+      "added_tokens": [],
+      "dropped_entities": [],
+      "missing_anchors": [],
+      "missing_tokens": []
+    },
+    "chances comments futures hike hole jackson rate rise": {
+      "added_anchors": [],
+      "added_tokens": [],
+      "dropped_entities": [
+        "Warsh"
+      ],
+      "missing_anchors": [],
+      "missing_tokens": []
+    }
+  },
+  "input_tokens": 1177,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 975,
+  "stories": [
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_guard_failed",
+      "delivered_paragraph": "Rescuers were searching for 15 hikers feared missing after flash flooding struck the Grand Canyon, turning what one survivor described as a beautiful day into a scene of people screaming. The hiker was airlifted to safety, but the available reporting did not specify where the missing group was last seen or whether anyone had been found. The incident underscores how quickly canyon storms can isolate visitors and complicate rescue operations.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/clylkjyez1do?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/clylkjyez1do?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Rescuers were searching for 15 hikers feared missing after flash flooding struck the Grand Canyon, turning what one survivor described as a beautiful day into a scene of people screaming. The hiker was airlifted to safety, but the available reporting did not specify where the missing group was last seen or whether anyone had been found. The incident underscores how quickly canyon storms can isolate visitors and complicate rescue operations.",
+      "guard_result": "failed",
+      "story_id": "canyon feared flash flooding grand hikers hits missing"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_no_gain",
+      "delivered_paragraph": "U.S. forces struck two Iranian launchers on Larak Island after observing Revolutionary Guard personnel preparing rockets with sea mines for the Strait of Hormuz, U.S. Central Command said. Iran said the attack killed and wounded several personnel and claimed retaliation against U.S. targets in Jordan; Jordan said it intercepted eight missiles. Brent crude rose 1.54% to $89.46 a barrel as the first publicly acknowledged U.S. strike inside Iran since late July renewed fears for shipping through the key energy route.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cx2z72x5z1po",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cx2z72x5z1po?at_medium=RSS&at_campaign=rss"
+        },
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/31/oil-prices-hormuz-iran-larak-island-centcom.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/31/oil-prices-hormuz-iran-larak-island-centcom.html"
+        },
+        {
+          "canonical_url": "https://www.axios.com/2026/08/30/us-iran-strike-hormuz-mines",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/08/30/us-iran-strike-hormuz-mines"
+        }
+      ],
+      "full_paragraph": "U.S. forces struck two Iranian launchers on Larak Island after observing Revolutionary Guard personnel preparing rockets with sea mines for the Strait of Hormuz, U.S. Central Command said. Iran said the attack killed and wounded several personnel and claimed retaliation against U.S. targets in Jordan; Jordan said it intercepted eight missiles. Brent crude rose 1.54% to $89.46 a barrel as the first publicly acknowledged U.S. strike inside Iran since late July renewed fears for shipping through the key energy route.",
+      "guard_result": "not_run",
+      "story_id": "attack first iranian island known larak launchers strikes"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_guard_failed",
+      "delivered_paragraph": "ESPN\u2019s Michael Florio identified 15 potential fantasy-football \u201cleague winners\u201d for 2026\u2014players whose production could far exceed their draft cost and help decide championships. Among them is quarterback Jaxson Dart, who averaged 20.13 fantasy points in 12 starts last season, the fifth-highest rookie-quarterback average ever, according to the analysis. The central draft question is whether managers can find that kind of late or middle-round value before it becomes obvious to the rest of their league.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/fantasy/football/story/_/id/49734412/2026-fantasy-football-breakout-stars-league-winners-michael-florio",
+          "evidence_type": "extracted",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/fantasy/football/story/_/id/49734412/2026-fantasy-football-breakout-stars-league-winners-michael-florio"
+        }
+      ],
+      "full_paragraph": "ESPN\u2019s Michael Florio identified 15 potential fantasy-football \u201cleague winners\u201d for 2026\u2014players whose production could far exceed their draft cost and help decide championships. Among them is quarterback Jaxson Dart, who averaged 20.13 fantasy points in 12 starts last season, the fifth-highest rookie-quarterback average ever, according to the analysis. The central draft question is whether managers can find that kind of late or middle-round value before it becomes obvious to the rest of their league.",
+      "guard_result": "failed",
+      "story_id": "2026 fantasy league predicting winners"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.03614457831325302,
+      "compression_status": "compressed",
+      "delivered_paragraph": "The SEC will for now comply with a Louisiana judge\u2019s temporary order blocking punishment of schools that use athletes who return after signing professional contracts, but plans to challenge it at a Thursday hearing. The conference\u2019s new rule would penalize a school with measures including a coach\u2019s half-season suspension and a fine equal to 50% of the sport\u2019s annual budget. The case could determine how far conferences can go in regulating athletes\u2019 increasingly fluid paths between college and pro sports.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/college-sports/story/_/id/49778057/sankey-sec-prepared-contest-judge-order-louisiana",
+          "evidence_type": "extracted",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/college-sports/story/_/id/49778057/sankey-sec-prepared-contest-judge-order-louisiana"
+        }
+      ],
+      "full_paragraph": "The SEC will comply for now with a Louisiana judge\u2019s temporary order blocking it from punishing schools that use athletes who return after signing professional contracts, but it plans to challenge the ruling at a Thursday hearing. The conference\u2019s new rule would penalize a school with measures including a coach\u2019s half-season suspension and a fine equal to 50% of the sport\u2019s annual budget. The case could determine how far conferences can go in regulating athletes\u2019 increasingly fluid paths between college and pro sports.",
+      "guard_result": "passed",
+      "story_id": "dispute judge player pro ruling sec thursday"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.04878048780487809,
+      "compression_status": "compressed",
+      "delivered_paragraph": "Paramount Games Studio is considering games based on Taylor Sheridan properties including Yellowstone and Lioness while building a video-game division around major company franchises, Polygon reported. Its first announced project is an adaptation of Teenage Mutant Ninja Turtles: The Last Ronin with PlatinumGames, developer of Bayonetta; the studio says its core targets also include Star Trek and Avatar: The Last Airbender. The strategy would extend Paramount\u2019s TV and film brands into a business built on long-running, recognizable worlds.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.polygon.com/yellowstone-lionness-sheridanverse-video-games-paramount/",
+          "evidence_type": "extracted",
+          "source": "Polygon",
+          "url": "https://www.polygon.com/yellowstone-lionness-sheridanverse-video-games-paramount/"
+        }
+      ],
+      "full_paragraph": "Paramount Games Studio is considering games based on Taylor Sheridan properties including Yellowstone and Lioness as it builds a new video-game division around major company franchises, Polygon reported. Its first announced project is an adaptation of Teenage Mutant Ninja Turtles: The Last Ronin with PlatinumGames, the developer behind Bayonetta, while the studio says its core targets also include Star Trek and Avatar: The Last Airbender. The strategy would extend Paramount\u2019s TV and film brands into a business built on long-running, recognizable worlds.",
+      "guard_result": "passed",
+      "story_id": "could future games lioness paramount yellowstone"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.05555555555555558,
+      "compression_status": "compressed",
+      "delivered_paragraph": "The 90-minute action thriller Quentin Tarantino has called \u201cmy favorite\u201d is now available free on streaming, Polygon reported. The report frames it as holiday horror, a genre turning celebrations such as Valentine\u2019s Day into settings for violence and suspense rather than romance. Free availability gives a cult-style film a wider route to viewers as streaming services increasingly use older genre titles to draw audiences without a rental charge.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.polygon.com/my-bloody-valentine-thrillers-free-streaming-august-2026/",
+          "evidence_type": "feed_content",
+          "source": "Polygon",
+          "url": "https://www.polygon.com/my-bloody-valentine-thrillers-free-streaming-august-2026/"
+        }
+      ],
+      "full_paragraph": "The 90-minute action thriller Quentin Tarantino has called \u201cmy favorite\u201d is now available free on streaming, Polygon reported. The report frames the title as a holiday-horror entry, a genre that turns celebrations such as Valentine\u2019s Day into settings for violence and suspense rather than romance. Free availability gives a cult-style film a wider route to viewers, especially as streaming services increasingly use older genre titles to draw audiences without a rental charge.",
+      "guard_result": "passed",
+      "story_id": "action called favorite free minute officially quentin streaming"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.03797468354430378,
+      "compression_status": "compressed",
+      "delivered_paragraph": "An anonymous Emmy-winning TV Academy producer offered sharply negative assessments of several contenders in a Hollywood Reporter \u201cbrutally honest\u201d ballot, while calling Widow\u2019s Bay \u201cfar and away the best\u201d comedy on television. The voter dismissed DTF St. Louis, criticized Your Friends and Neighbors as about entitled people, and said stereotypes in Nobody Wants This were uncomfortable. The comments are one voter\u2019s opinion but illustrate how subjective and divided awards-season judgments can be before ballots are counted.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.hollywoodreporter.com/tv/tv-news/emmy-voter-shares-brutally-honest-picks-ballot-1236685422/",
+          "evidence_type": "feed_content",
+          "source": "The Hollywood Reporter",
+          "url": "https://www.hollywoodreporter.com/tv/tv-news/emmy-voter-shares-brutally-honest-picks-ballot-1236685422/"
+        }
+      ],
+      "full_paragraph": "An anonymous Emmy-winning TV Academy producer offered sharply negative assessments of several contenders in a Hollywood Reporter \u201cbrutally honest\u201d ballot, while calling Widow\u2019s Bay \u201cfar and away the best\u201d comedy on television. The voter dismissed DTF St. Louis, criticized Your Friends and Neighbors as a show about entitled people, and said stereotypes in Nobody Wants This were uncomfortable. The comments are one voter\u2019s opinion, but they illustrate how subjective and divided awards-season judgments can be before ballots are counted.",
+      "guard_result": "passed",
+      "story_id": "away ballot bay been best brutally called comedy"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_guard_failed",
+      "delivered_paragraph": "U.S. stock-index futures slipped Sunday after comments by Kevin Warsh at Jackson Hole led investors to reassess the chance of another interest-rate increase. Markets were also looking ahead to labor data and technology-company earnings later this week, both of which could reshape expectations for growth and monetary policy. Higher-rate fears matter because they raise borrowing costs and can weigh especially heavily on stock valuations, leaving investors focused on whether incoming data validate the market\u2019s repricing.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/u-s-stock-futures-flat-as-chances-of-rate-hike-rise-after-warshs-jackson-hole-comments-1f5287f2?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/u-s-stock-futures-flat-as-chances-of-rate-hike-rise-after-warshs-jackson-hole-comments-1f5287f2?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "U.S. stock-index futures slipped Sunday after comments by Kevin Warsh at Jackson Hole led investors to reassess the chance of another interest-rate increase. Markets were also looking ahead to labor data and technology-company earnings later this week, both of which could reshape expectations for growth and monetary policy. Higher-rate fears matter because they raise borrowing costs and can weigh especially heavily on stock valuations, leaving investors focused on whether incoming data validate the market\u2019s repricing.",
+      "guard_result": "failed",
+      "story_id": "chances comments futures hike hole jackson rate rise"
+    }
+  ]
+}

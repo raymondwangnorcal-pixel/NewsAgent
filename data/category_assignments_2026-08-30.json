@@ -1,0 +1,138 @@
+[
+  {
+    "category": "global",
+    "cluster_id": "attack first iranian island known larak launchers strikes",
+    "culture_lane": "",
+    "llm_importance": 72,
+    "outlier_urls": [],
+    "rationale": "The central development is a U.S.-Iran military exchange around the Strait of Hormuz, with the main significance being battlefield and international consequences rather than the accompanying oil-market move."
+  },
+  {
+    "category": "global",
+    "cluster_id": "hormuz iran mine prevent strikes threat",
+    "culture_lane": "",
+    "llm_importance": 68,
+    "outlier_urls": [],
+    "rationale": "This is an international military escalation involving Iran, the U.S., Jordan, and the Strait of Hormuz, which the guidelines place in Global News when focused on conflict and geopolitical consequences."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "2026 fantasy league predicting winners",
+    "culture_lane": "sports",
+    "llm_importance": 16,
+    "outlier_urls": [],
+    "rationale": "Fantasy-football player projections are a sports-focused entertainment and fan-engagement story, which belongs in Culture + Media's sports lane."
+  },
+  {
+    "category": "finance",
+    "cluster_id": "chances comments futures hike hole jackson rate rise",
+    "culture_lane": "",
+    "llm_importance": 33,
+    "outlier_urls": [],
+    "rationale": "The story is principally about stock-index futures moving in response to changing expectations for interest-rate policy, a core Finance markets and monetary-policy subject."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "dispute judge player pro ruling sec thursday",
+    "culture_lane": "sports",
+    "llm_importance": 31,
+    "outlier_urls": [],
+    "rationale": "The SEC's legal dispute over rules governing college-football players is a major sports governance controversy, fitting the Culture + Media sports lane."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "browns gabriel keep put qbs roster",
+    "culture_lane": "sports",
+    "llm_importance": 19,
+    "outlier_urls": [],
+    "rationale": "The Browns' quarterback and injured-reserve decisions are routine NFL roster news, fitting the Culture + Media sports lane."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "could future games lioness paramount yellowstone",
+    "culture_lane": "gaming",
+    "llm_importance": 24,
+    "outlier_urls": [],
+    "rationale": "Paramount's prospective use of Yellowstone and Lioness entertainment properties in video games is primarily a gaming and media-franchise development."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "all before big cut deadline down final moves",
+    "culture_lane": "sports",
+    "llm_importance": 29,
+    "outlier_urls": [],
+    "rationale": "The leaguewide NFL cut-down deadline and team roster moves are sports developments, placing the cluster in Culture + Media's sports lane."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "canyon feared flash flooding grand hikers hits missing",
+    "culture_lane": "",
+    "llm_importance": 52,
+    "outlier_urls": [],
+    "rationale": "Flash flooding and missing hikers at the Grand Canyon are a U.S. emergency and public-safety event, which the guidelines assign to U.S. News."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "action called favorite free minute officially quentin streaming",
+    "culture_lane": "film_tv",
+    "llm_importance": 12,
+    "outlier_urls": [],
+    "rationale": "The availability and critical framing of a feature film on streaming is an entertainment-distribution story in the Culture + Media film/TV lane."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "away ballot bay been best brutally called comedy",
+    "culture_lane": "film_tv",
+    "llm_importance": 17,
+    "outlier_urls": [],
+    "rationale": "An Emmy voter's views on television contenders concern awards-season discourse and TV programming, fitting the Culture + Media film/TV lane."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "catch disputed rafaela rout sox yanks",
+    "culture_lane": "sports",
+    "llm_importance": 22,
+    "outlier_urls": [],
+    "rationale": "A disputed baseball ruling and the Yankees-Red Sox game result are sports coverage, which belongs in Culture + Media's sports lane."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "donald loaded rams rejoin star unretires",
+    "culture_lane": "sports",
+    "llm_importance": 48,
+    "outlier_urls": [],
+    "rationale": "Aaron Donald's return from retirement to the Rams is a significant NFL player transaction, fitting the Culture + Media sports lane."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "cura league little nevada routs title win",
+    "culture_lane": "sports",
+    "llm_importance": 30,
+    "outlier_urls": [],
+    "rationale": "Cura\u00e7ao winning the Little League World Series is a major sporting result, placing it in the Culture + Media sports lane."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "earns giants initial man obj roster spot",
+    "culture_lane": "sports",
+    "llm_importance": 22,
+    "outlier_urls": [],
+    "rationale": "Odell Beckham Jr. making the Giants' initial roster is NFL roster news and therefore belongs in the Culture + Media sports lane."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "aaron defense does donald garrett mean more myles",
+    "culture_lane": "sports",
+    "llm_importance": 34,
+    "outlier_urls": [],
+    "rationale": "Analysis of Aaron Donald's Rams return and its implications for NFL defense is sports commentary, fitting the Culture + Media sports lane."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "grading johnson kaleb nfl offseason packers sizing trades",
+    "culture_lane": "sports",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "Grades of NFL preseason trades are sports analysis rather than business or financial-market reporting, so this belongs in the Culture + Media sports lane."
+  }
+]

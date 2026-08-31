@@ -10,7 +10,7 @@ from news_agent.time import briefing_today
 from news_agent.mailer.quotes import EndOfDayQuote
 from news_agent.mailer.watchlist_news import WatchlistStory
 
-SYSTEM_FONT_STACK = '-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif'
+SYSTEM_FONT_STACK = 'Lato, Helvetica, Arial, sans-serif'
 
 
 @dataclass(frozen=True)
@@ -24,8 +24,8 @@ def render_parity_email(messages: list[FormattedMessage], header: str) -> Render
     plain_text = "\n\n".join((header, *(message.text for message in messages))).strip() + "\n"
     subject = f"Morning Briefing — {briefing_today().isoformat()}"
     rendered_html = (
-        '<html><body style="font-family: Helvetica, Arial, sans-serif;">'
-        '<pre style="font-family: Helvetica, Arial, sans-serif; white-space: pre-wrap;">'
+        f'<html><body style="font-family: {SYSTEM_FONT_STACK};">'
+        f'<pre style="font-family: {SYSTEM_FONT_STACK}; white-space: pre-wrap;">'
         + html.escape(plain_text)
         + "</pre></body></html>"
     )
@@ -100,7 +100,7 @@ def _render_story_block(block: str) -> str:
         rendered.append(html.escape(line))
         index += 1
     return (
-        f'<div style="padding: 22px 0; font-family: {SYSTEM_FONT_STACK}; '
+        f'<div style="padding: 8.5px 0; font-family: {SYSTEM_FONT_STACK}; '
         'font-size: 16px; line-height: 1.5;">'
         + "<br>".join(rendered)
         + "</div>"
@@ -126,11 +126,18 @@ def render_watchlist_section(
     for ticker, quote in quotes.items():
         if quote is None:
             quote_line = f"{ticker}: quote unavailable"
+            quote_html = html.escape(quote_line)
         else:
             timing = "live" if quote.quote_kind == "live" else f"close {quote.close_date}"
+            color = "#188038" if quote.percent_change > 0 else "#d93025" if quote.percent_change < 0 else "#5f6368"
             quote_line = f"{ticker}: {quote.close_price:.2f} ({quote.percent_change:+.2f}%) · {timing}"
+            quote_html = (
+                f"{html.escape(ticker)}: "
+                f'<span style="color: {color};">{quote.close_price:.2f} '
+                f"({quote.percent_change:+.2f}%)</span> · {html.escape(timing)}"
+            )
         lines.append(quote_line)
-        row_parts = [f"<div><strong>{html.escape(quote_line)}</strong>"]
+        row_parts = [f"<div><strong>{quote_html}</strong>"]
         story = by_ticker.get(ticker)
         has_content = False
         if story is not None and story.disclosures:
@@ -174,11 +181,16 @@ def render_watchlist_section(
                 headline = story.articles[0].title
                 lines.append(f"    Summary unavailable: {headline}")
                 body = "Summary unavailable: " + html.escape(headline)
-            links = " ".join(
+            source_articles = story.articles[:2]
+            source_names = ", ".join(dict.fromkeys(article.source for article in source_articles))
+            links = ", ".join(
                 f'<a href="{html.escape(article.canonical_url or article.url, quote=True)}">{html.escape(article.source)}</a>'
-                for article in story.articles[:2]
+                for article in source_articles
             )
-            row_parts.append(f"<p>{body} {links}</p>")
+            if source_names:
+                lines.append(f"    (via {source_names})")
+            source_html = f" (via {links})" if links else ""
+            row_parts.append(f"<p>{body}{source_html}</p>")
             if story.relationship_label:
                 relation = _relationship_wording(ticker, str(story.relationship_label))
                 lines.append(f"    {relation}")

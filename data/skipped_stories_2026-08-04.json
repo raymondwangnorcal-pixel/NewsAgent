@@ -1,302 +1,237 @@
 [
   {
-    "category_candidate": "finance",
-    "duplicate_cluster_id": "2020 growth jumps more posts retailer since stock",
-    "headline": "Wayfair stock jumps more than 20% as retailer posts strongest U.S. growth since 2020",
-    "importance": 35.92,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 10.31,
-    "source_names": [
-      "CNBC Top News"
-    ],
-    "url": "https://www.cnbc.com/2026/08/04/wayfair-w-earnings-q2-2026.html",
-    "watchlist_match": []
-  },
-  {
     "category_candidate": "culture",
-    "duplicate_cluster_id": "boston breakthrough country hit lefty loves northeast stella",
-    "headline": "Boston Loves \u2018Boston\u2019: Stella Lefty\u2019s Breakthrough Hit Is \u2018Country for the Northeast\u2019",
-    "importance": 33.8,
+    "duplicate_cluster_id": "90s ahead competitor emblem era fire sega time",
+    "headline": "Sega's '90s-era Fire Emblem Competitor Was Years Ahead of Its Time",
+    "importance": 25.06,
     "reason_skipped": "no reliable source confirmation",
-    "score": 13.19,
+    "score": 11.91,
     "source_names": [
-      "Billboard"
+      "Polygon"
     ],
-    "url": "https://www.billboard.com/music/chart-beat/stella-lefty-boston-song-city-radio-1236308306/",
+    "url": "https://www.polygon.com/games-like-fire-emblem-sega-shining-force/",
     "watchlist_match": [
-      "NYC"
+      "gaming"
     ]
   },
   {
-    "category_candidate": "finance",
-    "duplicate_cluster_id": "amazon bezos billion falling filed jeff just sell",
-    "headline": "Jeff Bezos just filed to sell $4 billion in Amazon. The shares are falling",
-    "importance": 33.15,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 10.51,
-    "source_names": [
-      "CNBC Top News"
-    ],
-    "url": "https://www.cnbc.com/2026/08/04/jeff-bezos-just-filed-to-sell-4-billion-in-amazon-the-shares-are-falling.html",
-    "watchlist_match": [
-      "AMZN"
-    ]
-  },
-  {
-    "category_candidate": "finance",
-    "duplicate_cluster_id": "but buying draw fewer foreigners homebuilders luxury properties",
-    "headline": "Foreigners are buying fewer U.S. properties, but luxury homebuilders still draw them in",
-    "importance": 29.63,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 9.01,
-    "source_names": [
-      "CNBC Top News"
-    ],
-    "url": "https://www.cnbc.com/2026/08/04/foreign-buyers-us-properties.html",
-    "watchlist_match": []
-  },
-  {
     "category_candidate": "culture",
-    "duplicate_cluster_id": "bow documentary linkin park september this",
-    "headline": "New Linkin Park Documentary To Bow This September",
-    "importance": 26.59,
+    "duplicate_cluster_id": "arnaud dark dramedy dudley fran godstar ois olivia",
+    "headline": "Olivia Taylor Dudley & Fran\u00e7ois Arnaud To Topline Dark Dramedy \u2018Godstar\u2019 From Oren Shai",
+    "importance": 24.05,
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.39,
+    "score": 11.52,
     "source_names": [
       "Deadline"
     ],
-    "url": "https://deadline.com/2026/08/linkin-park-documentary-septebmer-1237016502/",
+    "url": "https://deadline.com/2026/08/olivia-taylor-dudley-francois-arnaud-to-star-godstar-1237017356/",
     "watchlist_match": []
   },
   {
     "category_candidate": "culture",
-    "duplicate_cluster_id": "ahead announces cast creative exclusive full hall midnight",
-    "headline": "Todrick Hall\u2019s \u2018Midnight\u2019 Announces Full Cast and Creative Team Ahead of New York Premiere (EXCLUSIVE)",
-    "importance": 26.44,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 10.94,
-    "source_names": [
-      "Variety"
-    ],
-    "url": "https://variety.com/2026/legit/news/todrick-hall-midnight-full-cast-off-broadway-run-1236827451/",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "cmg donny exec forces former herran hugo joins",
-    "headline": "Former Paramount Exec Donny Hugo Herran Joins Forces With UK\u2019s CMG Productions",
-    "importance": 24.82,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 11.07,
-    "source_names": [
-      "Deadline"
-    ],
-    "url": "https://deadline.com/2026/08/donny-hugo-herran-teams-with-cmg-productions-paramount-1237016931/",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "global",
-    "duplicate_cluster_id": "crimea four gun kills occupied rampage russian soldier",
-    "headline": "Soldier kills four in gun rampage in Russian-occupied Crimea",
+    "duplicate_cluster_id": "20th anna baryshnikov cast michele out romy round",
+    "headline": "Anna Baryshnikov & Sofia Wylie Round Out Cast Of 20th\u2019s \u2018Romy And Michele\u2019 Sequel",
     "importance": 23.29,
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.77,
-    "source_names": [
-      "BBC World"
-    ],
-    "url": "https://www.bbc.co.uk/news/articles/c80n33lrnm5o?at_medium=RSS&at_campaign=rss",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "business_tech",
-    "duplicate_cluster_id": "cmf earbuds first launching nothing open",
-    "headline": "Nothing CMF is launching its first open earbuds",
-    "importance": 23.14,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 10.41,
-    "source_names": [
-      "The Verge"
-    ],
-    "url": "https://www.theverge.com/gadgets/974933/nothing-cmf-clip-pro-open-ear-buds-price-launch",
-    "watchlist_match": [
-      "gaming",
-      "MSFT",
-      "GOOGL"
-    ]
-  },
-  {
-    "category_candidate": "business_tech",
-    "duplicate_cluster_id": "bags clever design hooks integrated peak",
-    "headline": "Peak Design\u2019s latest bags have clever integrated hooks",
-    "importance": 21.54,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 10.55,
-    "source_names": [
-      "The Verge"
-    ],
-    "url": "https://www.theverge.com/tech/973624/peak-design-city-line-details-price",
-    "watchlist_match": [
-      "AAPL"
-    ]
-  },
-  {
-    "category_candidate": "culture",
-    "duplicate_cluster_id": "august cast center guitars lincoln set seven theater",
-    "headline": "Cast Set For Lincoln Center Theater\u2019s \u2018August Wilson\u2019s Seven Guitars\u2019",
-    "importance": 21.31,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 9.36,
+    "score": 10.46,
     "source_names": [
       "Deadline"
     ],
-    "url": "https://deadline.com/2026/08/august-wilsons-seven-guitars-cast-1237016969/",
+    "url": "https://deadline.com/2026/08/romy-and-michele-2-cast-adds-anna-baryshnikov-sofia-wylie-1237017339/",
     "watchlist_match": []
   },
   {
     "category_candidate": "culture",
-    "duplicate_cluster_id": "acquires carnival day died exclusive films girl jackal",
-    "headline": "\u2018The Day of the Jackal\u2019 Producer Carnival Films Acquires Television Rights to Sarah Pinborough\u2019s Murder Mystery \u2018They Say a Girl Died Here\u2019 (EXCLUSIVE)",
-    "importance": 20.15,
+    "duplicate_cluster_id": "audible ear ghost horror immersive play premiere sets",
+    "headline": "Immersive Horror Play \u2018A Ghost in Your Ear\u2019 Sets New York Premiere From Audible Theater",
+    "importance": 20.91,
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.83,
+    "score": 9.47,
     "source_names": [
       "Variety"
     ],
-    "url": "https://variety.com/2026/tv/global/sarah-pinborough-they-say-a-girl-died-here-carnival-films-1236827382/",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "global",
-    "duplicate_cluster_id": "000 airport caught ecstasy indonesian moment pills pilot",
-    "headline": "Moment pilot caught with 70,000 ecstasy pills at Indonesian airport",
-    "importance": 18.6,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.71,
-    "source_names": [
-      "BBC World"
-    ],
-    "url": "https://www.bbc.co.uk/news/videos/c9d8662gyx5o?at_medium=RSS&at_campaign=rss",
+    "url": "https://variety.com/2026/legit/news/ghost-in-your-ear-horror-play-minetta-lane-audible-theater-1236827653/",
     "watchlist_match": []
   },
   {
     "category_candidate": "culture",
-    "duplicate_cluster_id": "august books days dog get summer through will",
-    "headline": "13 new books in August will get you through the dog days of summer",
+    "duplicate_cluster_id": "ball butterfly cast chrysalis exclusive girl reunion set",
+    "headline": "\u2018New Girl\u2019 Cast Reunion Set for Chrysalis Butterfly Ball (EXCLUSIVE)",
+    "importance": 20.55,
+    "reason_skipped": "no reliable source confirmation",
+    "score": 10.15,
+    "source_names": [
+      "Variety"
+    ],
+    "url": "https://variety.com/2026/scene/columns/new-girl-cast-reunion-chrysalis-butterfly-ball-1236827464/",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "bowen broadway debut mary snag tickets yang",
+    "headline": "How to Snag Tickets to Bowen Yang\u2019s \u2018Oh Mary!\u2019 Broadway Debut",
+    "importance": 20.2,
+    "reason_skipped": "no reliable source confirmation",
+    "score": 9.16,
+    "source_names": [
+      "Variety"
+    ],
+    "url": "https://variety.com/2026/shopping/news/how-to-buy-oh-mary-bowen-yang-broadway-tickets-online-1236827741/",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "culture",
+    "duplicate_cluster_id": "2026 award festival film francisco grant institute jewish",
+    "headline": "Jewish Film Institute Reveals 2026 Grant Recipients & San Francisco Jewish Film Festival Award Winners",
+    "importance": 19.94,
+    "reason_skipped": "no reliable source confirmation",
+    "score": 9.03,
+    "source_names": [
+      "Deadline"
+    ],
+    "url": "https://deadline.com/2026/08/jewish-film-institute-2026-grants-festival-winners-1237016711/",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "business_tech",
+    "duplicate_cluster_id": "chief erin levity officer programming promotes schonfeldt von",
+    "headline": "Levity Live Promotes Erin Von Schonfeldt To Chief Programming Officer",
     "importance": 18.3,
     "reason_skipped": "no reliable source confirmation",
-    "score": 9.75,
+    "score": 9.17,
     "source_names": [
-      "NPR News"
+      "Deadline"
     ],
-    "url": "https://www.npr.org/2026/08/04/nx-s1-5905346/new-books-august-2026",
+    "url": "https://deadline.com/2026/08/erin-von-schonfeldt-named-levity-live-chief-programming-officer-1237017371/",
     "watchlist_match": []
   },
   {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "money rules swear they work",
-    "headline": "3 money rules I swear by \u2014 and why they work",
-    "importance": 13.53,
+    "category_candidate": "business_tech",
+    "duplicate_cluster_id": "bendita bound exclusive film love monster rights sales",
+    "headline": "Bendita Film Sales Seizes Worldwide Sales Rights to TIFF-Bound \u2018Love Is the Monster\u2019 (EXCLUSIVE)",
+    "importance": 17.91,
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.12,
+    "score": 9.0,
     "source_names": [
-      "MarketWatch Top Stories"
+      "Variety"
     ],
-    "url": "https://www.marketwatch.com/story/3-money-rules-i-swear-by-and-why-they-work-f7a1ad65?mod=mw_rss_topstories",
+    "url": "https://variety.com/2026/film/global/bendita-film-sales-toronto-festival-love-is-the-monster-1236826961/",
     "watchlist_match": []
   },
   {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "500 boost caterpillar center data demand dow drives",
-    "headline": "Caterpillar\u2019s stock gives the Dow a 500-point boost as data-center demand drives record revenue",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 14.16,
+    "category_candidate": "business_tech",
+    "duplicate_cluster_id": "app beloved bingers founder launches revive time tracking",
+    "headline": "TV Time co-founder launches Bingers to revive the beloved TV-tracking app",
+    "importance": 16.5,
+    "reason_skipped": "no reliable source confirmation",
+    "score": 8.31,
     "source_names": [
-      "MarketWatch Top Stories"
+      "TechCrunch"
     ],
-    "url": "https://www.marketwatch.com/story/caterpillar-is-killing-it-and-data-center-demand-is-driving-record-revenue-161b84d1?mod=mw_rss_topstories",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "day election know primary",
-    "headline": "It\u2019s primary Election Day in WA. Here\u2019s what to know",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 13.48,
-    "source_names": [
-      "The Seattle Times",
-      "Upper Michigan's Source"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNMXd5QkZQb1Z6N2stblhQVkl2a0YxNHN6REQxcmFlbmhkazlBUWlKV1lZaDhYbDRrWDMtVFQtU3VfYnVIam9UMzJBNGxzLTNQZUJVdG00MVVpQk9HVGlKT2I4XzRXZzl1TjIzTTkySjZQWDFsdi1ramY0Z3AtM1I2YlRrdFB1b0hTclVHYklIUVBWRFExbHdoTExnZTJ1RkQwQXUw?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "again brutal buy citadel finally market reset securities",
-    "headline": "The stock market\u2019s brutal summer reset is finally over. Here is why Citadel Securities says it is time to buy again.",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 11.89,
-    "source_names": [
-      "MarketWatch Top Stories"
-    ],
-    "url": "https://www.marketwatch.com/story/the-stock-markets-brutal-summer-reset-is-finally-over-here-is-why-citadel-securities-says-it-is-time-to-buy-again-f6a8d101?mod=mw_rss_topstories",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "alphaspace earnings higher morning palantir ripping stat stock",
-    "headline": "Why Palantir stock is ripping higher after earnings: AlphaSpace stat of the morning",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 10.69,
-    "source_names": [
-      "Yahoo Finance"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQQWlVREJxRWQ1YlRJTjY0SnVPNzRIU3lwazdDNV8zMWFkM0hyNUttTWhDWjRqRnZma0VrUWFINVRURGUxRUJxcVFBdnJieUQwYU8tOUJRZkRCQ3ExeUN1TnBKX3hfNk5yUFBRZjFaYWMtT3lYMjh4bDF4UGJ0WS1UUldEUER4OS1aRkZaRmNlVmNEYWxKZnhXb2dTdm5yT2ZFMlhTdnd1Z2p6bXN6UGl2MW1Ob3ZuSWp1S201SEh0RHVZMmxDRlR3Um5IZzhmNG8xQWtNVEt2SWJsR09mTG44?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "comes earnings ever first pressure preview spacex stock",
-    "headline": "SpaceX's first-ever earnings report comes with stock under pressure: Q2 preview",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 10.68,
-    "source_names": [
-      "Yahoo Finance UK"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNMkVSc0dQSm5ZSndMMU1QX3I5NWp4S1ZkOXBTVkNNRk5LTEEzV1BCLXp6d3poUVVBRTFfWS1BR3RnQXdSWTY5YVJGZ3BJMEJ2R2pVTnZLcjhqRnA3eWFETHI4bkZDQ1NaY1lnMW0wUFV2NEQ3ZEhLZTQ4Y1JyZUFYTnYtS3ZJUk1na3BSTFhTbFJJOWFLdFRlazhXN0ZiZzlTN1hLMVh5WFkyWW83VXd5dk92TjZELWdwczYwaFRzajZNZWlkTXYw?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "120th ahead bgov congress look onpoint policy",
-    "headline": "BGOV OnPoint: Look Ahead to AI Policy in the 120th Congress",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 10.49,
-    "source_names": [
-      "Bloomberg Government News"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNZzBIVUkwSERyeXVpRFZQVnhiUjZEcU5fMjIwOXR3LVc1REk4MHhGQThZU3JrMmc5SGlFSmxEY29oTnpPTTNvOFYzYU9tZktfV2ktZmZudFQ0VTZDZ0ZQY2xIdlRiRDBmcWYwOHduVGI4TU1GZHpwZWZOTzFOQTYxMFQxcWFUblRneTZpbUx2SWFJYXRwRHd2dndkYjRaaEZPZ2FJRk1sNHEwQQ?oc=5",
+    "url": "https://techcrunch.com/2026/08/04/tv-time-co-founder-launches-bingers-to-revive-the-beloved-tv-tracking-app/",
     "watchlist_match": [
-      "AI"
+      "startups"
     ]
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "high iran lull near record stocks war",
-    "headline": "U.S. Stocks Near a Record High Amid Lull in Iran War",
+    "duplicate_cluster_id": "100 2026 disrupt extra off only pass take",
+    "headline": "Take an extra $100 off your TechCrunch Disrupt 2026 pass: This week only!",
+    "importance": 12.28,
+    "reason_skipped": "no reliable source confirmation",
+    "score": 8.48,
+    "source_names": [
+      "TechCrunch"
+    ],
+    "url": "https://techcrunch.com/2026/08/04/take-an-extra-100-off-your-techcrunch-disrupt-2026-pass-this-week-only/",
+    "watchlist_match": [
+      "startups"
+    ]
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "2026 election interactive key map michigan primary races",
+    "headline": "Interactive map: 2026 Michigan primary election results for key races",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 10.3,
+    "score": 14.46,
     "source_names": [
-      "The New York Times"
+      "ClickOnDetroit | WDIV Local 4",
+      "The Washington Post"
     ],
-    "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9MTGFyNmhQUktla1pyTHRPNkZIWmR3NGdDOWtkYnp5RzY0bkgyY2I2Skl1RjE4TUVUckpPeEMyNGFxZ1c5Tzlqc3ZhdEVkWGNOdGxtX1BuZnpJLTVQSmwtcDRHcWFsWWMwbnJUeHNlaVNZV1NjUU1fc2tFQ2s?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOYnk1MFN6bVVtSmlodElpWDNvdFllRl9aZld3cW81SkF3VllQazhxaFRqbHZhQ1VCdDlzRmRzOWJnV1Z1VTFMcFdlenV5UEdlTThucC1Fa1kxQnIzYklMRFZvOHBtTU9CZEJPMlhRUzROMEZQV1haanV4dXZjSVRNR3F1Wi1hbzlpSXhtMHY4U1NwdDdqUGRIdTR4TTlBUlotT0sxYnBEcHNwQm5RVUFma0xHQlo3d3pCdk9Mc1l4bw?oc=5",
     "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "bessent defends detox fed going guidance markets much",
+    "headline": "Bessent defends Warsh, saying markets are going through \u2018detox\u2019 from too much Fed guidance",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 14.45,
+    "source_names": [
+      "MarketWatch Top Stories"
+    ],
+    "url": "https://www.marketwatch.com/story/bessent-defends-warsh-saying-markets-are-going-through-detox-from-too-much-fed-guidance-39dfc765?mod=mw_rss_topstories",
+    "watchlist_match": [
+      "Federal Reserve"
+    ]
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "could earnings event massive move not spacex stock",
+    "headline": "SpaceX Stock: This Event, Not Earnings, Could Trigger a Massive Move This Week",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 11.61,
+    "source_names": [
+      "The Motley Fool"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNdkZhX0xESU84UXpueWYweGdWNXZHdERzTXBOZmF2T1AtZm95MHRvZFh6UkRWdHpXaTA0X3FTRmZiOWJvX3F1WklDVXNwSy1qS2Izd0pBYXJqNXBPeUc2cVZiWnJFalFuQW5vVlRDYmpaRVhSU1NPRE1vREFhanR2Ml9KOGIxQWJqS2R4Wmd6RFY3Zm9mYnNIUA?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "225 billion braces earnings loom market options spacex",
+    "headline": "Options market braces for $225 billion swing in SpaceX\u2019s value as earnings loom",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 10.79,
+    "source_names": [
+      "The Mighty 790 KFGO"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPMm1BdUFUcWdhdGJrbHpud0x6WHo4WWwwOVRVd1FNYXdQek1XcTZoM1ZUcDhaaWFBeEI5LWtEMnpmS0dod3I4Q2ExNHRyUnBSR0tWbjVUUWlnWGF0NFoxTHc5QXF0eGJ0aUNBdDBQVWgwR1JxQm1YTWloNDZBSjY3OU1zU2Z3UHVvX1AxVmw4aTVxSGNMOGwtV2U5cVBNYzFYdVp2QWVlbzdDQQ?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "bessent deal freedom hormuz may movement open strait",
+    "headline": "Bessent says there may be deal Tuesday or Wednesday to open Strait of Hormuz with 'freedom of movement'",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 10.44,
+    "source_names": [
+      "CNBC Top News"
+    ],
+    "url": "https://www.cnbc.com/2026/08/04/bessent-says-there-may-be-deal-tuesday-or-wednesday-to-open-strait-of-hormuz-with-freedom-of-movement.html",
+    "watchlist_match": [
+      "inflation"
+    ]
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "2026 ipo market spac update",
+    "headline": "IPO & SPAC Market Update: Q2 2026",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 10.28,
+    "source_names": [
+      "FTI Consulting"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPNkFKU0t4bDFESnItaUU1eTVFbDhEd1pEWDdKVTJDeGZUaERBaGJaOTJyb3NMeEdZSUt4VDlnZF9YWlVBSVVOcFZ0YzBXMUlscG9ScTduejI4QnY5X0hRR01nLXo0Ri00YkVLVlFYekg0bHhLMEthVDNWenNEY0psM3BsQXQ?oc=5",
+    "watchlist_match": [
+      "IPOs"
+    ]
   },
   {
     "category_candidate": "uncategorized",
@@ -304,7 +239,7 @@
     "headline": "Kansas voters will decide on an amendment to elect state Supreme Court justices",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 10.27,
+    "score": 10.21,
     "source_names": [
       "The Washington Post"
     ],
@@ -313,153 +248,179 @@
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "birthright citizenship could court next ruling supreme things",
-    "headline": "Supreme Court Birthright Citizenship Ruling\u20143 Things Trump Could Do Next",
+    "duplicate_cluster_id": "but content current fed keeping level mind open",
+    "headline": "Philadelphia Fed President Paulson content with rates at current level, but keeping an open mind",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 10.17,
+    "score": 10.2,
     "source_names": [
-      "newsweek.com"
+      "CNBC Top News"
     ],
-    "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxORWhaQjQwQk0tbE9EZUhremlmTGczOG1UNXItSFhkNkExY05ZaEQtOUl6NnZQWTZIUTN1VmJkOU5pREJvM0s4YmF4cUxtcm5qc0xOaDJPSm1SbU1yQ2wycWNvaXpwWFlBcmlqQUhEd0dId3BxUXRIWTVNTjhJNGJpTnZqSTNhM3F1Q1BPbDh5MWxVajhXamRDaEdkZ1JXMkFiNTEzUUpBWQ?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "affect could earnings spacex stock tesla",
-    "headline": "Here's Why SpaceX Earnings Could Affect Tesla Stock",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 10.16,
-    "source_names": [
-      "Investor's Business Daily"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5NaFdibHhaMFo2Rk5GcWRnTS13V2VOUHpmOWxYaWxEQllqZkJTcEZVTjRreHlYQk5Nci1CcEFMcHd5MkJLMkxmNV9nWWFyYWdGYWpOX08ySGJJOENqQVl2REQzZ2kzcURNS0R2VlpGQXQ5bGVpbmZjeHpnR3oyVUE?oc=5",
+    "url": "https://www.cnbc.com/2026/08/04/philadelphia-fed-president-paulson-content-with-current-rates-but-keeping-an-open-mind.html",
     "watchlist_match": [
-      "TSLA"
+      "interest rates",
+      "Federal Reserve"
     ]
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "fed inflation keeping mind open pending philly president",
-    "headline": "Philly Fed president says she\u2019s keeping an \u2018open mind\u2019 on rates pending inflation",
+    "duplicate_cluster_id": "capital inflation perspectives protected securities treasury",
+    "headline": "Capital Perspectives: Treasury Inflation Protected Securities",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 10.03,
+    "score": 9.97,
+    "source_names": [
+      "The Journal Record"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNZkxLaW0wQzFxa2hwZTBfNnJkbFNELUFUWi1XMV8yWDZ3VXhJZ0JFOGdJR2wxdWYtSENHOFVlWEt6MUlFSGp0THNnTVhQS3FPSFhHcUozSktvUjBzdk4teDRHcFQ5NTZ4ZVJjWE45VWU4QzBON0ZxanFuRVB0d3htT21XbkVaX0FpMTVJTGFlWHo3Sm85M1JFaWhJd2VRS1U?oc=5",
+    "watchlist_match": [
+      "inflation"
+    ]
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "all bond cattle credibility elevated fed hat inflation",
+    "headline": "\u2018All hat, no cattle\u2019: Markets question Fed\u2019s inflation credibility amid elevated bond yields",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 9.92,
     "source_names": [
       "Yahoo Finance"
     ],
-    "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOMEdXd1pXOUtRUGRiRGxFNXlpcmFpQmk3TEVpU25IcVlMN2lWckRSVkRtUU5INUxoQ2dKQU1Db00zWC00WHZ2NHlZQjI1YlFOOWFHOXpKS3ZmRkd2RzJmb0RkRkd6WTJ3NDVacjNqWW5LSXJXdEsxc0FzV2U0VVh2S3FZbXZqb3pUdlhwaDUzVHhGWVo0LUpfZzZkN1ZtNFlHaXRPNHVuYmpELUk2NVpRb1U0VklhaU1pZEkxVFlrSkpXb2drRmV4dmczS2FyNmZnUlM5bWF6ZU1MZlRVNno0Z3oyTQ?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNX0U2TnlYYTByU250UEhiTTQ0bm9xZDZRVElEbDZZak9FQVE0ZFMxZDFVVXlEX1BsRnA2QVg3N1ZjdTlvajRRWWpmamljeTBzQnk1XzdsRzBkTGV1QlFiZVZ6QTJfb282QV9mTWsxNUJHTXdIR3paaTQxcXlha2NBd21uQkVtMmlBbkctSUN0anRmQXhmWVluVk14ZDBWTDlCZ1hkR0JaMWtXcmVqdHdJQ2JMcVVEMVVyM0ppUjhuTHFWbU1CMWI4dTVJel90QQ?oc=5",
     "watchlist_match": [
-      "interest rates",
       "inflation",
       "Federal Reserve"
     ]
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "brunner court democracy election jennifer justice litmus november",
-    "headline": "Ohio Supreme Court Justice Jennifer Brunner: November election is litmus test for democracy",
+    "duplicate_cluster_id": "assault ban court judge keeps pending place review",
+    "headline": "Judge keeps NJ\u2019s \u2018assault weapon\u2019 ban in place pending Supreme Court review",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 9.67,
+    "score": 9.85,
     "source_names": [
-      "Mahoning Matters"
+      "New Jersey Monitor"
     ],
-    "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE44dzJYMDNuY3QzZUhLaUdkOFk2YklQb0tfYWFjWmF5dldDREdMb1dLVHVhWHFNLXF5RkpEbU5wLVNzMmdOTnJlU3F1V1Racm5sajZWbDZsXzZWakFMMTZhcjlQYkZydnZpekZjVk54dU0tUQ?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFB0LVkzWE5pMG1BNGt6RTJlQW90Qmw0TVRZd3FJaVBOdlVrRllwN1RqenliUmZjS200QUd2T3RTTDFZM0JhRlR4TjY0T052RjRET0pHaUhWeUFhcU55aHNiczRsZ1lBZmJteHN1MmZ4ZWdsRG5pblJSb29lR2ZvQQ?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "caught crossfire hormuz iran sailors strait war working",
-    "headline": "Sailors Working in Strait of Hormuz Are Caught in Crossfire of Iran War",
+    "duplicate_cluster_id": "500 ahead cuts earnings release roles zillow",
+    "headline": "Zillow cuts 500+ roles ahead of Q2 earnings release",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 9.44,
+    "score": 9.81,
+    "source_names": [
+      "RealEstateNews.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQTFdJampZclMyZ1Vud0QwdUcxcVhCZUFOd3VrVVZ1REthbHdkMjhBQWJOZktycmlHS1FHWjFQZFk2ZnJyUWlPb20zNjJ0eUp5d3pkWTlFMkV6OGdlbk1aQjhBa09qOHpGNkt6SXc4UkpRWWI1cl9TMVdfMGNzeEY2LUpfM2ZxY1pTOUp5TkNSMkU0RlRZYnU0?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "bill crypto financial landmark opposition stiffened trump windfall",
+    "headline": "How Trump\u2019s Financial Windfall Stiffened Opposition to Landmark Crypto Bill",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 9.5,
+    "source_names": [
+      "wsj.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPTkQtaDlERFlMLTdfN0RRaEU5d0xXMUlsemJtV0RVVklOMjZTZzlwUmFnQlUwNk5GUlBkSkxMSklObkdJUTk1d1BYUVNUdVNVUUllakNiR1ljMXREZmx3Z3lYTl9SSmNMYUxBUjE2V00zUGl0MVJ6TjQ4ZXhCYU9aU3hxVklrbkZPM1l6SlpfdWxsTmFUR1JrcXJ5LXVlaTJ3NmhiX3pyMVZDSjVhR2o2ck1ORzZZQ1A5TC1J?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "2026 alaska early election expect opens primary voting",
+    "headline": "Early voting opens for Alaska\u2019s 2026 primary election \u2014 here\u2019s what to expect",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 9.5,
+    "source_names": [
+      "alaskapublic.org"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOaFlYVVE5NkxPX1lBTE1ZYlYwMGJ0WEVhT0pBbExZSTYxaHN5S3FMcG5MandvWC1hYWFIYjFvTHdGUlc2SG0ya0dSZGViMGg4eGYxemZyVjVUdGFIempDVEhrUjhEcWxTMFh0c3ZXc1lCcmFhem4xNURzYTVjSjI0b01TT01iV3VDM0J0YldCV2xlWTZKd0o3dU8wcTFkd2FZUUZTU0pkV284WTFvY01NTXF0SDdLbDZHVWRoOWp6ZWFFZ0tGOXNGV3hmVTVkUQ?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "add betting dodgers faves skubal strengthens",
+    "headline": "Skubal add strengthens Dodgers as betting faves",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 9.36,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/mlb/story/_/id/49529944/trades-solidify-dodgers-strong-betting-odds-boost-red-sox",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "investors off record shake stocks territory worries",
+    "headline": "Stocks in Record Territory as Investors Shake Off Worries",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 9.07,
     "source_names": [
       "The New York Times"
     ],
-    "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPYTVPNkVteG00aTl3dEVUSzM2YWJOUDFET1BpSS1VMy1MdENyV29oMkV4SmhjMVhDd2FzdUZkNG5CR0Fwcmgzc1pzMFk4U0FCek56SWNPbGc2dEpmYWNFR0J0cjd1UUVxUEFMRUI4eGRiVWIydWdtc0JqR0JBSkxmQ0lzY2VieG1LVmwxQw?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9MTGFyNmhQUktla1pyTHRPNkZIWmR3NGdDOWtkYnp5RzY0bkgyY2I2Skl1RjE4TUVUckpPeEMyNGFxZ1c5Tzlqc3ZhdEVkWGNOdGxtX1BuZnpJLTVQSmwtcDRHcWFsWWMwbnJUeHNlaVNZV1NjUU1fc2tFQ2s?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "consumers earnings income lower mcdonald mitch out roschelle",
-    "headline": "McDonald's earnings show lower-income consumers are tapped out, Mitch Roschelle says",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 9.42,
-    "source_names": [
-      "Fox Business"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFA4TnZrcHA4X05FVkI1X3NZbjR0UjF2UEVicTljd05JVXBER1NISVo0Zk5pQVowSi1UMmw4SGRyQW0weEhvX1RNVFVCV2hMRGtidlczeWpQQ3JISFk?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "coalition court discusses forces line next review steps",
-    "headline": "Coalition discusses next steps after MI Supreme Court forces review of Line 5 tunnel",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 9.4,
-    "source_names": [
-      "Michigan Public"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxON3FicXAzTEo2c3ppcWFoSmdIS0lkZ0RObU9VLW0xS090NWU2SVdVQUlfQjU3UkZ2dENTSHJwdjBoYjBfMWJVcVk0VXhWWl9nV0c4ckdhejVtSU43YlF1c2hwQlVJMmdQdzA3QWt3RldaN1hmQ1hZY3ZibF9jVzM3cTNteS1KcUlBZlJkUDduc0VjWE1iaktPbGk5T0s4MlhDampRbjl1VFFfMVozR0ZUWjg1eldPX2dZWm4tTGlyMnY2d0xkbFJWc1k1ZTd1dWhjYkZmdWRyRmhrLU1xaWNJZjRIcEwxUXI5?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "cost could foot health low shows study support",
-    "headline": "Study shows AI could support low-cost foot health technology",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 9.12,
-    "source_names": [
-      "Medical Xpress"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9rRHE0MnZKV0wxdm9oVzEyM3NUWExudEVJc0tveExvTmZlbU1SMTRHbU03Q0xzMnlfUjd5blBudkJieDR5ZHlJNzZYYzRLdmRyUUFNVmlGYVRnd1VjVTNNcjRkc2FUTXd1MVd6bFM1cmt1Y1FsMmExRw?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "2026 election michigan polls senate",
-    "headline": "Michigan U.S. Senate Election 2026: Latest Polls",
+    "duplicate_cluster_id": "2026 aug court supreme",
+    "headline": "Supreme Court Today, Aug. 6, 2026",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
     "score": 9.04,
     "source_names": [
-      "The New York Times"
+      "Bloomberg Law News"
     ],
-    "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNZXg4R2RiNm5LQjloa25FZEFhY2tCX2k3U0ExVEJnNzVWeW1Ba21fbkRxYlFFX3M2TDdLeGlQUnViWGNfbFZWdlBiVHhNNUFqZE5ISjhsdlB5dGRPZ3ZaRVlpd24ybWMyX0dXUFFIWUFhbnM0c05DX1JLVmVYT0NFT1pFcHBGYU9hLXAyOXRR?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE81WXdFMTg3eWYtWlRaMlpQcktlM1hGd2g2MWZOd0sxWlV0VWtPOFdjaU9XWlVycjM2ZzAtSG5KWE5mS1dEcThpb2N5U1BHZEZ1M0VIVWdwZ2Jfb2NtQU12ZHVRUlRKNFN1cWRpZjdPREZFQkZnRWc?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "boom caterpillar center data drives earnings growth",
-    "headline": "Data center boom drives Q2 earnings growth for Caterpillar",
+    "duplicate_cluster_id": "bessent deal iran leap may near oil slides",
+    "headline": "U.S. Stocks Leap, Oil Slides After Bessent Says Iran Deal May Be Near",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
     "score": 9.02,
     "source_names": [
-      "Transport Topics"
+      "wsj.com"
     ],
-    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5veTFiMFRlb0lFbVlDX29ENEI4d2xsS0dvcUJDVVhlS0QxOVJvY3FiTWwtd3pMU3N4Q0pCR3dwOXhFdDczbEItbEtkM1JWVXVVTEx5SHNrak1RTjlENFhxNWNPWXZLZXFMeFZpaw?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNMDhkSzUwYkVrUHlrSjFDOS15V0xtcWtVOXBfTHhRRTdBcHRwUGZpVUNkdm9ReFdVejV2dXBkU3ZkVmdJZkNhdTVFREtYVGpRWTNXUlZuZEd1bG1jcDY5QlBSeEcwUUI5WFk2bkdPczBXNlZBYjhaYV82ajFLaWkta0gxZHl0M1YtbHlYUlhXWEtYV2V5N1U1eXlzNG9mYjNHYWgyblVR?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "amd earnings jump sales verge",
-    "headline": "AMD Reports Earnings on the Verge of a Sales Jump",
+    "duplicate_cluster_id": "2nd banks big earnings half signal soar strong",
+    "headline": "Big Banks Signal Strong 2nd Half After Q2 Earnings Soar",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 9.02,
+    "score": 8.99,
     "source_names": [
-      "Barron's"
+      "Global Finance Magazine"
     ],
-    "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9FOHlEd3VXbGg2UElsMlhTMWNKUERnbkdzZ3lIdHdIZ3VuYnJTSHZiVjZvMWFBVDNhYTVCbEFHWWd6QmpGcHhKY3EwU1JEUDRSNDJSQ0l4aEFrUVBZNFlQbVZURmJVQkxmbzZwOEtZLUxaQXVa?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5wQjhVX3F4dFpIeVNvYnVaWDQ1el9aSHI5eC1scW1mYTExY1NYeVpIXzNSYzlxaXJXZFVjWWw2ZUJuMTcxRlVybTV5V1VGc2hMbVpub1k0d2hBc2gyOEhxT0RjQkxRTWlfaWpMZWJGSnROeFJ2OUE?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "player ranked reclassifies top williams",
+    "headline": "Top-ranked '28 player Williams reclassifies to '27",
+    "importance": 0.0,
+    "reason_skipped": "no reliable source confirmation",
+    "score": 8.85,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/mens-college-basketball/story/_/id/49528545/no1-ranked-28-player-williams-reclassify-2027-class",
     "watchlist_match": []
   },
   {
@@ -468,7 +429,7 @@
     "headline": "Sources: Falcons RB Robinson gets record deal",
     "importance": 0.0,
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.79,
+    "score": 8.78,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -477,42 +438,82 @@
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "capex divided fed macro mixed navigating scrutiny signals",
-    "headline": "Divided Tech, Divided Fed: Navigating AI Capex Scrutiny and Mixed Macro Signals",
+    "duplicate_cluster_id": "future learn reshaping work",
+    "headline": "Learn How AI is Reshaping the Future of Work",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 8.7,
+    "score": 8.65,
     "source_names": [
-      "Advisor Perspectives"
+      "Stanford Graduate School of Business"
     ],
-    "url": "https://news.google.com/rss/articles/CBMiiAJBVV95cUxQa3I1bGJRekJmTG8xdlNNVXh4VXE0Ym1aOWZDclU1dWdXYzZnMGxtMDEtOEtKX281R05aaUVzUm4xY3hOS3cyRlhCbWVLMW96N0tER1ZMVmQ0dHNlenRtR0w0QWowNzdwem8td0k2U0swTV9fWXlidGItem9mYVdXbEpIVEs3SWRGQmFMVXpSQTlSN1JfUTVoUVVxeWF1ZE0ybjhUX3dSeFZIS3l2QklacjdSTXpjc0FCVE9XLUdCT3dyYUQxMm9IOG8zS19hOElRSTRNQnZJVktzLVlpa3FqNlFVZW9Hb2FFcTVETmQ5M3NnTHRtM085WW9XWHBEMEgybWNJb0U4Rko?oc=5",
-    "watchlist_match": [
-      "AI",
-      "Federal Reserve"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "economic fallout first imperial launches master policy",
-    "headline": "Imperial Launches UK\u2019s First Master\u2019s On AI\u2019s Economic & Policy Fallout",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.68,
-    "source_names": [
-      "Poets&Quants"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQaDNhcG5kdHVoNG1CSllXNnhYTkRZaktDVlpOajU0T1VVUm9iT2JnUXlFeHpYTzFQODZtcFdORWVHdjlYQ21qRml6UVVwQVZVUUN6c0xfT0JIdDEtR1BjSjlZaGhRWFZqODcxVVE2LU15ZEhjc2pxZTJMR2JGdVNwOFdaWm9SZEFqRHVreFM2b3lBMGJENFItbklOM2pLQW9YU1cxWUx0RjF0ejhjVEthZ001WlBJNmM0NFBIMg?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPaTFnekhHaHZ1elJqS2JsRl9BZWVSSVJDaS1uM1daNmJSOGsxRlpHbWRVTXlPY3B2U0JCblFWWXRRSTBYSFdKS3RfSl9SMWFibV9lQk9WWFV2dlJmMEpnT21xTHFXZm1QNjRpR2RMWXZGeEc0SDh1X29oUGNXNHZyWldNMWJ0ZHNzbmc?oc=5",
     "watchlist_match": [
       "AI"
     ]
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "deadline don losers loved mlb trade understand winners",
-    "headline": "MLB trade deadline winners and losers: What we loved -- and don't understand",
+    "duplicate_cluster_id": "cfb important manning moore most other players qbs",
+    "headline": "CFB's 40 most important players: Where Manning, Moore and other top QBs rank",
     "importance": 0.0,
     "reason_skipped": "no reliable source confirmation",
     "score": 8.65,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/college-football/story/_/id/49507476/college-football-2026-bill-connelly-40-most-important-players",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "child laws media not reflect safety should social",
+    "headline": "AI Is Not Social Media. New Child Safety Laws Should Reflect That.",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.65,
+    "source_names": [
+      "Tech Policy Press"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOUW1sY3VBU3Q5VGVIVlgyXzZ4QkJmQmVIZzBNcmhKVnJtX1dWYmhqZFdBR3kxNEluVVRZUXZuSHJhX2x1bk1YNVk5MDc3UUs4NnNvQmhtcWhUOXFTa2hCM0NGT2hoQ0RNLWg0cUdadHQta3FDX2RWRlVIeExzMWhESEdBWGJZWFpkeTA4T2FkekJGOGozVkFKcUh3?oc=5",
+    "watchlist_match": [
+      "AI"
+    ]
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "across before executives need organization scaling understand",
+    "headline": "What Executives Need to Understand Before Scaling AI Across the Organization",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.64,
+    "source_names": [
+      "Stanford Graduate School of Business"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOYVhzWHYzT1VheXhTVGVNSHgtQlFMMHFPZHFoUmxYQTJ2SllrZG91d2trSW1UTHdBdmlhNVB6Q2FZeDVUSnRkWm1qaFRaN3ZDR2JvXzdtbkkwVF9rbXBwZ3QtWFp3ME92aXVESVRrY1RVUF9HWnp0ZUNJYktpN180aGx2OURxdm4wc0Z6UU1CeFdhVTFrLTloQ05wLWgwVThrNjZkZXBIMWNHcUkzc2tv?oc=5",
+    "watchlist_match": [
+      "AI"
+    ]
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "administration appeals climate court divided federal funds terminate",
+    "headline": "Divided federal appeals court says Trump administration was wrong to terminate climate funds",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.61,
+    "source_names": [
+      "American Press"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPdGh3bFBqb1VEN3dxVnBsZ3lLWUFMcjJBTWVVMUxhYlJ4aFFyTGsxanNTdTRpTHNENU9SR1FzcERkOVpWMHZWZEZ1Y2kzeFl3dHBaRU4tcmhyUXdNZ3JKX1o3U2JuRHhkQ28wUWZJWmJENnR5dXlrS0QwdjhWOEVqWHd1MjhhakduUWs4dkxhbXJNdjRwMDNrSUI4Y3NnT25Oem42dEZtVVlCVDFkeVpvSUgtU2JYWlVxZkxuUWluN0ZVcW1xQjIzN0VB?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "deadline don losers loved trade understand winners",
+    "headline": "Trade deadline winners and losers: What we loved -- and don't understand",
+    "importance": 0.0,
+    "reason_skipped": "no reliable source confirmation",
+    "score": 8.61,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -521,482 +522,115 @@
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "anything cashman judge not out ruling",
-    "headline": "GM Cashman not ruling out anything with Judge",
+    "duplicate_cluster_id": "1st 2nd congressional democratic districts election preview primaries",
+    "headline": "Election Preview: Democratic primaries for Virginia's 1st and 2nd Congressional Districts",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.6,
+    "source_names": [
+      "13newsnow.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMioAJBVV95cUxOZGVvWEc0VG15OE1fOUhUOTNhZTlIcktDcmQzb3hrWFp4UDRwbDU5UC1kUzFuR2tMVlJOVjhnRlFzZW1zRnlMYTBCSEFMN2RDanozQjBZeUZOYTdXSVhzakdieDBjc19qV29zZ2ZkbDR5SzlJbkRpbW1lSnRySVc2LXhqa0h1UWI0Ynd2OW00b0l4d3JQTkNtdWI4aHVEZy1IWjBmbV91WXRwOHVRWElVLXczM01HemR5OUFmMmRVLUlJX29BS01ya2RfR19BaFlreU0xVkFnMlFvTlJhYTQ2blFiMHFndHBtbUEyanhMd09Mb2ZmZVZLX1JiakRpZGlYZUEyU2M5VmNRWkduYUxjYXZMQzVVRFpSTlcxSldZRko?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "advocates anti block call court mail order supreme",
+    "headline": "Voting advocates call on Supreme Court to uphold block on Trump\u2019s anti-mail voting order",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.6,
+    "source_names": [
+      "Democracy Docket"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNajNwNGpzSWNJLXZWUk02S2dEMDNKdVBfYkJzbGlTU3h1b3dmbnphMmhwZThCMG8zY0FXM3VDbXJSVGhKUXc2eDZjdVUyekZ3Z2M4UTJSaXFTTjl0QWpHRExxNmoxcnBNc0NQMm1qc2lFaENvdkpaVkphWU1wbF8xeFNpVE95TW10bmJNeWdQTnctUnJNaWNKeG5FbU5sTjFIcThXdEF3TXJhM2tVYmR4R1hGZHZPdw?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "blytheville cold headline laureate lech nobel war week",
+    "headline": "Nobel laureate Lech Wa\u0142\u0119sa to headline Cold War Week in Blytheville",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.6,
+    "source_names": [
+      "K8 News | Jonesboro, Arkansas"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOZUJXV3I4cV9Cam1hQjJDaFhxQnM5YzktWEhneEhQN0E1ZEI3ek5MWDNVVnB4VFlNQkRJNnZyWmFaSlVsSWRIT3NqMjV3S3hsdFloU2ZmNmFEX1lDeml6cVc3bzlrQTBZMGFiUUluY0hOQVNjNzFFcUQ3M2RFREk5WlpXSGdqQWlrajJ2MlBMTW9pSnN0N0ZJUw?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "battle eli heats key lilly miss nordisk novo",
+    "headline": "Novo Nordisk Stock Stumbles On A Key Miss As Its Battle With Eli Lilly Heats Up",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.6,
+    "source_names": [
+      "Investor's Business Daily"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNS3JSVnF6elFBM2l5MFdHVUJ4blFFQ1pSbDY4VHEyWUk1eF9qMVdzYWJZd2hXQTNNVGxnTGNxcWY2WTJnTVM2dWV4bTNvMDdISHpfN1hGWUdZVlhHWlE0NXlRN2RPalhnNlJPRklyOGdCYVBKOUswV2NTd0tsQzIwcVpDZllIRlUtYldiLTFSZDllb1pYb2c?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "danube dropping emerging low river ships that war",
+    "headline": "The Danube River's water is dropping so low that World War II ships are emerging",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.57,
+    "source_names": [
+      "ABC News - Breaking News, Latest News and Videos"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPVU9VZ1VEblhQZ3ZEMzNpZ0ljUTJrcVB2VWItcXFJbFQxMDZibG1FNWhuajhQblE3dVUyTnAxN01GX3NHTFI4LTlwTWdsb25KVzhLNjY4MWRPdUd5MVlNV0U3SUFqY2ZwSnFkMTBJWEFINzhvMjNUQVg4Ql9IVlg1XzFLSUxONEV4M04xdUpPanRyUWNVWF9rRnVBallWSDB20gGmAUFVX3lxTFBySjAzbDRQX3NqUkpvWkJ6ZDlQVmFxaFpMeXJkYlp4UWpUeThaOXllVXluYXlvTW1KY3VIU1hTajBxbllqeUZXZjVyektMNUlUYU1veVR5QjlkRjdTOEd1V2ZRUk9UVG9KbXlBd0xmX2RMRk5ZTHlzdEthNjZMY0NqWEVmZDgyWXBKLUdhNjkxQ21lMWh5YW5BVFFBWEdtTXQ1ZzZOMUE?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "americans court keeping real scapegoating supreme",
+    "headline": "Keeping it Real: The U.S. Supreme Court and the Scapegoating of Americans",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.55,
+    "source_names": [
+      "Black Voice News"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE90SE9MMklfNkVkOENmdkN5MGpTUG1aWmJLQXc1ZVlkWElVc2lXU2ZRcGxMcHVLSkFTVWEwOFlGY2RTS0FIb1lULTlnejBYb0otUXdCUkktNlhFUkQ2X05waDFBTS01UHR1cE9ialUzcnd6YVFlSWtqMA?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "cleveland name siren song team unveils wnba",
+    "headline": "Siren song: Cleveland's WNBA team unveils name",
     "importance": 0.0,
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.65,
+    "score": 8.55,
     "source_names": [
       "ESPN Top Headlines"
     ],
-    "url": "https://www.espn.com/mlb/story/_/id/49525286/yankees-cashman-judge-status-rule-it",
+    "url": "https://www.espn.com/wnba/story/_/id/49530150/cleveland-sirens-unveil-name-branding-wnba-expansion-team",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "keeping mind monetary open perspective policy",
-    "headline": "Monetary Policy Perspective: Keeping an Open Mind",
+    "duplicate_cluster_id": "article declare donald iran just should trump victory",
+    "headline": "Why Donald Trump Should Just Declare Victory in the Iran War: News Article",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 8.63,
+    "score": 8.53,
     "source_names": [
-      "Philadelphia Federal Reserve Bank"
+      "Independent Institute"
     ],
-    "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNVnJOWm1ka24tTVJiU3hwUjJOSExjT1ctZnVwVTNwUmxRUnlrMXRyMFJNYUlETXhtWmpsY3g1QkwtRWJMY2ZveWpjN3Q1OHFCTE9sOUNfREFvd3NjcldvZFBxWE5Gb0Z4Z3J0SzN5MHVQdVV4akFCLUpLR185TTFJcnM1Q040aTFiZVRFMzJ1NkRrNXlMVjZWX1NFMkdnSWNCX2RkSURfREJpd3F5?oc=5",
-    "watchlist_match": [
-      "Federal Reserve"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "boom chip concerns explainer global sharply stocks swing",
-    "headline": "EXPLAINER \u2013 Global chip, tech stocks swing sharply amid AI boom and valuation concerns",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.62,
-    "source_names": [
-      "Anadolu Ajans\u0131"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQZUE5VUtUZHgyS3pMU21QZWpZcXk3Q0xFV0JZUlRuSHQ1VTJESEJteW9PN25OSjl4U19xV2RlRUxMbkRfM0JHMnR2QW1XUVNxaXh4WnRYdmZXcDNzSE9zQWJrN3dlMlN6Z3AtZHZURXNLb0JIVEthV05UdC1TQjUwXzA2aWFDVW43UTU3Q1otamVfYkhqQkVhVmt1RGtXa1NLT2dpLW1UY0NqaUgwSTF1Nkk0UDVmSXJIUlFUbGhCcjhaUQ?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "3rd congressional district election ends getting just primary",
-    "headline": "Washington primary election voting ends today. The race for its 3rd Congressional District is just getting started",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.58,
-    "source_names": [
-      "Oregon Public Broadcasting - OPB"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPWFRxX0hxbDRyQmQ3SElKbnZxaGxRWFMwZUxOT3FNTGdHZHRYeTZrMjI2d2pnZG4zWVdhejVVYWotUkdsS3d1MEYzMXB3RXYxOTlwbFVERGpBajBiOWF3cjdLRUtkb0MweG85NHFhUDBDc0lxdlcwWldLcGh2akIzd2JnMF9HWjBHWFlLUWRuV2J5S0VpcUNCdThBLXUydw?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOZzYyR1FnemNiTk9sWFZPb0NxR0Y3djhEMnhGSUdkclV3cmZiVFhfejQtVzVOeGlDRjdLRXRuZmdLQkxFbzJLRU5uV0NJSTUzZ1A3ZTZzNS0xQXVnaDAxWjRnZEJRVGxsZll1OWdEeV9QaU5VS1V2TklZR2RQMmE4c2NpRTQ3dkdlYUxfa1pHa25xa2dqZGdrd1JUeWt5UHhfNXVRcU1XMi1iWmEz?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "2nd amendment case claim court felon opinion tackles",
-    "headline": "Opinion: Case at top NC court tackles felon\u2019s 2nd Amendment claim",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.58,
-    "source_names": [
-      "The Wake Weekly"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxObXk4eS16VmFlWVVQc3I4NmN3WThyTFd6aDU3NlFuRFNMZW5QNV9CTTlaaS1mV3ZqY3o0UDNrUkIxLUpLMTNMNTJ3LXdlOFJmdGpsd3lCeThFb2dENWllR3J0bTdhOXBiZDB3czFYNHZ1Vi1yUGtwSjZlQzI0N1RlZ2VmVjRSMXNleWRtVGloY0JWQmplVUs1Nm5uMUNtcUVlYVNMczBpM200dnc?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "court enterprise free impact natelson rob rulings supreme",
-    "headline": "The impact of three U.S. Supreme Court rulings on free enterprise | Rob Natelson",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.58,
-    "source_names": [
-      "billingsgazette.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOYllXRVVKUlltZlNRbk5GbFc3Ml9LbnMyZlBZbkZ1SlpGaW1najBXazhaUEVYRVB4aS1xcmw2ZlJwUThTZTVSUnVDQXZJb2hnY0ktcng3bHJuWW5NTDhGT3lvRTdIMnJ1OVRONFlqUUxTR2VETWM5N0QzamdWZXhmNkdsVlpCcGlEOTIxcjJ4ZWZNTjdpd2FN?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "active estimates forecast giant misses monthly sinks spotify",
-    "headline": "Spotify stock sinks as streaming giant's monthly active users forecast misses estimates",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.51,
-    "source_names": [
-      "Yahoo Finance"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOMzJscURmY2Z3UkQzY2QtbXRBSV9Ma1ZLU25JOWdBMExiMUMwOEM1VnJjN2JuVjdCYjJ5dUY2cjFXQmc1VmRwdTNadm50cW9lNEFGVWJBbFRSNE02TFBpNU9INWJGRUFRdEw2V2p6OGFlQkR4dlMyZFVHMFRjVU1pRF83eDQtMFRGVEhTV2RoQ3JNcXEtYnZoTDdPeV9ZbXFLSUdTc19KbmNyZWtneVg0TXN1OW1zV2QzZGktbEdBVGpHTGttaElHR0VrU215bXdnTkhSVzJ1bFdTWk0?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "court degree denies murder request ruling second stay",
-    "headline": "Pa. Supreme Court denies request for stay on second-degree murder ruling",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.51,
-    "source_names": [
-      "Butler Eagle"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOcFlkbXhQRGJTenJCZFdZM0JXbDl3UnBCeUtEWFMyZHB5cFNvblI5M2NSRERxUTNwVzJIWHdOemhNbEYyMm94N3cwWW9ZMzJNaHBTMmFiMmJadDBrd1JZNjU2VmhTeEhrdUx5RDVlRUxnTm83UDNvVWNGUTFVZUJvMkctM05rMGhrV2pabDJSaWU3alYyLUxwa012M3p2NFVkSUo0dE0tYkVCUnVXYXc?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "accountant claim court investment partnership rejects supreme victoria",
-    "headline": "Victoria Supreme Court rejects partnership claim over accountant\u2019s investment windfall",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.48,
-    "source_names": [
-      "iclg.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPaEtBci1xQWo4eHoxdWN2M3FFc2lCUThMQ3lkZ19fNWtjVS1wbUNPeDlPNlhfYkdGS1FLRUdIQW5pal9oTWpqVVAteUFwSEtBSEJFd2xLbzhlWXcwQ2hySXhQNlFPdi02VmM2UEpobUJqNUlOblNKcDV1bk5vNVl4cDJNYW12eE9XUDVUeFItMGZFUzJqRXZGSnMtcnp6ajdsWVNubWR2SXRzUXMz?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "boss contract different face hand now pochettino pressure",
-    "headline": "New contract in hand, Pochettino will now face a different pressure as USMNT boss",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.47,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/soccer/story/_/id/49525299/pochettino-now-face-different-pressure-usmnt-boss",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "ads arizona campaign court decision may more supreme",
-    "headline": "Why a Supreme Court decision may unleash more campaign ads on Arizona",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.47,
-    "source_names": [
-      "azcentral.com and The Arizona Republic"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOV2FJWTJNZ00yNUhsRElxNkU4TWROZl9CU01vWk9VUFEwajByYWhwLU9Xdy1FaHhTSENJWWp3ZXFHYkY1STZmS0NLZ2dCLTVhaFptVE1oOGEzTlhHbEhCN3R3cWZtWDkwQUhWS2x6Z3hLS093M1hBZV9tb2NJbmlxeHpkTFVtWFpWa1AxbkhtZGdKVG9uS2FYam9KTDFReUQtR1NkeUk2YW1XY3BxYm1JQXJ2OGxXNXNEVmExMW1BSWd5YTdyZ2tFbEhJazdLSDJYaEREY2hR?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "court exclusive headline iowa malpractice medical supreme term",
-    "headline": "Medical malpractice woes headline Iowa Supreme Court term I Exclusive",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.47,
-    "source_names": [
-      "The Des Moines Register"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQaU9wWm8zR1FjTGdDMDJJNFBjazVOeXNrTDVITEcwNU5DdFFZSHA1TFZsb2U0c0NmV1NhNHFUQUpNbVBwSzZTY1RiY2pweVFHemRjWlZuSmZIYnBSRlpySzZpZFpEUW1kV2c0ckhjelN4dTd4anVZVUFQUE1JbnFGQXZTT2J0ak9WSGtPMjVzMWEtVGtQMm9YWC1PeGZENWF5ekFJbDRwYnJweDBNWUxObkRhaWNQVzFhQ2tEbWVsdmY2WUQ3U2JqTkhrRFU?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "attacking court elena kagan progressives supreme warning",
-    "headline": "Elena Kagan's warning to progressives attacking the Supreme Court",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.46,
-    "source_names": [
-      "Reason Magazine"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBTY1NNRmpYUVBWUE02RWFRdmlZdlFiWENUU3N4NTJSelJ0NmhvYlNvdHhSQm9Bam1PVjBqR0cxb3hHcTAyd25nTjBqNFFfU3hwMnNRTldqTU1jdDZDZF81d0pQakcyNHlTNnFUT2Y0dGNLcEN4cmc?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "defends president return skubal tigers trade",
-    "headline": "Tigers president defends return in Skubal trade",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.44,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/mlb/story/_/id/49525849/tigers-president-scott-harris-defends-return-skubal-trade",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "act aren brokers consumer court exempt fraud insurance",
-    "headline": "New Jersey Supreme Court rules insurance brokers aren\u2019t exempt from Consumer Fraud Act",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.44,
-    "source_names": [
-      "repairerdrivennews.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPd2hWTG5wUWNJZ3ZqTWZCc1lISHRLeW93TGlCQ2FvRVFYcW52d2JBYTVrMVROQkh1Z3BCaFlPMzFIdzRXbTFBdjdFRm16UVBVd3FlTzh2Unhza3ZsN1N1Tzh6T00wYWxfc1hjZWpjZWd3eHlfTldKa2RNYXJvM2pBZXhEb3dTdjM4bHUzVXBXSUljUS11OGRkR0JXcFB3MFRMXzRWUjVrZ2FPMUVBZFp6RThEVkwwZ2ZQYmZrSHZqbUs2ZkN0UEl3TWhqSm0?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "bals dev director film fund grants hubert including",
-    "headline": "Hubert Bals Fund Sets Dev\u2019t Support Grants for 20 Projects, Including New Film From \u2018Pepe\u2019 Director",
+    "duplicate_cluster_id": "cubs deadline fared making mets mlb more phillies",
+    "headline": "Making sense of the MLB trade deadline: How Cubs, O's, Red Sox, Mets, Phillies and more really fared",
     "importance": 0.0,
     "reason_skipped": "no reliable source confirmation",
-    "score": 8.28,
-    "source_names": [
-      "The Hollywood Reporter"
-    ],
-    "url": "https://www.hollywoodreporter.com/movies/movie-news/hubert-bals-fund-development-grant-20-films-pepe-director-1236663611/",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "buy cash house million money out run will",
-    "headline": "If I buy a house for $1 million in cash at 70, will I run out of money by 90?",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.26,
-    "source_names": [
-      "MarketWatch Top Stories"
-    ],
-    "url": "https://www.marketwatch.com/story/if-i-buy-a-house-for-1-million-in-cash-at-70-will-i-run-out-of-money-by-90-54afb313?mod=mw_rss_topstories",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "500 art biggest book concept delves demon features",
-    "headline": "A New \u2018K-Pop Demon Hunters\u2019 Book Features 500 Pieces of Concept Art and Delves Into Film\u2019s Biggest References: Korean Mythology, Shamanism, Manhwa and More",
-    "importance": 0.0,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.25,
-    "source_names": [
-      "Variety"
-    ],
-    "url": "https://variety.com/2026/shopping/news/kpop-demon-hunters-art-book-concept-sketches-1236826707/",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "fed fomc july takeaways",
-    "headline": "After the July FOMC: takeaways from a new Fed",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.24,
-    "source_names": [
-      "DWS Asset Management"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNbXBvTGVqR1J3ZHliS1JIRTBxUmtnNjFTZFJucEVaaHVjbG1VQU1PSDYtZjBONWJVYlFEY285Sml2MHdmZFhsb2Z5WDJ3dW9fYkFNanlMcGc2cFUxZkJyY3hQaG9kMjIzRHFicnZmMWgwbWZEY1UzMjJSMG02UjQtQkFKbjdsWjdvUDdlWFUxaEZ5OTA?oc=5",
-    "watchlist_match": [
-      "Federal Reserve"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "billion deficit economy fall imports june narrows trade",
-    "headline": "Watch US Economy: Trade Deficit Narrows to $73.3 Billion as Imports Fall in June",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.2,
-    "source_names": [
-      "Bloomberg.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQUEFKWU9HbzdwaV94ZE5QNl9CcnJsdUY1VlNRSWU4SWxUUjYzRlNpZzYwT0FEaUdvTUdsUzd5eEE0RFE4dVltaFVobDJsUFV6MDZJVEQ1bVVYWGZuR1J1bEwwbC0zWXRYMGQ5QmJvOEFRdGtJUk80Q1FlWkFrSkdZYjVXZWVhUkJhaFotZExRejRyMGZJZVdFUUxUZFJNMFJkRDl5TjR3?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "45m accelerate clinical driven quanthealth raises series simulations",
-    "headline": "QuantHealth raises $45M series B to accelerate AI-driven clinical trial simulations",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.2,
-    "source_names": [
-      "Fierce Healthcare"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNVl8td1cwYkJjY3c3dGZXeFNGbHdzQ3ZvSHJLNGJKZkFNODZEalZDdk96ZW9FSkRGQmJDQXU3NHJ1NVBkZFh3Y0YyTnJvRHFNb3c0TGdJYjNXZlIwb2VHOWRZR2dJeWNlUkRpUVg4Z2RNMzRmb2FvdTVyZWRHTWJZUUJWLXdlR2N4WW11UXRpMlhfZ2VBcDlzRm1rT1N3RUVrZHQ0NUNrcGpWdjFrWVhBTnJDTVNhSTNPcmhiVg?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "court favorable historic low near remain supreme views",
-    "headline": "Favorable views of Supreme Court remain near historic low",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.19,
-    "source_names": [
-      "ssrs.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPTDREcjR0eHNUYzREajNIVlRQd3p5ODBuaWExbC1oRnhibmpCMVp6NlFHMnRrdk9oaS1RR1RlcTBvUFBOWDlTWWdHcE94Zy1Ia1hzTExEemw5Z0xCN3hGa3ZubVh5bDFfVFVQZ1NkSlpFbEp6VDhtb2NTUFhGZDNyMk1tVk9qT2s?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "anthropic billion cloud computing deal inks startup",
-    "headline": "Anthropic Inks $10 Billion Computing Deal With New Cloud Startup",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.18,
-    "source_names": [
-      "Bloomberg.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNSlB6WWhvX0hXc09XN1J3SWJWR0FVVC1lRXJ1LXl4a0hmdXk4THcyek5VNmMyZWtNWjNVVWE5eGYycWo1aktHQTl2RG9pMXU4SGtrOWx6WE85QzgxM2RhMVJKb25IbGxyajVraE9ZXzFzZ3lwdDUyeTM3Rk9jaWFudTI5Q0psQ2tFakNCVkVGdE1HWHdFc2Vhd01ZN0dYeW84eEtkUkV6RUFURTN3bnFXanhNaUg?oc=5",
-    "watchlist_match": [
-      "startups"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "2030 before deal improve must pochettino usmnt works",
-    "headline": "Pochettino\u2019s new USMNT deal: What works and what must he improve before 2030?",
-    "importance": 0.0,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.16,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/soccer/story/_/id/49519755/will-lure-european-club-football-threaten-fresh-mauricio-pochettino-usmnt-partnership",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "crisis department existential giving your",
-    "headline": "AI Is Giving Your HR Department an Existential Crisis",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.16,
-    "source_names": [
-      "Bloomberg.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxONEpDR3dqV29mSmtsZTBNaV9rWHlqSlFiX0NyRWJ0em82NWJJOXpTYzEtSGZ2NVcwckVoQTlkdjV4RnBWcTBwUjBqNmdOd0JmNHFCcjV6QVlrQ0U5c1B2ckNxTzFHY25CNVlWWWVKQ1F1VjZJdDQwMEdsbHZOUlhUVFNTMDlWQWxUM2VaWHZxTlAxTE9BQzBCSUdYQnZnd2FwSFE?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "bank embrace emerging growth nations urges weak world",
-    "headline": "World Bank Urges Emerging Nations to Embrace AI Amid Weak Growth",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.16,
-    "source_names": [
-      "Bloomberg.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNV19pSmN0d2FDSVRmSzNHbUVLd3dLTGdMc2p2VnFIc1lIQW5XNDN5VmUtakk4dHVaRWZYN21fYzBIa3F0YXhKMnRXTXRfc19GbGZxLUEyckVFdWJmNDdKOHB1aDMtOUh0UU5SZlRVWk5DQktpQ1NXMGVPOUlzN085WEtfVGVDaW55LWUyNnd1WXNOeU1CQlpCYkdVMkk1MldNMVgycWwtZ0N4Z1R0OVpNNm1LTjA5Zw?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "bat clemente court roberto should supreme",
-    "headline": "The Supreme Court Should Go to Bat for Roberto Clemente",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.12,
-    "source_names": [
-      "City Journal"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQQ1ExSVlJNVlETDRpQldzaXpBZU5oN0V4Q0NRNGdlb3V4Y3RZQzlXNUF2N2dSTnNKZlVuM1AxNktoT01xMGZwUG1PUVRtRUhRbFFyT29IenBZdUI3S2RTWllhMHpzUTZ1eHUxNWRjUGt4aGI5YmxMczdBcXgtdGxRWFhDSDNJQXNkeXFsX0Q3b0tDZw?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "around back even hamilton happens joy leslie more",
-    "headline": "Back in the Room Where It Happens: Why \u2018Hamilton\u2019 Is Sparking Even More Joy for Leslie Odom Jr. This Time Around",
-    "importance": 0.0,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.12,
-    "source_names": [
-      "The Hollywood Reporter"
-    ],
-    "url": "https://www.hollywoodreporter.com/lifestyle/arts/leslie-odom-jr-hamilton-london-west-end-interview-return-1236662892/",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "court death gregg justices later penalty rejected supported",
-    "headline": "Three Supreme Court Justices Who Supported Gregg Later Rejected the Death Penalty \u2014 Why?",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.09,
-    "source_names": [
-      "Davis Vanguard"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9qOFFWcjdEWlVQSEU0LXJxUlUxVmhVbHNlZWgyVnpMTklvazExVjNzWS1UeHN6WmlfUGlLeDNvdWxDVWxJNGU2ejVIMTBrRktCN1RDVG1uMUFkbkhGSnV5ZVBQa0t1R2xrNkpicVl3d3pmaUFzUkxZYUdkOFo?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "divide opinion real this",
-    "headline": "Opinion | This is the real AI divide",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.08,
-    "source_names": [
-      "The Washington Post"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPTFVldndNN2JYZTBQOWFfbmhWa05yUVk3c3NjQk13dFhDZmwxWFlyUE10NWcybml6bFRrVTl6YjBPVGFSY0E3N2dFNDZGTXZHZS03ajlnV3I3eGhsVGMxOFF5UjMtc0pFd2hCcVotVi1OSFBEM29tcmdxSFdoY2JLanRscDBxQ0ZQelFzWFlVbWZaQnVtTVlFWXBObHhqZTlvTVNzTThiTlZWR0tMTzhudHlocw?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "1961 august court history supreme",
-    "headline": "Today in Supreme Court History: August 4, 1961",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.07,
-    "source_names": [
-      "Reason Magazine"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPTFFqa1ljTUhEZFlxTTBKeGp1azl0VGRBWTdHaDJKTkdHZV9NRlh2Z09Nc3p5NlpqRFRmYU45MzB5c0RwTlhGZDFDeUdMaGloV0dJY0lMU2RabVZIMV96RlljTm96d29hSVJOMEVtei1CU1FZYWJ2LUhsZzNXRjFyMFhXSTRRYUFRSGZzWQ?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "aces dream fever power rankings surging wnba",
-    "headline": "WNBA Power Rankings: Fever, Aces and Dream surging",
-    "importance": 0.0,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.05,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/wnba/story/_/id/49521223/wnba-power-rankings-2026-minnesota-lynx-indiana-fever",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "2026 believe continuity little long offense starters steelers",
-    "headline": "Younger Steelers starters on offense believe a little continuity will go a long way in 2026",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.03,
-    "source_names": [
-      "Pittsburgh Post-Gazette"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQdV9IS0tjcGZMVDRSQm5pYkdPbk90dUYyaFdRZGI1LTQ1VGtYZklhUnp6WHhTS0t1VkktMUxmS2NYVGZSN09tQmtYNXJPS3NIeE5YOE9CcjNkNHE1RmpNYUVjWFd4M2czT0dscHg3Q1dMZjdwOGJGamhqQUU1dHQ3OVEwTWY2TENfNHgtLS10OGgzS3NIajBNNlY0cE5YLTFvWEREM3ZoY09TTmliR3R5eWY2d2RreDNlUWR6MlBFS2dEYTA0MHZhZVhVUHhhU2x1QkVTag?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "blackhawks celebration centennial close leafs maple november will",
-    "headline": "Blackhawks Will Close Centennial Celebration Vs Maple Leafs In November",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.01,
-    "source_names": [
-      "Yahoo Sports"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNaU5MNmVWVmNRdlFjRW5NNzJVQ2UzT3V1WUEyUWVsWWlORU1MVkxJWWxCbnpSUzdDeEdPeU1haUs4S2JsMWlXb0tla1E2bnlVQjMyVUVodGhDSlh3LUQ0N3hNZlFJTTB4akJ2WEZLME5TRGxNVm9xVkR2eUxSRldaRkt3cUs3M1kxbnB4QkJDbHNMTml2bEE?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "200m bezos dicaprio endangered initiative jeff leonardo save",
-    "headline": "Leonardo DiCaprio and Jeff Bezos Are Teaming to Save Endangered Species With $200M Initiative",
-    "importance": 0.0,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 8.0,
-    "source_names": [
-      "The Hollywood Reporter"
-    ],
-    "url": "https://www.hollywoodreporter.com/lifestyle/lifestyle-news/leonardo-dicaprio-jeff-bezos-earth-fund-endangered-species-1236663520/",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "contenders cubs deadline making mlb phillies red sense",
-    "headline": "Making sense of the MLB trade deadline: Are Red Sox, Cubs and Phillies contenders?",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 8.0,
+    "score": 8.52,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -1005,63 +639,459 @@
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "all box breathing comeback easier finally happened hell",
-    "headline": "The Box Office Comeback Finally Happened: \u201cWe\u2019re All Breathing a Hell of a Lot Easier\u201d",
-    "importance": 0.0,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.98,
-    "source_names": [
-      "The Hollywood Reporter"
-    ],
-    "url": "https://www.hollywoodreporter.com/movies/movie-news/box-office-2026-spider-man-odyssey-1236663643/",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "acquire bubic deadline deal duran hoffman reliever rhp",
-    "headline": "Royals deal Bubic for reliever Duran, acquire RHP Hoffman in slow Deadline",
+    "duplicate_cluster_id": "benefits court don jersey land local outweigh public",
+    "headline": "Public benefits of land use don\u2019t outweigh local zoning, New Jersey Supreme Court says",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 7.95,
+    "score": 8.51,
     "source_names": [
-      "MLB.com"
+      "Smart Cities Dive"
     ],
-    "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE8zWWxIam9fYzFGWEg3NVVMblZtNmxCVFZGZHdTZlRwVTZQUE1OUUt5S01iamN6MHJ2eXdmRldDNlpuWm1xQmxjUkJsb1doSkc1ZjVxTUpCT214UG9YaFFKNWdTT1ZGMEk?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPb3Zxc1kycE53U1RfR2g5SUQyYXBQdEh3QU12a0FrU0FQOW8xeTRVYVgzMnlTcnNEVlp6QTdZVWlKNFUzWkhZaW56OGhHR0ZKdGNheHNoc1NqeElRZk5NUWlNV1ZmN3BucG16bGdhR2t1dlAtelBRSHhWRXVKVG1iekVGTFBDUXoxTUVMWEtieTA4b2FoZXp4ZUxqc3dZdw?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "battled come depression george martin may this worst",
-    "headline": "George R.R. Martin Says He Battled Depression This Year: \u201cThe Worst May Be Yet to Come\u201d",
+    "duplicate_cluster_id": "candidate darline election graham profile senate special",
+    "headline": "U.S. Senate Special Election | Candidate Profile: Darline Graham",
     "importance": 0.0,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.89,
+    "reason_skipped": "insufficient story context",
+    "score": 8.51,
     "source_names": [
-      "The Hollywood Reporter"
+      "FOX Carolina News"
     ],
-    "url": "https://www.hollywoodreporter.com/tv/tv-news/george-r-r-martin-depression-winds-of-winter-1236663654/",
+    "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPVmM5bjEzVnJjQVpGWTF5VWFwX3pGSlpCb3MyRG5NanprMlNZUlY1eXk1MG44UzNnVDdMZzRTejhPVnlWUTM0djFVeEdkYV81Q003S19GVFZzV0dwOXluMHg0RkxtaW05TnlIc2pEVW1XQ0xXMWwxOVlLcFRCamlnZkJvcTlJdGNTay1FNU93SmFtMVdnakYtVXBXNG93R0tY?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "bobby early marks nba offseason preview questions summer",
-    "headline": "Bobby Marks' Way-Too-Early NBA offseason preview: 10 questions for summer '27",
+    "duplicate_cluster_id": "1st 2026 district election guide primary rep voter",
+    "headline": "1st District U.S. Rep., 1st District | Voter Guide: 2026 Primary Election",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.51,
+    "source_names": [
+      "Virginia Mercury"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPRWFKNUtFOUFraHJzUkdWLUZnTUNfa1dHZ05aS1NGcFJjSmZqOUVXLXZLUlBKY19LaVI4akJWNHdqQXBIV1dhcmVadVNLbHFSb051SmczQ09vblNEd1YzU0ZhZk1GcWJHb0hPMmtaRzUxeWJGRjFpMXNUQ1ZZZnFXcXpRMEh2Q3lkaHdtY0NGMFdVdl9PSlZtdHRNc3hBU1pM?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "656 another authorities blow case court deals million",
+    "headline": "Supreme Court Deals Another Blow to Palestinian Authorities in $656 Million Case",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.51,
+    "source_names": [
+      "Daily Signal"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFAzOWh4ZlhHekVVblVNZ2RybS1la0JrRE55V0o0dXpMZnlFQjRMbUVJQ2tsM21wY193alNJRS1DS1VmMUdpOEJvWHVLZHptc1Qxc2dZdm1XQXpxcU13Z1ItNVdUcW9ISy0tWG96T21iSWdQaFRZQnV6UlRB?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "approves based becoming court lawyer licensed mexico pathway",
+    "headline": "State Supreme Court Approves Skills-Based Pathway To Becoming Licensed Lawyer In New Mexico",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.48,
+    "source_names": [
+      "Los Alamos Daily Post"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNdzl2T3JuUFdwUFJ3RHVReTFHWGh2aUxxR3FsR2h0R1RrT0k4NEtZY0lXOXltdklCVVhtelpDOTRocXd1elY3eFNjeE00cUZ2MWFUdWFNQURZNlNGZ3luSGh0Mm1zN1RKUEhnUFdVT2Q1V0dzRndQaGJpckNDSWNjaFJhTE5kUE5NVjlIaXlBVUJTTDJNUHFUOHFuVkxHLVRibEYyNEZyX09fZFEwS0E2ZV9fZk14b2s?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "concerns court environmental key line michigan overturns permit",
+    "headline": "Michigan Supreme Court overturns key Line 5 permit over environmental concerns",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.45,
+    "source_names": [
+      "fox21online.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxObzV0RnhOUEVfSFRUeGpoTndTbHliVGhpOWhsY0hWdzczajBzZWZ6OEVwUXdYRTF0cmlYdWdlVURGUVB5MmFSeEdsY1NpN0VvNVlES2pSLWF1b2oydkMwb3FUN2dEYVE5OFpPcXdqMV9URFl4LWo4cXJfN3prb0oyb2JVQTFFcDAzOW5rVFNWQWJ4dDBKY21JVGswNnBSWXh6Rzdsa25MZzdfaWNTRHAtdlY0bGM4SmJ0VDZRdmZYRVBoRktGbEJnMlp2RnIyMVVEZjltVzJ0Z2l3VFN5eTRkd0o2MEtwLU95VnJpVkRwMEc3T0haQkpPMTBoOA?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "appeal apply commission court ethics letting may ruling",
+    "headline": "Ethics Commission may appeal ruling letting Shekarchi apply for Supreme Court",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.44,
+    "source_names": [
+      "The Providence Journal"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxOcFctNm9adl80WldST05Cbk00MUt3YmN2enNZcUpfRzR5SE5IemdxNERNX0UyU2dpWl8teEJmZnZJTTFveHhIOTBDbUVoRXJOUnp6dThMcmJ6c1RRZ3I1d3RnSmsyTnVDY1JXb3lGMUMyUVZHZm91eHpqZTJfSnhyU3AwVzdNNlNfdm4zSWhlT1R5cjNYeFYxNDhJSEhuYTJERFJ0cjZqdEdaaTY3b0Z3NDRHSEp5akFjem1fYVJ1UnJKdkRvMlNiTm5rY3NXOVdkNlpPdG9oRExhRHRMRW1qTnJPUnFYdmhhcERCX3d0em04aXM?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "date gets gundam hathaway mobile release streaming suit",
+    "headline": "Mobile Suit Gundam Hathaway 2 gets new trailer, streaming release date",
     "importance": 0.0,
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.82,
+    "score": 8.44,
+    "source_names": [
+      "Polygon"
+    ],
+    "url": "https://www.polygon.com/mobile-suit-gundam-hathaway-new-trailer-netflix-release/",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "court entrapment escalation michigan police sets stings supreme",
+    "headline": "Michigan Supreme Court sets \u2018escalation\u2019 entrapment test for police stings",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.43,
+    "source_names": [
+      "Michigan Lawyers Weekly"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNV3FuWkpDVHMyUXpmT05iRHV1LWZwLXh4ZXFlTl9idlZIMklqTW0teDQwM0pxQnFNeEtUWEhsS0ttOTdUUGtqeFBGSjhCUkhEbWpTSUtMeVdGVXBxWEJ2czllNnVkMUdMeko0UkdJLUxNc3dXQlBnSDltbDRtMVFidmNiWmwzOXliUERmd3h0Qi1yQWItcGE4eENScEVOODV5bV96Z0c3aTZRSGR6?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "abortion anti court cynical elect grab justices kansas",
+    "headline": "The Push to Elect Kansas Supreme Court Justices Is a Cynical Anti-Abortion Power Grab",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.38,
+    "source_names": [
+      "Talking Points Memo"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNNUpMZXhXcU4zX09hRGpNUnlYdWdUWUdrSm9pOHhmcnE2RUp5cHNjV0lNMzh0ZXJYZmZiTHQwcGlDVS1NRTBvYmtVZVRCOHpDSWgxbTBuRno0ZVdlUXd0WGVJVF9sY0ZVcnJwdE5vZWwwcnZTLUhkNno4M1VyT09UcXhJQ2ItUXpXU05Ka3RuWmNJaE1uSGY3ZkI5Y3I2eWhvaTF0TldLOGtBc2tHdjBzYWNtSmVPQ1JCbW9RcA?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "critics dodgers doesn skubal sympathize tarik",
+    "headline": "Tarik Skubal doesn't 'sympathize' with Dodgers critics",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.31,
     "source_names": [
       "ESPN Top Headlines"
     ],
-    "url": "https://www.espn.com/nba/story/_/id/49522331/nba-free-agency-2027-preview-bobby-marks-stars-teams-salary-cap-extension-decisions",
+    "url": "https://www.espn.com/mlb/story/_/id/49525563/tarik-skubal-says-dodgers-not-blame-every-team-trade-me",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "best cfp chance make teams",
-    "headline": "\ud83c\udfc8 31 teams with best chance to make CFP",
+    "duplicate_cluster_id": "inflation issue midterm street top",
+    "headline": "K Street says inflation is top midterm issue",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.28,
+    "source_names": [
+      "Punchbowl News"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE0zR0xJbDNldVYzaTByYXN1RUlMUTRyclVsV01oQkJRN2k2SGZvamdsOWhKdks3Y25YMksweG02bG5UZk1hRjZpSWx0NTdhNThXOG9TUHRmQjUyS0VXOGt3X2Jmdm5rRmVMdXcxeURkS0ZHYXc0b0tscXloYmo?oc=5",
+    "watchlist_match": [
+      "inflation"
+    ]
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "deadline deals mlb reactions trade",
+    "headline": "Reactions to MLB trade deadline deals",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.27,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/fantasy/baseball/story/_/id/49416655/fantasy-baseball-reaction-mlb-trade-deadline-deals-2026-monday-august-3",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "erupts evacuations guatemala volcano",
+    "headline": "Watch: Evacuations as Guatemala volcano erupts",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.22,
+    "source_names": [
+      "BBC World"
+    ],
+    "url": "https://www.bbc.co.uk/news/videos/c9q91dnljpeo?at_medium=RSS&at_campaign=rss",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "appears court deadlocked immigration plan supreme",
+    "headline": "US Supreme Court appears deadlocked on immigration plan",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.22,
+    "source_names": [
+      "Yeni Safak English"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQRUp1dmNsWFJhZHBRUGVkd09GQlF4RHQyaERQZE9HenB2a3ZHc3ZqREQtR1BKSmVXa3dyenh5X0wzNUppYXpDanRzR1BhdUptN1AyVjAwWTItekVMeVFNT2NMcTJpd3lRcUE2MzBFeWdwSHBkQ1V2ZkowVjBGWmthbVRKVUNXV2JybGtXSDFrWnZGdENYRXhBUklR?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "crypto gambling protect retirements street wall workers",
+    "headline": "Protect Workers\u2019 Retirements from Wall Street\u2019s Crypto Gambling",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.19,
+    "source_names": [
+      "AFL-CIO"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOSjNrY015MzFoUWswSFdZVFY0MUNzdXp4eXE5cGhKbHhUSExUazNnZm1hR0psZUhFMUd3MDNyc0tHaG1kR3FUTzlkQkRxOFBjV0hhMHQ4VjQyZW9ZQXV5dFZRZnB3RmNnVkhwRzYzcUhHa3NNYnJPd1VuNFlncEdKb3JXMmh2S21ma2NoXw?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "2026 crypto questions",
+    "headline": "Crypto questions for 2026",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.17,
+    "source_names": [
+      "Fidelity Investments"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOeWJyOGpYNkRJR2lTU3NYYllxNmVxR3RaeXNteHVyWW8xRTdydlRFXzJwMGQtWEFUT0RBS3ZoWXRyUEdBY2pveDhtYkt5QUk0VXRaTm4xaVhZdmdzQlpxQ2pNWVFOb1dWdjlwUldzOG54ZW1FX3lOZHZTUEhOb0c1M0Z0ZElVNlNUTmpCSldKOWw2OHhVYWxTTDBSSlRhb2RyOGc?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "anthropic beat did nearly openai palantir slay stock",
+    "headline": "Palantir Stock Surges Nearly 30%. Did Q2 Beat Slay Worries Over OpenAI, Anthropic?",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.13,
+    "source_names": [
+      "Investor's Business Daily"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQYXJZY2NfRXhvNU1HREdCZjlqOE9NdFVYNUxSMTVaYVlYS3gwOHdNR3kteUN4cVVwMkpVTTJCU3lkSWVuS0YzaFFLckI1WVFlWkRRZVBTLXFaaXhqV2djdW1DRXloUjVvS3BkS2RBRVpxYmR6Nzd1akhPRndVN19BS3Btb2J2Uk5DMG9ycEV0SXg?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "before deficit isn lower much office than took",
+    "headline": "U.S. trade deficit isn\u2019t much lower than before Trump took office",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.12,
+    "source_names": [
+      "The Washington Post"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPYXVXTGE0dWYxYUdqUmhhUXpmMVM5eEtYc253d00tSzRpbHJhdWVIRTgzRTRCNG1fOUZyZUpKekt5SEJGQjZYdlBFa0hPZENNc3Z1YTN0YWJsb0tlNzFYLVlDLUNlYWFDN0k4bU9ldFlpbGt1UmNtOGlhNkNLMi1WWS0yMXh2b3VRNU9KdXg2Y2pMMDAxV2RWc2VxckxzYmxXM184TlVVdw?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "brief fall get high school seasons sports underway",
+    "headline": "Sports in Brief: Fall high school sports seasons get underway",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.11,
+    "source_names": [
+      "Park Record"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNV2hXeXR1Smo4OS1YUmh0VnA1QW5uSjhraUJrQ0FMeVVac1hxLXFMeEFaXzE0d1pNYkhOSkpLbGhQRFBNQUdUUG5MRTdmU1JsVVBaQ0k1eEZFUlRGbldZZE40WHlYWDR0eHAzX240SWo4b0lkc1JyZ2JZTzFaUUZ1UzBnV1gtbWlxOGdReWp4VjRiM1QyV3ZLUHhTUUMxMmdn?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "debating fashion galliano history ignoring jewish john keeps",
+    "headline": "Fashion Keeps Debating John Galliano. It\u2019s Ignoring Its Jewish History.",
     "importance": 0.0,
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.81,
+    "score": 8.11,
+    "source_names": [
+      "The Hollywood Reporter"
+    ],
+    "url": "https://www.hollywoodreporter.com/lifestyle/style/john-galliano-antisemitism-met-gala-anna-wintour-jewish-1236663952/",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "gain lila lisbon loss losses market",
+    "headline": "My loss is my gain \u2013 market losses and the \u201cLILA LISBON\u201d",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.09,
+    "source_names": [
+      "Stephenson Harwood"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNcUxTVmZlMHVHQ2lReGdyN2FpZDhud05yRk9yVWphSWM0Q0ZuanU1SHdCbUY5S1A2LWR0S1Bxb3cxcHZzMkl1NVRKd2x2QXpfcVg0NEs2eWlyQmNUZ2hfRWhFUlN1RFpEVThsaUFSQ3ZkeWVYM085QmwyemVQU1o2QkxwM1RRTm0yTWxXdEpIT0txbEpmNmxBZlBiTmM?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "essentia health offering physicals sports",
+    "headline": "Essentia Health offering sports physicals",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.09,
+    "source_names": [
+      "messagemedia.co"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNRVVwQVVDMHdfZUlJMGQ5MWk1YlhXajc0dFNxTlZJRlVFQmVROVdkTTlPdmtNY3JnR04tMHAtb2V5c08zaVBjZlQyak0ySklmZTl1Ym5MU2Y3eGpTS2VZSDNqdHBWMWdFM0ZjdUZ3bkFZRTZTeVZoa2t4S2xWS1dIRlgxM3VZVnNYX0EwWkJWbXBJQ0lIUmxZS1NmM0haaGlsVlFsTmRPV0kzLU0zNGNFclFrUEFDTnpnXzNYaGlTOUp1a0M0ZkRQSWdUSmc1ekVETjNldXhrZWFDd1k?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "deadline dodgers every grading mlb moves nationals orioles",
+    "headline": "MLB trade deadline: Grading every team's moves, from Dodgers' and Nationals' A to Yankees' and Orioles' D",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.08,
+    "source_names": [
+      "CBS Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE00WDAzV3lwc0tiWEF3NE80OVUxdjB0akVFUmNKU1lxSEVPbmlSQzZrcTE2anBSWG5BMmtsblVRNUNJY0stOFExZVdJZU5vM3F1N0tyQjQtSUZOWG5XYWlyeEZkdEpQaVpWeVctSjdSZ09hWm5yaDNyUXVGdjI0UQ?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "center events greer health invests prisma sports",
+    "headline": "Prisma Health invests $3M in Greer sports and events center",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.07,
+    "source_names": [
+      "Greenville Journal"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPc2VvdjBCZFNGdGllN0lEa084NWJ3R091ZE9obkV6YlpqRFdfMTRFamthX2VBeEZ2bWVmV2kxLWZSMmxSUmhYeHVZakhOZi1LczU3RHdwZWEyUm9GRDFvM1RtOGMxM2UyTHhic0FmYl83N2hucVUyZWl4MzJURmR3c19VOV81X0lHQ2E1a01jMG1KU1Rkc2lySkwtOW8xVmFzZ3hBcVVoTGp3Zw?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "cubs deadline give grade moves nation reacts survey",
+    "headline": "SB Nation Reacts survey: Give the Cubs a grade for their trade deadline moves",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.07,
+    "source_names": [
+      "Bleed Cubbie Blue"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOSzQwUUNXTGp2cThyMW1qQ0x0RTJmOWkwXzBPeUd0RFJmSXpueWliUHVWZTkwaHpkUk0yTEVMMEc0ZEgzaFI3ck92SEhmakF6c2FRN1ZnSGFKS2tvc2FrZXc2Zmx1Q0Y2LVU2c3o4VVg2R1VEbE52WF8zRzZaaTIzTlFSOW92ZGZkZXVaWHhjWjRUTDFYUng1SmpqcHYxZ1NZYXJ2YzRZbjVVUzE2WmNqYVpnSUlJd00?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "buckeyes coaches ducks lead off poll preseason",
+    "headline": "Buckeyes, Ducks lead off preseason coaches' poll",
+    "importance": 0.0,
+    "reason_skipped": "no reliable source confirmation",
+    "score": 8.07,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/college-football/story/_/id/49530063/ohio-state-oregon-atop-college-football-preseason-coaches-poll",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "center data debate part two",
+    "headline": "AI: The Data Center Debate, Part Two : 1A",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.07,
+    "source_names": [
+      "NPR"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQZXJPRHhLSm8wUVpGSmZhNTV4YzhIbnZFeURwd3VoYVJrVkZld2UtVkw1N1RYY0t4aTVWSzRIWlhZVUU0bXZaVVFFRWNkTUUzbUtiNXFkcjIydlpQWG15anpHSTlWbnMzNmZyZ0NuZXdGSlgzMEYwRlJoelcwUVBtbkd2TThyUQ?oc=5",
+    "watchlist_match": [
+      "AI"
+    ]
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "but can empower guardrails only opinion people some",
+    "headline": "Opinion | AI Can Empower People, but Only With Some Guardrails",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.06,
+    "source_names": [
+      "wsj.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNdnREN3UxWWJ6X2tXVGxyMEg4YlVNNU5FOWlBYUxNaExTUEhiTVRDRDA2N1BFdVFhazcxN0tFZEVhdUFzZWQteVEyb2NaUEJDU1RNbVplczB4MW03SjVRZFhqSExtYjN1bWpiWnd3enRlT3pndnMzc0lnUFQ3eDZRZUl0R1J4VDk2WkFybzU3RTNUdw?oc=5",
+    "watchlist_match": [
+      "AI"
+    ]
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "300 bill cheated drained million predatory schools trade",
+    "headline": "How predatory trade schools drained $300 million from the GI Bill and cheated veterans",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.05,
+    "source_names": [
+      "The Washington Post"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQS3c4cXRKU0xVU1B3ZjRGRlltSWpFemhYTDBVRlF1dmhzbV9qN2thNnpUb2hQUzNqMmgwOWsxWXhYenB5SE9ZT29XUHRXSGU4cURRWlJGaGFXREZFamRYUXpmQ1p6eWpZLTNzWDNYWGViNTFPbE1VYmlGa2ZTNzJYdmZHeFhMNFhHWWt0UXNXWG53SWExNElqblFNQlJwX0RQQll6NF82eGFKbXE1djJ4Nlg1Sk5CX3dtUlZoN2lkTkJvaEcwcnFRVVpPWTg1Y1AzQk5KbHU3dER0RjJrdHc?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "admit court just political supreme",
+    "headline": "Just admit it: The Supreme Court is political",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.02,
+    "source_names": [
+      "The Hill"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNOS1PNUJmT3BjTFJaR1RFdFRYTEFPVld1YWRLdnhFMnV6SVRscVUzZ0xvTnpDQmpJT2dFSFhUQkU3eEVMTjMxZTBqUUo2Z3p3SUZObXRUVTJPSUk2Uy1qeWlLN0dZME1OckJOSFAxTTJwRVVmQThPakk4UmpQLUhfRU9QS2hqZmJVWmNZcFF4a0d0Qm9XUmZXcEZ0a3TSAaIBQVVfeXFMTWFldUdHOXU1VEQwV1AwdmJRSGFOQTQwUnNoVzBVWUxlSEY3V0oxZ09BR003cUNSRUpDclp1aEhqM2dZVmdPclNhNE5vZHdzYkdzdXYzLVBRUG9GR1ZoX0RMbWNhd0h1cnFncTF0R1ZlYlNpU3otS3cwbFN3Yy01d0d2M1pFakFLa3JTZFJoOEptbHdUUDZKZm9ncDlmYUttYnFB?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "flinching keeps making stopped threats trump world",
+    "headline": "Trump keeps making threats. The world has stopped flinching.",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 8.0,
+    "source_names": [
+      "The Washington Post"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPZzJjVWIxLVFJaEJNSU11cXI3am1ad1p0WVZRV0dfX3FYMXR2UlNLVkNkRFVONHpMMXBGbkZHdVdqRUxZazlkREttdHlEdDZjSFk4bzIxZHlxV3B6clo1UDZKR3VPNDhPM0NGZXJOanZSX205dC04MGxlenI4QUZKWkZuaVZOTFJ4bHM5YUp6SzRlbVI5ODNHRW1TdmllVFFVTzNXakVDTEtFTDhVc1gwVm5DZEdLZw?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "borden date first lizzie look monster netflix release",
+    "headline": "\u2018Monster: The Lizzie Borden Story\u2019 Unveils First Look, Sets Netflix Release Date",
+    "importance": 0.0,
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.93,
+    "source_names": [
+      "The Hollywood Reporter"
+    ],
+    "url": "https://www.hollywoodreporter.com/tv/tv-news/monster-lizzie-borden-photos-release-date-netflix-1236663852/",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "bill chief empowering house judges justice suspend vote",
+    "headline": "NC House to vote on bill empowering chief justice to suspend judges",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 7.93,
+    "source_names": [
+      "Carolina Journal"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPdUV1SWlNVVJRWGJqOUpWNU1TeDBDZVRlLTFhTnBnX0xwLVNYcmlDeU1Ua2ZjU09LVDhGZXBzSFpmRkF5QVg2bG9UZFh4RVh2WWNQNERzbUVTSEp0cFBzbV9Kb1I2S1BfMmhnSkxTb2lFN2paZ2RMeDRpSlpIb3JvLW5nMHBGMXNyeXN4b0RIX25NQ2tJYklfMVlwLWw0TUNXZWc?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "best cfp chance make teams yes",
+    "headline": "31 teams -- yes, 31 -- with the best chance to make the CFP",
+    "importance": 0.0,
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.77,
     "source_names": [
       "ESPN Top Headlines"
     ],
@@ -1070,15 +1100,28 @@
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "back deficit dips fall imports june trade",
-    "headline": "U.S. Trade Deficit Dips in June as Imports Fall Back",
+    "duplicate_cluster_id": "2027 early nba offseason preview too way",
+    "headline": "\ud83c\udfc0 Way-Too-Early 2027 NBA offseason preview",
     "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 7.75,
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.76,
     "source_names": [
-      "The New York Times"
+      "ESPN Top Headlines"
     ],
-    "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPckFlUlpXc25kSVlHalFfSzNpeDhmR2lySGxYUWRQQ0ZmS0h1ZG5jaVBPazY5U19hVmE3VnRRWS1uSlpSREVtVVFzRFlqV0JZXzNQMWNUdjZCckZLa2t2WjRkSl9SS1h1WFZZZS1sRWNPeEpDdGpDQmxOR1ZlX3ZESktyeEc?oc=5",
+    "url": "https://www.espn.com/nba/story/_/id/49522331/nba-free-agency-2027-preview-bobby-marks-stars-teams-salary-cap-extension-decisions",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "140m extension flowers ravens reach year",
+    "headline": "Flowers, Ravens reach 4-year, $140M extension",
+    "importance": 0.0,
+    "reason_skipped": "no reliable source confirmation",
+    "score": 7.74,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/nfl/story/_/id/49529316/zay-flowers-ravens-agree-four-year-140m-extension",
     "watchlist_match": []
   },
   {
@@ -1096,28 +1139,28 @@
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "inside mccarthy mike steelers tempered vision",
-    "headline": "'Tempered': Inside Mike McCarthy's new vision for Steelers",
+    "duplicate_cluster_id": "card deadline impacts race trade wild",
+    "headline": "NL Wild Card Race and Trade Deadline Impacts",
     "importance": 0.0,
-    "reason_skipped": "no reliable source confirmation",
-    "score": 7.72,
+    "reason_skipped": "insufficient story context",
+    "score": 7.7,
     "source_names": [
-      "ESPN Top Headlines"
+      "AZ Snake Pit"
     ],
-    "url": "https://www.espn.com/nfl/story/_/id/49524584/tempered-pittsburgh-steelers-coach-mike-mccarthy-new-vision",
+    "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNRkI4a1hfT3FaNFB5THI2VjhoNEs1Vmg5eXRmZUF0bG1HczZuQkZ1R25QbzVoNlhLZnFNOU1HdVBBSEVTOEl2WWFENmZoenNncHk5eWJzNFBIMnZoanZBbTJITTJpU3hxWUxaVEZEdUNrTkhpQXJTN0RPUUtvTElHODJKTHY4T0FQcnVQbEdxSDhFSEJnVlByQnZLLWtSYnFhRE94WFRiU2Q2TmM?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "divisional lightweight mma nurmagomedov rankings surges top toward",
-    "headline": "MMA divisional rankings: Nurmagomedov surges toward top at lightweight",
+    "duplicate_cluster_id": "buzz camps daniel hunter including jones mahomes nfl",
+    "headline": "Buzz from 12 NFL training camps -- including the latest on Daniel Jones, Patrick Mahomes, Travis Hunter",
     "importance": 0.0,
     "reason_skipped": "no reliable source confirmation",
-    "score": 7.68,
+    "score": 7.69,
     "source_names": [
       "ESPN Top Headlines"
     ],
-    "url": "https://www.espn.com/mma/story/_/id/21807736/mma-divisional-rankings-ufc-pfl-rankings-weight-class",
+    "url": "https://www.espn.com/nfl/story/_/id/49490023/2026-nfl-training-camp-latest-updates-buzz-notes-news-fantasy-football",
     "watchlist_match": []
   },
   {
@@ -1135,119 +1178,15 @@
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "eliminated event feng final han main players second",
-    "headline": "Main event final table: Han Feng surges into second as two players eliminated",
+    "duplicate_cluster_id": "hurt james more tuesday washington wood",
+    "headline": "James Wood hurt for Washington and more news for Tuesday",
     "importance": 0.0,
-    "reason_skipped": "insufficient story context",
+    "reason_skipped": "no reliable source confirmation",
     "score": 7.64,
     "source_names": [
       "ESPN Top Headlines"
     ],
-    "url": "https://www.espn.com/espn/betting/story/_/id/49247958/world-series-poker-main-event-wsop-2026",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "agency bobby examines fact fiction free marks nba",
-    "headline": "NBA free agency fact vs. fiction: Bobby Marks examines 10 offseason trends",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 7.63,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/nba/story/_/id/49490878/nba-free-agency-2026-bobby-marks-wemby-lebron-deals-giannis-trade-10-offseason-trends",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "battle kyler locker mccarthy means murray room vikings",
-    "headline": "What J.J. McCarthy-Kyler Murray QB battle means for Vikings' locker room",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 7.63,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/nfl/story/_/id/49520717/nfl-minnesota-vikings-jj-mccarthy-kyler-murray-quarterback-competition",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "call lombard prospect source top yanks",
-    "headline": "Source: Yanks to call up top prospect Lombard",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 7.63,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/mlb/story/_/id/49526555/source-yankees-call-top-prospect-george-lombard-jr",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "angels bring deadline handful haul prospect trades",
-    "headline": "Angels bring in prospect haul with handful of trades at Deadline",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 7.63,
-    "source_names": [
-      "MLB.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE01Vm05WmI1TG9ieHp0Y1lwcmlORElrQm5wT1NuYWk2eVYwTE1kOWJkckNqdGRkMC1ZdmFwbTMtLTRrSHNrS180TkJkUTF5Szh5NDdSUDFzaVd2SzhJc2FPdGpSVkM5WTFWS29UUkgyTmJHdmlKYjY1d2tlREk0aGM?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "apparent attack dies heart nascimento ufc",
-    "headline": "UFC's Nascimento dies of apparent heart attack",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 7.62,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/mma/story/_/id/49524527/ufc-flyweight-allan-nascimento-dies-apparent-heart-attack",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "cup fifa necessary turn wenger world",
-    "headline": "Wenger: FIFA's World Cup U-turn 'necessary'",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 7.62,
-    "source_names": [
-      "ESPN Top Headlines"
-    ],
-    "url": "https://www.espn.com/soccer/story/_/id/49527513/arsene-wenger-gianni-infantino-fifa-world-cup-sell-u-turn-absolutely-necessary",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "ahead cardinals claim game hof players two",
-    "headline": "Cardinals claim two players ahead of HOF game",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 7.6,
-    "source_names": [
-      "Yahoo Sports"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNbEw0SWZVMzBOMjZvdFFXcW1vR1Jpa2Q1c00yUHd2LUI3bmJZZUtNcldNWFBZRHVIZnhjLTZaQTRTZktNUnJFakNWa3pLNjJtaXJWZDJ0dEh6bWR2WmRwSFJ3Y3hPSnUxUHl1RXZ5TExBa0lrckxaeng5enRXa1FHaDZqa2dES0JYVnc?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "before deadline deal every made trade",
-    "headline": "Here is every deal made before the Trade Deadline",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 7.58,
-    "source_names": [
-      "MLB.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFByR2ZBSE53a1hFdHpac2NuUUtIcG9lV3VFOWZkemdzZHFLVUtjTUlNNW9yU0dWQ3lMUzBUREgxczYxV0ZiWDRBS1ViWTJJN0FWYXZmdUR1dlBDbjFLdHMycWdrU1loTzNWNU5HSld30gF6QVVfeXFMTk8ta3p1c29ob2h1U3FVb21mcEk3azJPTmZIYWNFLWx1VkRxS0plekEwMkdWTnJ6WU5VdmZfNDYxRnkyb0YySEREYzFpd3JCRnEzWEg4V0U0eXB2cGc3dGpGUUZyVG5aT2dBMFVuQkZVenE5VFJIRkpsREE?oc=5",
+    "url": "https://www.espn.com/fantasy/baseball/story/_/id/48297021/espn-fantasy-baseball-buzz-injuries-promotions-demotions-trades-prospects-lineup-changes-mlb-news-analysis-2026",
     "watchlist_match": []
   },
   {
@@ -1256,7 +1195,7 @@
     "headline": "The biggest trade candidates who weren't dealt before the Deadline",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 7.58,
+    "score": 7.64,
     "source_names": [
       "MLB.com"
     ],
@@ -1265,82 +1204,121 @@
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "bank economies emerging lifeline offers world",
-    "headline": "AI offers \u2018lifeline\u2019 for emerging economies, World Bank says",
+    "duplicate_cluster_id": "early every games key men nonconference ranked team",
+    "headline": "Men's Way-Too-Early Top 25: Key nonconference games for every ranked team",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 7.4,
+    "score": 7.61,
     "source_names": [
-      "The Mighty 790 KFGO"
+      "ESPN Top Headlines"
     ],
-    "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNU1hOOFh2ZDZuNElpN2NwREotWVdxNkkzTGpIbmU1WVhDZWlpdjBoZ09fQ1I0dVZkQ1I2M0VRSS1hUjVLUnRkeHZVcDFOMzhMT2N6UDNsaUU4Z1hONzRYX1lRRU5uNTRjSlJwMEZjWkdZakt1djJ3d0tlUmk3VGR4SE9DeV9ROWNwQ095eGtUOA?oc=5",
+    "url": "https://www.espn.com/mens-college-basketball/story/_/id/49491209/mens-ncaa-basketball-2026-27-way-too-early-top-25-rankings-biggest-nonconference-games",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "benefit could greatly pass ravens rebuilt rush secondary",
+    "headline": "Ravens secondary could benefit greatly from rebuilt pass rush",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 7.61,
+    "source_names": [
+      "Yahoo Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQUE1kTlFINjExdUdlc0ZHTXFMUFFhdU5rTHd1UUZ3QThEMm9pY1FaOUVOek5rYXVqRFdfeWJSMmdodGVXYnRrVU54WF80TzN5MTNLY3ZfUXAzeUpOX0tFRHpzRXp4Nkk0eVhJU1lwY3NQUlBmWXdIY0h1U2NGWnZqdnAtbnlGcURLQ3V0NHZmeVM?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "days inside last skubal tiger two",
+    "headline": "Inside Skubal's last two days as a Tiger",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 7.61,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/mlb/story/_/id/49513928/tarik-skubal-detroit-tigers-los-angeles-dodgers-mlb-trade-deadline",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "battle browns camp each giants important one qb1",
+    "headline": "Browns QB1? Giants WR reps? One important training camp battle for each team",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 7.55,
+    "source_names": [
+      "ESPN Top Headlines"
+    ],
+    "url": "https://www.espn.com/nfl/story/_/id/49513914/2026-nfl-training-camp-position-battles-afc-nfc",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "all arc challenges phantom player project raiders rewards",
+    "headline": "All Phantom Targets Player Project challenges and rewards in Arc Raiders",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 7.45,
+    "source_names": [
+      "Polygon"
+    ],
+    "url": "https://www.polygon.com/arc-raiders-phantom-targets-project-event-challenges-rewards/",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "benchmarks closer frontier homegrown labs look model now",
+    "headline": "Thomson Reuters Says Its Homegrown AI Model Now Rivals the Frontier Labs \u2013 I Take A Closer Look At the Benchmarks",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 7.38,
+    "source_names": [
+      "LawSites | by Robert Ambrogi"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQNmRadnk4ZGFqcWhrd1ZMVm1zNEgzMXNsa0tUeF9HMG41SGJQMGItLXlqNWl1dUltZzJ0NG1Pdk1LOTRqbWU5N21yLTREV1BRcnk5MWU1cHRDU0txMEZQbHVOZUEtcTkzZWxLb21oaEFXbWpOMGlkb3Q4NjhCRWljTHhXZ2ZSNDR0aXVRR3duNkp6eGduR3hISGNLU3pJQjR4VTh6X1FKaFpnaEkzWS1MWEtsdUNScGtiZEdBLTMtMmlRQ3U0eG5HOElqTVhtNUtRd1ZyMktKeERSeGlPMzZHekFB?oc=5",
     "watchlist_match": [
       "AI"
     ]
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "early equity private signs strategy workers",
-    "headline": "Private equity\u2019s AI strategy: Early signs for workers",
+    "duplicate_cluster_id": "hurting job may not remote seekers study suggests",
+    "headline": "New Temple study suggests remote work, not AI, may be hurting young job seekers",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 7.39,
+    "score": 7.32,
     "source_names": [
-      "Private Equity Stakeholder Project PESP"
+      "now.temple.edu"
     ],
-    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1FU1B4M0pYWm9jalVzY2U0VmxjaFdBZngydG1ZRF9fU0R6dC0xUmhvYUVuVlBIQzdzRk9jcWhBSDk4RlVsX29fY3RPYWhYbTl6dnh3ek90anpaeUxXX01WTTdoa250elNqRlBZ?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQMkdEUjBGQzliNF9INVJZWEJ6OF9TTEtKN3JwUDhNWmpEczlwNG05c2NuQy1TLTNoZjJsNVhEcWZiNWRWTjY0a2Q5UVduYkVLa2U0TVhHeEVWVWxWM0p4QU00NmpHbHNUY2J1czJNNzFsTG43TXlQcTU5T1pBbmNxalJoSGh2YUM4bGVpOFNnb0FPQjk5eUtHZ01GVkNQa3Y3Q2tULXprbkNhTlA3UFo0TWtUelRYcVE?oc=5",
     "watchlist_match": [
       "AI"
     ]
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "boom colleges computer dabble everyone means science wants",
-    "headline": "At colleges, the AI boom means everyone wants to dabble in computer science",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 7.36,
-    "source_names": [
-      "Aurora Sentinel"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNSnJBRDZEd09RQ0NYV0c5ZEo4VkUxYzVkMkVxQmY5QURVSHNHdkM5eVZmcWFPQVNuWjdJcmMxSjZYNFJQeXF4anZ2bVhaWlJ0R0dSaHJXMmgwcXdRQzlrX20yTFREVXVIWEo4dXJ0UFh2N3BFZVNPU3k0VnhfZVlZcVl0SkxBZGhqb3d6UnlCTXkyXzl1WDNSRk93VGp2NWU0OEdGcFZ0OXNKLWxQamFEU1BwZUd6RjdCZlE?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "extra imax joins man movie odyssey premium price",
-    "headline": "As \u2018Spider-Man\u2019 joins \u2018The Odyssey\u2019 in Imax, are premium movie screens worth the extra price?",
+    "duplicate_cluster_id": "background cio consultants delegation future may pension public",
+    "headline": "Delegation, AI are reshaping the public pension CIO role of the future \u2014 and may push consultants to the background",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
     "score": 7.29,
     "source_names": [
-      "MarketWatch Top Stories"
+      "Pensions & Investments"
     ],
-    "url": "https://www.marketwatch.com/story/as-spider-man-joins-the-odyssey-in-imax-are-premium-movie-screens-worth-the-extra-price-74304e34?mod=mw_rss_topstories",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "2026 date early elections florida primary voting when",
-    "headline": "When are 2026 Florida primary elections? Date, early voting",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 7.28,
-    "source_names": [
-      "Tallahassee Democrat"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNcEljUnpUUUcwbk1TckNocXFPY0tFM3lZczI3UjVlWEcyTlRpVGNiZV9Hdm1RNFdYenZySFZXbXF3NmhZX2ZNMUs2aHhUc3VFMHVpRDhTVktWUnVXdGlnRk5xbnRkQmFlQnQ5NlRfdGRtSzJFSlR5d2tnN09LbjI2Y29aaUY2bGgxVzNmYnhkUzBEWDY3cWRDRXBLeHNONTFYbUlHcDFZMEdPdEZkM2hQaFBvakIwSFphZm1GNzNLc1ZkQmE1Z2tlLWtzY3YwSk1HcVZqLTJwV09YLTVlRUlBZQ?oc=5",
-    "watchlist_match": []
+    "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOZXlRckZVRkNJQzR6RnhDTzJvTGc4RUtmeUdZOEg0U1RlRXFPZzRFSFRTZlgxYjBQYUdtZ2tkdjJ3em5Oc3NQZmlLd3k1bkJHMjc5THgyUTZfbUFPYzZ3bm9WRE51Uy0yYUFfX1p0T3lTT1ZaMmlQaHdNR3ZDT1Rqd05QY2F5QWVBNmU3dmZHOUVTc0w2N0tyMEs3TEIyazhOUnJwSTdXZ0c?oc=5",
+    "watchlist_match": [
+      "AI"
+    ]
   },
   {
     "category_candidate": "uncategorized",
     "duplicate_cluster_id": "655m authority block declines intifada judgment palestinian second",
-    "headline": "Sonia Sotomayor declines to block $655m Palestinian Authority judgment over Second Intifada suits",
+    "headline": "Sonia Sotomayor declines to block $655m. Palestinian Authority judgment over Second Intifada suits",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 7.2,
+    "score": 7.24,
     "source_names": [
       "The Jerusalem Post"
     ],
@@ -1349,344 +1327,217 @@
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "challenge constitutional constitutionalism federal hawaii justice one orthodoxy",
-    "headline": "One Hawaii Justice Is Using State Constitutionalism to Challenge Federal Constitutional Orthodoxy",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 7.2,
-    "source_names": [
-      "statecourtreport.org"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQRlBWRXFXdVA2Q0MyUk52RmNjaFVoVHdXenpna2U4T0xlLVg4Q0tXaGxIQUFSVkl2SHlvYm5ab2JZdDB5dVpXTWNsc2YzT0xycU1COHI2V29sTVVhOGd2R3VwbmJPZEVGYnBPSlZWNm5LUEJDa1V1cmFlUEFvVjdzNElJZHBoUVZEeTFyZWRhU3lERGFSLVB3MG9kNUhicXBwWUpTeXFLT19ZR2RicF83azFVbmpseVRJZGJ4RXVB?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "between cim event lines special sports welcomes",
-    "headline": "CIM welcomes Between the Lines for special sports event",
+    "duplicate_cluster_id": "acquisition changes cycles faster government problem technology than",
+    "headline": "When technology changes faster than acquisition cycles, government has a problem",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
     "score": 7.19,
     "source_names": [
-      "California Department of Corrections and Rehabilitation (.gov)"
+      "Federal News Network"
     ],
-    "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPWmg2WDBkRTZIbWZLb0h5T291dDgwamZTTVV6VGNWMDExRWNJV1B2S1ZkQXJxTHBHcDkzX0FpMGNxQU9YOFY0dnpReFJfLVREbXVtZi04WDM5WlZfWklZamlpbkZWZjJuNTFZVWRaTzFMZXpCWVdwa21wZ0NMMmJMMDV0VDZRZlVmRzl1MXJZOVBydl9iQ1ktVEtOQ3lLLVdJTk9PZA?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPZXlpN3FKY0lLZC1HQW4xMmk0ZFp0cU01RjlDWmo0dEtqNEdwa0c2Q0RmMmxyclhvRkZaeXNhWF9BN2tLbmFiM1VuU0Q3UEtTeDZRMkk1cG9zR3Qxek1BM0NaNFFTaVlkTURabU5HemQ3ZlpJRjR5TUZBMV9vRElsYzk5Wnl3ejRUT3ZibWwwczdZOEl0R1RZTnBiZGdLZmNpM3h2aVplSmdrRHJMUWQ3am5WZ1ZUYmhSNjI5cndKd3JaVXJlVjlsRFhfbw?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "becomes company completes divestiture entertainment kustom million play",
-    "headline": "Kustom Entertainment Completes $6.1 Million Divestiture, Becomes Pure-Play Live Entertainment and Ticketing Technology Company",
+    "duplicate_cluster_id": "bald center condition eagle jackie viral wildlife worsened",
+    "headline": "Viral bald eagle Jackie's condition has worsened: Wildlife center",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 7.19,
+    "source_names": [
+      "ABC News - Breaking News, Latest News and Videos"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOODNkQnNhY21RSWtBaG9qalVDcHRnY3B3MDJ6QjNiSzk0YUJfdHhMcVh3UkkzQjlYT2VBcWdfc1lxNTNYcFhybzZxQ1E5T0lBM0xTYW9kTk1UamRIWGMyVWZ5Z1FDZi14X1llTVQzZ18yQ2UweVRmR3BGS0VUakZ6cGo5c1JzLUcwLTdLWE1wWGNEVEJ6dnZ5ejd3MjczMFJoMmpzdXY2U2poQWNrOVHSAbMBQVVfeXFMTjVKZlRqOGZlX0xKaTRhR0tZbF9pNGJmbjRtNktHWkdQVEdvR2JqNmQxZVVGSXZQSFpMLUwxYUxQejNhN2Y4UlllaVpNWjFIaDR5RTZ4emFCMDZTVi1aRFotUzdzdWJYWExUaWpVeFRyT0tBTEVQcVRPR0VkQXJuUmJKRElMNHk4TWlyTnpLQ0RqYmJ1Yl85REdlb2FiZk50VGMtVmhjaHJWNDJSV3ZHVEhKSkE?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "bocce eats entertainment house hub italian social",
+    "headline": "The Bocce House Is a Social Hub For Italian Eats and Entertainment",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 7.18,
+    "source_names": [
+      "pittsburghmagazine.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1kSTBHb1RFOG1PV01kY3JSVTZIYVBiNDlMZW5lekVKWHRXbGNtV1NqckF2cW1sODdPUHlmUGdLX3p1TndwaHpuYWc5SUpxelN5N0NFT1F2Mm80b0xwU1hhVGYtQ285WDNRU3hMV2Jn?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "answers camp gabe injury jacas patriots questions training",
+    "headline": "Gabe Jacas answers injury questions at Patriots training camp",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 7.17,
+    "source_names": [
+      "98.5 The Sports Hub"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPY09ubFkyVUc0dDNDRkFUeHFjS2UwUG9RZlhsT3R2R1RTbU5FUU95Q3RBMG8tT1lYN29hM3AyVjB4eGZkdUVzMUNnSGFXQ09STFJGbVRHUkRpNmg0b0RKNVBfQ1I5cVdadkthdTVrZHNlTEYzTjlQcnhnRTlwRS0tU0tRLTkwZXhxVEpyNDFIS1ZpVjQ5?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "2026 backs consensus fantasy football full ppr rankings",
+    "headline": "2026 Fantasy Football Full PPR Rankings: Consensus top running backs",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 7.17,
+    "source_names": [
+      "Yahoo Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPVDN5ZUF6eHpoZE1wOGRQNUxDcURiVEtHbkNGdFF3c3hrQl9UV0lUMnF6T05pWmxIeWdHZ0pZUF9UdzVzMUlReERpbmVCM25BZGM2Rzltak9sTHRpQlc0UmIyaksyZ0FCdjVpTHB2elVXMDZyYVNtTncyTlBaVkF4a1ZpLTVyQ2gzYTFmMG5xQUR5Z0xTcGQzRkEySDlHR3ByejVqOGh5cHdubHFRVzNZajJZNzBpTkoyTktPbC1faTE?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "arion carter choice heupel josh ncaa suspension word",
+    "headline": "Josh Heupel has choice word for NCAA after Arion Carter suspension",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
     "score": 7.16,
     "source_names": [
-      "Quiver Quantitative"
+      "Central Oregon Daily"
     ],
-    "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNNmx5OGQ0b1FaTjBkbnVqclc1QWxNb3RWZWJ4Xy12cjhIR3VrZXpmRTBfZGxQLTl1VTYwMmNndmpYRV9UUTFZcEI4cFJDYVZvZXgwTS1OZ0FnWUpaTHhSOVBYVlh3eW1Oc2YydzltTWVFR0ticXJxS21lVXR4dk5rM1BZWVM3VGx1M3lzN1B5LWpuSnk5a0drZ0haejh5cXJRZXZSb0NhZlhFMXVVVUk5dGR3SWhWMDFVR1VRSDdRNjNDZUpyejZTVGRwRjl4cTVxYW1oQ0VWa3ZKRURUWXpGN1ItQnFhcncyVXc5NU9vd2ltT0didkE?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxNc1NZVko1YUtiNHhGUmdLQkxja1hLR2JPVlNJMTl1dldWSWhlekxuaXRuWVpDOVQ3SklLUXY0THNZQk1xckVrLUt0UUFMRmRreVFqX3Q0WkJabXoxQWFEMU8tbTJ4T2oyN0lZYXI4Z09GeGlraV8xTzRwdDZkZjBxNExyRUt1N1h4UUFyaFJUT2NUQVFWMHcyU01PLVBRRS1WNVg5YWtFdGE4b1hSRDVHLVZkTmZrWUpGZThJdjJVM2lzMFNRNlNHTmhxVXcxWlFvbllTSTRGYVhfazlLYTgwMGpDaXhhUmVvVFpjQkdTcw?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "abortion again kansas quiet republicans rights starting trying",
-    "headline": "The quiet way Republicans are trying to undo abortion rights again \u2014 starting in Kansas",
+    "duplicate_cluster_id": "brought education entertainment fair food job opportunities state",
+    "headline": "State Fair Brought Food, Entertainment, Education and Job Opportunities",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 7.12,
+    "score": 7.16,
     "source_names": [
-      "vox.com"
+      "The Placer Sentinel |"
     ],
-    "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOUEIxdkRPelpKZVlvUzBqY1dFZEFydDJ0SnJVVnhWM25rQ0lPS19hZ0dvSGxMUUVVeVVncGg0Y0w5SjBxVDdvNkpsd0FEN3NSaFhVN3RuUlp6UkdOOHpibmREUllNRWh6VXd3Zm5yTzZRTkphM1NDbTQxM2Vfcm4tOWFkUElhemRaN2tTempKZzFSX1Y5MjFQNTE4VU1INHlFbkpYdEN3dTBxOENkMEtPX3ZHalJ5UQ?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQUmVncUd5LUVFckpPdFRmdmJ1anNPUm5IUTBMTDg1SkU0VTR1b1dSNTVhMFZBem01T3ZWQU83YVhFcUdKbFVEOTZVWnJmTHcyUE5EVHFSMWdXNDRJSU45RGJBUWxsMF81My1BYVdxVjdiaGQ3amdhekZiTHFwa2Q0c082U3lkVEpDcWJsLWtUQTNEVmxMakEzdHM0UFVWVEpPNUc1QnNOeE0tMGVUVU5HWDJvOHRSOGUzd1E?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "being challenged criminals forces law prison sentence serve",
-    "headline": "KY law forces violent criminals to serve 85% of prison sentence. Why it\u2019s being challenged",
+    "duplicate_cluster_id": "alliance announce arizona coming events finals global legends",
+    "headline": "TKO, Arizona Sports & Events Alliance, and Legends Global announce Noche UFC, WWE Royal Rumble and PBR World Finals coming to Arizona",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 7.16,
+    "source_names": [
+      "PBR | Professional Bull Riders"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxNNzRWZjktWUNJOW5BLTRUSGlPLXFrVUdkc1lJUWhXb1dJZWpicjI1NWlZM1JlMkJSbi1wNGYzb25DVjZxbTRVQ0hEMTRZYi1KY3BwVHRYRjNwLXlRNU5yLWJXeEgxNUcyMXdad1pydUhUZDk4VHc1N0t4VTEzQXR6emxWclBSWTRsZjhIX3lQZTVqQ056TG5iNXludm1XRU1YVGtOY0NRdDFTSzhFRU5HOWlqQVZvVjJQcTdQZ2dlUzE1UE5vVlAzTVFwbGthUmZDS0dTdUVpWm9peVVHUjItdGh5YTVVRF82VGZ3ckszTzlLTVpT?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "award earns jolisa leaders resilience sports williams women",
+    "headline": "Dr. Jolisa Williams Earns Women Leaders in Sports Resilience Award",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 7.16,
+    "source_names": [
+      "Bowie State University Athletics"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOUWI3VzlTeGNFanRwbjMyUUh5V1EtY0t4RV8tbEpmM2tBZTBKb1JONkxpeDl5eDhxeE1WZ2M4dFM2TkowY3RRUWVjSTQ5OHlTRk1Cdkk0Q0g1Z3VPOWVkVmJ2LVE4M1gwREJpYjZOOVRPc3pwQW9sQkJRWW9fTXZQZWlYTE1vT1MzUEhGdXRSZDB4SUo0N2NuaGVGeDR1WjF2THNWY3hLWGdXcG1qWklaRy1Ud3BqVzg?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "camp hard knocks premiere seahawks seattle show sports",
+    "headline": "Seahawks Training Camp: 'Hard Knocks' premiere and starter news | Ultimate Seattle Sports Show",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 7.15,
+    "source_names": [
+      "KING5.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiigJBVV95cUxPTXYtTDM5bnJ0ODJMZWo4dzVHU0gyRHBGdWtlajBOLWU0NlBRc2NWTVY2YXZwUjJCQW9pTXlDNXpib0ZKMm1VdzB4WHpqY2U0VjMzc1NleVB5dkJjMVJGY0JVN1ZvYURRckV5dWdSd0xJc3B2dEQ4MHp4aTJGZDhIb0FZZUU1VDlmZ3JIR1dILWllQ3BpMUtTa3R5bEs5NEw3Y3BPVDdYT2ZsdEluejY1aWRiaFd3TjZaUFJlSm9jN3NqeDB4djk4VGU4NVAwUG5pNXdKcHlIM1hFZ0l2QlpGRW9hTXg1RHQ0YXo3M05mR1dTQW1JcGtzVDdwU0N0VmRLbENlTk1QSEJpUQ?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "atlanta change honored lives nationally sports teen using",
+    "headline": "Atlanta teen honored nationally for using sports to change young lives",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 7.15,
+    "source_names": [
+      "11Alive.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxPMUJYdEZqbTk2a2E0NXBQRmR0cnNXX21JVzBBQVZsS3RqR1NNNHZ2bEtOVDYzU0tFRGNtVkNHZkl1M2Y0dzJUaGk4NjFhVktXS0s2S0pJRXJ6S3VfTTB3TEhJMnhxbWFfWkhEajhHazZ4anZuWEtKMTBEQlVlXy1FVkxwRG5yVk81aHFIQjlsOU5HYUJxRVQtbWNQWHZHSzZ2Mmd4ckNqNjh6Q3l3c1MxTk9TaHZmMEtXWm8zQUFWN0k2YjFNd0YyNGJfeFU3SUgwUWkxQ2tMbEdvNVBKYlZzWkdpVUwyV0J0MTluQ3JR?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "calling old ones pretext replace states sue tariffs",
+    "headline": "25 states sue over Trump's tariffs, calling them \u2018pretext' to replace old ones",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
     "score": 7.11,
     "source_names": [
-      "Lexington Herald Leader"
+      "NBC 6 South Florida"
     ],
-    "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5KSnhTU05XOFNiQ1VpampXaVhfa3MteVEtNWp3aGgxbFJtWkc3RDlxRHAtTEVwWDgxcV9WY2xNTXZsSHVNaW54a3VWYUs1NUhJZ1RwRnNQeDVhOWprZXU4Q3B0QnBXSFdMQjBtWTlJdWXSAXBBVV95cUxObW5fU05GZXdRMVM1REdnQWZxWWxBT25xRG96bVJ0amxKMnFvQjhWQU13VHB0aVVnTlNBUV9CalBES3Vlc3l0bDBBZmZKZDkwVGlTN3Z3Q2NJX0NYU1IwRmdrbjFvdUduNDNCUnQzWV82?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQMjRPb3ZjRkVaREdRNThOMGtKeU00N1k0Nlp4NTdBUS14SE16UGFmdUtCdmcxOU9qeFJROGRiOHJqUjkzSzdOVGlaYXIyRmdPMmFVa09CUWFGM2hJekEtY2Jnd09sY01ZMFlQQ1NZRW9QVHhwREJ4UFhIdDZDcDJsUXVKRkhZM0NhSUlkSFBtdHdsbFlmMGoxemg2Ymk2YnpLWUljSHFXQkJwaWk2cWgzUmRjeTE5MVo1ZTVSY1dR0gHGAUFVX3lxTE9tLWw4X29JVDl0ZHNrQ3lDTENlUXdQV1ZzUjMwdl83T09hNDg4RWxXYXN1MTlpcGF6NjRzUk1OekJ3R0FPbVR5ek9ySHdILWJ3RnZXdnNEaXBpbUctOWJuRXhkb0pNcEZwYm0xUWwtMXBGbjVPb2FGNkNIOGQ5WUE5aGhPNG4xRDBGWEFEdGZ5QmQzWUkxQ2Q5NHljNV82REozemlGTU9mZ3JucXR1Z1hxMXRaanI1cXE2WUowMm5rWkpsZXYzUQ?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "agentic customer make potential service",
-    "headline": "How to make customer service agentic AI live up to its potential",
+    "duplicate_cluster_id": "bubble can cup each fedex make player top",
+    "headline": "Who's on the FedEx Cup bubble -- and how can each player make the top 70?",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 7.0,
+    "score": 7.08,
     "source_names": [
-      "Customer Experience Dive"
+      "ESPN Top Headlines"
     ],
-    "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQaDdITTlyMmx2bGQ0TlR0aHhTcy1KVWpZbmMwc200WG1TS1NNNWhsZzNOVEs4bnpYNkM4RTU4ckJrTHZ3aVN2QVJDX0JPaUQyWnd3bVNUeThmQlRMTnlnSjB1QjhTUHdKU2lIQWFaVUJicVhsWHJaNmhHdEtlMkFpdFhUMHVYOE84NnNKb1pseUU2SDd5ajVGSjR4R0RTQnhZVmJLU0ZmU2t0a2QzWlE?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "breach duties emerge reporting shadow",
-    "headline": "Breach Reporting Duties Emerge from Shadow AI",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.99,
-    "source_names": [
-      "Law.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNZTBDVGhEYlNRWXFyYTZOVmdkU1MxeXpHRjRWV2VYNjV2OFE3YWpKQ1N3dVBWUnl3UENDS2JOUHg2RjRDV0cxWXh4ZW1xTGtEcXZhNHlhOW9ERk5kRjl6bG5tcTVWMHNITDZGaGc1VUh2bGhtdXFUYUZfWUNUQW1vTUpBa3YwRWpOU2h0RndDQmhqQkZya241X2I1VQ?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "governance managing map point road shadow",
-    "headline": "Managing shadow AI: a 10-point governance road map",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.99,
-    "source_names": [
-      "NH Business Review"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE8xSkwtOGpmcGZZSnhHTkppcVNXYy0yY1FWYU5QejlTclRMOEhWSi1OcmxiQTd6VkFnQkRHaXVEN1dBRy15LThmTGZHTC0xTlJIWThiMzB0bUhMRDBpTFljUG51dGx3MHlpOWljUkVpWXlRcVI4Uk1JU3hlZw?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "advances fighter intercept powered sensor skunk works",
-    "headline": "Skunk Works\u00ae Advances Sensor-Powered AI Fighter Intercept",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.99,
-    "source_names": [
-      "Lockheed Martin"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxObmNPNkw0T2RpY3EwV29aMG5JUkhnUmJMQ0xRRnFMOERTcUVkUF85bXBEc253Z2NSZzluUGo4Yko3QmhXWkdWWjh0Rl9qS1BMdnBqRkN2NnAtdURVQ1p4dTVPZWJMUmtNd0sxM1ZkdEM1cjBWTmhfNkJEd1BseUJLejc0ZGdCX203N3hhdEk5SzBTMzBPdm9JN2VDRHYxY0swV2FJ?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "foundation stress testing your",
-    "headline": "AI is stress-testing your foundation",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.98,
-    "source_names": [
-      "Axios"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE40b2NaSWpxM2JtYTY3OF80S19BVWVXaVJCT1FrNTlSWEpQUEs0WTlSb1QtM2lTc3M2V2VRVGI4bDRGNnVIdVNfOFhMeU0wVlROUnk0TmVxS0p4VFFtMzdIWGc0d2stRFkzQ1E3R19OLUFTdi1IeWJn?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "business cyber harder making ready scams spot your",
-    "headline": "AI Is Making Cyber Scams Harder to Spot. Is Your Business Ready?",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.98,
-    "source_names": [
-      "Comstock's magazine"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQZHlnMWd5d1ZHVVhJQXQ0S0N2WmhVc1BKMmI1cEh4bXp3Ykg5MkxEN18zTzNvUW5OQVo0UmpYZWRsalN2NU93MW5PRXRETFhJMzB1TWFlQ3BRSzVrNmJLSjJlY185UlBEU3NTNEpYcG1meEtLYUMwejJRcVBEWnJBX3NMUjQ5OE9BaDNldEMxMnhZRU5hY2Zn?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "devices medical regulator scribes weighs",
-    "headline": "Are AI scribes medical devices? UK regulator weighs in.",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.98,
-    "source_names": [
-      "STAT"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQU0ZLdWJIbWJvV1Zha0dFMEFuNmd3ZGl2SFExWkEwb3J4clpSNDJJTlpfQnI2LVhHSTRCZVpsQVUtTENoUzRsZGpHZFZfcFNrLWRaSWJOTDR4bTJhQ2ZYOWlQcXFvb3FzZHF2cHIteG5ZT3RUV3FFLTlidkRlckZJbzdiWDNRdDNYNFFZTXZjTHV4MzFZVW1OZw?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "alto broke can fix palo patch window",
-    "headline": "Palo Alto: AI broke the patch window \u2014 We can fix it",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.97,
-    "source_names": [
-      "fiercewireless.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPWmgteVluZU5udmVGWUVCejRIVzA4UGJkX29ZOGc4OGZUT29HbjVPT2FhTERtQ1R2NGhLaVNsWElOLTFqVzhfTGNTODQ3WWNtQ3FBcTJWMk04NWNoYlg1VEFiMDZwN0JLSGtBUE85X3ZmTU9sNkYtcjBqRGhyc2dsR0ZzVm5RVEdOWEItcW1hYnJJTjdZdXRQMlk2Z29NUHk1MU13aTQ2UDF4ZUwzMmtTbkVhQzc2NEVnT04wQWc0MHByMGVKMkl3?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "cybersecurity guidelines leaders propose safe transparency",
-    "headline": "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.96,
-    "source_names": [
-      "NVIDIA Blog"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9sQWVOTFFZVEcwTWtiN1FlNVo1bzRWSzlWVkpmWkZmUnJQY0xhcm9udUYxY19uUjdzRXRjUXVocDNQWTdYVzdFZHdjVjI4Qmg1YktoSVNTb0ctYmRncFpjdml2RTN6Q0JIZEtBOW5wVEFOYWtFei1V?oc=5",
-    "watchlist_match": [
-      "AI",
-      "NVDA"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "cloudflare enforces engineering standards using",
-    "headline": "How Cloudflare enforces engineering standards using AI",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.96,
-    "source_names": [
-      "The Cloudflare Blog"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9kcWtyb1kwRGZybHFTMHczekRmaTRKS19aUUFVc2VQYzNxSEtkUFBWTTdrWktDZTFvaTdmX2loVmJhSDV0V3I0WTUzejE4dEJVTE5ZSUkyaUs5QnVLX182UjV1MTFxNFJmdXNIczVFSQ?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "put questions tcap test",
-    "headline": "We put AI to the test with TCAP questions",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.96,
-    "source_names": [
-      "newschannel9.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMikwJBVV95cUxNUlotc19UR0d5N1NqNmlmdm9LUmt4WVpxTDBHYnpnZTdGbnM4a01fUnNOTUFqa1JlOTE1NHJLbWd5dVAyaDhvaHgxQndPaWt5WmZqcU9hYllJMHpPSk1DeXhONHF1Z0ZtTVFBeVpieFctMEJfZjZaNHhJUzlYLVYxWktoUWlNX0N1VEEyMzk5SndMTWdmVFlKMFVxSG5ULTVoWU4wY3cwajhObE5HMzRmbERWSUtHbG5HVDNxMDc5dDBZMjVPVUc2a09wQ1hlOFRpdVhvczhVSDZkWXhyeG1jcXJDMkhOYXBWVWo3ZFM0czd5SnpVZElYX1lGYjRwSHZaSUNBcGhQZkRSZGtVbGpaRnYzVQ?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "detection satellites transforming wildfire",
-    "headline": "How New Satellites and AI Are Transforming Wildfire Detection",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.96,
-    "source_names": [
-      "Climate Central"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPWmV6VWJzWWZWWjVoYVc1eVZzUU9id1oxa3ZfNnhycUhfNzNhdGY0NFljWHA3OHhjckk3MjBoNjFZZnFCT3NGUWc1R3Q1aVd2eGJNUWhWYUlsRWNNeHJSY1p2R01zbzJ2WThER20tWlN3M1hNc3hYcTlUVUZ2UGwxTER6QzAzUGliTUtxQmYwbnQ3YUZ4Ny0tc2ZTOFhxYms?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "2026 best education florida private ranked schools",
-    "headline": "Florida\u2019s Best Private Schools for AI Education, Ranked (2026)",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.96,
-    "source_names": [
-      "Haute Living"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPd3Y1QjdWdFQtRXBlVzU5VEpfVExlYml6SXNQQ0U2RlhSQUxrX2k1UjhRbDRoWWJZbm9TVXFTS0tvZzBTNWtMbnpZbl9wXzhHazFuS1gwSVRwem5IMkFjUUduS2VQU0tNd0hXMk4wUFUzWU54ekZZb1NkMjdqaWhJYWhR?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "approach governance require security tools",
-    "headline": "AI tools require a new governance and security approach",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.96,
-    "source_names": [
-      "Healthcare IT News"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNcGt5UG9OanktQ2hsZGhNeWN2YlVMWlVRdlRuR09SRERSdTI3R3ZLc2VlV3d0M0JaeUk4c3NoUXVpSlpZS0dPY0lGNmY2SFhMVnQzbkNDbDdhbkdRSXNMT2k1RkpTcXE0QnpHekRNWTNnRGUwSmJsRlFNM1NRbElEcE9FcUVNd0Y4VFpJTnR4bWJRVVFSUGUxQllR?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "congress court save supreme",
-    "headline": "How to Save Congress From the Supreme Court",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.91,
-    "source_names": [
-      "The New Republic"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPMDFFc1RFSkFFWjFkZUtKR1ozSjJLRUxDdklYNmhVV04tYVVqbkYxcGVocFJZQ2FDRkFmY0ZjTjE4bkFOM3RNRFh4bXFrZlBLREh4N2dUamlOd0xWakV2MXF5MTltUDQ4Skg0YmpIY1J2VTZYYWxHWXlKeG5YVDd4MDZ6MVgzdw?oc=5",
+    "url": "https://www.espn.com/golf/story/_/id/49518600/fedex-cup-playoffs-top-70-wyndham-championship-jackson-koivun-brooks-koepka",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "antitrust litigation update",
-    "headline": "Antitrust litigation update",
+    "duplicate_cluster_id": "california effect landmark law takes transparency",
+    "headline": "Landmark AI transparency law takes effect in California",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.99,
+    "source_names": [
+      "kalw.org"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNSmFBbTNtZEd2TFZFN0plNE9vZzR0NDNkRG5oOFptNmxwZ1k5eWFHd0lwc2k2VDRTSXdsWHhRTk9mYjdIclJuZWY2b3loNmwwTmRRT01aMG1qOXc1Sk41RnV1ODFVUS1LLU9jb19XaWJzVXhiWVFQNkpKNkVYYW01TDFweGhxeGNST1lZSU9ubzVpc1NmaGFLbV82SkpLTjhWVzc0?oc=5",
+    "watchlist_match": [
+      "AI"
+    ]
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "big builds burden centre data lease race tech",
+    "headline": "AI data-centre race builds $1 trillion lease burden for Big Tech",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.92,
+    "source_names": [
+      "Yahoo Finance"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPYXZLYWlDUWZwSVNodDloTk9BWGVoNnB3UTkwRl9hdHlUblVCWFdibnVfMEVlWS1zcllsQ1RvOUs1djM3WVYycEw2WW1vOURqb2VIY0tZaWJ6Rks2bGZBVEh2UVV6b3oya0pDQ3VZaFVQRTZoSl96aWpocDl0M25RNmpRMi1SMUNXb1pJdlRYSWhuakFC?oc=5",
+    "watchlist_match": [
+      "AI"
+    ]
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "generated giant one pull request reviewable stack turn",
+    "headline": "Turn one giant AI-generated pull request to a reviewable stack",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
     "score": 6.89,
     "source_names": [
-      "thefencepost.com"
+      "The GitHub Blog"
     ],
-    "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5BSExpNkJKci1kcWFFV3Uwd1hNTTFiNWNMaHBxYjhaTXB6a0dCR1JpdFJsejAwLU0xYklIMV9WNlBNQlFxZmxSNHppSlc1Xy1IU2QtbHE2RGNKM2ZlbUFabkNjY0FJTi1kZnZRSzN0SQ?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "dispute mail matters timing voting",
-    "headline": "Why timing matters in the mail-in voting dispute",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.86,
-    "source_names": [
-      "SCOTUSblog"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNY3dibmM3enNpSWxMQnFPczVuQi13VFR2amZ6eUpFcUpzM2ZDQm9uekJEMUZBcl94QWtld21mamlqM2ZXb2FTdjByUDgtazJyREhScnBidVR2a2hJaTVxOTJJdUVuZXBVWTdTN1c3TU5pcXJQQmx1VzVLMVA5NE54MmR3dmg0WEVYNVVQQQ?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "acquire giants pair prospects ramos top yankees",
-    "headline": "Giants acquire pair of top prospects from Yankees for Ramos",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.85,
-    "source_names": [
-      "MLB.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE01azRicDhhbXNFQThNeVFFem5kM1FqWmZxMXdJdXBnLVRIQ1BSOGtSR1lLRms0TFFSbFNVSjNvTlFnNEFORElVR2VnMXJqbERhdTFNaW1Lc3lKSGRaczgtc2QwTkx2bGdyVWdBQ2xR?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "acquire bidois garrett get hicks marlins prospects rhps",
-    "headline": "Marlins get 5 prospects for Hicks, Garrett; acquire RHPs Vodnik, Bidois",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.84,
-    "source_names": [
-      "MLB.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5SX3B6clY4Q1RyNlRSd1hFTFFtTEZpQjRHMUxBaUNKRW5lbGNwOWUyQ3FnSkhvZzI2SVp0d1JwWjhpcjFtYzZibWZYWS1YalVjTDg4a1ZkUjEycGhDRFVaWTdn0gFuQVVfeXFMTW9DS0RFWllUOFpENkM4SmNvYVlFaVBFRmszWUNXNUZnMUhLdDJpZXJlVHMwdDZPdGhxblQ2LUZWeUREZGRlMElJcXhBbmpXbmNyYndnTEpyVnZUVjdURlhSSlY1NzJGdW1ra2U1dXc?oc=5",
-    "watchlist_match": []
+    "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQXzdUM0tTVTVORUwyODdub21FMGhWMnpxclRpNVEwcGEyNV83NEVoaTh3YnhIYmlZRzNwbkhDVGFPZ2J1Y2NBTGRBdE9GTnMtSEI0dlBKSmFzbDVaWmttTHRBRHVzUjV2T1NOYjlnQ0hCSlczOHBQMnFDcWp5X1E2RkQyQWhCOEVWdFpyREtmc1pnQ21KRXZHVjRERQ?oc=5",
+    "watchlist_match": [
+      "AI"
+    ]
   },
   {
     "category_candidate": "uncategorized",
@@ -1694,7 +1545,7 @@
     "headline": "Mets net Top 100 prospect Rojas, send Holmes, Taylor to Cubs",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 6.82,
+    "score": 6.88,
     "source_names": [
       "MLB.com"
     ],
@@ -1703,145 +1554,93 @@
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "billionaires real sports these value",
-    "headline": "The real value of sports to these billionaires",
+    "duplicate_cluster_id": "giants land padres prospects ray robbie top",
+    "headline": "Giants land 2 of Padres' top 10 prospects for Robbie Ray",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.83,
+    "source_names": [
+      "MLB.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5BVk0wNTZMN0NVTk15eGpLdER6YzZOd0RORkxXZ2d2MnphVVJoaF9YaEYzRi1heTREaXZVYXFpa1FieW1HbktXMk5YVERMLTBtVFd3YXFzVGg3a0RXQS1Zc2pNbF9XVzNEY1HSAXZBVV95cUxOVDRPYldvc2dNN2FJcE45LS1zeFlUZUFIdmJQcWVwSGFzX0huTlNDMDcydUh5RkRTQ29Gb081Z1l4QlBVMGxCdmJad1RQNGpDTXhjdlVRUFliamNaT2FNWTRwaHUtTnBZMWpucEdBRENWajhCVHVB?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "international june normal searching trade",
+    "headline": "US International Trade in June: Searching for Normal",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.82,
+    "source_names": [
+      "haver.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPSVFpa0JhOUlidkhSUzRiN0t0YzJOazVWS20teDh0MDh0SC1HcG9MNlI2RE5WZjVGb3lxWklXNXEyOUtVSVNPQXlFTHNRTTdZVUNKTGNSX1Z5ZG1WbGRGU0ZmU1NSOFdrcUJzWVRXcTRXQlFXZDJzVFpOWG9OSlNDREhjRlJoby1wU3c?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "beyond conflict iran oil reshapes risk",
+    "headline": "Beyond Oil: How the Iran Conflict Reshapes Risk",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.81,
+    "source_names": [
+      "ISMworld.org"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiiAJBVV95cUxPc3RHcTZ2RE5kNFlpM2RJeUJYb19DQUplT2RGRE44bnR1Vmg3bUdZU1hjXzJOQWY3N3lILWRNaWZBaTlHZU41OWx4YWl0RkhCVi1mcUFYTU5jei1PTVNKcHg1bmxmblZ2c2t0WTdvRElET2dOd3lnbWpEd0U1R2lKQ0ROb3BySVZUM0IxZFhLb1Y2b0g0S21KMFBkQzAySVJPcnVQSmdGNUtZSWVHRWZTTkN0cEpOY1FSV01DeXJxell3VkdPd0UwOGlPVXpqQTFQY1NVaWs0aUdxRXZfNXJiUGVCUDlYdTVnbklfYmcxUE1vYVluaGt3VEgwQnFWLXFubHQyNml6RUo?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "benefits divorced girlfriend her income lose marry security",
+    "headline": "If I marry my girlfriend, 67, will she lose her Supplemental Security Income and divorced spouse benefits?",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.81,
+    "source_names": [
+      "MarketWatch Top Stories"
+    ],
+    "url": "https://www.marketwatch.com/story/if-i-marry-my-girlfriend-67-will-she-lose-her-supplemental-security-income-and-divorced-spouse-benefits-9340bab9?mod=mw_rss_topstories",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "center familiar follows former jalen path vanderbilt washington",
+    "headline": "Former Vanderbilt center Jalen Washington follows familiar path",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
     "score": 6.79,
     "source_names": [
-      "Baltimore Positive WNST"
+      "Nashville Post"
     ],
-    "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQa0lqaHJ2eHpSQzBoRU1xbkgxbzlJQjQ5MnVXQWtpdW1VMGxKYll6MUdKdDdrMlZDNERkUW9KdW4wRVVQQlhaTkIxVGt4WGFkMF9JTkY4ZXRJaEcxaHlkeE5DMm81SG9lOWZjRTNpa0tJeTFyajUyMEE5MktEQXhqOXA2Yw?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxPR01YSDFndmoxRl9yd2dkLWxmb0lqX3ZYMTRocHIxcU9ScGZXVmZSbEM5Y3hGc2xrRXE3dm5WUzhmUkw0MlN2bDBJbzFobE5GU1BPV3lna2MzRkduQW1mTEd6cUt4MkFWRm1XcUUtRXd3YVNLQVpreWFnRVN3d3dsTkVQc2IxMnN4LVJZOV9za2ZIYnpiejJwZUJsLW1TNlFYUWlib240d1RlMHhJdzBxbklYdmNEZnJ0WkJvRk0zV3E5SUJ2Wklkc0ozV2pRQ3JxejU1djVaR3BkR2h0T2xsTG1HMHk?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "departure grateful his man skinner toone utd",
-    "headline": "Toone grateful to Skinner after his Man Utd departure",
+    "duplicate_cluster_id": "bkfc conference press romero till",
+    "headline": "BKFC 94: Till vs. Romero Press Conference",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
     "score": 6.79,
     "source_names": [
       "Yahoo Sports"
     ],
-    "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOUlBVSjlESkxsSm9mNEY3TzA1TmFSQUpwQWVRR2c3SzlwbzhkZk5Gb1NReVV2NklFY2pmdW05RTZoSGFxblpzY0pOSWREQmJaYW1GYjBXbVVIWXBlVGJheHdRMUpYSHFnRnRUd09USlV0STNuWTNvbE5IS2M1S1BNb3NqYlBfZw?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9VR0E4VFBEbm5RdUR6cVBIZkhWMXNDOURDeUFRTGo3em80RjhSX0hNVnp0dDk5a0pfMzFlNkFPWjNOYjZ5X3QtRjRwRFFtakR1NDVkNTlZbWRiZzNweGlHYldyZkdpc0NQUTFuek5qYmJ3Q0gwNGdlWWtxdw?oc=5",
     "watchlist_match": []
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "bars cheesy getting oldest one sports vegas",
-    "headline": "Getting cheesy at one of Vegas\u2019 oldest sports bars",
+    "duplicate_cluster_id": "commissioner contract extension inks meac sonja stills",
+    "headline": "MEAC Commissioner Sonja Stills Inks Contract Extension",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
     "score": 6.79,
     "source_names": [
-      "Las Vegas Review-Journal"
+      "meacsports.com"
     ],
-    "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNdUNqLVJxbEJIcWRkTDdYNjNkQkxMdnBlZlZvUFVCWXl5NzVUWkMtc0JsMW52SWdHb1dDcUxEUmx4Y1Z2NFVkTnVlYl9FU2dwXzQwUnkwZjl4UDN1M3pFQnJTdktEaEdEeVlzOWhvM3h3UUxBVUc3NlA4TVVGMzBCWUdLaVBWbTRzVnZUSTdieDRmMTJkWFd2T09n?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "2026 august morning sports",
-    "headline": "Morning Sports: August 4, 2026",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.78,
-    "source_names": [
-      "Sheridan Media"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5hMWc2cURMejJVa2F0M2FmV1llZ3JxN0hoY01uMnNsNjh3QnNMODVaclVDUE1saXdwUGg5MzBiWlN1RDB4QTdXS3dEczkxOHMzSXl5bThESGg2N1oxczl5Q1lPcmF3WS03QnNqS19ScFViaFIyYkpVXw?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "door fall knocking season sports",
-    "headline": "FALL SPORTS SEASON KNOCKING ON THE DOOR",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.78,
-    "source_names": [
-      "The Freeman Courier"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOMW5WR3F4VFFoWXdzVUdtTnoxZGdVbUgtY0l6NFpEN1pZWVc4X3hCS3ZoeFo2UGlxcDFRN0ctOEItak9ZNEpreUx3cUtuT04xR3JpX0dBalhEU1ZzZDFKQWNSZkxHSVNINm5Od0luRGNiU2JMekY3eXVkWkpzam5NZXJCUjI?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "athlete week",
-    "headline": "Athlete of the Week",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.78,
-    "source_names": [
-      "Lewistown News-Argus"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOblE2ZXc3X0RrS1BzUnA1cTBoc3czYVlqamxtM1J5RHdfSUtPaVpUYVNVaTA4UkxYZzlvRnBYR1ZJcDVRVFFlcjlKZmhIaUNpa1hXUEVsX3VaSzJOWWdTQlR6ZUlWLTFJRFBxdjlDSkxBb19QQ19hQ0hqNkJuVDRfMkVod3kzQ0p4WWVVWFo4cFZLZzd2clkzSlJhc3dYUnRRZVBLOWZLM2g?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "gonzalez nico offered roma",
-    "headline": "Nico Gonzalez offered to Roma",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.77,
-    "source_names": [
-      "Yahoo Sports"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQaE91UzJBOUJzd20wclhudHdySXZrYzgtMDNiWERoUDIzMnBFejJQcHgzWFFYdERWdjVTRzdqQ3A2UEt2SXFTOERFUThkSGpWRWVfUEtFc1k3ZnptV1lfT2t5TjZvbks2XzlmVXdaalNOTTRWUkYxRDJNT1RyWThPaQ?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "camp colts observations practice training",
-    "headline": "Live updates, observations from Colts training camp practice No. 6",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.77,
-    "source_names": [
-      "Yahoo Sports"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQV00xSEkwY0dPU0pmUFJQZTFpc1pia3J6TXduNjBMTHU2REVjdmJ1RFBXcnFKZFRvWll5UzJHMmVTWjZXc1ZqWnFhNkw4dGpfWS1QaHB4bWlvSzBZMkZhNmhzLWF0RjZEOWxhcjAyOGVNLXVteUJFZEZMMDRvcHNLWWxxSXhQZU9ra0ljSHRQR24zQWc?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "brazilian dishes negueba samples thai unveiling",
-    "headline": "Brazilian Negueba samples Thai dishes at unveiling",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.76,
-    "source_names": [
-      "Yahoo Sports"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNR1NjUVM4c0Y5cTRiaV8zZ2hpS2ZGVVJ1WktZWC1STlVMSVJydlEtd0F2S2ZQUnNqUEFPVWt5STM3WmIzb3V0RWhERkFjcFNMNVR3azZwRk5tT3VCZ3JWYUdzNVRuTW5jNXgtLVdyUFhlbS1ldFdhNjdFeFRfeUxPOE5fTm1KQVpaZTFUcjlJdw?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "2026 best bucks evaluating moves nba offseason worst",
-    "headline": "Evaluating Bucks' Best and Worst Moves of 2026 NBA Offseason",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.76,
-    "source_names": [
-      "Yahoo Sports"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOQXJyZTg0OTZBX3Myb2pCVndBQkVBMDhRazdVNGR1ZEMyWHU5c0hZejFQY1ZuM3d1emFsU196R2ZjWHBSU2tPOFRPMURLN1ZLVVZCVjJHUnBRU1A2Z1pkWkpVbDd0X29aSklWNjBiN3VsQjVRdEFiVzdfNEhVd3ppS1hHNUVQWjlYSkE?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "camp discussion giants practice training",
-    "headline": "Giants training camp, practice No. 6: Discussion, news, updates",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 6.76,
-    "source_names": [
-      "Yahoo Sports"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNMzVjdU1mR05UMThHRmo1ZkdpN0hfdGxUNGw1SmYtcHJTNUowdFMxUGoxT3lDWDJyOUZPYUo5Q1pBS2g1TVd4VUoyRk43UlZacDBNRWYtVU03N2pPSVZYb3FYOTJnNEN1YjFVNWJaaHV5LTB5c01rc3YwZ2lBaVBvb0xwZ1VSQk1G?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQaEJuTDJaZ3BjVnZxeGFLUHdWcGRHc212dFl5ckJQWTlDeURKc2w1a2RPNXRzSEpsd0lWUjRuNHZtOXYyOGV3WmVOMW5lNmticWxqcWNlUjhXMUpoQTdxY0hxV3pJYUlQaUlBNUJOZ1BHWTZBTG96UWNnUXZIMzZ1UnBXVUx5TmFjbUk2OTRKZTVnMmJmZzZJLTFvY092SEhDNUsxQ1BIbGZiOTY3THBFeg?oc=5",
     "watchlist_match": []
   },
   {
@@ -1850,7 +1649,7 @@
     "headline": "NY native Garc\u00eda poised to become 'instant presence' in Yankees' lineup",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 6.73,
+    "score": 6.79,
     "source_names": [
       "MLB.com"
     ],
@@ -1859,56 +1658,197 @@
   },
   {
     "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "add cubs garrett hander left marlins trade",
-    "headline": "Cubs add left-hander Garrett in trade with Marlins",
+    "duplicate_cluster_id": "cameroon international norwich sign yongwa",
+    "headline": "Norwich sign Cameroon international Yongwa",
     "importance": 0.0,
     "reason_skipped": "insufficient story context",
-    "score": 6.69,
-    "source_names": [
-      "MLB.com"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9wQWNVVE55OWQyWHl2UjUwNEFiRUJUc0c3TGRBME9QLTV2ckxYX3lsT2Y2NmFiMEJOMTItY3lGZHZVTjF2ZlFnTDlmUnZGOHhlU1AwY3dRZnNHRUJWSGJvVDVGcThGTHpOMXYtbnpQYnFGek9LNHRj?oc=5",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "always been before can civil dies down executor",
-    "headline": "\u2018We have always been civil\u2019: My sister refuses to replace me as executor. Can I step down before she dies?",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 5.96,
-    "source_names": [
-      "MarketWatch Top Stories"
-    ],
-    "url": "https://www.marketwatch.com/story/we-have-always-been-civil-my-sister-refuses-to-replace-me-as-executor-can-i-step-down-before-she-dies-84a835a9?mod=mw_rss_topstories",
-    "watchlist_match": []
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "everyday give governance people say",
-    "headline": "How To Give Everyday People A Say In AI Governance",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 5.87,
-    "source_names": [
-      "Noema Magazine"
-    ],
-    "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNb2RLb2xmbk10N0xIWDkyR0h4TWlHMkp5elNoeVhJSlVicDdOQXJ2STFkenNwdDM3Q1oyR0ttQ09NSTlhaVdtM1hUWFVjUHJiWTVDLXlpNlo0NUNKZ3kzWmowdjZGalNqV2I5anZLSm0xNE0xYzFVZnc2WVItQUtiVw?oc=5",
-    "watchlist_match": [
-      "AI"
-    ]
-  },
-  {
-    "category_candidate": "uncategorized",
-    "duplicate_cluster_id": "anyone city closer man signing",
-    "headline": "Are Man City closer to signing anyone?",
-    "importance": 0.0,
-    "reason_skipped": "insufficient story context",
-    "score": 5.67,
+    "score": 6.78,
     "source_names": [
       "Yahoo Sports"
     ],
-    "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNV0d3LW1rQWRDaGd2TmNuVnAtZ3BZbUxVWU05MENYZ19KRUhzOV85eWZGVEZ4Yk10eXhPaHNMTnZTSmtoN0ZtZFZ6aDBNT2Q3QlB6aXBaTUpiQkRpQTBvQmtnc3RjODFrNzFMVVlvbENTdjRFX2ZZWnVaVjVpRnh3N054eUwzZw?oc=5",
+    "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOUHZDRTZCSjQ2Qk0xcmxtcmpxall0QVl4T19EV29leWc2VUlKMjh6SUQxYm9zMGhHQmg5bVJQTzJxdm1IcWRJeGJaY3dqVWV2Z1RsUGZ5OFBWallUV19iaUd0alN1SllxVGZJdDJyR182ejNhNGxkZktOYzd3cFFETXBYV0pmLWtVelZJZW9EVXJpYk85clE?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "2026 alex favorite indycar odds opens palou portland",
+    "headline": "2026 INDYCAR Odds: Alex Palou Opens As Favorite For Portland",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.78,
+    "source_names": [
+      "FOX Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQeTNXV1BHTDJZdXhGZ3VlZWZpRjJrZTNuVUhqeURVa2tySDZoWG8xYjZVdVdyNU5zTFhra1ZCNDZCcU5GbWxUT1pUTXRYcTJzTG9HUzdWS1VEZ3NHQ1M2U3ZEc0FHVjBWU29hazVYcVlHd1FMaEJzX2VKRUw0MlBQWmxxTGtZWUd5Q204WGNjMmkxRTdl0gGUAUFVX3lxTE5FR0FyRWF1R1VISXlrcDllV0JNaV9IeU01TGEycGtIUDNyanc0TmhJdXctMEZHMGtRNlZYczZfYmVHeGtJU2lGempMdHdyLWNTVEJLV0tuYjU2WVIwZVNoUVdJMmVDc1I2Z2NSN3JfYmZBUmRURTVWaU56bE9wLUdBRExWWEt5bG4zRFhvLXk4U3dUWlQ?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "county fair kicks off otsego",
+    "headline": "Otsego County Fair Kicks Off",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.77,
+    "source_names": [
+      "WKTV"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOeExhR083OElTSjF3NmJZTUcwelVzaWQ4RkpvY3Q3elk3Y0FrQTd1bEFlQTFRaEtXMDFaa3VtQjZVWHJiRVVTSUFyTnBwOVkwbTFHVmVscjV3WjZoYnN5VWlabkFoZzYwejk1bUtjTXpKTHZRalhvaFZRX3hycnJKQVhNREdBNEhxSXV1LW9wLXFtMGRkanBvckFwRTdTZUNtZ0JHSHJUX1RaU3BlVTVlcUZWNjFiRGNaWUE?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "41m can euro giants liverpool now raid sign",
+    "headline": "Liverpool can raid Euro giants and sign \u00a341m star now",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.77,
+    "source_names": [
+      "Yahoo Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPc2Y5QWtqSzdCY1I2NmNndjJVMklzbUFzTGZxVFNGOFl4LVBGT0RPei1GazRuOUVPRk13em1PMEN5Z2FGdTJIeGNCNUJZNDZFbXpzbFJJU0ZQcE9mWEVzZ19wc0VkUWNVX1dvc2lCTElOdHZPYUFuS0ZYSlBPZXRnazZ1TlRYclE?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "burnley florentino ipswich midfielder sign",
+    "headline": "Ipswich sign midfielder Florentino from Burnley",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.77,
+    "source_names": [
+      "Yahoo Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOWE1vN2dPU19KLS0zaUdCM1QxelM4dnFXMmVMeUZwUVRGMVVBMG5HRmtpdGNlUE9yZlhRcTl1ck5ScjNTUmlCUXk2MThRblFKczdSVFBqV1RaenM1dVRXLUZmOGhlajlMYjBzT3lJZVJ4Nnl0bzZaOEY1NUpVWE80ZHZKQjhWTm1Qa2RrVWNxY19ia1oxb0E?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "falcons marlon sign tuipulotu",
+    "headline": "Falcons sign DT Marlon Tuipulotu",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.76,
+    "source_names": [
+      "Yahoo Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOVXBaaHFQWXRDWHYwUnR1Ml9IWnRBbklLWG5BVTRmRVBrM0NreHVROFNXeTRmbmVWQmpWSXhfYml4cnE4UE5KbWxQZG5adFZTNmJ5bWRsRGsySnQ3UFNtZU51R1p5a3Z6UGJzMnQzd2lWcTBkOWRFWGhlejNpQl94NTR6eUhFX2sy?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "about another bieniemy chiefs mia positive provide update",
+    "headline": "Chiefs Provide Another Positive Update About Mia Bieniemy",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.76,
+    "source_names": [
+      "Yahoo Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPUldFVTA1Nnhhc1BmOXE4ZG5paUU4bWw0QjRDUHY1WVFpcXlXWDJ0VU1ORmhsaVNKX0Y1cThVLUo1b1JmOVh0b3ZQbUNQaHJZbUJMWTVJdjBTVHp1VHNNdW5pZ1hxS1JNcV9lMHJiTWk3b3JDd3lmeVVGd0stTUxORDdVTnlUaFhtUGduMUR3?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "conversations defining future sports women",
+    "headline": "7 Conversations Defining the Future of Women's Sports",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.76,
+    "source_names": [
+      "Sportico.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPaWNleVdZWXRNR3NHWG9pU29EVHVwcW12UTZtTVcxQXJJUU44WEdzZG5RTC1mdkh6djI5dlRlcXBqTGpoUHZSQzFTenFnNzFKLWwyclpOOEVfenRlOEVlN2g5NmxNVzI3UnNWbVNPQ0hQNU5JMHBlZFQzeGFGZjFTZXhkZ0Jpek1QbXRpcEdURXIyUWkxWlRzeGNSZWczN0oxRGJMdHk4aTRLcEVGWmxBcXlFU0dnRXZOcGhteEUtOHVlQQ?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "brings commanders daniels defense heat mccaffrey notes shine",
+    "headline": "Commanders Notes: McCaffrey & Daniels Shine, Defense Brings Heat",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.75,
+    "source_names": [
+      "Yahoo Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNTXk1UlNVX2dYeXJPMUF6SUptNFZjVzNtWHdRc1psNzljVFJoaHBCSXFrb2hiQjF6UHkycHdwUzRzaVFkS1NMTVZlcS1aVGh3a2k3Mmdja01ZVmVRRk1IX1owNVVvNkVyRmxWWnZSc2NyMTZkdlY4QkdjZ0VQdjg0X3NOdjNiaGNLRE05LTJ0aWVPX3M?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "bears camp chicago pads photos put training",
+    "headline": "Photos: Chicago Bears put on the pads at training camp",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.74,
+    "source_names": [
+      "Yahoo Sports"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOYlYwVHpZaHluNXljVkJYQ0FfSjF3RUFDUHAzREN5ZF9yaERIN0NzSWxhbW1HWDNkNmZfWkpZZXlXVzR4X2xFVWdlLU5tbUVfZVFCcUhmWTJsMDZYdFNWc0oteVVTd3o0c2pNRF9RU3hCNDA5Vkh3cWdCOFhyNUdZdlhJVXg?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "constitutional federal reproductive technologies vacuum",
+    "headline": "Reproductive technologies and the federal constitutional vacuum",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.64,
+    "source_names": [
+      "SCOTUSblog"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNd1ZfNlUwMVNLOF9FTi1sZC16Ty1XVDJFbElIMTZKcTQ2WEk3XzFaMjFBZGNrd3h1WEVLa0RnZlZkcl9zeXViOHhfWi14Sm1PdTRHb0QweFhCZ3Z1a1l0ZmxGbktCNjZBZmpmenBDSWYtUlRwS3Z5OGZUVXRvRVdlVUF2M3dUdkI1X0xSR1B2MzVDcTZCUkVlc0hlUl9yUmVW?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "again battle chief copyright heats legal",
+    "headline": "Legal Battle Over U.S. Copyright Chief Heats Up Again",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.59,
+    "source_names": [
+      "Publishing Perspectives"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPMW01Ykk3b2ptNzlHSmJzN3o3aXd3SHJzTzR1RDRWSnJaNXFYcWhjZ25FRVR3TUYxVHVTeGw0dC1zdll6ZXJDVG51d3psM1pmOFIteXlBNkFiMmo4dEJKSzdwYzFUREVOZ0xFc1pad0JPU0NQTjJDaFhJX05WQk9Ta0tseHVMbkJoZHpQRWYtR1lCSnhFZldxNC1ja1M?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "2026 about deadline everything know need trade you",
+    "headline": "Everything you need to know about the 2026 Trade Deadline",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 6.54,
+    "source_names": [
+      "MLB.com"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQakZEWElGclVjZmRQNWZwZUhqMlRMd3hfVTlrOGE0eDNYLXhXWmVvT0tpYWdYTWN2blE0MzdNcHRmMHlMSm1BN0V6N3VCZm0tTWpneEsxTXRkeTBMLW5Sd1I0dW5xZlA5V1JYcXYwbXFWdXlmX0Y2REoxeFRJVVlxaHc2eFRzVzRVMkp4NzM1Vl9QbDFVdHZZ0gGjAUFVX3lxTE9kNUl2YUhQU0xObnBuUS1tcFZaVzM5TnE3YWMtYUl5YlFCWDljQ2hQN29tTzZHY1FfM0hqY0JKbTh5c1l2SFpNOWNENnRlQmtjekcwZzFULUZrdmJrNUw4VGR3YTgzVkh0MWhQOVZoMUgtRXBGRkhyazRDaHVuU0tPcmFGeHZienJTTUdsaUVxUUlPaWNxOVFySi1iT0t4SlRuUFk?oc=5",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "change easier end getting ill know laws lives",
+    "headline": "It\u2019s getting easier for terminally ill people to end their own lives. What to know as laws change.",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 5.9,
+    "source_names": [
+      "MarketWatch Top Stories"
+    ],
+    "url": "https://www.marketwatch.com/story/its-getting-easier-for-terminally-ill-people-to-end-their-own-lives-what-to-know-as-laws-change-4fa04c54?mod=mw_rss_topstories",
+    "watchlist_match": []
+  },
+  {
+    "category_candidate": "uncategorized",
+    "duplicate_cluster_id": "know layoffs reported station texas",
+    "headline": "Reported layoffs at Texas TV station - here's what we know",
+    "importance": 0.0,
+    "reason_skipped": "insufficient story context",
+    "score": 5.75,
+    "source_names": [
+      "MySA"
+    ],
+    "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE5Ub0hVWmlQWklsZzVJSklxdGplUURiZVdlZDhkNkNXRVIxcFhIeGFodFZSSDgza2RmcjhiNGhFNUpMdVp1MDdDdkRZRUh3WFBXcEJaQ25HalliQW5iRERhdnRBbXNhaVNyMjVITHlkbC1XaGhxSHVicWlUYWE?oc=5",
     "watchlist_match": []
   }
 ]

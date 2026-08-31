@@ -34,7 +34,13 @@ from news_agent.duplicate_gate import DuplicateGateStats, apply_duplicate_gate
 from news_agent.enrichment import enrich_clusters, select_enrichment_clusters
 from news_agent.evidence import apply_cluster_evidence_scores, rank_articles_by_evidence
 from news_agent.fetch import fetch_all_feeds
-from news_agent.history import DEFAULT_HISTORY_PATH, apply_history, save_story_history
+from news_agent.history import (
+    DEFAULT_HISTORY_PATH,
+    HistoryUpdate,
+    apply_history,
+    apply_history_update,
+    build_history_update,
+)
 from news_agent.models import (
     AgentConfig,
     Article,
@@ -49,6 +55,7 @@ from news_agent.models import (
     PipelineDiagnostics,
     StoryCluster,
 )
+from news_agent.newsletter_review import CandidateRecord, DecisionEvent, SelectionOutcome, build_candidate_records
 from news_agent.openai_budget import OpenAIBudget
 from news_agent.quality_gate import (
     apply_quality_gate,
@@ -79,7 +86,6 @@ GLOBAL_CLASSIFICATION_POOL_SIZE = 30
 CATEGORY_CLASSIFICATION_RESERVE = 10
 MAX_CLASSIFICATION_POOL_SIZE = 80
 
-FINANCE_LEAD_TICKER_COUNT = 7
 def story_identity(cluster: StoryCluster) -> str:
     if cluster.key:
         return cluster.key
@@ -134,6 +140,8 @@ class PipelineContext:
     category_assignments: dict[str, CategoryAssignment] = field(default_factory=dict)
     category_assignments_log_path: Path | None = None
     diagnostics: PipelineDiagnostics = field(default_factory=PipelineDiagnostics)
+    decision_events: tuple[DecisionEvent, ...] = ()
+    selection_outcomes: tuple[SelectionOutcome, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -151,6 +159,10 @@ class BriefingBuildResult:
     # Quality-gated, already-materialized feed articles are handed to the email-only
     # Watchlist as tier 5a discovery signals.  The Watchlist must not refetch them.
     watchlist_candidates: tuple[Article, ...] = ()
+    # The production email path persists this deterministic update only after its
+    # edition and candidate rows are durable in SQLite.
+    history_update: HistoryUpdate | None = None
+    candidate_records: tuple[CandidateRecord, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -166,6 +178,7 @@ class SelectionResult:
     remainder_selected_by_category: dict[str, int]
     big_day_selected_by_category: dict[str, int]
     source_cap_relaxed_by_category: dict[str, int]
+    outcomes: tuple[SelectionOutcome, ...]
 
     @property
     def selected_count(self) -> int:
@@ -208,11 +221,18 @@ def select_importance_deck(
     remainder_counts = _empty_category_counts()
     big_day_counts = _empty_category_counts()
     source_relaxations = _empty_category_counts()
+    selection_phase_by_subject: dict[int, str] = {}
 
-    def add(cluster: StoryCluster, phase_counts: dict[str, int], relaxed: bool = False) -> None:
+    def add(
+        cluster: StoryCluster,
+        phase_counts: dict[str, int],
+        phase: str,
+        relaxed: bool = False,
+    ) -> None:
         category = cluster.category
         selected[category].append(cluster)
         selected_ids.add(story_identity(cluster))
+        selection_phase_by_subject[id(cluster)] = phase
         if category == "culture":
             record_culture_selection(cluster, culture_state)
         else:
@@ -232,7 +252,7 @@ def select_importance_deck(
                     if len(selected[category]) >= limit.floor:
                         break
                     if story_identity(cluster) not in selected_ids and can_add_culture(cluster, culture_state, lane_cap):
-                        add(cluster, floor_counts)
+                        add(cluster, floor_counts, "floor")
                 if len(selected[category]) >= limit.floor:
                     break
             continue
@@ -241,13 +261,13 @@ def select_importance_deck(
                 break
             source = _primary_source(cluster)
             if source_state.held(category, source) < config.max_per_source_per_category:
-                add(cluster, floor_counts)
+                add(cluster, floor_counts, "floor")
         if len(selected[category]) < limit.floor:
             for cluster in category_items:
                 if len(selected[category]) >= limit.floor:
                     break
                 if story_identity(cluster) not in selected_ids:
-                    add(cluster, floor_counts, relaxed=True)
+                    add(cluster, floor_counts, "floor", relaxed=True)
 
     # Phase 2: rank all remaining stories together. Over-cap non-Culture stories
     # are deferred, then admitted only if the deck would otherwise remain short.
@@ -262,12 +282,12 @@ def select_importance_deck(
             continue
         if category == "culture":
             if can_add_culture(cluster, culture_state, lane_cap=2):
-                add(cluster, remainder_counts)
+                add(cluster, remainder_counts, "remainder")
             continue
         if source_state.held(category, _primary_source(cluster)) >= config.max_per_source_per_category:
             deferred.append(cluster)
             continue
-        add(cluster, remainder_counts)
+        add(cluster, remainder_counts, "remainder")
     for cluster in deferred:
         if len(selected_ids) >= config.importance.deck_target:
             break
@@ -275,7 +295,7 @@ def select_importance_deck(
         category = cluster.category
         if identity in selected_ids or len(selected[category]) >= config.category_selection_limits[category].ceiling:
             continue
-        add(cluster, remainder_counts, relaxed=True)
+        add(cluster, remainder_counts, "remainder", relaxed=True)
 
     # Phase 3: a category may take a sixth story only on a genuinely consequential
     # day. LLM-only elevation requires multiple sources, and source/lane hard caps
@@ -304,7 +324,7 @@ def select_importance_deck(
                 continue
         elif source_state.held(category, _primary_source(cluster)) >= config.big_day_source_cap:
             continue
-        add(cluster, big_day_counts)
+        add(cluster, big_day_counts, "big_day")
 
     # Keep the pre-presentation total-score order through drafting so changing
     # display rank cannot perturb the ordering of the OpenAI prompt batch.
@@ -312,7 +332,37 @@ def select_importance_deck(
         category: sorted(items, key=lambda cluster: cluster.total_score, reverse=True)
         for category, items in selected.items()
     }
-    return SelectionResult(drafting_order, floor_counts, remainder_counts, big_day_counts, source_relaxations)
+    def filtered_reason(cluster: StoryCluster) -> str:
+        """Return the final mutually-exclusive selection reason in policy order."""
+        category = cluster.category
+        limit = config.category_selection_limits[category]
+        if len(selected[category]) >= limit.ceiling:
+            return "selection_category_ceiling"
+        if category == "culture":
+            # Keep the predicate's existing ordering: when both bind, source-cap wins.
+            if culture_state.source_caps.held("culture", _primary_source(cluster)) >= 2:
+                return "selection_source_cap"
+            if culture_state.lane_counts.get(cluster.culture_lane, 0) >= 2:
+                return "selection_culture_lane_cap"
+        elif source_state.held(category, _primary_source(cluster)) >= config.max_per_source_per_category:
+            return "selection_source_cap"
+        if len(selected_ids) >= config.importance.deck_target:
+            return "selection_deck_capacity"
+        if cluster.importance < config.importance.big_day_importance_threshold:
+            return "selection_below_threshold"
+        return "selection_below_threshold"
+
+    outcomes = tuple(
+        SelectionOutcome(
+            subject=cluster,
+            selection_phase=selection_phase_by_subject.get(id(cluster), ""),
+            filter_reason_code="" if id(cluster) in selection_phase_by_subject else filtered_reason(cluster),
+        )
+        for cluster in eligible
+    )
+    return SelectionResult(
+        drafting_order, floor_counts, remainder_counts, big_day_counts, source_relaxations, outcomes,
+    )
 
 
 def order_paragraphs_for_presentation(
@@ -604,6 +654,10 @@ async def collect_pipeline_context(
 
     quality_gate_config = _resolve_quality_gate_config(config)
     survivors, hard_rejections, ambiguous_articles = apply_quality_gate(enriched_articles, quality_gate_config)
+    decision_events: list[DecisionEvent] = [
+        DecisionEvent(article, "hard_rejected_article", "quality_gate", "quality_gate_hard_reject", reason)
+        for article, reason in hard_rejections
+    ]
 
     if ambiguous_articles and capabilities.judge_quality:
         survivors = _apply_ambiguous_verdicts(
@@ -620,10 +674,18 @@ async def collect_pipeline_context(
     apply_cluster_evidence_scores(clusters)
     clusters = score_clusters(clusters, config, watchlist_entries=watchlist_entries)
     apply_history(clusters, history_path, ignore_history=ignore_history)
+    decision_events.extend(
+        DecisionEvent(cluster, "cluster", "history", "history_stale", cluster.skip_reason)
+        for cluster in clusters if cluster.skip_reason == "stale/repeated from yesterday"
+    )
     clusters.sort(key=lambda item: item.total_score, reverse=True)
 
     minimum_evidence = config.enrichment.minimum_story_evidence_score
     apply_evidence_gate(clusters, minimum_evidence)
+    decision_events.extend(
+        DecisionEvent(cluster, "cluster", "evidence", "evidence_gate", cluster.skip_reason)
+        for cluster in clusters if cluster.skip_reason == "insufficient story context"
+    )
     candidates = select_classification_candidates(clusters, minimum_evidence_score=minimum_evidence)
     assignments = classify_clusters(
         candidates,
@@ -645,8 +707,19 @@ async def collect_pipeline_context(
         assignments.update(backfill_assignments)
         apply_category_assignments(backfill, backfill_assignments)
         apply_importance(backfill, backfill_assignments, config.importance)
+    decision_events.extend(
+        DecisionEvent(cluster, "cluster", "classification", "classification_pool_excluded")
+        for cluster in clusters
+        if not cluster.skip_reason and cluster.evidence_score >= minimum_evidence and cluster.key not in assignments
+    )
     selection_result = select_importance_deck(clusters, config, minimum_evidence)
     category_clusters = selection_result.category_clusters
+    terminal_subject_ids = {id(event.subject) for event in decision_events}
+    decision_events.extend(
+        DecisionEvent(outcome.subject, "cluster", "selection", outcome.filter_reason_code)
+        for outcome in selection_result.outcomes
+        if outcome.filter_reason_code and id(outcome.subject) not in terminal_subject_ids
+    )
     selection_underfilled_reason = deck_underfilled_reason(selection_result, clusters, config)
     duplicate_gate_stats = DuplicateGateStats()
     if config.duplicate_gate.enabled and capabilities.classify and capabilities.draft:
@@ -657,6 +730,10 @@ async def collect_pipeline_context(
             budget=budget,
         )
         if removed_clusters:
+            decision_events.extend(
+                DecisionEvent(cluster, "cluster", "duplicate", "duplicate_gate_merged")
+                for cluster in removed_clusters
+            )
             removed_ids = {id(cluster) for cluster in removed_clusters}
             clusters = [cluster for cluster in clusters if id(cluster) not in removed_ids]
 
@@ -742,6 +819,8 @@ async def collect_pipeline_context(
             },
             openai_stage_outcomes=budget.stage_outcomes(),
         ),
+        decision_events=tuple(decision_events),
+        selection_outcomes=selection_result.outcomes,
     )
 
 
@@ -813,18 +892,6 @@ def source_debug_lines(category_clusters: dict[str, list[StoryCluster]]) -> tupl
     return tuple(lines)
 
 
-def _finance_lead_lines(stock_snapshot: object) -> tuple[str, ...]:
-    """Real, non-LLM-generated market-quote lines for the finance section's
-    lead-in -- kept structurally separate from drafted paragraphs (see
-    BriefingSection.lead_lines) since a drafting model shouldn't be trusted
-    to state today's exact price from memory."""
-    mega_caps = getattr(stock_snapshot, "mega_caps", None)
-    quote_for = getattr(stock_snapshot, "quote_for", None)
-    if not mega_caps or quote_for is None:
-        return ()
-    return tuple(quote_for(symbol).compact() for symbol in mega_caps[:FINANCE_LEAD_TICKER_COUNT])
-
-
 def _diverse_article_order(articles: tuple[Article, ...]) -> tuple[Article, ...]:
     ranked = rank_articles_by_evidence(list(articles))
     chosen: list[Article] = []
@@ -869,7 +936,6 @@ def build_draft_candidates(
 def build_briefing_sections(
     paragraphs: list[BriefingParagraph],
     config: AgentConfig,
-    stock_snapshot: object,
 ) -> list[BriefingSection]:
     by_category: dict[str, list[BriefingParagraph]] = {name: [] for name in CATEGORY_NAMES}
     for paragraph in paragraphs:
@@ -878,16 +944,14 @@ def build_briefing_sections(
     sections: list[BriefingSection] = []
     for category in CATEGORY_NAMES:
         label = config.categories[category].label if category in config.categories else category
-        lead_lines = _finance_lead_lines(stock_snapshot) if category == "finance" else ()
         category_paragraphs = tuple(by_category.get(category, ()))
-        if not category_paragraphs and not (category == "finance" and lead_lines):
+        if not category_paragraphs:
             continue
         sections.append(
             BriefingSection(
                 category=category,
                 label=label,
                 paragraphs=category_paragraphs,
-                lead_lines=lead_lines,
             )
         )
     return sections
@@ -948,11 +1012,14 @@ async def build_briefing_result(
             path=default_compression_audit_path(compression_audit_dir),
         )
     presentation_paragraphs = order_paragraphs_for_presentation(compressed_paragraphs, context.category_clusters)
-    briefings = build_briefing_sections(presentation_paragraphs, config, context.stock_snapshot)
+    briefings = build_briefing_sections(presentation_paragraphs, config)
 
     selected = selected_clusters(context.category_clusters)
-    if persist_history and not ignore_history:
-        save_story_history(selected, history_path)
+    history_update: HistoryUpdate | None = None
+    if not ignore_history:
+        history_update = build_history_update(selected, history_path)
+        if persist_history:
+            apply_history_update(history_update, history_path)
     quality_gate_config = _resolve_quality_gate_config(config)
     skipped = build_skipped_stories(
         context.all_clusters,
@@ -961,6 +1028,14 @@ async def build_briefing_result(
     )
     resolved_skipped_log_path = skipped_log_path or default_skipped_path()
     write_skipped_log(skipped, resolved_skipped_log_path)
+    candidate_records = build_candidate_records(
+        context.all_clusters,
+        presentation_paragraphs,
+        run_id="pending",
+        deck_target=config.importance.deck_target,
+        decision_events=context.decision_events,
+        selection_outcomes=context.selection_outcomes,
+    )
     return BriefingBuildResult(
         briefings=briefings,
         skipped_stories=skipped,
@@ -1016,6 +1091,8 @@ async def build_briefing_result(
         ),
         openai_budget=openai_budget,
         watchlist_candidates=tuple(_flatten_cluster_articles(context.all_clusters)),
+        history_update=history_update,
+        candidate_records=candidate_records,
     )
 
 

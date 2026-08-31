@@ -1,0 +1,402 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.024975,
+  "created_at": "2026-08-04T18:46:03.953112+00:00",
+  "guard_deltas": {},
+  "input_tokens": 0,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 0,
+  "stories": [
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Spotify added 1 million more premium subscribers than it had forecast in the second quarter, helping it deliver 14% revenue growth to \u20ac4.777 billion despite a slight shortfall in monthly-user growth. The company said its AI playlisting and remix tools have \u201cstrong momentum,\u201d while spending on AI and marketing remains controllable; gross margin rose 193 basis points to 33.4%. The results suggest Spotify\u2019s subscription gains are cushioning its push into new AI-driven products.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/pro/spotify-q2-2026-ai-remix-tool-has-strong-momentum/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/pro/spotify-q2-2026-ai-remix-tool-has-strong-momentum/"
+        }
+      ],
+      "full_paragraph": "Spotify added 1 million more premium subscribers than it had forecast in the second quarter, helping it deliver 14% revenue growth to \u20ac4.777 billion despite a slight shortfall in monthly-user growth. The company said its AI playlisting and remix tools have \u201cstrong momentum,\u201d while spending on AI and marketing remains controllable; gross margin rose 193 basis points to 33.4%. The results suggest Spotify\u2019s subscription gains are cushioning its push into new AI-driven products.",
+      "guard_result": "not_run",
+      "story_id": "control investments momentum our remix spotify strong tool"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Lenovo has cut the price of its SteamOS-powered Legion Go S handheld to $635.54 with the code EXTRASAVEAFF, its lowest recorded price and far below its roughly $1,000 Best Buy price. The model uses AMD\u2019s Z2 Go chip, an 8-inch 120Hz variable-refresh display and SteamOS, which reviewers found more appealing than the Windows version. The deal makes it a more direct alternative to Valve\u2019s Steam Deck, particularly for players willing to lower settings in demanding games.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/gadgets/975113/lenovo-legion-go-s-steamos-deal-sale",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/gadgets/975113/lenovo-legion-go-s-steamos-deal-sale"
+        }
+      ],
+      "full_paragraph": "Lenovo has cut the price of its SteamOS-powered Legion Go S handheld to $635.54 with the code EXTRASAVEAFF, its lowest recorded price and far below its roughly $1,000 Best Buy price. The model uses AMD\u2019s Z2 Go chip, an 8-inch 120Hz variable-refresh display and SteamOS, which reviewers found more appealing than the Windows version. The deal makes it a more direct alternative to Valve\u2019s Steam Deck, particularly for players willing to lower settings in demanding games.",
+      "guard_result": "not_run",
+      "story_id": "down ever legion lenovo lowest price steamos"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Sony Music has promoted longtime lawyer Stephanie Yu to general counsel and executive vice president of business and legal affairs, replacing Julie Swidler after her departure. Yu, who joined Sony in 2005, will oversee business, legal and government affairs and report to chairman Rob Stringer and COO Kevin Kelleher; Swidler spent 18 years in the top legal role. The appointment puts an experienced internal dealmaker in charge of a key function as the label navigates licensing, regulation and industry consolidation.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/pro/sony-music-promotes-stephanie-yu-to-top-legal-job/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/pro/sony-music-promotes-stephanie-yu-to-top-legal-job/"
+        }
+      ],
+      "full_paragraph": "Sony Music has promoted longtime lawyer Stephanie Yu to general counsel and executive vice president of business and legal affairs, replacing Julie Swidler after her departure. Yu, who joined Sony in 2005, will oversee business, legal and government affairs and report to chairman Rob Stringer and COO Kevin Kelleher; Swidler spent 18 years in the top legal role. The appointment puts an experienced internal dealmaker in charge of a key function as the label navigates licensing, regulation and industry consolidation.",
+      "guard_result": "not_run",
+      "story_id": "exit job julie legal music promotes sony stephanie"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "BMW is displaying Spider-Man: Brand New Day ads on the dashboard screens of eligible cars in more than 70 countries as part of a partnership with the Marvel film. The campaign runs from July 27 through August 10 on vehicles built after July 2020 with several versions of BMW\u2019s operating system, and tapping the banner launches an animation featuring the iX3. It extends advertising into a vehicle\u2019s core interface, likely testing drivers\u2019 tolerance for promotional content in connected cars.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/transportation/975172/bmw-spider-man-movie-infotainment-ad",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/transportation/975172/bmw-spider-man-movie-infotainment-ad"
+        }
+      ],
+      "full_paragraph": "BMW is displaying Spider-Man: Brand New Day ads on the dashboard screens of eligible cars in more than 70 countries as part of a partnership with the Marvel film. The campaign runs from July 27 through August 10 on vehicles built after July 2020 with several versions of BMW\u2019s operating system, and tapping the banner launches an animation featuring the iX3. It extends advertising into a vehicle\u2019s core interface, likely testing drivers\u2019 tolerance for promotional content in connected cars.",
+      "guard_result": "not_run",
+      "story_id": "behavior bmw car man spider villain"
+    },
+    {
+      "category": "business_tech",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Waymo has removed the waitlist for its Dallas robotaxi service, allowing anyone in the city to request driverless rides through its app. The move is the company\u2019s latest effort to expand its self-driving service beyond limited early-access groups as it pursues growth across the US, UK and Europe. Opening the service to the public gives Waymo a larger real-world test of demand and operational reliability in another major urban market.",
+      "evidence": [
+        {
+          "canonical_url": "https://techcrunch.com/2026/08/04/waymo-opens-up-robotaxi-service-in-dallas-to-everyone/",
+          "evidence_type": "feed_content",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/08/04/waymo-opens-up-robotaxi-service-in-dallas-to-everyone/"
+        }
+      ],
+      "full_paragraph": "Waymo has removed the waitlist for its Dallas robotaxi service, allowing anyone in the city to request driverless rides through its app. The move is the company\u2019s latest effort to expand its self-driving service beyond limited early-access groups as it pursues growth across the US, UK and Europe. Opening the service to the public gives Waymo a larger real-world test of demand and operational reliability in another major urban market.",
+      "guard_result": "not_run",
+      "story_id": "dallas everyone opens robotaxi service waymo"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The White House does not plan to publish its new voluntary framework for evaluating advanced AI models, Axios reported, instead sharing details only with companies involved in the process. Officials held staff-level meetings with industry Tuesday, while uninvited companies, outside researchers and US allies remain unclear on the framework\u2019s standards and which \u201ctrusted partners\u201d may gain early model access. The secrecy could limit outside scrutiny of a policy meant to shape AI security practices with global consequences.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/08/04/white-house-ai-framework-under-wraps",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/08/04/white-house-ai-framework-under-wraps"
+        }
+      ],
+      "full_paragraph": "The White House does not plan to publish its new voluntary framework for evaluating advanced AI models, Axios reported, instead sharing details only with companies involved in the process. Officials held staff-level meetings with industry Tuesday, while uninvited companies, outside researchers and US allies remain unclear on the framework\u2019s standards and which \u201ctrusted partners\u201d may gain early model access. The secrecy could limit outside scrutiny of a policy meant to shape AI security practices with global consequences.",
+      "guard_result": "not_run",
+      "story_id": "framework house keep plans under white wraps"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Senate Democrats say major banks failed to report suspicious money transfers linked to Jeffrey Epstein until after his 2019 arrest, according to a new report. The allegation focuses on whether financial institutions adequately monitored transactions connected to the convicted sex offender before law enforcement action brought wider attention to his finances. The report is likely to renew pressure on banks and regulators over anti-money-laundering controls and their obligations to flag potentially illicit activity promptly.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.npr.org/2026/08/04/nx-s1-5919238/jeffrey-epstein-jpmorgan-bank-of-america-deutsche-bank-senate-democrats",
+          "evidence_type": "feed_content",
+          "source": "NPR News",
+          "url": "https://www.npr.org/2026/08/04/nx-s1-5919238/jeffrey-epstein-jpmorgan-bank-of-america-deutsche-bank-senate-democrats"
+        }
+      ],
+      "full_paragraph": "Senate Democrats say major banks failed to report suspicious money transfers linked to Jeffrey Epstein until after his 2019 arrest, according to a new report. The allegation focuses on whether financial institutions adequately monitored transactions connected to the convicted sex offender before law enforcement action brought wider attention to his finances. The report is likely to renew pressure on banks and regulators over anti-money-laundering controls and their obligations to flag potentially illicit activity promptly.",
+      "guard_result": "not_run",
+      "story_id": "banks blind democrats epstein eye jeffrey moves say"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "College students are moving into retirement communities not only for cheaper housing but also to build relationships with older residents, organizing game nights and teaching gym classes. The arrangement offers residents more social contact while giving students a quieter, community-oriented alternative to conventional rentals; one student noted that activity winds down by 7:30 or 8 p.m. Such programs show how housing pressures and loneliness can create mutually beneficial intergenerational living arrangements.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/college-kids-are-moving-into-retirement-communities-for-reasons-beyond-cheap-rent-577dc94b?mod=mw_rss_topstories",
+          "evidence_type": "feed_content",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/college-kids-are-moving-into-retirement-communities-for-reasons-beyond-cheap-rent-577dc94b?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "College students are moving into retirement communities not only for cheaper housing but also to build relationships with older residents, organizing game nights and teaching gym classes. The arrangement offers residents more social contact while giving students a quieter, community-oriented alternative to conventional rentals; one student noted that activity winds down by 7:30 or 8 p.m. Such programs show how housing pressures and loneliness can create mutually beneficial intergenerational living arrangements.",
+      "guard_result": "not_run",
+      "story_id": "beyond cheap college communities kids moving reasons rent"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "President Volodymyr Zelensky shared video showing a Russian drone pursuing a street vendor in Ukraine\u2019s Kherson region before exploding near him; the man survived with shrapnel wounds, concussion and trauma, a doctor said. Ukraine\u2019s government called it evidence of deliberate drone attacks on civilians, sometimes described as \u201chuman safari\u201d attacks in frontline areas. The footage may add to documentation of alleged war crimes and highlights the danger civilians face well beyond conventional battlefield lines.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cn4n03xg981o",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cn4n03xg981o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "President Volodymyr Zelensky shared video showing a Russian drone pursuing a street vendor in Ukraine\u2019s Kherson region before exploding near him; the man survived with shrapnel wounds, concussion and trauma, a doctor said. Ukraine\u2019s government called it evidence of deliberate drone attacks on civilians, sometimes described as \u201chuman safari\u201d attacks in frontline areas. The footage may add to documentation of alleged war crimes and highlights the danger civilians face well beyond conventional battlefield lines.",
+      "guard_result": "not_run",
+      "story_id": "attack chasing drone human russian safari shows street"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "French rescuers brought 173 migrants ashore at Boulogne-sur-Mer after the engine of their Channel-crossing boat caught fire, with 11 people suffering minor injuries. French prosecutors opened an investigation and an Egyptian national was taken into custody; authorities said the vessel left France Monday night and some passengers initially refused rescue assistance. The incident again underscores the lethal risks of small-boat crossings and the difficulty of preventing journeys organized by smuggling networks.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c4gkpeppjyqo",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c4gkpeppjyqo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "French rescuers brought 173 migrants ashore at Boulogne-sur-Mer after the engine of their Channel-crossing boat caught fire, with 11 people suffering minor injuries. French prosecutors opened an investigation and an Egyptian national was taken into custody; authorities said the vessel left France Monday night and some passengers initially refused rescue assistance. The incident again underscores the lethal risks of small-boat crossings and the difficulty of preventing journeys organized by smuggling networks.",
+      "guard_result": "not_run",
+      "story_id": "170 boat catches channel fire migrants more rescued"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Demand for US-made Patriot interceptors is rising sharply as Ukraine defends against Russian missile attacks and Middle East partners confront Iranian ballistic missiles. The US and allied militaries rely on Patriots to destroy incoming weapons, but Russia and Iran are firing at rates that exceed current production capacity. The shortfall forces governments to weigh competing air-defense needs and exposes how quickly prolonged conflicts can strain even high-end weapons stockpiles.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.npr.org/2026/08/04/g-s1-137287/us-patriot-missiles-ukraine-middle-east-iran-war",
+          "evidence_type": "feed_content",
+          "source": "NPR News",
+          "url": "https://www.npr.org/2026/08/04/g-s1-137287/us-patriot-missiles-ukraine-middle-east-iran-war"
+        }
+      ],
+      "full_paragraph": "Demand for US-made Patriot interceptors is rising sharply as Ukraine defends against Russian missile attacks and Middle East partners confront Iranian ballistic missiles. The US and allied militaries rely on Patriots to destroy incoming weapons, but Russia and Iran are firing at rates that exceed current production capacity. The shortfall forces governments to weigh competing air-defense needs and exposes how quickly prolonged conflicts can strain even high-end weapons stockpiles.",
+      "guard_result": "not_run",
+      "story_id": "demand east middle missiles patriot soaring ukraine"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Leonardo DiCaprio\u2019s Re:wild and the Bezos Earth Fund have launched the $200 million Phoenix Species Project to support recovery efforts for 100 species at imminent risk of extinction. The initiative will fund work across 30 countries, covering animals and plants from oceans to volcanic landscapes, with support from Jeff Bezos and Lauren S\u00e1nchez Bezos. Its broad target reflects the growing focus on directing conservation money toward species that may disappear without rapid intervention.",
+      "evidence": [
+        {
+          "canonical_url": "https://variety.com/2026/film/news/leonardo-dicaprio-jeff-bezos-project-endangered-species-1236827629/",
+          "evidence_type": "feed_content",
+          "source": "Variety",
+          "url": "https://variety.com/2026/film/news/leonardo-dicaprio-jeff-bezos-project-endangered-species-1236827629/"
+        }
+      ],
+      "full_paragraph": "Leonardo DiCaprio\u2019s Re:wild and the Bezos Earth Fund have launched the $200 million Phoenix Species Project to support recovery efforts for 100 species at imminent risk of extinction. The initiative will fund work across 30 countries, covering animals and plants from oceans to volcanic landscapes, with support from Jeff Bezos and Lauren S\u00e1nchez Bezos. Its broad target reflects the growing focus on directing conservation money toward species that may disappear without rapid intervention.",
+      "guard_result": "not_run",
+      "story_id": "200 bezos dicaprio endangered fund jeff lauren leonardo"
+    },
+    {
+      "category": "global",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The European Union praised Spain\u2019s response after a large-scale migrant arrival in Ceuta, saying Madrid acted swiftly during the crisis. Spain says it has returned about 70,000 of the 72,000 people who entered the North African enclave illegally last week to Morocco. The scale and speed of the returns place renewed attention on Spain\u2019s cooperation with Morocco and the EU\u2019s reliance on neighboring countries to manage sudden migration surges.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/c80n3j55g0do?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/c80n3j55g0do?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "The European Union praised Spain\u2019s response after a large-scale migrant arrival in Ceuta, saying Madrid acted swiftly during the crisis. Spain says it has returned about 70,000 of the 72,000 people who entered the North African enclave illegally last week to Morocco. The scale and speed of the returns place renewed attention on Spain\u2019s cooperation with Morocco and the EU\u2019s reliance on neighboring countries to manage sudden migration surges.",
+      "guard_result": "not_run",
+      "story_id": "ceuta commends crisis migrant response spain swift"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The Writers Guild of America will hold its 2027 awards ceremonies on February 13 at the Edison Ballroom in New York and the Fairmont Century Plaza in Los Angeles, with nominations due to be announced January 8. The 79th annual awards are intended to restore a more conventional schedule after the West Coast ceremony was canceled shortly before its planned March 8 event amid a staff strike. The venues and timetable give studios and contenders an early marker for the next awards season.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/08/writers-guild-awards-2027-venues-timeline-1237017322/",
+          "evidence_type": "extracted",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/08/writers-guild-awards-2027-venues-timeline-1237017322/"
+        }
+      ],
+      "full_paragraph": "The Writers Guild of America will hold its 2027 awards ceremonies on February 13 at the Edison Ballroom in New York and the Fairmont Century Plaza in Los Angeles, with nominations due to be announced January 8. The 79th annual awards are intended to restore a more conventional schedule after the West Coast ceremony was canceled shortly before its planned March 8 event amid a staff strike. The venues and timetable give studios and contenders an early marker for the next awards season.",
+      "guard_result": "not_run",
+      "story_id": "2027 awards guild pencils timeline venues wga writers"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Science creator Hank Green says he is stepping back from production after criticism of his AI use, which he called \u201cnot healthy\u201d even though he said it was limited to finding research sources rather than writing scripts. The backlash has widened discussion beyond obvious cases of chatbot-driven delusions to less visible patterns of compulsive or dependent use. It also highlights unresolved concerns over accuracy, creative authenticity and reliance on systems trained on often uncompensated work.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/ai-artificial-intelligence/975180/llm-ai-chatbot-use-not-healthy",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/975180/llm-ai-chatbot-use-not-healthy"
+        }
+      ],
+      "full_paragraph": "Science creator Hank Green says he is stepping back from production after criticism of his AI use, which he called \u201cnot healthy\u201d even though he said it was limited to finding research sources rather than writing scripts. The backlash has widened discussion beyond obvious cases of chatbot-driven delusions to less visible patterns of compulsive or dependent use. It also highlights unresolved concerns over accuracy, creative authenticity and reliance on systems trained on often uncompensated work.",
+      "guard_result": "not_run",
+      "story_id": "common healthy llm more not than think use"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "OpenAI\u2019s first influencer \u201cbrand trip,\u201d a weekend retreat near New York marketed as \u201cSummer Club,\u201d drew backlash after creators posted sponsored-looking content featuring branded merchandise, cabins and monogrammed pajamas. The campaign borrowed tactics common in beauty and fashion marketing, but critics questioned the fit for a company whose products raise broader concerns about work, information and creative ownership. The response shows how consumer-style promotion can clash with public expectations for an influential AI company.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.theverge.com/tech/975173/openai-influencers-brand-trip-ai-backlash-marketing",
+          "evidence_type": "extracted",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/tech/975173/openai-influencers-brand-trip-ai-backlash-marketing"
+        }
+      ],
+      "full_paragraph": "OpenAI\u2019s first influencer \u201cbrand trip,\u201d a weekend retreat near New York marketed as \u201cSummer Club,\u201d drew backlash after creators posted sponsored-looking content featuring branded merchandise, cabins and monogrammed pajamas. The campaign borrowed tactics common in beauty and fashion marketing, but critics questioned the fit for a company whose products raise broader concerns about work, information and creative ownership. The response shows how consumer-style promotion can clash with public expectations for an influential AI company.",
+      "guard_result": "not_run",
+      "story_id": "backfired influencer openai trip"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "HBO\u2019s Hard Knocks returns August 4 with a five-episode season following the Seattle Seahawks\u2019 training camp ahead of the 2026-27 NFL season. Episodes air Tuesdays at 9 p.m. Eastern through September 1 and will also be available on HBO Max, whose ad-supported plan starts at $10.99 a month. The series gives the Super Bowl champions a national preseason platform while offering viewers behind-the-scenes access to roster and preparation decisions.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/culture/product-recommendations/hard-knocks-nfl-how-to-watch-online-free-1235750074/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/culture/product-recommendations/hard-knocks-nfl-how-to-watch-online-free-1235750074/"
+        }
+      ],
+      "full_paragraph": "HBO\u2019s Hard Knocks returns August 4 with a five-episode season following the Seattle Seahawks\u2019 training camp ahead of the 2026-27 NFL season. Episodes air Tuesdays at 9 p.m. Eastern through September 1 and will also be available on HBO Max, whose ad-supported plan starts at $10.99 a month. The series gives the Super Bowl champions a national preseason platform while offering viewers behind-the-scenes access to roster and preparation decisions.",
+      "guard_result": "not_run",
+      "story_id": "2026 camp free hard knocks online seahawks seattle"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Spider-Man: Brand New Day has reached more than $1 billion at the box office and earned a strong critical reception, giving fresh weight to speculation about a cameo that could introduce the MCU\u2019s next spider-themed hero. The film arrives five years after Tom Holland\u2019s previous solo Spider-Man movie and resolves months of attention around Sadie Sink\u2019s role. Its commercial success gives Marvel and Sony a stronger foundation for expanding the franchise\u2019s character lineup.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.polygon.com/tom-holland-spider-man-replacement-brand-new-day-homecoming/",
+          "evidence_type": "feed_content",
+          "source": "Polygon",
+          "url": "https://www.polygon.com/tom-holland-spider-man-replacement-brand-new-day-homecoming/"
+        }
+      ],
+      "full_paragraph": "Spider-Man: Brand New Day has reached more than $1 billion at the box office and earned a strong critical reception, giving fresh weight to speculation about a cameo that could introduce the MCU\u2019s next spider-themed hero. The film arrives five years after Tom Holland\u2019s previous solo Spider-Man movie and resolves months of attention around Sadie Sink\u2019s role. Its commercial success gives Marvel and Sony a stronger foundation for expanding the franchise\u2019s character lineup.",
+      "guard_result": "not_run",
+      "story_id": "brand cameo could day hero man mcu next"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Brent crude fell almost 5% below $80 a barrel, a three-week low, after US officials said talks with Iran had advanced toward reopening the Strait of Hormuz to shipping. US West Texas Intermediate also dropped more than 5% to $76, though Secretary of State Marco Rubio said there was progress rather than a final agreement. A reopening could ease a major supply disruption, but previous failed diplomacy has kept oil markets\u2014and fuel prices\u2014volatile.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cpw9v0gnzxwo",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cpw9v0gnzxwo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Brent crude fell almost 5% below $80 a barrel, a three-week low, after US officials said talks with Iran had advanced toward reopening the Strait of Hormuz to shipping. US West Texas Intermediate also dropped more than 5% to $76, though Secretary of State Marco Rubio said there was progress rather than a final agreement. A reopening could ease a major supply disruption, but previous failed diplomacy has kept oil markets\u2014and fuel prices\u2014volatile.",
+      "guard_result": "not_run",
+      "story_id": "could fall hopes hormuz oil prices reopen strait"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Palantir shares jumped as much as 30% after the software company reported second-quarter revenue up 93% from a year earlier to $1.94 billion, beating analyst expectations. Commercial revenue rose 149% to $764 million and government revenue gained 90% to $809 million, driven by demand for AI tools that let customers retain control of their data. The results reinforce investor enthusiasm for enterprise AI, while raising the stakes for Palantir to sustain unusually rapid growth.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/04/palantir-2q-earnings-ai-sovereign-tools.html",
+          "evidence_type": "extracted",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/04/palantir-2q-earnings-ai-sovereign-tools.html"
+        }
+      ],
+      "full_paragraph": "Palantir shares jumped as much as 30% after the software company reported second-quarter revenue up 93% from a year earlier to $1.94 billion, beating analyst expectations. Commercial revenue rose 149% to $764 million and government revenue gained 90% to $809 million, driven by demand for AI tools that let customers retain control of their data. The results reinforce investor enthusiasm for enterprise AI, while raising the stakes for Palantir to sustain unusually rapid growth.",
+      "guard_result": "not_run",
+      "story_id": "commercial demand driving jumps otherworldly palantir revenue"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "The S&P 500 reached a fresh record even as some valuation measures suggest the index may look relatively cheap, creating conflicting signals for investors. The apparent bargain case sits alongside the more familiar concern that US stocks are expensive after a long rally, so the conclusions depend heavily on which earnings and valuation assumptions are used. The contrast matters because it leaves little consensus on whether the market\u2019s record level reflects durable profit growth or elevated expectations.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/these-charts-suggest-the-s-p-500-is-looking-like-a-bargain-take-them-with-a-grain-of-salt-f109548f?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/these-charts-suggest-the-s-p-500-is-looking-like-a-bargain-take-them-with-a-grain-of-salt-f109548f?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "The S&P 500 reached a fresh record even as some valuation measures suggest the index may look relatively cheap, creating conflicting signals for investors. The apparent bargain case sits alongside the more familiar concern that US stocks are expensive after a long rally, so the conclusions depend heavily on which earnings and valuation assumptions are used. The contrast matters because it leaves little consensus on whether the market\u2019s record level reflects durable profit growth or elevated expectations.",
+      "guard_result": "not_run",
+      "story_id": "500 bargain charts grain like looking salt suggest"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "America\u2019s richest 20% of households are buying most new cars sold in the US, MarketWatch reports, as an AI-driven stock-market rally boosts wealthier consumers\u2019 spending power. The concentration suggests new-vehicle demand is being supported disproportionately by people least exposed to high borrowing costs and affordability pressures. That split may leave automakers more dependent on affluent buyers while many middle- and lower-income households remain priced out of the market.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/the-richest-20-are-buying-most-of-the-new-cars-sold-in-the-u-s-6e470ad4?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/the-richest-20-are-buying-most-of-the-new-cars-sold-in-the-u-s-6e470ad4?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "America\u2019s richest 20% of households are buying most new cars sold in the US, MarketWatch reports, as an AI-driven stock-market rally boosts wealthier consumers\u2019 spending power. The concentration suggests new-vehicle demand is being supported disproportionately by people least exposed to high borrowing costs and affordability pressures. That split may leave automakers more dependent on affluent buyers while many middle- and lower-income households remain priced out of the market.",
+      "guard_result": "not_run",
+      "story_id": "buying cars most richest sold"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Treasury Secretary Scott Bessent said the US joined Japan in buying yen to curb currency volatility and reduce risks to Asian markets. The unusual confirmation of coordinated intervention signals concern that sharp exchange-rate moves were becoming a wider regional financial-stability issue, rather than solely a Japanese problem. It also puts markets on notice that Washington may support direct action with allies when currency swings threaten broader economic disruption.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.cnbc.com/2026/08/04/bessent-us-japan-yen-currency-intervention.html",
+          "evidence_type": "feed_content",
+          "source": "CNBC Top News",
+          "url": "https://www.cnbc.com/2026/08/04/bessent-us-japan-yen-currency-intervention.html"
+        }
+      ],
+      "full_paragraph": "Treasury Secretary Scott Bessent said the US joined Japan in buying yen to curb currency volatility and reduce risks to Asian markets. The unusual confirmation of coordinated intervention signals concern that sharp exchange-rate moves were becoming a wider regional financial-stability issue, rather than solely a Japanese problem. It also puts markets on notice that Washington may support direct action with allies when currency swings threaten broader economic disruption.",
+      "guard_result": "not_run",
+      "story_id": "asia backed bessent help intervention japan stabilize yen"
+    }
+  ]
+}
