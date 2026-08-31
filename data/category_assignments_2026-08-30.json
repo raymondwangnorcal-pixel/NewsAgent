@@ -1,115 +1,155 @@
 [
   {
-    "category": "global",
+    "category": "domestic",
     "cluster_id": "attack first iranian island known larak launchers strikes",
     "culture_lane": "",
-    "llm_importance": 72,
+    "llm_importance": 68,
     "outlier_urls": [],
-    "rationale": "The central development is a U.S.-Iran military exchange around the Strait of Hormuz, with the main significance being battlefield and international consequences rather than the accompanying oil-market move."
+    "rationale": "The central development is a U.S. military decision to strike Iranian launchers, which the guidelines place in U.S. News when the focus is American government action."
   },
   {
-    "category": "global",
+    "category": "domestic",
     "cluster_id": "hormuz iran mine prevent strikes threat",
     "culture_lane": "",
     "llm_importance": 68,
     "outlier_urls": [],
-    "rationale": "This is an international military escalation involving Iran, the U.S., Jordan, and the Strait of Hormuz, which the guidelines place in Global News when focused on conflict and geopolitical consequences."
+    "rationale": "This is primarily about the U.S. military's decision to strike Iranian targets to avert a Strait of Hormuz mine threat, fitting U.S. News' coverage of American military actions."
   },
   {
     "category": "culture",
     "cluster_id": "2026 fantasy league predicting winners",
     "culture_lane": "sports",
-    "llm_importance": 16,
+    "llm_importance": 18,
     "outlier_urls": [],
-    "rationale": "Fantasy-football player projections are a sports-focused entertainment and fan-engagement story, which belongs in Culture + Media's sports lane."
+    "rationale": "Fantasy-football player predictions are sports-focused entertainment coverage, which belongs in Culture + Media."
   },
   {
     "category": "finance",
     "cluster_id": "chances comments futures hike hole jackson rate rise",
     "culture_lane": "",
-    "llm_importance": 33,
+    "llm_importance": 38,
     "outlier_urls": [],
-    "rationale": "The story is principally about stock-index futures moving in response to changing expectations for interest-rate policy, a core Finance markets and monetary-policy subject."
+    "rationale": "The story centers on declining U.S. stock futures and changing expectations for an interest-rate hike, meeting the Finance guideline for market moves driven by monetary-policy expectations."
   },
   {
     "category": "culture",
     "cluster_id": "dispute judge player pro ruling sec thursday",
     "culture_lane": "sports",
-    "llm_importance": 31,
+    "llm_importance": 34,
     "outlier_urls": [],
-    "rationale": "The SEC's legal dispute over rules governing college-football players is a major sports governance controversy, fitting the Culture + Media sports lane."
+    "rationale": "The SEC's challenge to a court order governing college-football player eligibility is chiefly a sports controversy, placing it in Culture + Media."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "aaron back berth bowl donald rams rejoin season",
+    "culture_lane": "sports",
+    "llm_importance": 52,
+    "outlier_urls": [],
+    "rationale": "Aaron Donald's return to the Rams is a major NFL personnel development and sports story, which belongs in Culture + Media."
   },
   {
     "category": "culture",
     "cluster_id": "browns gabriel keep put qbs roster",
     "culture_lane": "sports",
-    "llm_importance": 19,
+    "llm_importance": 20,
     "outlier_urls": [],
-    "rationale": "The Browns' quarterback and injured-reserve decisions are routine NFL roster news, fitting the Culture + Media sports lane."
+    "rationale": "The Browns' quarterback roster and injury moves are routine NFL team news, covered under Culture + Media's sports remit."
   },
   {
     "category": "culture",
     "cluster_id": "could future games lioness paramount yellowstone",
     "culture_lane": "gaming",
-    "llm_importance": 24,
+    "llm_importance": 22,
     "outlier_urls": [],
-    "rationale": "Paramount's prospective use of Yellowstone and Lioness entertainment properties in video games is primarily a gaming and media-franchise development."
+    "rationale": "Potential video-game adaptations of Paramount television franchises are an entertainment and gaming development, fitting Culture + Media."
+  },
+  {
+    "category": "domestic",
+    "cluster_id": "america canada change compares google lake maps skit",
+    "culture_lane": "",
+    "llm_importance": 32,
+    "outlier_urls": [],
+    "rationale": "The main significance is the U.S. president's geographic-renaming order and the resulting domestic policy controversy, rather than the map companies' operations alone."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "batman hbo introduced just notorious officially universe villain",
+    "culture_lane": "film_tv",
+    "llm_importance": 16,
+    "outlier_urls": [],
+    "rationale": "This is coverage of a television episode's DC-universe character reveal, which is film-and-TV entertainment reporting under Culture + Media."
   },
   {
     "category": "culture",
     "cluster_id": "all before big cut deadline down final moves",
     "culture_lane": "sports",
-    "llm_importance": 29,
+    "llm_importance": 30,
     "outlier_urls": [],
-    "rationale": "The leaguewide NFL cut-down deadline and team roster moves are sports developments, placing the cluster in Culture + Media's sports lane."
+    "rationale": "NFL roster cuts and trades before the league deadline are sports coverage, placing the cluster in Culture + Media."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "angel choose fallen fans favorite jennie music this",
+    "culture_lane": "music",
+    "llm_importance": 19,
+    "outlier_urls": [],
+    "rationale": "A fan poll on JENNIE's new EP is a music-release and audience-interest story, fitting Culture + Media."
   },
   {
     "category": "domestic",
     "cluster_id": "canyon feared flash flooding grand hikers hits missing",
     "culture_lane": "",
-    "llm_importance": 52,
+    "llm_importance": 48,
     "outlier_urls": [],
-    "rationale": "Flash flooding and missing hikers at the Grand Canyon are a U.S. emergency and public-safety event, which the guidelines assign to U.S. News."
+    "rationale": "Flash flooding and missing hikers at the Grand Canyon constitute a U.S. emergency and public-safety event, which the guidelines assign to U.S. News."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "backstory better hbo officially one retcons superhero",
+    "culture_lane": "film_tv",
+    "llm_importance": 14,
+    "outlier_urls": [],
+    "rationale": "The story analyzes a backstory change in HBO's Lanterns, making it television entertainment coverage under Culture + Media."
+  },
+  {
+    "category": "culture",
+    "cluster_id": "aaron ancestry backstory become being black cephas episode",
+    "culture_lane": "film_tv",
+    "llm_importance": 18,
+    "outlier_urls": [],
+    "rationale": "An interview about a Lanterns episode and its character themes is television coverage, fitting Culture + Media."
   },
   {
     "category": "culture",
     "cluster_id": "action called favorite free minute officially quentin streaming",
     "culture_lane": "film_tv",
-    "llm_importance": 12,
+    "llm_importance": 10,
     "outlier_urls": [],
-    "rationale": "The availability and critical framing of a feature film on streaming is an entertainment-distribution story in the Culture + Media film/TV lane."
-  },
-  {
-    "category": "culture",
-    "cluster_id": "away ballot bay been best brutally called comedy",
-    "culture_lane": "film_tv",
-    "llm_importance": 17,
-    "outlier_urls": [],
-    "rationale": "An Emmy voter's views on television contenders concern awards-season discourse and TV programming, fitting the Culture + Media film/TV lane."
+    "rationale": "The availability and appreciation of a thriller on streaming is film entertainment coverage, which belongs in Culture + Media."
   },
   {
     "category": "culture",
     "cluster_id": "catch disputed rafaela rout sox yanks",
     "culture_lane": "sports",
-    "llm_importance": 22,
+    "llm_importance": 24,
     "outlier_urls": [],
-    "rationale": "A disputed baseball ruling and the Yankees-Red Sox game result are sports coverage, which belongs in Culture + Media's sports lane."
+    "rationale": "A disputed baseball call and the ensuing Yankees-Red Sox result are sports reporting, placing this in Culture + Media."
   },
   {
     "category": "culture",
     "cluster_id": "donald loaded rams rejoin star unretires",
     "culture_lane": "sports",
-    "llm_importance": 48,
+    "llm_importance": 52,
     "outlier_urls": [],
-    "rationale": "Aaron Donald's return from retirement to the Rams is a significant NFL player transaction, fitting the Culture + Media sports lane."
+    "rationale": "Aaron Donald's formal NFL return and Rams contract are a significant sports personnel development, fitting Culture + Media."
   },
   {
     "category": "culture",
     "cluster_id": "cura league little nevada routs title win",
     "culture_lane": "sports",
-    "llm_importance": 30,
+    "llm_importance": 25,
     "outlier_urls": [],
-    "rationale": "Cura\u00e7ao winning the Little League World Series is a major sporting result, placing it in the Culture + Media sports lane."
+    "rationale": "The Little League World Series championship result is a sports event, covered in Culture + Media."
   },
   {
     "category": "culture",
@@ -117,22 +157,22 @@
     "culture_lane": "sports",
     "llm_importance": 22,
     "outlier_urls": [],
-    "rationale": "Odell Beckham Jr. making the Giants' initial roster is NFL roster news and therefore belongs in the Culture + Media sports lane."
+    "rationale": "Odell Beckham Jr.'s place on the Giants' roster is NFL personnel news and therefore sports coverage under Culture + Media."
   },
   {
     "category": "culture",
     "cluster_id": "aaron defense does donald garrett mean more myles",
     "culture_lane": "sports",
-    "llm_importance": 34,
+    "llm_importance": 30,
     "outlier_urls": [],
-    "rationale": "Analysis of Aaron Donald's Rams return and its implications for NFL defense is sports commentary, fitting the Culture + Media sports lane."
+    "rationale": "Analysis of Aaron Donald's impact on the Rams' defense is NFL sports commentary, fitting Culture + Media."
   },
   {
     "category": "culture",
     "cluster_id": "grading johnson kaleb nfl offseason packers sizing trades",
     "culture_lane": "sports",
-    "llm_importance": 18,
+    "llm_importance": 17,
     "outlier_urls": [],
-    "rationale": "Grades of NFL preseason trades are sports analysis rather than business or financial-market reporting, so this belongs in the Culture + Media sports lane."
+    "rationale": "Evaluating NFL offseason trades is sports analysis, which belongs in Culture + Media."
   }
 ]

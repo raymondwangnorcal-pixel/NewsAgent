@@ -1,0 +1,170 @@
+{
+  "compression_budget_exhausted": false,
+  "compression_cost_usd": 0.02117,
+  "created_at": "2026-08-31T02:20:09.455188+00:00",
+  "guard_deltas": {},
+  "input_tokens": 0,
+  "model": "gpt-5.6-terra",
+  "output_tokens": 0,
+  "stories": [
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "U.S. forces struck two Iranian launchers on Larak Island after observing Revolutionary Guard personnel preparing rockets carrying sea mines for the Strait of Hormuz, Central Command said. Iran said the attack caused several deaths and injuries, then claimed it fired at U.S. targets in Jordan; Jordan\u2019s military said it intercepted eight missiles. The exchange ends the first known U.S. strikes inside Iran since late July and revives the threat to a vital oil-shipping route.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/cx2z72x5z1po",
+          "evidence_type": "extracted",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/cx2z72x5z1po?at_medium=RSS&at_campaign=rss"
+        },
+        {
+          "canonical_url": "https://www.axios.com/2026/08/30/us-iran-strike-hormuz-mines",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/08/30/us-iran-strike-hormuz-mines"
+        }
+      ],
+      "full_paragraph": "U.S. forces struck two Iranian launchers on Larak Island after observing Revolutionary Guard personnel preparing rockets carrying sea mines for the Strait of Hormuz, Central Command said. Iran said the attack caused several deaths and injuries, then claimed it fired at U.S. targets in Jordan; Jordan\u2019s military said it intercepted eight missiles. The exchange ends the first known U.S. strikes inside Iran since late July and revives the threat to a vital oil-shipping route.",
+      "guard_result": "not_run",
+      "story_id": "attack first iranian island known larak launchers strikes"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Google Maps has renamed Lake Ontario \u201cLake America\u201d for U.S. users after the federal Geographic Names Information System adopted President Trump\u2019s requested change, while Apple Maps continues to use Lake Ontario. Google had said Canadian users would retain the old name, but the new label appeared on some Ontario government sites that draw on Google map data. The split shows how a U.S. naming order can quickly spill across borders through widely used digital services.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.axios.com/2026/08/30/lake-america-lake-ontario-maps-trump",
+          "evidence_type": "blocked",
+          "source": "Axios",
+          "url": "https://www.axios.com/2026/08/30/lake-america-lake-ontario-maps-trump"
+        }
+      ],
+      "full_paragraph": "Google Maps has renamed Lake Ontario \u201cLake America\u201d for U.S. users after the federal Geographic Names Information System adopted President Trump\u2019s requested change, while Apple Maps continues to use Lake Ontario. Google had said Canadian users would retain the old name, but the new label appeared on some Ontario government sites that draw on Google map data. The split shows how a U.S. naming order can quickly spill across borders through widely used digital services.",
+      "guard_result": "not_run",
+      "story_id": "america canada change compares google lake maps skit"
+    },
+    {
+      "category": "domestic",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Flash flooding in the Grand Canyon prompted a rescue operation after hikers were reported missing, while at least one person was airlifted to safety, the BBC reported. A rescued hiker described a sudden shift from a \u201cbeautiful day\u201d to people screaming, underscoring how quickly runoff can turn canyon routes dangerous. Authorities\u2019 immediate challenge is locating hikers and determining who remains in danger as conditions and access permit.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.bbc.co.uk/news/articles/clylkjyez1do?at_medium=RSS&at_campaign=rss",
+          "evidence_type": "feed_content",
+          "source": "BBC World",
+          "url": "https://www.bbc.co.uk/news/articles/clylkjyez1do?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "full_paragraph": "Flash flooding in the Grand Canyon prompted a rescue operation after hikers were reported missing, while at least one person was airlifted to safety, the BBC reported. A rescued hiker described a sudden shift from a \u201cbeautiful day\u201d to people screaming, underscoring how quickly runoff can turn canyon routes dangerous. Authorities\u2019 immediate challenge is locating hikers and determining who remains in danger as conditions and access permit.",
+      "guard_result": "not_run",
+      "story_id": "canyon feared flash flooding grand hikers hits missing"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "ESPN\u2019s early 2026 fantasy-football \u201cleague winner\u201d picks highlight players it believes can outperform their draft cost, led by quarterback Jaxson Dart as a potential value selection. Dart averaged 20.13 fantasy points per game in 12 starts last season, ESPN says\u2014the fifth-highest rookie-quarterback average ever\u2014despite losing receiver Malik Nabers early and a midseason coaching change. The list is a projection, but it points managers toward later-round upside rather than only established first-round stars.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.espn.com/fantasy/football/story/_/id/49734412/2026-fantasy-football-breakout-stars-league-winners-michael-florio",
+          "evidence_type": "extracted",
+          "source": "ESPN Top Headlines",
+          "url": "https://www.espn.com/fantasy/football/story/_/id/49734412/2026-fantasy-football-breakout-stars-league-winners-michael-florio"
+        }
+      ],
+      "full_paragraph": "ESPN\u2019s early 2026 fantasy-football \u201cleague winner\u201d picks highlight players it believes can outperform their draft cost, led by quarterback Jaxson Dart as a potential value selection. Dart averaged 20.13 fantasy points per game in 12 starts last season, ESPN says\u2014the fifth-highest rookie-quarterback average ever\u2014despite losing receiver Malik Nabers early and a midseason coaching change. The list is a projection, but it points managers toward later-round upside rather than only established first-round stars.",
+      "guard_result": "not_run",
+      "story_id": "2026 fantasy league predicting winners"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Aaron Donald will come out of retirement and rejoin the Los Angeles Rams this season, the team confirmed with a brief letter to NFL Commissioner Roger Goodell stating, \u201cI\u2019m Back.\u201d The 35-year-old, who retired before the 2024 season after helping the Rams win the 2022 Super Bowl, reportedly agreed to a one-year, $20 million deal. His return adds an elite defensive player to a Rams team already favored by DraftKings to win the Super Bowl.",
+      "evidence": [
+        {
+          "canonical_url": "https://deadline.com/2026/08/aaron-donald-unretires-rejoins-rams-1237063001/",
+          "evidence_type": "extracted",
+          "source": "Deadline",
+          "url": "https://deadline.com/2026/08/aaron-donald-unretires-rejoins-rams-1237063001/"
+        }
+      ],
+      "full_paragraph": "Aaron Donald will come out of retirement and rejoin the Los Angeles Rams this season, the team confirmed with a brief letter to NFL Commissioner Roger Goodell stating, \u201cI\u2019m Back.\u201d The 35-year-old, who retired before the 2024 season after helping the Rams win the 2022 Super Bowl, reportedly agreed to a one-year, $20 million deal. His return adds an elite defensive player to a Rams team already favored by DraftKings to win the Super Bowl.",
+      "guard_result": "not_run",
+      "story_id": "aaron back berth bowl donald rams rejoin season"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "Paramount Games Studio says it is expanding into video games and could eventually draw on Taylor Sheridan\u2019s Yellowstone and Lioness franchises, alongside core properties including Teenage Mutant Ninja Turtles, Star Trek and Avatar: The Last Airbender. Its first announced project is an adaptation of TMNT: The Last Ronin with PlatinumGames, known for Bayonetta. The strategy gives Paramount another way to turn established screen audiences into game players, though no Yellowstone or Lioness title has been announced.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.polygon.com/yellowstone-lionness-sheridanverse-video-games-paramount/",
+          "evidence_type": "extracted",
+          "source": "Polygon",
+          "url": "https://www.polygon.com/yellowstone-lionness-sheridanverse-video-games-paramount/"
+        }
+      ],
+      "full_paragraph": "Paramount Games Studio says it is expanding into video games and could eventually draw on Taylor Sheridan\u2019s Yellowstone and Lioness franchises, alongside core properties including Teenage Mutant Ninja Turtles, Star Trek and Avatar: The Last Airbender. Its first announced project is an adaptation of TMNT: The Last Ronin with PlatinumGames, known for Bayonetta. The strategy gives Paramount another way to turn established screen audiences into game players, though no Yellowstone or Lioness title has been announced.",
+      "guard_result": "not_run",
+      "story_id": "could future games lioness paramount yellowstone"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "HBO\u2019s Lanterns used its third episode to plant a connection to a notorious Batman villain in the wider DC Universe, Polygon reported. The episode flashes back roughly two months before its main 2016 storyline, as John Stewart undergoes an unusual Green Lantern interview in an abandoned shopping mall. The reference is an Easter egg rather than a confirmed crossover, but it signals that the series is placing its cosmic story within a broader web of DC characters and future projects.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.polygon.com/lanterns-episode-3-janus-cosmetics-roman-sionis-clayface-easter-egg/",
+          "evidence_type": "extracted",
+          "source": "Polygon",
+          "url": "https://www.polygon.com/lanterns-episode-3-janus-cosmetics-roman-sionis-clayface-easter-egg/"
+        }
+      ],
+      "full_paragraph": "HBO\u2019s Lanterns used its third episode to plant a connection to a notorious Batman villain in the wider DC Universe, Polygon reported. The episode flashes back roughly two months before its main 2016 storyline, as John Stewart undergoes an unusual Green Lantern interview in an abandoned shopping mall. The reference is an Easter egg rather than a confirmed crossover, but it signals that the series is placing its cosmic story within a broader web of DC characters and future projects.",
+      "guard_result": "not_run",
+      "story_id": "batman hbo introduced just notorious officially universe villain"
+    },
+    {
+      "category": "culture",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "JENNIE\u2019s new EP, Fallen Angel, won Billboard\u2019s weekly new-music poll with more than 82% of votes, beating releases from Olivia Rodrigo, Alex Warren, Alabama Shakes and others. The BLACKPINK member\u2019s first solo collection since last year\u2019s Ruby is led by \u201cLess Than a Lover\u201d and includes the title track and \u201cHeaven.\u201d The result gives the rollout an early fan-engagement boost ahead of a planned physical CD release.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.billboard.com/music/music-news/jennie-fallen-angel-best-new-music-poll-results-1236328446/",
+          "evidence_type": "extracted",
+          "source": "Billboard",
+          "url": "https://www.billboard.com/music/music-news/jennie-fallen-angel-best-new-music-poll-results-1236328446/"
+        }
+      ],
+      "full_paragraph": "JENNIE\u2019s new EP, Fallen Angel, won Billboard\u2019s weekly new-music poll with more than 82% of votes, beating releases from Olivia Rodrigo, Alex Warren, Alabama Shakes and others. The BLACKPINK member\u2019s first solo collection since last year\u2019s Ruby is led by \u201cLess Than a Lover\u201d and includes the title track and \u201cHeaven.\u201d The result gives the rollout an early fan-engagement boost ahead of a planned physical CD release.",
+      "guard_result": "not_run",
+      "story_id": "angel choose fallen fans favorite jennie music this"
+    },
+    {
+      "category": "finance",
+      "compression_ratio": 0.0,
+      "compression_status": "kept_original_error",
+      "delivered_paragraph": "U.S. stock-index futures fell Sunday as investors reassessed the chance of another interest-rate increase following Kevin Warsh\u2019s Jackson Hole comments. Traders are also awaiting fresh labor-market data and major technology-company earnings, both of which could reshape expectations for growth and Federal Reserve policy. The move matters because higher anticipated rates tend to pressure equity valuations, especially among growth stocks, while stronger data could reinforce the case for tighter policy.",
+      "evidence": [
+        {
+          "canonical_url": "https://www.marketwatch.com/story/u-s-stock-futures-flat-as-chances-of-rate-hike-rise-after-warshs-jackson-hole-comments-1f5287f2?mod=mw_rss_topstories",
+          "evidence_type": "blocked",
+          "source": "MarketWatch Top Stories",
+          "url": "https://www.marketwatch.com/story/u-s-stock-futures-flat-as-chances-of-rate-hike-rise-after-warshs-jackson-hole-comments-1f5287f2?mod=mw_rss_topstories"
+        }
+      ],
+      "full_paragraph": "U.S. stock-index futures fell Sunday as investors reassessed the chance of another interest-rate increase following Kevin Warsh\u2019s Jackson Hole comments. Traders are also awaiting fresh labor-market data and major technology-company earnings, both of which could reshape expectations for growth and Federal Reserve policy. The move matters because higher anticipated rates tend to pressure equity valuations, especially among growth stocks, while stronger data could reinforce the case for tighter policy.",
+      "guard_result": "not_run",
+      "story_id": "chances comments futures hike hole jackson rate rise"
+    }
+  ]
+}
