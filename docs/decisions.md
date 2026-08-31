@@ -1491,3 +1491,17 @@
 - Superseded by: none
 - Note: Production newsletter runs retain their OpenAI mode for review and reporting eligibility decisions.
 - Privacy waivers: none
+
+## DEC-0079 — Canonical URLs define clustering deduplication identity
+
+- Date: 2026-08-30
+- Owner: agent
+- Status at record: active
+- Decision: Cluster deduplication will use each article's normalized canonical URL when available, falling back to its feed URL.
+- Rationale: The newsletter review store identifies candidates by the normalized canonical URL set, so clustering must use the same identity to prevent duplicate candidate rows from aborting delivery.
+- Scope: General-news clustering and newsletter candidate persistence reliability.
+- Implementation: pending
+- Recorded against HEAD: `429cc6ee8a5e943977f56bf96fae1d9430fcd7a1`
+- Supersedes: none
+- Evidence: Failed scheduled-run trace on 2026-08-30 and `src/news_agent/cluster.py`.
+- Privacy waivers: none

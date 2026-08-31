@@ -418,7 +418,10 @@ def merge_url_duplicates(clusters: list[StoryCluster]) -> list[StoryCluster]:
     by_url: dict[str, StoryCluster] = {}
     merged: list[StoryCluster] = []
     for cluster in clusters:
-        canonical_urls = {article.url.split("?")[0] for article in cluster.articles}
+        canonical_urls = {
+            (article.canonical_url or article.url).split("?", 1)[0].rstrip("/")
+            for article in cluster.articles
+        }
         existing = next((by_url[url] for url in canonical_urls if url in by_url), None)
         if existing is None:
             merged.append(cluster)

@@ -88,6 +88,23 @@ def test_cluster_articles_keeps_unrelated_similar_keywords_separate() -> None:
     assert len(clusters) == 2
 
 
+def test_cluster_articles_merges_different_feed_urls_with_one_canonical_url() -> None:
+    canonical_url = "https://publisher.example.com/news/canonical-story"
+    first = replace(
+        article("Company announces new factory", "Reuters"),
+        canonical_url=canonical_url,
+    )
+    second = replace(
+        article("Local officials approve industrial project", "AP"),
+        canonical_url=canonical_url,
+    )
+
+    clusters = cluster_articles([first, second])
+
+    assert len(clusters) == 1
+    assert clusters[0].source_count == 2
+
+
 def test_duplicate_gate_candidates_include_real_anthropic_pair() -> None:
     left = story_cluster(
         "Anthropic's Dario Amodei responds: doesn't oppose open-weight models, but fears Chinese AI",
