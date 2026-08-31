@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import html
+import re
 from urllib.parse import urlparse
 from dataclasses import dataclass
 from zoneinfo import ZoneInfo
@@ -10,7 +11,44 @@ from news_agent.time import briefing_today
 from news_agent.mailer.quotes import EndOfDayQuote
 from news_agent.mailer.watchlist_news import WatchlistStory
 
-SYSTEM_FONT_STACK = 'Lato, Helvetica, Arial, sans-serif'
+SYSTEM_FONT_STACK = (
+    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,'
+    " Helvetica, Arial, sans-serif"
+)
+
+# ---- Inline colour tokens (light theme, email-safe) ----
+_INK = "#0F1419"
+_SECONDARY = "#536471"
+_DIVIDER = "#E1E5E8"
+_SURFACE = "#FFFFFF"
+_PAGE_BG = "#F5F6F8"
+_LINK = "#1966D2"
+_SOURCE_CLR = "#7A8793"
+_GREEN = "#188038"
+_RED = "#C5221F"
+_QUIET = "#9AA0A6"
+
+CATEGORY_ACCENT_COLORS: dict[str, str] = {
+    "business_tech": "#4F46E5",
+    "domestic": "#2563EB",
+    "global": "#0D9488",
+    "culture": "#D97706",
+    "finance": "#7C3AED",
+}
+
+CATEGORY_LABELS: dict[str, str] = {
+    "business_tech": "Business + Tech",
+    "domestic": "U.S. News",
+    "global": "Global News",
+    "culture": "Culture + Media",
+    "finance": "Finance",
+}
+
+# Sentence-end heuristic: period after a letter/digit/closing-punct,
+# followed by whitespace then an uppercase letter or opening quote.
+_SENTENCE_END_RE = re.compile(
+    r"(?<=[a-zA-Z0-9,;\"\'\)\]’”%])\.\s+(?=[A-Z\"\'“‘(])"
+)
 
 
 @dataclass(frozen=True)
@@ -18,6 +56,11 @@ class RenderedEmail:
     subject: str
     plain_text: str
     html: str
+
+
+# ------------------------------------------------------------------
+# Parity renderer (plain-text wrap) — unchanged
+# ------------------------------------------------------------------
 
 
 def render_parity_email(messages: list[FormattedMessage], header: str) -> RenderedEmail:
@@ -32,84 +75,268 @@ def render_parity_email(messages: list[FormattedMessage], header: str) -> Render
     return RenderedEmail(subject=subject, plain_text=plain_text, html=rendered_html)
 
 
+# ------------------------------------------------------------------
+# Redesigned newsletter renderer
+# ------------------------------------------------------------------
+
+
 def render_minimal_newsletter(
     messages: list[FormattedMessage],
     header: str,
     watchlist_html: str = "",
     watchlist_text: str = "",
 ) -> RenderedEmail:
+    """Build the email newsletter with card layout and typographic hierarchy."""
+
+    # ---- Plain text (unchanged) ----
     plain_parts = [header, *(message.text for message in messages)]
     if watchlist_text:
         plain_parts.append(watchlist_text)
     plain_parts.append("For informational purposes only; not investment advice.")
     plain_text = "\n\n".join(plain_parts).strip() + "\n"
-    sections = "".join(f"<section>{_render_message_with_source_links(message.text)}</section>" for message in messages)
-    extra = f"<section>{watchlist_html}</section>" if watchlist_html else ""
+
+    # ---- HTML ----
+    today = briefing_today()
+    date_line = (
+        f"{today.strftime('%A')}, {today.strftime('%B')} {today.day}, {today.year}"
+    )
+    sections_html = "".join(_render_section(m) for m in messages)
+    wl_block = watchlist_html if watchlist_html else ""
+
     rendered_html = (
-        f'<html><body style="font-family: {SYSTEM_FONT_STACK};">'
-        f'<h1 style="font-family: {SYSTEM_FONT_STACK};">{html.escape(header)}</h1>{sections}{extra}'
-        "<footer><small>For informational purposes only; not investment advice.</small></footer>"
-        "</body></html>"
+        f'<html><body style="margin:0; padding:24px 16px; background:{_PAGE_BG};'
+        f" font-family:{SYSTEM_FONT_STACK}; -webkit-font-smoothing:antialiased;\">"
+        f'<div style="max-width:600px; margin:0 auto; background:{_SURFACE};'
+        f' border-radius:6px; overflow:hidden;">'
+        # Header
+        f'<div style="padding:28px 28px 20px; border-bottom:1px solid {_DIVIDER};">'
+        f'<h1 style="margin:0; font-size:22px; font-weight:700; letter-spacing:-0.3px;'
+        f" color:{_INK}; font-family:{SYSTEM_FONT_STACK};\">"
+        f"Morning Briefing</h1>"
+        f'<p style="margin:4px 0 0; font-size:13px; color:{_SECONDARY};'
+        f' font-weight:500;">{html.escape(date_line)}</p></div>'
+        # Sections
+        f"{sections_html}"
+        # Watchlist
+        f"{wl_block}"
+        # Footer
+        f'<div style="padding:16px 28px 20px; border-top:1px solid {_DIVIDER};">'
+        f'<p style="margin:0; font-size:11.5px; color:{_QUIET};">'
+        f"For informational purposes only; not investment advice.</p></div>"
+        f"</div></body></html>"
     )
     subject = f"Morning Briefing — {briefing_today().isoformat()}"
     return RenderedEmail(subject=subject, plain_text=plain_text, html=rendered_html)
 
 
-def _render_message_with_source_links(message: str) -> str:
-    """Render a category heading and its stories without exposing raw source URLs."""
-    blocks = [block for block in message.split("\n\n") if block]
-    if not blocks:
+# ------------------------------------------------------------------
+# Section + story rendering
+# ------------------------------------------------------------------
+
+
+def _render_section(message: FormattedMessage) -> str:
+    """Render one category section with accent bar and story cards."""
+    category = getattr(message, "category", "") or _guess_category(message.title)
+    accent = CATEGORY_ACCENT_COLORS.get(category, _SECONDARY)
+    label = CATEGORY_LABELS.get(category, _label_from_title(message.title))
+
+    blocks = [b for b in message.text.split("\n\n") if b]
+    if len(blocks) < 2:
         return ""
 
-    heading = f'<p style="margin: 0;">{html.escape(blocks[0])}</p>'
-    stories = "".join(_render_story_block(block) for block in blocks[1:])
-    return heading + stories
+    stories = "".join(_render_story_card(b) for b in blocks[1:])
+    return (
+        f'<div style="padding:0 28px;">'
+        # Section heading with accent bar
+        f'<table width="100%" cellpadding="0" cellspacing="0" border="0"'
+        f' style="border-collapse:collapse;"><tr>'
+        f'<td style="padding:20px 0 14px; border-bottom:1px solid {_DIVIDER};">'
+        f'<table cellpadding="0" cellspacing="0" border="0"'
+        f' style="border-collapse:collapse;"><tr>'
+        f'<td style="width:3px; height:18px; background:{accent};'
+        f' border-radius:2px; font-size:0; line-height:0;">&nbsp;</td>'
+        f'<td style="padding-left:10px; font-size:11.5px; font-weight:700;'
+        f" text-transform:uppercase; letter-spacing:1px; color:{_SECONDARY};"
+        f' font-family:{SYSTEM_FONT_STACK};">'
+        f"{html.escape(label)}</td>"
+        f"</tr></table></td></tr></table>"
+        # Stories
+        f"{stories}</div>"
+    )
 
 
-def _render_story_block(block: str) -> str:
+def _render_story_card(block: str) -> str:
+    """Render one story with headline / body / source attribution."""
     lines = block.splitlines()
-    rendered: list[str] = []
+    text_lines: list[str] = []
+    source_html = ""
     index = 0
+
     while index < len(lines):
         line = lines[index]
-        if line.startswith("(via ") and line.endswith(")") and index + 1 < len(lines):
-            urls = [value.strip() for value in lines[index + 1].split(",")]
-            labels = [value.strip() for value in line[5:-1].split(",")]
+
+        # ---- Multi-source with paired URLs ----
+        if (
+            line.startswith("(via ")
+            and line.endswith(")")
+            and index + 1 < len(lines)
+        ):
+            labels = [v.strip() for v in line[5:-1].split(",")]
+            urls = [v.strip() for v in lines[index + 1].split(",")]
             if (
                 len(urls) > 1
                 and len(urls) == len(labels)
-                and all(_is_http_url(url) for url in urls)
+                and all(_is_http_url(u) for u in urls)
             ):
-                linked_labels = ", ".join(
-                    f'<a href="{html.escape(url, quote=True)}">{html.escape(label)}</a>'
-                    for label, url in zip(labels, urls, strict=True)
+                linked = ", ".join(
+                    f'<a href="{html.escape(u, quote=True)}"'
+                    f' style="color:{_LINK}; text-decoration:none;">'
+                    f"{html.escape(la)}</a>"
+                    for la, u in zip(labels, urls, strict=True)
                 )
-                rendered.append(f"(via {linked_labels})")
+                source_html = (
+                    f'<p style="margin:8px 0 0; font-size:12.5px;'
+                    f" color:{_SOURCE_CLR}; font-weight:500;"
+                    f' font-family:{SYSTEM_FONT_STACK};">via {linked}</p>'
+                )
                 index += 2
                 continue
+
+        # ---- Single source with URL ----
         if (
             line.startswith("(via ")
             and line.endswith(")")
             and index + 1 < len(lines)
             and _is_http_url(lines[index + 1])
         ):
-            url = html.escape(lines[index + 1], quote=True)
-            rendered.append(f'<a href="{url}">{html.escape(line)}</a>')
+            name = line[5:-1]
+            url = html.escape(lines[index + 1].strip(), quote=True)
+            source_html = (
+                f'<p style="margin:8px 0 0; font-size:12.5px;'
+                f" color:{_SOURCE_CLR}; font-weight:500;"
+                f' font-family:{SYSTEM_FONT_STACK};">via'
+                f' <a href="{url}" style="color:{_LINK};'
+                f' text-decoration:none;">{html.escape(name)}</a></p>'
+            )
             index += 2
             continue
-        rendered.append(html.escape(line))
+
+        # ---- Source without URL ----
+        if line.startswith("(via ") and line.endswith(")"):
+            name = line[5:-1]
+            source_html = (
+                f'<p style="margin:8px 0 0; font-size:12.5px;'
+                f" color:{_SOURCE_CLR}; font-weight:500;"
+                f' font-family:{SYSTEM_FONT_STACK};">via'
+                f" {html.escape(name)}</p>"
+            )
+            index += 1
+            continue
+
+        # ---- Bare URL — skip ----
+        if _is_http_url(line.strip()):
+            index += 1
+            continue
+
+        # ---- Omitted notice — skip ----
+        if line.startswith("+ ") and "omitted for length" in line:
+            index += 1
+            continue
+
+        text_lines.append(line)
         index += 1
+
+    full_text = " ".join(text_lines).strip()
+    if not full_text:
+        return ""
+
+    headline, body = _extract_headline(full_text)
+    margin_bottom = " 0 6px" if body else ""
+    parts = [
+        f'<p style="margin:0{margin_bottom}; font-size:15px;'
+        f" font-weight:600; line-height:1.35; color:{_INK};"
+        f' font-family:{SYSTEM_FONT_STACK};">'
+        f"{html.escape(headline)}</p>"
+    ]
+    if body:
+        parts.append(
+            f'<p style="margin:0; font-size:14.5px; line-height:1.55;'
+            f" color:{_SECONDARY}; font-family:{SYSTEM_FONT_STACK};\">"
+            f"{html.escape(body)}</p>"
+        )
+    if source_html:
+        parts.append(source_html)
+
     return (
-        f'<div style="padding: 8.5px 0; font-family: {SYSTEM_FONT_STACK}; '
-        'font-size: 16px; line-height: 1.5;">'
-        + "<br>".join(rendered)
+        f'<div style="padding:16px 0; border-bottom:1px solid {_DIVIDER};">'
+        + "".join(parts)
         + "</div>"
     )
+
+
+# ------------------------------------------------------------------
+# Headline extraction
+# ------------------------------------------------------------------
+
+
+def _extract_headline(text: str) -> tuple[str, str]:
+    """Split *text* at the first robust sentence boundary into (headline, body).
+
+    Returns the full text as headline with empty body when no clean split
+    is found or the first sentence is unreasonably short (<20 chars).
+    """
+    for match in _SENTENCE_END_RE.finditer(text):
+        dot_end = match.start() + 1  # include the period
+        headline = text[:dot_end].strip()
+        body = text[dot_end:].strip()
+        if len(headline) >= 20:
+            return headline, body
+    return text, ""
+
+
+# ------------------------------------------------------------------
+# Helpers
+# ------------------------------------------------------------------
 
 
 def _is_http_url(value: str) -> bool:
     parsed = urlparse(value)
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
+
+
+def _guess_category(title: str) -> str:
+    """Best-effort category key from a formatted title string."""
+    upper = title.upper()
+    if "BUSINESS" in upper or "TECH" in upper:
+        return "business_tech"
+    if "U.S." in upper or "DOMESTIC" in upper:
+        return "domestic"
+    if "GLOBAL" in upper:
+        return "global"
+    if "CULTURE" in upper or "MEDIA" in upper:
+        return "culture"
+    if "FINANCE" in upper:
+        return "finance"
+    return ""
+
+
+def _label_from_title(title: str) -> str:
+    """Extract a clean section label from a formatted title like
+    ``'\\U0001f9e0 BUSINESS + TECH \\u00b7 Aug 30'``.
+    """
+    # Strip leading emoji / non-ASCII
+    stripped = re.sub(r"^[^\w]+", "", title, flags=re.UNICODE).strip()
+    # Strip date suffix after ·
+    if "·" in stripped:
+        stripped = stripped.split("·")[0].strip()
+    if stripped == stripped.upper() and len(stripped) > 3:
+        return stripped.title().replace("U.s.", "U.S.")
+    return stripped
+
+
+# ------------------------------------------------------------------
+# Watchlist section
+# ------------------------------------------------------------------
 
 
 def render_watchlist_section(
@@ -120,30 +347,27 @@ def render_watchlist_section(
     pending_relationships: int = 0,
     gate_progress_notice: str = "",
 ) -> tuple[str, str]:
-    lines = ["WATCHLIST"]
-    html_rows = ["<h2>Watchlist</h2>"]
+    """Return ``(plain_text, html)`` for the watchlist section."""
+
     by_ticker = {story.ticker: story for story in stories}
+
+    # ========== Plain text (unchanged logic) ==========
+    lines: list[str] = ["WATCHLIST"]
     for ticker, quote in quotes.items():
         if quote is None:
-            quote_line = f"{ticker}: quote unavailable"
-            quote_html = html.escape(quote_line)
+            lines.append(f"{ticker}: quote unavailable")
         else:
             timing = "live" if quote.quote_kind == "live" else f"close {quote.close_date}"
-            color = "#188038" if quote.percent_change > 0 else "#d93025" if quote.percent_change < 0 else "#5f6368"
-            quote_line = f"{ticker}: {quote.close_price:.2f} ({quote.percent_change:+.2f}%) · {timing}"
-            quote_html = (
-                f"{html.escape(ticker)}: "
-                f'<span style="color: {color};">{quote.close_price:.2f} '
-                f"({quote.percent_change:+.2f}%)</span> · {html.escape(timing)}"
+            lines.append(
+                f"{ticker}: {quote.close_price:.2f} ({quote.percent_change:+.2f}%) · {timing}"
             )
-        lines.append(quote_line)
-        row_parts = [f"<div><strong>{quote_html}</strong>"]
+
         story = by_ticker.get(ticker)
         has_content = False
+
         if story is not None and story.disclosures:
             has_content = True
             lines.append("  Disclosed")
-            row_parts.append("<h3>Disclosed</h3><ul>")
             for filing in story.disclosures[:2]:
                 accepted = getattr(filing, "accepted_at", None)
                 timestamp = (
@@ -156,84 +380,328 @@ def render_watchlist_section(
                 headline = f"{getattr(filing, 'form', 'Filing')} accepted {timestamp} — {detail}"
                 url = str(getattr(filing, "url", ""))
                 lines.extend((f"    {headline}", f"    {url}"))
-                row_parts.append(
-                    f'<li><a href="{html.escape(url, quote=True)}">{html.escape(headline)}</a></li>'
-                )
             for filing in story.disclosures[2:4]:
                 headline = f"Also: {getattr(filing, 'form', 'Filing')} — {getattr(filing, 'filing_date', '')}"
                 url = str(getattr(filing, "url", ""))
                 lines.extend((f"    {headline}", f"    {url}"))
-                row_parts.append(
-                    f'<li><a href="{html.escape(url, quote=True)}">{html.escape(headline)}</a></li>'
-                )
-            row_parts.append("</ul>")
+
         if story is not None and (story.summary or (story.summary_unavailable and story.articles)):
             has_content = True
             lines.append("  Reported")
-            row_parts.append("<h3>Reported</h3>")
             if story.summary:
                 lines.append(f"    {story.summary}")
-                body = html.escape(story.summary)
                 if story.why_it_matters:
                     lines.append(f"    Why it matters: {story.why_it_matters}")
-                    body += " " + html.escape(story.why_it_matters)
             else:
-                headline = story.articles[0].title
-                lines.append(f"    Summary unavailable: {headline}")
-                body = "Summary unavailable: " + html.escape(headline)
+                lines.append(f"    Summary unavailable: {story.articles[0].title}")
             source_articles = story.articles[:2]
             source_names = ", ".join(dict.fromkeys(article.source for article in source_articles))
-            links = ", ".join(
-                f'<a href="{html.escape(article.canonical_url or article.url, quote=True)}">{html.escape(article.source)}</a>'
-                for article in source_articles
-            )
             if source_names:
                 lines.append(f"    (via {source_names})")
-            source_html = f" (via {links})" if links else ""
-            row_parts.append(f"<p>{body}{source_html}</p>")
             if story.relationship_label:
-                relation = _relationship_wording(ticker, str(story.relationship_label))
-                lines.append(f"    {relation}")
-                citation = html.escape(story.relationship_source, quote=True)
-                row_parts.append(f'<p>{html.escape(relation)} <a href="{citation}">relationship evidence</a></p>')
+                lines.append(f"    {_relationship_wording(ticker, str(story.relationship_label))}")
+
         if story is not None and story.official_retrieval_failed and has_content:
             lines.append("Official filing retrieval failed.")
-            row_parts.append("<p><strong>Official filing retrieval failed.</strong></p>")
         if story is not None and story.official_retrieval_failed and not has_content:
-            warning = "Official filing retrieval failed; no complete news determination was possible."
-            lines.append(warning)
-            row_parts.append(f"<p>{html.escape(warning)}</p>")
+            lines.append(
+                "Official filing retrieval failed; no complete news determination was possible."
+            )
         elif story is not None and story.classification_incomplete:
-            warning = "Watchlist classification incomplete; some candidates were not evaluated."
-            lines.append(warning)
-            row_parts.append(f"<p>{html.escape(warning)}</p>")
+            lines.append("Watchlist classification incomplete; some candidates were not evaluated.")
         elif story is not None and story.search_error:
-            warning = "Some optional news sources failed." if has_content else "No verified news today (partial sources)."
+            warning = (
+                "Some optional news sources failed."
+                if has_content
+                else "No verified news today (partial sources)."
+            )
             lines.append(warning)
-            row_parts.append(f"<p>{html.escape(warning)}</p>")
         elif not has_content and not (story is not None and story.official_retrieval_failed):
             lines.append("No verified news today.")
-            row_parts.append("<p>No verified news today.</p>")
-        row_parts.append("</div>")
-        html_rows.extend(row_parts)
+
     if gate_state == "DISABLED":
         lines.append("Watchlist evaluation disabled.")
-        html_rows.append("<p><em>Watchlist evaluation disabled.</em></p>")
     if pending_relationships:
-        notice = f"Watchlist review needed: {pending_relationships} relationship(s)."
-        lines.append(notice)
-        html_rows.append(f"<p><em>{html.escape(notice)}</em></p>")
+        lines.append(f"Watchlist review needed: {pending_relationships} relationship(s).")
     if gate_progress_notice:
         lines.append(gate_progress_notice)
-        html_rows.append(f"<p><em>{html.escape(gate_progress_notice)}</em></p>")
-    return "\n".join(lines), "".join(html_rows)
+
+    # ========== HTML (redesigned compact layout) ==========
+    html_output = _build_watchlist_html(
+        quotes, by_ticker, gate_state, pending_relationships, gate_progress_notice,
+    )
+
+    return "\n".join(lines), html_output
+
+
+# ------------------------------------------------------------------
+# Watchlist HTML builder
+# ------------------------------------------------------------------
+
+
+def _build_watchlist_html(
+    quotes: dict[str, EndOfDayQuote | None],
+    by_ticker: dict[str, WatchlistStory],
+    gate_state: str,
+    pending_relationships: int,
+    gate_progress_notice: str,
+) -> str:
+    accent = CATEGORY_ACCENT_COLORS.get("finance", "#7C3AED")
+
+    quiet: list[tuple[str, EndOfDayQuote | None, WatchlistStory | None]] = []
+    news: list[tuple[str, EndOfDayQuote | None, WatchlistStory | None]] = []
+
+    for ticker, quote in quotes.items():
+        story = by_ticker.get(ticker)
+        has_content = bool(
+            story is not None
+            and (
+                story.disclosures
+                or story.summary
+                or (story.summary_unavailable and story.articles)
+            )
+        )
+        if has_content:
+            news.append((ticker, quote, story))
+        else:
+            quiet.append((ticker, quote, story))
+
+    parts: list[str] = []
+
+    # ---- Section header ----
+    parts.append(
+        f'<div style="padding:0 28px;">'
+        f'<table width="100%" cellpadding="0" cellspacing="0" border="0"'
+        f' style="border-collapse:collapse;"><tr>'
+        f'<td style="padding:20px 0 14px; border-bottom:1px solid {_DIVIDER};">'
+        f'<table cellpadding="0" cellspacing="0" border="0"'
+        f' style="border-collapse:collapse;"><tr>'
+        f'<td style="width:3px; height:18px; background:{accent};'
+        f' border-radius:2px; font-size:0; line-height:0;">&nbsp;</td>'
+        f'<td style="padding-left:10px; font-size:11.5px; font-weight:700;'
+        f" text-transform:uppercase; letter-spacing:1px; color:{_SECONDARY};"
+        f' font-family:{SYSTEM_FONT_STACK};">Watchlist</td>'
+        f"</tr></table></td></tr></table>"
+    )
+
+    # ---- 2-column grid for quiet tickers ----
+    if quiet:
+        parts.append(
+            f'<table width="100%" cellpadding="0" cellspacing="0" border="0"'
+            f' style="border-collapse:collapse; font-variant-numeric:tabular-nums;">'
+        )
+        for i in range(0, len(quiet), 2):
+            parts.append("<tr>")
+            for j in range(2):
+                idx = i + j
+                if idx < len(quiet):
+                    t, q, _s = quiet[idx]
+                    cell = _render_quote_cell(t, q)
+                    br = f" border-right:1px solid {_DIVIDER};" if j == 0 else ""
+                    pad = "padding:12px 14px 12px 0;" if j == 0 else "padding:12px 0 12px 14px;"
+                    last_row = (i + 2) >= len(quiet)
+                    bb = "" if last_row else f" border-bottom:1px solid {_DIVIDER};"
+                    parts.append(
+                        f'<td width="50%" style="{pad}{br}{bb}'
+                        f' vertical-align:top;">{cell}</td>'
+                    )
+                else:
+                    parts.append('<td width="50%"></td>')
+            parts.append("</tr>")
+        parts.append("</table>")
+
+    # ---- Full-width rows for tickers with news ----
+    for ticker, quote, story in news:
+        parts.append(_render_watchlist_news_row(ticker, quote, story))
+
+    # ---- Status notices ----
+    notices: list[str] = []
+    if pending_relationships:
+        notices.append(f"Watchlist review needed: {pending_relationships} relationship(s).")
+    if gate_progress_notice:
+        notices.append(gate_progress_notice)
+    for notice in notices:
+        parts.append(
+            f'<p style="margin:12px 0 0; font-size:12px; color:{_QUIET};'
+            f' font-style:italic;">{html.escape(notice)}</p>'
+        )
+
+    parts.append("</div>")
+    return "".join(parts)
+
+
+def _render_quote_cell(ticker: str, quote: EndOfDayQuote | None) -> str:
+    """Compact ticker + price + change for the watchlist grid."""
+    if quote is None:
+        return (
+            f'<span style="font-size:13px; font-weight:700; color:{_INK};'
+            f' font-family:{SYSTEM_FONT_STACK};">{html.escape(ticker)}</span> '
+            f'<span style="font-size:12px; color:{_QUIET};">unavailable</span>'
+        )
+    color = _GREEN if quote.percent_change > 0 else _RED if quote.percent_change < 0 else _SECONDARY
+    sign = "+" if quote.percent_change > 0 else ""
+    return (
+        f'<span style="font-size:13px; font-weight:700; color:{_INK};'
+        f' font-family:{SYSTEM_FONT_STACK};">{html.escape(ticker)}</span> '
+        f'<span style="font-size:13px; font-weight:500; color:{_INK};">'
+        f"{quote.close_price:.2f}</span> "
+        f'<span style="font-size:12px; font-weight:600; color:{color};">'
+        f"{sign}{quote.percent_change:.2f}%</span>"
+    )
+
+
+def _render_watchlist_news_row(
+    ticker: str,
+    quote: EndOfDayQuote | None,
+    story: WatchlistStory | None,
+) -> str:
+    """Full-width watchlist row for a ticker that has disclosures or news."""
+    quote_cell = _render_quote_cell(ticker, quote)
+    parts = [
+        f'<div style="padding:14px 0; border-top:1px solid {_DIVIDER};">'
+        f"<div>{quote_cell}</div>"
+    ]
+
+    if story is None:
+        parts.append("</div>")
+        return "".join(parts)
+
+    # ---- Disclosures ----
+    if story.disclosures:
+        parts.append(
+            f'<p style="margin:8px 0 4px; font-size:11px; font-weight:700;'
+            f" text-transform:uppercase; letter-spacing:0.5px; color:{_SECONDARY};"
+            f' font-family:{SYSTEM_FONT_STACK};">Disclosed</p>'
+        )
+        for filing in story.disclosures[:2]:
+            accepted = getattr(filing, "accepted_at", None)
+            timestamp = (
+                accepted.astimezone(ZoneInfo("America/New_York")).strftime("%H:%M ET")
+                if accepted is not None and accepted.tzinfo is not None
+                else str(getattr(filing, "filing_date", ""))
+            )
+            item_values = tuple(getattr(filing, "items", ()))
+            detail = f"Items {', '.join(item_values)}" if item_values else "material filing"
+            filing_headline = (
+                f"{getattr(filing, 'form', 'Filing')} accepted {timestamp} — {detail}"
+            )
+            url = str(getattr(filing, "url", ""))
+            parts.append(
+                f'<p style="margin:2px 0; font-size:13px; line-height:1.4;">'
+                f'<a href="{html.escape(url, quote=True)}" style="color:{_LINK};'
+                f' text-decoration:none;">{html.escape(filing_headline)}</a></p>'
+            )
+        for filing in story.disclosures[2:4]:
+            filing_headline = (
+                f"Also: {getattr(filing, 'form', 'Filing')}"
+                f" — {getattr(filing, 'filing_date', '')}"
+            )
+            url = str(getattr(filing, "url", ""))
+            parts.append(
+                f'<p style="margin:2px 0; font-size:13px; line-height:1.4;">'
+                f'<a href="{html.escape(url, quote=True)}" style="color:{_LINK};'
+                f' text-decoration:none;">{html.escape(filing_headline)}</a></p>'
+            )
+
+    # ---- Reported summary ----
+    if story.summary or (story.summary_unavailable and story.articles):
+        if story.summary:
+            body = html.escape(story.summary)
+            if story.why_it_matters:
+                body += " " + html.escape(story.why_it_matters)
+        else:
+            body = "Summary unavailable: " + html.escape(story.articles[0].title)
+        parts.append(
+            f'<p style="margin:6px 0 0; font-size:13.5px; line-height:1.5;'
+            f" color:{_SECONDARY}; font-family:{SYSTEM_FONT_STACK};\">"
+            f"{body}</p>"
+        )
+        # Source links
+        source_articles = story.articles[:2]
+        if source_articles:
+            links = ", ".join(
+                f'<a href="{html.escape(a.canonical_url or a.url, quote=True)}"'
+                f' style="color:{_LINK}; text-decoration:none;">'
+                f"{html.escape(a.source)}</a>"
+                for a in source_articles
+            )
+            parts.append(
+                f'<p style="margin:5px 0 0; font-size:12px; color:{_SOURCE_CLR};'
+                f' font-style:italic;">via {links}</p>'
+            )
+
+    # ---- Relationship ----
+    if story.relationship_label:
+        relation = _relationship_wording(ticker, str(story.relationship_label))
+        if story.relationship_source:
+            citation = html.escape(story.relationship_source, quote=True)
+            parts.append(
+                f'<p style="margin:5px 0 0; font-size:12px; color:{_SOURCE_CLR};'
+                f' font-style:italic;">{html.escape(relation)}'
+                f' <a href="{citation}" style="color:{_LINK};'
+                f' text-decoration:none;">evidence</a></p>'
+            )
+        else:
+            parts.append(
+                f'<p style="margin:5px 0 0; font-size:12px; color:{_SOURCE_CLR};'
+                f' font-style:italic;">{html.escape(relation)}</p>'
+            )
+
+    # ---- Error / warning notices ----
+    has_content = bool(
+        story.disclosures
+        or story.summary
+        or (story.summary_unavailable and story.articles)
+    )
+    if story.official_retrieval_failed:
+        msg = (
+            "Official filing retrieval failed."
+            if has_content
+            else "Official filing retrieval failed; no complete news determination was possible."
+        )
+        parts.append(
+            f'<p style="margin:5px 0 0; font-size:12px; color:{_QUIET};'
+            f' font-style:italic;">{html.escape(msg)}</p>'
+        )
+    elif story.classification_incomplete:
+        parts.append(
+            f'<p style="margin:5px 0 0; font-size:12px; color:{_QUIET};'
+            f' font-style:italic;">Watchlist classification incomplete.</p>'
+        )
+    elif story.search_error:
+        warning = (
+            "Some optional news sources failed."
+            if has_content
+            else "No verified news today (partial sources)."
+        )
+        parts.append(
+            f'<p style="margin:5px 0 0; font-size:12px; color:{_QUIET};'
+            f' font-style:italic;">{html.escape(warning)}</p>'
+        )
+
+    parts.append("</div>")
+    return "".join(parts)
+
+
+# ------------------------------------------------------------------
+# Shared helpers
+# ------------------------------------------------------------------
 
 
 def _relationship_wording(ticker: str, label: str) -> str:
     return {
         "DIRECT": f"Relevance: directly about the {ticker} issuer.",
         "AFFILIATE": f"Relevance: a controlled affiliate of the {ticker} issuer.",
-        "MANAGED_CAPITAL": "Relevance: Brookfield's asset-management platform; this does not establish that BN entered the transaction.",
-        "UNDERLYING_ASSET": "Relevance: ETHB holds ether, so this affects the fund's underlying asset; the trust did not cause the event.",
-        "FAMILY_UNRESOLVED": "Relevance: the source names the corporate family but does not establish which entity acted.",
+        "MANAGED_CAPITAL": (
+            "Relevance: Brookfield’s asset-management platform; "
+            "this does not establish that BN entered the transaction."
+        ),
+        "UNDERLYING_ASSET": (
+            "Relevance: ETHB holds ether, so this affects the fund’s "
+            "underlying asset; the trust did not cause the event."
+        ),
+        "FAMILY_UNRESOLVED": (
+            "Relevance: the source names the corporate family but does not "
+            "establish which entity acted."
+        ),
     }.get(label, f"Relevance: {label}")

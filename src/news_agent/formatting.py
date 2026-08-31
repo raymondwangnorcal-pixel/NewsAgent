@@ -101,6 +101,7 @@ class FormattedMessage:
     title: str
     text: str
     omitted_count: int = 0
+    category: str = ""
 
     @property
     def char_count(self) -> int:
@@ -152,6 +153,7 @@ def format_category_message(section: BriefingSection, options: FormatOptions | N
                 title=header_title(section.category, options.today),
                 text=text,
                 omitted_count=omitted_count,
+                category=section.category,
             )
         if include_sources:
             include_sources = False
