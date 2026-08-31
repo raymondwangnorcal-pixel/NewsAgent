@@ -3,22 +3,58 @@ name: Morning briefing
 on:
   workflow_dispatch:
   schedule:
-    # 11:00 UTC is 7:00 AM Eastern during daylight saving time.
-    - cron: "0 11 * * 1-5"
+    # 12:20 UTC = 8:20 AM Eastern (EDT, Mar–Nov).
+    # During EST (Nov–Mar) this fires at 7:20 AM Eastern.
+    # GitHub Actions cron can lag 5–15 minutes past the nominal time.
+    - cron: "20 12 * * *"
 
 jobs:
   send-briefing:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
       - run: python -m pip install -e ".[providers]"
-      - run: news-briefing --send
+
+      # Restore persistent state from the most recent run.
+      # email_state.db: edition dedup, watchlist tracking, quote cache.
+      # story_history.json: repeated-story suppression.
+      - uses: actions/cache/restore@v4
+        id: restore-state
+        with:
+          path: |
+            data/email_state.db
+            data/story_history.json
+          key: briefing-state-${{ github.run_id }}
+          restore-keys: |
+            briefing-state-
+
+      - run: news-briefing --send --to email
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
-          BRIEFING_DELIVERY_CHANNEL: telegram
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GMAIL_SMTP_HOST: smtp.gmail.com
+          GMAIL_SMTP_PORT: "587"
+          GMAIL_SMTP_USERNAME: ${{ secrets.GMAIL_SMTP_USERNAME }}
+          GMAIL_SMTP_APP_PASSWORD: ${{ secrets.GMAIL_SMTP_APP_PASSWORD }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          SEC_CONTACT_EMAIL: ${{ secrets.SEC_CONTACT_EMAIL }}
+          TIINGO_API_KEY: ${{ secrets.TIINGO_API_KEY }}
+          EODHD_API_KEY: ${{ secrets.EODHD_API_KEY }}
+          BRIEFING_TIMEZONE: America/New_York
+
+      # Save state after the run so the next run picks it up.
+      # Always runs even if the briefing step fails, so partial
+      # state (e.g. a recorded failed edition) is preserved.
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: |
+            data/email_state.db
+            data/story_history.json
+          key: briefing-state-${{ github.run_id }}
