@@ -173,7 +173,7 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
             f' white-space:nowrap; padding-right:10px;">'
             f'<table cellpadding="0" cellspacing="0" border="0"'
             f' style="border-collapse:collapse;"><tr>'
-            f'<td style="width:4px; height:4px; background:{accent};'
+            f'<td style="width:6px; height:6px; background:{accent};'
             f' border-radius:50%; font-size:0; line-height:0;">&nbsp;</td>'
             f'<td style="padding-left:10px; font-size:10.5px; font-weight:700;'
             f" text-transform:uppercase; letter-spacing:0.8px; color:{_SECONDARY};"
@@ -183,7 +183,7 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
             f'<td style="padding:4px 0; vertical-align:baseline;">'
             f'<span style="font-size:13.5px; font-weight:600; line-height:1.3; color:{_INK};'
             f' font-family:{SYSTEM_FONT_STACK};">'
-            f"{html.escape(hl)}</span></td>"
+            f"<b>{html.escape(hl)}</b></span></td>"
             f"</tr>"
         )
 
@@ -327,7 +327,7 @@ def _render_story_card(block: str) -> str:
         f'<p style="margin:0{margin_bottom}; font-size:19px;'
         f" font-weight:700; line-height:1.3; color:{_INK};"
         f' font-family:{SYSTEM_FONT_STACK};">'
-        f"{html.escape(headline)}</p>"
+        f"<b>{html.escape(headline)}</b></p>"
     ]
     if body:
         parts.append(
