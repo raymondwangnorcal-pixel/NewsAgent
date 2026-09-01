@@ -169,19 +169,19 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
     for label, accent, hl in items:
         rows.append(
             f'<tr>'
-            f'<td style="padding:6px 0; vertical-align:baseline; width:1px;'
+            f'<td style="padding:4px 0; vertical-align:baseline; width:1px;'
             f' white-space:nowrap; padding-right:10px;">'
             f'<table cellpadding="0" cellspacing="0" border="0"'
             f' style="border-collapse:collapse;"><tr>'
             f'<td style="width:4px; height:4px; background:{accent};'
             f' border-radius:50%; font-size:0; line-height:0;">&nbsp;</td>'
-            f'<td style="padding-left:6px; font-size:10.5px; font-weight:700;'
+            f'<td style="padding-left:10px; font-size:10.5px; font-weight:700;'
             f" text-transform:uppercase; letter-spacing:0.8px; color:{_SECONDARY};"
             f' font-family:{SYSTEM_FONT_STACK}; white-space:nowrap;">'
             f"{html.escape(label)}</td>"
             f"</tr></table></td>"
-            f'<td style="padding:6px 0; vertical-align:baseline;">'
-            f'<span style="font-size:13.5px; line-height:1.3; color:{_INK};'
+            f'<td style="padding:4px 0; vertical-align:baseline;">'
+            f'<span style="font-size:13.5px; font-weight:600; line-height:1.3; color:{_INK};'
             f' font-family:{SYSTEM_FONT_STACK};">'
             f"{html.escape(hl)}</span></td>"
             f"</tr>"
