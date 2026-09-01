@@ -18,11 +18,13 @@ from __future__ import annotations
 
 import argparse
 import html as html_lib
+import json
 import re
 import sys
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 # Ensure src/ is importable when run from the project root.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
@@ -36,6 +38,9 @@ from news_agent.mailer.smtp import send_email
 from news_agent.mailer.state import EmailStateStore
 from news_agent.mailer.watchlist_news import WatchlistStory
 from news_agent.models import Article
+from news_agent.watchlist.entity_map import load_entity_map
+from news_agent.watchlist.filings import describe_filing_event
+from news_agent.watchlist.models import Filing
 
 # Map display prefixes back to category keys: "🧠 BUSINESS + TECH" → "business_tech"
 _REVERSE_HEADERS: dict[str, str] = {v: k for k, v in CATEGORY_HEADERS.items()}
@@ -64,6 +69,17 @@ _ANCHOR_RE = re.compile(
     r'<a\s+[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)</a>',
     re.IGNORECASE | re.DOTALL,
 )
+_PARAGRAPH_RE = re.compile(
+    r"(?P<open><p(?:\s[^>]*)?>)(?P<body>.*?)(?P<close></p>)",
+    re.IGNORECASE | re.DOTALL,
+)
+_ANCHOR_PARTS_RE = re.compile(
+    r'(?P<open><a\s+[^>]*href=["\'](?P<url>[^"\']+)["\'][^>]*>)'
+    r"(?P<label>.*?)"
+    r"(?P<close></a>)",
+    re.IGNORECASE | re.DOTALL,
+)
+_EASTERN = ZoneInfo("America/New_York")
 
 
 @dataclass(frozen=True)
@@ -74,6 +90,15 @@ class _LegacyFiling:
     url: str
     headline: str = ""
     accepted_at: None = None
+
+
+@dataclass(frozen=True)
+class _StoredFilingDisplay:
+    ticker: str
+    filing_date: str
+    headline: str
+    event_key: str
+    metadata: str
 
 
 # ------------------------------------------------------------------
@@ -161,6 +186,111 @@ def _extract_watchlist_html(stored_html: str) -> str:
             pos = close_idx + 6
 
     return ""
+
+
+def _refresh_watchlist_disclosures(watchlist_html: str, store: EmailStateStore) -> str:
+    """Replace old filing labels with descriptions rebuilt from locally stored documents."""
+    displays = _stored_filing_displays(store)
+    if not displays:
+        return watchlist_html
+
+    seen_events: set[tuple[str, str, str]] = set()
+
+    def refresh_paragraph(match: re.Match[str]) -> str:
+        body = match.group("body")
+        anchor = _ANCHOR_PARTS_RE.search(body)
+        if anchor is None:
+            return match.group(0)
+
+        display = displays.get(html_lib.unescape(anchor.group("url")).rstrip("/"))
+        if display is None:
+            return match.group(0)
+
+        event_identity = (display.ticker, display.filing_date, display.event_key)
+        if display.event_key and event_identity in seen_events:
+            return ""
+        if display.event_key:
+            seen_events.add(event_identity)
+
+        filing_link = (
+            anchor.group("open")
+            + html_lib.escape(display.headline)
+            + anchor.group("close")
+        )
+        metadata = (
+            ' <span style="font-size:11px; color:#9AA0A6;">'
+            + html_lib.escape(display.metadata)
+            + "</span>"
+        )
+        return match.group("open") + filing_link + metadata + match.group("close")
+
+    return _PARAGRAPH_RE.sub(refresh_paragraph, watchlist_html)
+
+
+def _stored_filing_displays(store: EmailStateStore) -> dict[str, _StoredFilingDisplay]:
+    entity_map = load_entity_map()
+    with store.connect() as connection:
+        rows = connection.execute(
+            """
+            SELECT ticker, accession, form_type, accepted_at, canonical_url, body, metadata_json
+            FROM watchlist_documents
+            WHERE source_id = 'edgar'
+            ORDER BY accepted_at DESC, document_id
+            """
+        ).fetchall()
+
+    displays: dict[str, _StoredFilingDisplay] = {}
+    for row in rows:
+        ticker = str(row["ticker"])
+        entity = entity_map.tickers.get(ticker)
+        accepted_at = _stored_datetime(row["accepted_at"])
+        canonical_url = str(row["canonical_url"])
+        if entity is None or accepted_at is None or not canonical_url:
+            continue
+
+        try:
+            metadata = json.loads(str(row["metadata_json"] or "{}"))
+        except (TypeError, ValueError, json.JSONDecodeError):
+            metadata = {}
+        if not isinstance(metadata, dict):
+            metadata = {}
+        items_value = metadata.get("items", [])
+        items = tuple(str(item) for item in items_value) if isinstance(items_value, list) else ()
+        form = str(row["form_type"])
+        local_accepted_at = accepted_at.astimezone(_EASTERN)
+        filing = Filing(
+            cik=entity.cik,
+            accession=str(row["accession"]),
+            form=form,
+            filing_date=local_accepted_at.date(),
+            accepted_at=accepted_at,
+            primary_document=canonical_url.rstrip("/").rsplit("/", 1)[-1],
+            items=items,
+            description=str(metadata.get("description", "")),
+        )
+        headline, event_key = describe_filing_event(
+            filing,
+            str(row["body"] or ""),
+            entity.legal_issuer,
+        )
+        displays[canonical_url.rstrip("/")] = _StoredFilingDisplay(
+            ticker=ticker,
+            filing_date=filing.filing_date.isoformat(),
+            headline=headline,
+            event_key=event_key,
+            metadata=f'{form} · {local_accepted_at.strftime("%H:%M")} ET',
+        )
+    return displays
+
+
+def _stored_datetime(value: object) -> datetime | None:
+    if not value:
+        return None
+    try:
+        parsed = datetime.fromisoformat(str(value))
+    except ValueError:
+        return None
+    return parsed.replace(tzinfo=timezone.utc) if parsed.tzinfo is None else parsed
 
 
 def _rerender_legacy_watchlist_html(legacy_html: str) -> str:
@@ -380,6 +510,7 @@ def main() -> None:
     # ---- Extract watchlist HTML from stored rendering ----
     watchlist_html = _extract_watchlist_html(edition.html)
     if watchlist_html:
+        watchlist_html = _refresh_watchlist_disclosures(watchlist_html, store)
         print("Watchlist HTML extracted from stored edition.")
     else:
         print("No watchlist block found; re-rendering without it.")

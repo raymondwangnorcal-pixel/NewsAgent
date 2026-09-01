@@ -121,7 +121,7 @@ def discover_material_filings(
             else:
                 reason = "rendered" if determination else "excluded_by_form_policy"
             if determination:
-                headline, event_key = _describe_filing_event(
+                headline, event_key = describe_filing_event(
                     filing,
                     body or filing.description,
                     entity.legal_issuer,
@@ -176,7 +176,7 @@ def _document_text(payload: bytes) -> str:
     return re.sub(r"\s+", " ", html.unescape(without_tags)).strip()
 
 
-def _describe_filing_event(filing: Filing, text: str, legal_issuer: str) -> tuple[str, str]:
+def describe_filing_event(filing: Filing, text: str, legal_issuer: str) -> tuple[str, str]:
     """Return a reader-facing headline and a conservative deduplication key."""
     issuer = _reader_issuer_name(legal_issuer)
     lowered = text.casefold()
@@ -186,7 +186,7 @@ def _describe_filing_event(filing: Filing, text: str, legal_issuer: str) -> tupl
         return f"{issuer} reported financial results.", "financial_results"
     if form in {"10-Q", "10-K", "20-F", "40-F"} and not text.strip():
         period = "quarterly" if form == "10-Q" else "annual"
-        return f"{issuer} filed its {period} financial report.", f"{period}_financial_report"
+        return f"{issuer} filed its {period} financial report.", "financial_results"
 
     has_results = bool(
         re.search(r"\bq[1-4]\s+20\d{2}\b", text, flags=re.IGNORECASE)

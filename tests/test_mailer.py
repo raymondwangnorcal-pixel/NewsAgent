@@ -169,7 +169,9 @@ def test_headline_index_uses_email_safe_aligned_label_cells() -> None:
     rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
     index_html = rendered.html.split("In This Briefing", maxsplit=1)[1].split("</table></div>", maxsplit=1)[0]
 
-    assert index_html.count("<table") == 1
+    assert index_html.count("<table") == 2
+    assert '<table class="briefing-desktop-index"' in index_html
+    assert '<table class="briefing-mobile-index"' in index_html
     assert index_html.count('width="140"') == 2
     assert "table-layout:fixed" in index_html
     assert "margin:0 0 12px" in rendered.html
@@ -279,16 +281,12 @@ def test_mobile_newsletter_replaces_briefing_links_with_plain_text() -> None:
         '<a href="#section-business-tech" class="briefing-desktop-only"'
         in rendered.html
     )
-    assert (
-        '<span class="briefing-mobile-only" style="display:none;">'
-        "<b>Business + Tech</b></span>"
-        in rendered.html
-    )
-    assert (
-        '<span class="briefing-mobile-only" style="display:none;">'
-        "<b>A sufficiently long business headline.</b></span>"
-        in rendered.html
-    )
+    mobile_index = rendered.html.split(
+        '<table class="briefing-mobile-index"', maxsplit=1
+    )[1].split("</table>", maxsplit=1)[0]
+    assert "<b>Business + Tech</b>" in mobile_index
+    assert "<b>A sufficiently long business headline.</b>" in mobile_index
+    assert 'href="#section-business-tech"' not in mobile_index
     assert (
         '<span style="text-transform:none; text-decoration:underline;" '
         'class="briefing-desktop-only">(click to jump to category)</span>'
@@ -296,7 +294,34 @@ def test_mobile_newsletter_replaces_briefing_links_with_plain_text() -> None:
     )
     assert "@media screen and (max-width:600px)" in rendered.html
     assert ".briefing-desktop-only{display:none!important;}" in rendered.html
-    assert ".briefing-mobile-only{display:inline!important;}" in rendered.html
+    assert ".briefing-desktop-index{display:none!important;}" in rendered.html
+    assert ".briefing-mobile-index{display:table!important;width:100%!important;}" in rendered.html
+
+
+def test_mobile_briefing_stacks_each_headline_below_its_category() -> None:
+    messages = [
+        FormattedMessage(
+            "Business + Tech",
+            "BUSINESS + TECH\n\nDisney will add more live sports to Disney+ beginning this fall. "
+            "Supporting context.",
+            category="business_tech",
+        )
+    ]
+
+    rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
+    assert '<table class="briefing-mobile-index"' in rendered.html
+    mobile_index = rendered.html.split(
+        '<table class="briefing-mobile-index"', maxsplit=1
+    )[1].split("</table>", maxsplit=1)[0]
+
+    assert mobile_index.count("<td") == 1
+    assert mobile_index.index("<b>Business + Tech</b>") < mobile_index.index(
+        "<b>Disney will add more live sports to Disney+ beginning this fall.</b>"
+    )
+    assert 'href="#section-business-tech"' not in mobile_index
+    assert ".briefing-mobile-index{display:none;}" in rendered.html
+    assert ".briefing-mobile-index{display:table!important;width:100%!important;}" in rendered.html
+    assert ".briefing-desktop-index{display:none!important;}" in rendered.html
 
 
 def test_mobile_newsletter_matches_story_headline_size_to_body_text() -> None:

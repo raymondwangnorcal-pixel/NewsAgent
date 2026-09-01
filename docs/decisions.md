@@ -1619,3 +1619,17 @@
 - Superseded by: none
 - Note: The committed renderer provides mobile-only static briefing entries, hides the jump prompt, and reduces story-headline size while preserving desktop behavior.
 - Privacy waivers: none
+
+## DEC-0087 — Stack briefing-index headlines below categories on mobile
+
+- Date: 2026-09-01
+- Owner: user
+- Status at record: active
+- Decision: At viewport widths of 600 pixels or less, each `In This Briefing` entry will show its non-clickable category label followed by the lead story headline beneath it in one stacked block, while desktop retains the linked two-column index.
+- Rationale: Long lead headlines are easier to scan on narrow screens when they use the full width beneath their category instead of starting in a narrow adjacent column.
+- Scope: Morning Briefing responsive HTML and mobile briefing-index presentation.
+- Implementation: pending
+- Recorded against HEAD: `a277094c375cd0423535cc02eff8075e5f869697`
+- Supersedes: none
+- Evidence: User-approved bounded design in the Codex task on 2026-09-01 and the mobile briefing-index regression test.
+- Privacy waivers: none

@@ -30,10 +30,11 @@ _QUIET = "#9AA0A6"
 
 _RESPONSIVE_CSS = (
     "<style>"
-    ".briefing-mobile-only{display:none;}"
+    ".briefing-mobile-index{display:none;}"
     "@media screen and (max-width:600px){"
     ".briefing-desktop-only{display:none!important;}"
-    ".briefing-mobile-only{display:inline!important;}"
+    ".briefing-desktop-index{display:none!important;}"
+    ".briefing-mobile-index{display:table!important;width:100%!important;}"
     ".story-headline{font-size:14px!important;}"
     "}"
     "</style>"
@@ -178,9 +179,10 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
     if not items:
         return ""
 
-    rows: list[str] = []
+    desktop_rows: list[str] = []
+    mobile_rows: list[str] = []
     for label, accent, hl, anchor in items:
-        rows.append(
+        desktop_rows.append(
             f'<tr>'
             f'<td width="140" style="width:140px; padding:6px 12px 6px 8px;'
             f' border-left:3px solid {accent}; vertical-align:top;">'
@@ -189,18 +191,24 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
             f' font-family:{SYSTEM_FONT_STACK}; white-space:nowrap;">'
             f'<a href="#{anchor}" class="briefing-desktop-only"'
             f' style="color:{_SECONDARY}; text-decoration:underline;">'
-            f"<b>{html.escape(label)}</b></a>"
-            f'<span class="briefing-mobile-only" style="display:none;">'
-            f"<b>{html.escape(label)}</b></span></span></td>"
+            f"<b>{html.escape(label)}</b></a></span></td>"
             f'<td style="padding:6px 0; vertical-align:top;">'
             f'<span style="font-size:13.5px; font-weight:600; line-height:1.35; color:{_INK};'
             f' font-family:{SYSTEM_FONT_STACK};">'
             f'<a href="#{anchor}" class="briefing-desktop-only"'
             f' style="color:{_INK}; text-decoration:underline;">'
-            f"<b>{html.escape(hl)}</b></a>"
-            f'<span class="briefing-mobile-only" style="display:none;">'
-            f"<b>{html.escape(hl)}</b></span></span></td>"
+            f"<b>{html.escape(hl)}</b></a></span></td>"
             f"</tr>"
+        )
+        mobile_rows.append(
+            f'<tr><td style="padding:8px 8px 10px; border-left:3px solid {accent};'
+            f' vertical-align:top; font-family:{SYSTEM_FONT_STACK};">'
+            f'<p style="margin:0; font-size:10.5px; font-weight:700; line-height:1.35;'
+            f' text-transform:uppercase; letter-spacing:0.8px; color:{_SECONDARY};">'
+            f"<b>{html.escape(label)}</b></p>"
+            f'<p style="margin:4px 0 0; font-size:13.5px; font-weight:600;'
+            f' line-height:1.4; color:{_INK};">'
+            f"<b>{html.escape(hl)}</b></p></td></tr>"
         )
 
     return (
@@ -212,10 +220,13 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
         f'<span style="text-transform:none; text-decoration:underline;"'
         f' class="briefing-desktop-only">'
         f"(click to jump to category)</span></p>"
-        f'<table cellpadding="0" cellspacing="0" border="0"'
+        f'<table class="briefing-desktop-index" cellpadding="0" cellspacing="0" border="0"'
         f' style="border-collapse:separate; border-spacing:0; width:100%;'
         f' table-layout:fixed;">'
-        + "".join(rows)
+        + "".join(desktop_rows)
+        + '</table><table class="briefing-mobile-index" cellpadding="0" cellspacing="0"'
+        + ' border="0" style="display:none; border-collapse:separate; border-spacing:0; width:100%;">'
+        + "".join(mobile_rows)
         + "</table></div>"
     )
 
