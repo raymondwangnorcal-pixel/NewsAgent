@@ -34,9 +34,11 @@ _RESPONSIVE_CSS = (
     "@media screen and (max-width:600px){"
     ".briefing-desktop-only{display:none!important;}"
     ".briefing-desktop-index{display:none!important;}"
-    ".briefing-index{padding-left:0!important;padding-right:12px!important;}"
-    ".briefing-index-heading{margin-left:11px!important;font-size:10.5px!important;"
-    "font-weight:700!important;}"
+    ".briefing-index{padding-top:0!important;padding-left:0!important;"
+    "padding-right:12px!important;padding-bottom:0!important;}"
+    f".briefing-index-heading{{margin:0!important;padding:14px 0 8px 8px!important;"
+    f"font-size:11.5px!important;font-weight:700!important;color:{_INK}!important;"
+    f"border-left:3px solid {_INK}!important;}}"
     ".briefing-mobile-index{display:table!important;width:100%!important;}"
     ".story-headline{font-size:14px!important;}"
     "}"
@@ -184,7 +186,7 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
 
     desktop_rows: list[str] = []
     mobile_rows: list[str] = []
-    for label, accent, hl, anchor in items:
+    for item_index, (label, accent, hl, anchor) in enumerate(items):
         desktop_rows.append(
             f'<tr>'
             f'<td width="140" style="width:140px; padding:6px 12px 6px 8px;'
@@ -203,8 +205,10 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
             f"<b>{html.escape(hl)}</b></a></span></td>"
             f"</tr>"
         )
+        mobile_bottom_padding = "20px" if item_index == len(items) - 1 else "10px"
         mobile_rows.append(
-            f'<tr><td style="padding:8px 0 10px 8px; border-left:3px solid {accent};'
+            f'<tr><td style="padding:8px 0 {mobile_bottom_padding} 8px;'
+            f' border-left:3px solid {accent};'
             f' vertical-align:top; font-family:{SYSTEM_FONT_STACK};">'
             f'<p style="margin:0; font-size:10.5px; font-weight:700; line-height:1.35;'
             f' text-transform:uppercase; letter-spacing:0.8px; color:{_SECONDARY};">'

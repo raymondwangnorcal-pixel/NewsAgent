@@ -341,11 +341,12 @@ def test_mobile_briefing_uses_right_edge_instead_of_wrapping_early() -> None:
         in rendered.html
     )
     assert (
-        ".briefing-index{padding-left:0!important;padding-right:12px!important;}"
+        ".briefing-index{padding-top:0!important;padding-left:0!important;"
+        "padding-right:12px!important;padding-bottom:0!important;}"
         in rendered.html
     )
     assert '<table class="briefing-mobile-index" width="100%"' in rendered.html
-    assert 'style="padding:8px 0 10px 8px; border-left:3px solid #1565C0;' in rendered.html
+    assert 'style="padding:8px 0 20px 8px; border-left:3px solid #1565C0;' in rendered.html
 
 
 def test_mobile_briefing_moves_rows_to_header_edge_without_changing_text_inset() -> None:
@@ -360,11 +361,12 @@ def test_mobile_briefing_moves_rows_to_header_edge_without_changing_text_inset()
     rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
 
     assert (
-        ".briefing-index{padding-left:0!important;padding-right:12px!important;}"
+        ".briefing-index{padding-top:0!important;padding-left:0!important;"
+        "padding-right:12px!important;padding-bottom:0!important;}"
         in rendered.html
     )
     assert '<p class="briefing-index-heading" style="margin:0 0 12px;' in rendered.html
-    assert 'style="padding:8px 0 10px 8px; border-left:3px solid #1565C0;' in rendered.html
+    assert 'style="padding:8px 0 20px 8px; border-left:3px solid #1565C0;' in rendered.html
 
 
 def test_mobile_briefing_heading_matches_category_label_alignment_and_weight() -> None:
@@ -379,12 +381,73 @@ def test_mobile_briefing_heading_matches_category_label_alignment_and_weight() -
     rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
 
     assert (
-        ".briefing-index-heading{margin-left:11px!important;font-size:10.5px!important;"
-        "font-weight:700!important;}"
+        ".briefing-index-heading{margin:0!important;padding:14px 0 8px 8px!important;"
+        "font-size:11.5px!important;font-weight:700!important;color:#0F1419!important;"
+        "border-left:3px solid #0F1419!important;}"
         in rendered.html
     )
     assert ">In This Briefing " not in rendered.html
     assert "><b>In This Briefing</b> " in rendered.html
+
+
+def test_mobile_briefing_heading_has_matching_border_and_reaches_watchlist() -> None:
+    messages = [
+        FormattedMessage(
+            "Business + Tech",
+            "BUSINESS + TECH\n\nA sufficiently long business headline. Supporting context.",
+            category="business_tech",
+        )
+    ]
+
+    rendered = render_minimal_newsletter(
+        messages,
+        "Morning Briefing - 2026-09-01",
+        watchlist_html='<div class="watchlist-marker">Watchlist</div>',
+    )
+
+    assert (
+        ".briefing-index{padding-top:0!important;padding-left:0!important;"
+        "padding-right:12px!important;padding-bottom:0!important;}"
+        in rendered.html
+    )
+    assert (
+        ".briefing-index-heading{margin:0!important;padding:14px 0 8px 8px!important;"
+        "font-size:11.5px!important;font-weight:700!important;color:#0F1419!important;"
+        "border-left:3px solid #0F1419!important;}"
+        in rendered.html
+    )
+    assert rendered.html.index("</table></div>") < rendered.html.index("watchlist-marker")
+
+
+def test_mobile_briefing_borders_continue_through_reduced_heading_and_bottom_spacing() -> None:
+    messages = [
+        FormattedMessage(
+            "Business + Tech",
+            "BUSINESS + TECH\n\nA sufficiently long business headline. Supporting context.",
+            category="business_tech",
+        ),
+        FormattedMessage(
+            "Finance",
+            "FINANCE\n\nA sufficiently long finance headline. Supporting context.",
+            category="finance",
+        ),
+    ]
+
+    rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
+
+    assert (
+        ".briefing-index{padding-top:0!important;padding-left:0!important;"
+        "padding-right:12px!important;padding-bottom:0!important;}"
+        in rendered.html
+    )
+    assert (
+        ".briefing-index-heading{margin:0!important;padding:14px 0 8px 8px!important;"
+        "font-size:11.5px!important;font-weight:700!important;color:#0F1419!important;"
+        "border-left:3px solid #0F1419!important;}"
+        in rendered.html
+    )
+    assert 'style="padding:8px 0 10px 8px; border-left:3px solid #1565C0;' in rendered.html
+    assert 'style="padding:8px 0 20px 8px; border-left:3px solid #7B1FA2;' in rendered.html
 
 
 def test_mobile_newsletter_matches_story_headline_size_to_body_text() -> None:
