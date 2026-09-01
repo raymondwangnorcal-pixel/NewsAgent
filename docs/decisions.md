@@ -1547,3 +1547,17 @@
 - Supersedes: none
 - Evidence: User-requested dry-run formatting behavior in the Codex task on 2026-09-01.
 - Privacy waivers: none
+
+## DEC-0083 — Link briefing index entries to their sections
+
+- Date: 2026-09-01
+- Owner: user
+- Status at record: active
+- Decision: Each category label and lead headline in `In This Briefing` will link to a stable internal anchor immediately before the matching newsletter section.
+- Rationale: Readers should be able to jump directly from the briefing index to the category that interests them while retaining a harmless static fallback in clients that ignore internal anchors.
+- Scope: Morning Briefing HTML index and category section headings.
+- Implementation: pending
+- Recorded against HEAD: `66bd7cfb21e8eeb02c2dc87556e3d1922c4e9114`
+- Supersedes: none
+- Evidence: User-approved internal category navigation design in the Codex task on 2026-09-01.
+- Privacy waivers: none

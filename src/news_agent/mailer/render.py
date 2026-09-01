@@ -140,7 +140,7 @@ def render_minimal_newsletter(
 
 def _build_headline_index(messages: list[FormattedMessage]) -> str:
     """Compact table-of-contents showing one lead headline per section."""
-    items: list[tuple[str, str, str]] = []  # (label, accent, headline)
+    items: list[tuple[str, str, str, str]] = []  # (label, accent, headline, anchor)
     for m in messages:
         category = getattr(m, "category", "") or _guess_category(m.title)
         label = CATEGORY_LABELS.get(category, _label_from_title(m.title))
@@ -161,13 +161,13 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
         if not full:
             continue
         hl, _ = _extract_headline(full)
-        items.append((label, accent, hl))
+        items.append((label, accent, hl, _section_anchor(category, label)))
 
     if not items:
         return ""
 
     rows: list[str] = []
-    for label, accent, hl in items:
+    for label, accent, hl, anchor in items:
         rows.append(
             f'<tr>'
             f'<td width="140" style="width:140px; padding:6px 12px 6px 8px;'
@@ -175,11 +175,13 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
             f'<span style="font-size:10.5px; font-weight:700; line-height:1.35;'
             f" text-transform:uppercase; letter-spacing:0.8px; color:{_SECONDARY};"
             f' font-family:{SYSTEM_FONT_STACK}; white-space:nowrap;">'
-            f"<b>{html.escape(label)}</b></span></td>"
+            f'<a href="#{anchor}" style="color:{_SECONDARY}; text-decoration:underline;">'
+            f"<b>{html.escape(label)}</b></a></span></td>"
             f'<td style="padding:6px 0; vertical-align:top;">'
             f'<span style="font-size:13.5px; font-weight:600; line-height:1.35; color:{_INK};'
             f' font-family:{SYSTEM_FONT_STACK};">'
-            f"<b>{html.escape(hl)}</b></span></td>"
+            f'<a href="#{anchor}" style="color:{_INK}; text-decoration:underline;">'
+            f"<b>{html.escape(hl)}</b></a></span></td>"
             f"</tr>"
         )
 
@@ -188,7 +190,9 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
         f' background:{_PAGE_BG};">'
         f'<p style="margin:0 0 12px; font-size:10px; font-weight:700;'
         f" text-transform:uppercase; letter-spacing:1.5px; color:{_QUIET};"
-        f' font-family:{SYSTEM_FONT_STACK};">In This Briefing</p>'
+        f' font-family:{SYSTEM_FONT_STACK};">In This Briefing '
+        f'<span style="text-transform:none; text-decoration:underline;">'
+        f"(click to jump to category)</span></p>"
         f'<table cellpadding="0" cellspacing="0" border="0"'
         f' style="border-collapse:separate; border-spacing:0; width:100%;'
         f' table-layout:fixed;">'
@@ -213,7 +217,9 @@ def _render_section(message: FormattedMessage) -> str:
         return ""
 
     stories = "".join(_render_story_card(b) for b in blocks[1:])
+    anchor = _section_anchor(category, label)
     return (
+        f'<a id="{anchor}" name="{anchor}"></a>'
         f'<div style="padding:0 28px;">'
         # Section heading with accent bar
         f'<table width="100%" cellpadding="0" cellspacing="0" border="0"'
@@ -231,6 +237,11 @@ def _render_section(message: FormattedMessage) -> str:
         # Stories
         f"{stories}</div>"
     )
+
+
+def _section_anchor(category: str, label: str) -> str:
+    slug = re.sub(r"[^a-z0-9]+", "-", (category or label).casefold()).strip("-")
+    return f"section-{slug or 'news'}"
 
 
 def _render_story_card(block: str) -> str:

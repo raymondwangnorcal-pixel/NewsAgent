@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import socket
 import sqlite3
 import ssl
@@ -200,6 +201,64 @@ def test_newsletter_uses_approved_distinct_category_accents() -> None:
         assert f"border-left:3px solid {accent}" in rendered.html
         assert f"border-bottom:1px solid {accent}" in rendered.html
         assert rendered.html.count(f"<b>{label}</b>") == 2
+
+
+def test_headline_index_links_labels_and_headlines_to_matching_sections() -> None:
+    messages = [
+        FormattedMessage(
+            "Business + Tech",
+            "BUSINESS + TECH\n\nA sufficiently long business headline. Supporting context.",
+            category="business_tech",
+        ),
+        FormattedMessage(
+            "Global News",
+            "GLOBAL NEWS\n\nA sufficiently long global headline. Supporting context.",
+            category="global",
+        ),
+    ]
+
+    rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
+
+    for anchor, label, headline in (
+        ("section-business-tech", "Business + Tech", "A sufficiently long business headline."),
+        ("section-global", "Global News", "A sufficiently long global headline."),
+    ):
+        assert rendered.html.count(f'href="#{anchor}"') == 2
+        assert re.search(
+            rf'<a href="#{anchor}"[^>]*><b>{re.escape(label)}</b></a>',
+            rendered.html,
+        )
+        assert re.search(
+            rf'<a href="#{anchor}"[^>]*><b>{re.escape(headline)}</b></a>',
+            rendered.html,
+        )
+        destination = f'<a id="{anchor}" name="{anchor}"></a>'
+        assert destination in rendered.html
+        assert rendered.html.index(f'href="#{anchor}"') < rendered.html.index(destination)
+
+
+def test_headline_index_shows_same_size_underlined_jump_hint() -> None:
+    messages = [
+        FormattedMessage(
+            "Business + Tech",
+            "BUSINESS + TECH\n\nA sufficiently long business headline. Supporting context.",
+            category="business_tech",
+        )
+    ]
+
+    rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
+
+    heading = re.search(
+        r'<p style="([^"]*font-size:10px;[^"]*)">In This Briefing '
+        r'<span style="([^"]*)">\(click to jump to category\)</span></p>',
+        rendered.html,
+    )
+    assert heading is not None
+    hint_style = heading.group(2)
+    assert "text-transform:none" in hint_style
+    assert "text-decoration:underline" in hint_style
+    assert "font-size" not in hint_style
+    assert "font-weight" not in hint_style
 
 
 def test_watchlist_appears_immediately_after_headline_index() -> None:
