@@ -169,7 +169,7 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
     for label, accent, hl in items:
         rows.append(
             f'<tr>'
-            f'<td style="padding:4px 0; vertical-align:baseline; width:1px;'
+            f'<td style="padding:6px 0; vertical-align:baseline; width:1px;'
             f' white-space:nowrap; padding-right:10px;">'
             f'<table cellpadding="0" cellspacing="0" border="0"'
             f' style="border-collapse:collapse;"><tr>'
@@ -180,8 +180,8 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
             f' font-family:{SYSTEM_FONT_STACK}; white-space:nowrap;">'
             f"{html.escape(label)}</td>"
             f"</tr></table></td>"
-            f'<td style="padding:4px 0; vertical-align:baseline;">'
-            f'<span style="font-size:13.5px; line-height:1.35; color:{_INK};'
+            f'<td style="padding:6px 0; vertical-align:baseline;">'
+            f'<span style="font-size:13.5px; line-height:1.3; color:{_INK};'
             f' font-family:{SYSTEM_FONT_STACK};">'
             f"{html.escape(hl)}</span></td>"
             f"</tr>"
@@ -221,7 +221,7 @@ def _render_section(message: FormattedMessage) -> str:
         # Section heading with accent bar
         f'<table width="100%" cellpadding="0" cellspacing="0" border="0"'
         f' style="border-collapse:collapse;"><tr>'
-        f'<td style="padding:28px 0 14px; border-bottom:2px solid {accent};">'
+        f'<td style="padding:28px 0 14px; border-bottom:1px solid {accent};">'
         f'<table cellpadding="0" cellspacing="0" border="0"'
         f' style="border-collapse:collapse;"><tr>'
         f'<td style="width:4px; height:20px; background:{accent};'
@@ -322,16 +322,16 @@ def _render_story_card(block: str) -> str:
         return ""
 
     headline, body = _extract_headline(full_text)
-    margin_bottom = " 0 10px" if body else ""
+    margin_bottom = " 0 14px" if body else ""
     parts = [
-        f'<p style="margin:0{margin_bottom}; font-size:16px;'
-        f" font-weight:700; line-height:1.35; color:{_INK};"
+        f'<p style="margin:0{margin_bottom}; font-size:19px;'
+        f" font-weight:700; line-height:1.3; color:{_INK};"
         f' font-family:{SYSTEM_FONT_STACK};">'
         f"{html.escape(headline)}</p>"
     ]
     if body:
         parts.append(
-            f'<p style="margin:0; font-size:13.5px; line-height:1.5;'
+            f'<p style="margin:0; font-size:14px; line-height:1.6;'
             f" color:{_SECONDARY}; font-family:{SYSTEM_FONT_STACK};\">"
             f"{html.escape(body)}</p>"
         )
@@ -339,7 +339,7 @@ def _render_story_card(block: str) -> str:
         parts.append(source_html)
 
     return (
-        f'<div style="padding:20px 0; border-bottom:1px solid {_DIVIDER};">'
+        f'<div style="padding:22px 0; border-bottom:1px solid {_DIVIDER};">'
         + "".join(parts)
         + "</div>"
     )
@@ -544,7 +544,7 @@ def _build_watchlist_html(
         f'<div style="padding:0 28px;">'
         f'<table width="100%" cellpadding="0" cellspacing="0" border="0"'
         f' style="border-collapse:collapse;"><tr>'
-        f'<td style="padding:28px 0 14px; border-bottom:2px solid {accent};">'
+        f'<td style="padding:28px 0 14px; border-bottom:1px solid {accent};">'
         f'<table cellpadding="0" cellspacing="0" border="0"'
         f' style="border-collapse:collapse;"><tr>'
         f'<td style="width:4px; height:20px; background:{accent};'
