@@ -101,6 +101,7 @@ def render_minimal_newsletter(
         f"{today.strftime('%A')}, {today.strftime('%B')} {today.day}, {today.year}"
     )
     sections_html = "".join(_render_section(m) for m in messages)
+    index_html = _build_headline_index(messages)
     wl_block = watchlist_html if watchlist_html else ""
 
     rendered_html = (
@@ -115,6 +116,8 @@ def render_minimal_newsletter(
         f"Morning Briefing</h1>"
         f'<p style="margin:4px 0 0; font-size:13px; color:{_SECONDARY};'
         f' font-weight:500;">{html.escape(date_line)}</p></div>'
+        # Headline index (quick-scan summary)
+        f"{index_html}"
         # Sections
         f"{sections_html}"
         # Watchlist
@@ -127,6 +130,74 @@ def render_minimal_newsletter(
     )
     subject = f"Morning Briefing — {briefing_today().isoformat()}"
     return RenderedEmail(subject=subject, plain_text=plain_text, html=rendered_html)
+
+
+# ------------------------------------------------------------------
+# Headline index (quick-scan summary)
+# ------------------------------------------------------------------
+
+
+def _build_headline_index(messages: list[FormattedMessage]) -> str:
+    """Compact table-of-contents showing one lead headline per section."""
+    items: list[tuple[str, str, str]] = []  # (label, accent, headline)
+    for m in messages:
+        category = getattr(m, "category", "") or _guess_category(m.title)
+        label = CATEGORY_LABELS.get(category, _label_from_title(m.title))
+        accent = CATEGORY_ACCENT_COLORS.get(category, _SECONDARY)
+        blocks = [b for b in m.text.split("\n\n") if b.strip()]
+        if len(blocks) < 2:
+            continue
+        # Extract first headline from first story block
+        first_block = blocks[1]
+        text_lines: list[str] = []
+        for line in first_block.splitlines():
+            if line.startswith("(via ") or _is_http_url(line.strip()):
+                continue
+            if line.startswith("+ ") and "omitted" in line:
+                continue
+            text_lines.append(line)
+        full = " ".join(text_lines).strip()
+        if not full:
+            continue
+        hl, _ = _extract_headline(full)
+        items.append((label, accent, hl))
+
+    if not items:
+        return ""
+
+    rows: list[str] = []
+    for label, accent, hl in items:
+        rows.append(
+            f'<tr>'
+            f'<td style="padding:4px 0; vertical-align:baseline; width:1px;'
+            f' white-space:nowrap; padding-right:10px;">'
+            f'<table cellpadding="0" cellspacing="0" border="0"'
+            f' style="border-collapse:collapse;"><tr>'
+            f'<td style="width:4px; height:4px; background:{accent};'
+            f' border-radius:50%; font-size:0; line-height:0;">&nbsp;</td>'
+            f'<td style="padding-left:6px; font-size:10.5px; font-weight:700;'
+            f" text-transform:uppercase; letter-spacing:0.8px; color:{_SECONDARY};"
+            f' font-family:{SYSTEM_FONT_STACK}; white-space:nowrap;">'
+            f"{html.escape(label)}</td>"
+            f"</tr></table></td>"
+            f'<td style="padding:4px 0; vertical-align:baseline;">'
+            f'<span style="font-size:13.5px; line-height:1.35; color:{_INK};'
+            f' font-family:{SYSTEM_FONT_STACK};">'
+            f"{html.escape(hl)}</span></td>"
+            f"</tr>"
+        )
+
+    return (
+        f'<div style="padding:18px 28px; border-bottom:1px solid {_DIVIDER};'
+        f' background:{_PAGE_BG};">'
+        f'<p style="margin:0 0 10px; font-size:10px; font-weight:700;'
+        f" text-transform:uppercase; letter-spacing:1.5px; color:{_QUIET};"
+        f' font-family:{SYSTEM_FONT_STACK};">In This Briefing</p>'
+        f'<table cellpadding="0" cellspacing="0" border="0"'
+        f' style="border-collapse:collapse; width:100%;">'
+        + "".join(rows)
+        + "</table></div>"
+    )
 
 
 # ------------------------------------------------------------------
@@ -150,13 +221,13 @@ def _render_section(message: FormattedMessage) -> str:
         # Section heading with accent bar
         f'<table width="100%" cellpadding="0" cellspacing="0" border="0"'
         f' style="border-collapse:collapse;"><tr>'
-        f'<td style="padding:20px 0 14px; border-bottom:1px solid {_DIVIDER};">'
+        f'<td style="padding:28px 0 14px; border-bottom:2px solid {accent};">'
         f'<table cellpadding="0" cellspacing="0" border="0"'
         f' style="border-collapse:collapse;"><tr>'
-        f'<td style="width:3px; height:18px; background:{accent};'
+        f'<td style="width:4px; height:20px; background:{accent};'
         f' border-radius:2px; font-size:0; line-height:0;">&nbsp;</td>'
-        f'<td style="padding-left:10px; font-size:11.5px; font-weight:700;'
-        f" text-transform:uppercase; letter-spacing:1px; color:{_SECONDARY};"
+        f'<td style="padding-left:10px; font-size:12.5px; font-weight:700;'
+        f" text-transform:uppercase; letter-spacing:1.2px; color:{_INK};"
         f' font-family:{SYSTEM_FONT_STACK};">'
         f"{html.escape(label)}</td>"
         f"</tr></table></td></tr></table>"
@@ -251,16 +322,16 @@ def _render_story_card(block: str) -> str:
         return ""
 
     headline, body = _extract_headline(full_text)
-    margin_bottom = " 0 6px" if body else ""
+    margin_bottom = " 0 10px" if body else ""
     parts = [
-        f'<p style="margin:0{margin_bottom}; font-size:15px;'
-        f" font-weight:600; line-height:1.35; color:{_INK};"
+        f'<p style="margin:0{margin_bottom}; font-size:16px;'
+        f" font-weight:700; line-height:1.35; color:{_INK};"
         f' font-family:{SYSTEM_FONT_STACK};">'
         f"{html.escape(headline)}</p>"
     ]
     if body:
         parts.append(
-            f'<p style="margin:0; font-size:14.5px; line-height:1.55;'
+            f'<p style="margin:0; font-size:13.5px; line-height:1.5;'
             f" color:{_SECONDARY}; font-family:{SYSTEM_FONT_STACK};\">"
             f"{html.escape(body)}</p>"
         )
@@ -268,7 +339,7 @@ def _render_story_card(block: str) -> str:
         parts.append(source_html)
 
     return (
-        f'<div style="padding:16px 0; border-bottom:1px solid {_DIVIDER};">'
+        f'<div style="padding:20px 0; border-bottom:1px solid {_DIVIDER};">'
         + "".join(parts)
         + "</div>"
     )
@@ -473,13 +544,13 @@ def _build_watchlist_html(
         f'<div style="padding:0 28px;">'
         f'<table width="100%" cellpadding="0" cellspacing="0" border="0"'
         f' style="border-collapse:collapse;"><tr>'
-        f'<td style="padding:20px 0 14px; border-bottom:1px solid {_DIVIDER};">'
+        f'<td style="padding:28px 0 14px; border-bottom:2px solid {accent};">'
         f'<table cellpadding="0" cellspacing="0" border="0"'
         f' style="border-collapse:collapse;"><tr>'
-        f'<td style="width:3px; height:18px; background:{accent};'
+        f'<td style="width:4px; height:20px; background:{accent};'
         f' border-radius:2px; font-size:0; line-height:0;">&nbsp;</td>'
-        f'<td style="padding-left:10px; font-size:11.5px; font-weight:700;'
-        f" text-transform:uppercase; letter-spacing:1px; color:{_SECONDARY};"
+        f'<td style="padding-left:10px; font-size:12.5px; font-weight:700;'
+        f" text-transform:uppercase; letter-spacing:1.2px; color:{_INK};"
         f' font-family:{SYSTEM_FONT_STACK};">Watchlist</td>'
         f"</tr></table></td></tr></table>"
     )
