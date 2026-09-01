@@ -110,7 +110,8 @@ def test_native_newsletter_declares_utf8_for_standalone_preview() -> None:
 
     rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
 
-    assert rendered.html.startswith('<html><head><meta charset="utf-8"></head><body')
+    assert rendered.html.startswith('<html><head><meta charset="utf-8">')
+    assert "</head><body" in rendered.html
     assert "Volker Türk" in rendered.html
     assert "It’s important context." in rendered.html
 
@@ -200,7 +201,7 @@ def test_newsletter_uses_approved_distinct_category_accents() -> None:
     for _category, label, accent in categories:
         assert f"border-left:3px solid {accent}" in rendered.html
         assert f"border-bottom:1px solid {accent}" in rendered.html
-        assert rendered.html.count(f"<b>{label}</b>") == 2
+        assert rendered.html.count(f"<b>{label}</b>") == 3
 
 
 def test_headline_index_links_labels_and_headlines_to_matching_sections() -> None:
@@ -250,7 +251,8 @@ def test_headline_index_shows_same_size_underlined_jump_hint() -> None:
 
     heading = re.search(
         r'<p style="([^"]*font-size:10px;[^"]*)">In This Briefing '
-        r'<span style="([^"]*)">\(click to jump to category\)</span></p>',
+        r'<span style="([^"]*)" class="briefing-desktop-only">'
+        r'\(click to jump to category\)</span></p>',
         rendered.html,
     )
     assert heading is not None
@@ -259,6 +261,57 @@ def test_headline_index_shows_same_size_underlined_jump_hint() -> None:
     assert "text-decoration:underline" in hint_style
     assert "font-size" not in hint_style
     assert "font-weight" not in hint_style
+
+
+def test_mobile_newsletter_replaces_briefing_links_with_plain_text() -> None:
+    messages = [
+        FormattedMessage(
+            "Business + Tech",
+            "BUSINESS + TECH\n\nA sufficiently long business headline. Supporting context.",
+            category="business_tech",
+        )
+    ]
+
+    rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
+
+    assert (
+        '<a href="#section-business-tech" class="briefing-desktop-only"'
+        in rendered.html
+    )
+    assert (
+        '<span class="briefing-mobile-only" style="display:none;">'
+        "<b>Business + Tech</b></span>"
+        in rendered.html
+    )
+    assert (
+        '<span class="briefing-mobile-only" style="display:none;">'
+        "<b>A sufficiently long business headline.</b></span>"
+        in rendered.html
+    )
+    assert (
+        '<span style="text-transform:none; text-decoration:underline;" '
+        'class="briefing-desktop-only">(click to jump to category)</span>'
+        in rendered.html
+    )
+    assert "@media screen and (max-width:600px)" in rendered.html
+    assert ".briefing-desktop-only{display:none!important;}" in rendered.html
+    assert ".briefing-mobile-only{display:inline!important;}" in rendered.html
+
+
+def test_mobile_newsletter_matches_story_headline_size_to_body_text() -> None:
+    messages = [
+        FormattedMessage(
+            "Business + Tech",
+            "BUSINESS + TECH\n\nA sufficiently long business headline. Supporting context.",
+            category="business_tech",
+        )
+    ]
+
+    rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
+
+    assert '<p class="story-headline" style="margin:0 0 14px; font-size:19px;' in rendered.html
+    assert ".story-headline{font-size:14px!important;}" in rendered.html
+    assert '<p style="margin:0; font-size:14px; line-height:1.6;' in rendered.html
 
 
 def test_watchlist_appears_immediately_after_headline_index() -> None:

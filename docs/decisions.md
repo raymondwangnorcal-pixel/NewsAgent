@@ -1561,3 +1561,25 @@
 - Supersedes: none
 - Evidence: User-approved internal category navigation design in the Codex task on 2026-09-01.
 - Privacy waivers: none
+
+## DEC-0084 — Use a non-interactive compact presentation on mobile
+
+- Date: 2026-09-01
+- Owner: user
+- Status at record: active
+- Decision: At viewport widths of 600 pixels or less, the newsletter will hide internal briefing-index links and the jump prompt, show equivalent plain-text index entries, and render story headlines at the 14-pixel body-text size while preserving the existing desktop presentation.
+- Rationale: Gmail mobile does not reliably navigate internal email anchors, and smaller headlines improve mobile readability without changing the desktop newsletter.
+- Scope: Morning Briefing responsive HTML, briefing index interaction, and story-headline typography.
+- Implementation: pending
+- Recorded against HEAD: `252393afbc8351d47246e821961bf0dd3510ecb4`
+- Supersedes: none
+- Evidence: User-approved mobile newsletter design in the Codex task on 2026-09-01 and `tests/test_mailer.py`.
+- Privacy waivers: none
+
+## Update — 2026-09-01 — DEC-0083
+
+- Type: implementation
+- Implementation commit: `252393afbc8351d47246e821961bf0dd3510ecb4` — Link briefing index entries to newsletter sections
+- Superseded by: none
+- Note: The committed renderer links briefing labels and lead headlines to stable category-section anchors.
+- Privacy waivers: none

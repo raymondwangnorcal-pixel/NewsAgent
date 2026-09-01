@@ -28,6 +28,17 @@ _GREEN = "#188038"
 _RED = "#C5221F"
 _QUIET = "#9AA0A6"
 
+_RESPONSIVE_CSS = (
+    "<style>"
+    ".briefing-mobile-only{display:none;}"
+    "@media screen and (max-width:600px){"
+    ".briefing-desktop-only{display:none!important;}"
+    ".briefing-mobile-only{display:inline!important;}"
+    ".story-headline{font-size:14px!important;}"
+    "}"
+    "</style>"
+)
+
 CATEGORY_ACCENT_COLORS: dict[str, str] = {
     "business_tech": "#1565C0",
     "domestic": "#C62828",
@@ -105,7 +116,8 @@ def render_minimal_newsletter(
     wl_block = watchlist_html if watchlist_html else ""
 
     rendered_html = (
-        f'<html><head><meta charset="utf-8"></head><body style="margin:0;'
+        f'<html><head><meta charset="utf-8">{_RESPONSIVE_CSS}</head>'
+        f'<body style="margin:0;'
         f' padding:24px 16px; background:{_PAGE_BG};'
         f" font-family:{SYSTEM_FONT_STACK}; -webkit-font-smoothing:antialiased;\">"
         f'<div style="max-width:600px; margin:0 auto; background:{_SURFACE};'
@@ -175,13 +187,19 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
             f'<span style="font-size:10.5px; font-weight:700; line-height:1.35;'
             f" text-transform:uppercase; letter-spacing:0.8px; color:{_SECONDARY};"
             f' font-family:{SYSTEM_FONT_STACK}; white-space:nowrap;">'
-            f'<a href="#{anchor}" style="color:{_SECONDARY}; text-decoration:underline;">'
-            f"<b>{html.escape(label)}</b></a></span></td>"
+            f'<a href="#{anchor}" class="briefing-desktop-only"'
+            f' style="color:{_SECONDARY}; text-decoration:underline;">'
+            f"<b>{html.escape(label)}</b></a>"
+            f'<span class="briefing-mobile-only" style="display:none;">'
+            f"<b>{html.escape(label)}</b></span></span></td>"
             f'<td style="padding:6px 0; vertical-align:top;">'
             f'<span style="font-size:13.5px; font-weight:600; line-height:1.35; color:{_INK};'
             f' font-family:{SYSTEM_FONT_STACK};">'
-            f'<a href="#{anchor}" style="color:{_INK}; text-decoration:underline;">'
-            f"<b>{html.escape(hl)}</b></a></span></td>"
+            f'<a href="#{anchor}" class="briefing-desktop-only"'
+            f' style="color:{_INK}; text-decoration:underline;">'
+            f"<b>{html.escape(hl)}</b></a>"
+            f'<span class="briefing-mobile-only" style="display:none;">'
+            f"<b>{html.escape(hl)}</b></span></span></td>"
             f"</tr>"
         )
 
@@ -191,7 +209,8 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
         f'<p style="margin:0 0 12px; font-size:10px; font-weight:700;'
         f" text-transform:uppercase; letter-spacing:1.5px; color:{_QUIET};"
         f' font-family:{SYSTEM_FONT_STACK};">In This Briefing '
-        f'<span style="text-transform:none; text-decoration:underline;">'
+        f'<span style="text-transform:none; text-decoration:underline;"'
+        f' class="briefing-desktop-only">'
         f"(click to jump to category)</span></p>"
         f'<table cellpadding="0" cellspacing="0" border="0"'
         f' style="border-collapse:separate; border-spacing:0; width:100%;'
@@ -332,7 +351,7 @@ def _render_story_card(block: str) -> str:
     headline, body = _extract_headline(full_text)
     margin_bottom = " 0 14px" if body else ""
     parts = [
-        f'<p style="margin:0{margin_bottom}; font-size:19px;'
+        f'<p class="story-headline" style="margin:0{margin_bottom}; font-size:19px;'
         f" font-weight:700; line-height:1.3; color:{_INK};"
         f' font-family:{SYSTEM_FONT_STACK};">'
         f"<b>{html.escape(headline)}</b></p>"
