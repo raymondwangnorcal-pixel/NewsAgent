@@ -1583,3 +1583,39 @@
 - Superseded by: none
 - Note: The committed renderer links briefing labels and lead headlines to stable category-section anchors.
 - Privacy waivers: none
+
+## DEC-0085 — Enforce a $100 monthly hard cap for NewsAgent API usage
+
+- Date: 2026-09-01
+- Owner: user
+- Status at record: active
+- Decision: The OpenAI NewsAgent project will enforce a $100 monthly API spend limit.
+- Rationale: A project-level hard cap limits exposure if its API key is leaked while preserving sufficient capacity for normal daily briefings.
+- Scope: OpenAI Platform project billing controls and NewsAgent API-key exposure.
+- Implementation: pending
+- Recorded against HEAD: `652086a455dafd18f277800f0cc015d959bdfc13`
+- Supersedes: none
+- Evidence: User direction in this Codex task on 2026-09-01.
+- Privacy waivers: none
+
+## DEC-0086 — Lead Watchlist disclosures with the underlying event
+
+- Date: 2026-09-01
+- Owner: user
+- Status at record: active
+- Decision: Watchlist disclosure rows will lead with a plain-English description derived from official filing content, combine same-day filings that represent the same event, and display the SEC form and acceptance time only as secondary metadata.
+- Rationale: Form labels such as `6-K` and generic phrases such as `material filing` do not tell average readers what the company actually announced.
+- Scope: EDGAR material-filing discovery, disclosure deduplication, Watchlist HTML and plain-text rendering, stored run metadata, and legacy rerender compatibility.
+- Implementation: pending
+- Recorded against HEAD: `652086a455dafd18f277800f0cc015d959bdfc13`
+- Supersedes: none
+- Evidence: User-approved Watchlist disclosure wording in the Codex task on 2026-09-01 and related renderer and discovery tests.
+- Privacy waivers: none
+
+## Update — 2026-09-01 — DEC-0084
+
+- Type: implementation
+- Implementation commit: `652086a455dafd18f277800f0cc015d959bdfc13` — Improve mobile newsletter presentation
+- Superseded by: none
+- Note: The committed renderer provides mobile-only static briefing entries, hides the jump prompt, and reduces story-headline size while preserving desktop behavior.
+- Privacy waivers: none

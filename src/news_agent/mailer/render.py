@@ -466,22 +466,10 @@ def render_watchlist_section(
         if story is not None and story.disclosures:
             has_content = True
             lines.append("  Disclosed")
-            for filing in story.disclosures[:2]:
-                accepted = getattr(filing, "accepted_at", None)
-                timestamp = (
-                    accepted.astimezone(ZoneInfo("America/New_York")).strftime("%H:%M ET")
-                    if accepted is not None and accepted.tzinfo is not None
-                    else str(getattr(filing, "filing_date", ""))
-                )
-                item_values = tuple(getattr(filing, "items", ()))
-                detail = f"Items {', '.join(item_values)}" if item_values else "material filing"
-                headline = f"{getattr(filing, 'form', 'Filing')} accepted {timestamp} — {detail}"
+            for filing in story.disclosures[:4]:
+                headline, metadata = _filing_display_text(filing)
                 url = str(getattr(filing, "url", ""))
-                lines.extend((f"    {headline}", f"    {url}"))
-            for filing in story.disclosures[2:4]:
-                headline = f"Also: {getattr(filing, 'form', 'Filing')} — {getattr(filing, 'filing_date', '')}"
-                url = str(getattr(filing, "url", ""))
-                lines.extend((f"    {headline}", f"    {url}"))
+                lines.extend((f"    {headline} ({metadata})", f"    {url}"))
 
         if story is not None and (story.summary or (story.summary_unavailable and story.articles)):
             has_content = True
@@ -673,34 +661,15 @@ def _render_watchlist_news_row(
             f" text-transform:uppercase; letter-spacing:0.5px; color:{_SECONDARY};"
             f' font-family:{SYSTEM_FONT_STACK};">Disclosed</p>'
         )
-        for filing in story.disclosures[:2]:
-            accepted = getattr(filing, "accepted_at", None)
-            timestamp = (
-                accepted.astimezone(ZoneInfo("America/New_York")).strftime("%H:%M ET")
-                if accepted is not None and accepted.tzinfo is not None
-                else str(getattr(filing, "filing_date", ""))
-            )
-            item_values = tuple(getattr(filing, "items", ()))
-            detail = f"Items {', '.join(item_values)}" if item_values else "material filing"
-            filing_headline = (
-                f"{getattr(filing, 'form', 'Filing')} accepted {timestamp} — {detail}"
-            )
+        for filing in story.disclosures[:4]:
+            filing_headline, metadata = _filing_display_text(filing)
             url = str(getattr(filing, "url", ""))
             parts.append(
                 f'<p style="margin:2px 0; font-size:13px; line-height:1.4;">'
                 f'<a href="{html.escape(url, quote=True)}" style="color:{_LINK};'
-                f' text-decoration:none;">{html.escape(filing_headline)}</a></p>'
-            )
-        for filing in story.disclosures[2:4]:
-            filing_headline = (
-                f"Also: {getattr(filing, 'form', 'Filing')}"
-                f" — {getattr(filing, 'filing_date', '')}"
-            )
-            url = str(getattr(filing, "url", ""))
-            parts.append(
-                f'<p style="margin:2px 0; font-size:13px; line-height:1.4;">'
-                f'<a href="{html.escape(url, quote=True)}" style="color:{_LINK};'
-                f' text-decoration:none;">{html.escape(filing_headline)}</a></p>'
+                f' text-decoration:none;">{html.escape(filing_headline)}</a> '
+                f'<span style="font-size:11px; color:{_QUIET};">'
+                f'{html.escape(metadata)}</span></p>'
             )
 
     # ---- Reported summary ----
@@ -781,6 +750,21 @@ def _render_watchlist_news_row(
 
     parts.append("</div>")
     return "".join(parts)
+
+
+def _filing_display_text(filing: object) -> tuple[str, str]:
+    headline = str(getattr(filing, "headline", "")).strip()
+    if not headline:
+        description = str(getattr(filing, "description", "")).strip()
+        headline = description if description else "Important company update"
+    accepted = getattr(filing, "accepted_at", None)
+    timestamp = (
+        accepted.astimezone(ZoneInfo("America/New_York")).strftime("%H:%M ET")
+        if accepted is not None and accepted.tzinfo is not None
+        else str(getattr(filing, "filing_date", ""))
+    )
+    form = str(getattr(filing, "form", "Filing"))
+    return headline, f"{form} · {timestamp}"
 
 
 # ------------------------------------------------------------------

@@ -459,6 +459,8 @@ def _watchlist_run_record(story: WatchlistStory) -> dict[str, object]:
             "metadata": {
                 "description": getattr(filing, "description", ""),
                 "items": list(getattr(filing, "items", ())),
+                "headline": getattr(filing, "headline", ""),
+                "event_key": getattr(filing, "event_key", ""),
             },
         })
         event_documents.append((str(getattr(filing, "accession", "")), document_id))

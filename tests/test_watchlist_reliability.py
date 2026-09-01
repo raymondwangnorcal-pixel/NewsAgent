@@ -436,7 +436,7 @@ def test_edgar_watermark_catches_up_after_outage(tmp_path: Path) -> None:
         state_store=store,
     )["BN"]
 
-    assert outcome.filings == (filing,)
+    assert tuple(item.accession for item in outcome.filings) == (filing.accession,)
     assert outcome.catchup_expected == outcome.catchup_processed == 1
     assert outcome.dispositions == ((filing.accession, "rendered_metadata_fallback"),)
 
@@ -469,9 +469,141 @@ def test_six_k_content_is_evaluated_before_metadata_fallback(tmp_path: Path) -> 
     )["BN"]
 
     assert outcome.state is SourceState.OK
-    assert outcome.filings == (filing,)
+    assert tuple(item.accession for item in outcome.filings) == (filing.accession,)
     assert outcome.dispositions == ((filing.accession, "rendered_content"),)
     assert outcome.filing_bodies[0][1] == "Quarterly results and updated guidance"
+
+
+def test_duplicate_six_k_results_are_combined_under_a_plain_english_headline(
+    tmp_path: Path,
+) -> None:
+    full_map = load_entity_map()
+    entity = full_map.tickers["NVO"]
+    entity_map = EntityMap(full_map.schema_version, full_map.generated_at, {"NVO": entity})
+    full_results = Filing(
+        entity.cik,
+        "0000353278-26-000023",
+        "6-K",
+        date(2026, 8, 4),
+        datetime(2026, 8, 4, 21, 23, tzinfo=timezone.utc),
+        "caq22026.htm",
+    )
+    preliminary_results = Filing(
+        entity.cik,
+        "0001171843-26-005184",
+        "6-K",
+        date(2026, 8, 4),
+        datetime(2026, 8, 4, 17, 40, tzinfo=timezone.utc),
+        "f6k_080426.htm",
+    )
+    bodies = {
+        full_results.accession: (
+            b"Novo Nordisk reports adjusted operating profit for Q2 2026 and raises full-year outlook. "
+            b"Q2 2026 adjusted sales increased by 7% and adjusted operating profit increased by 11%. "
+            b"Adjusted sales growth for 2026 is now expected to be 0% to -6%. "
+            b"The financial report also lists cash returned through share repurchases."
+        ),
+        preliminary_results.accession: (
+            b"Novo Nordisk raises adjusted sales and adjusted operating profit outlook for 2026. "
+            b"Q2 2026 adjusted sales increased by 7%, and adjusted operating profit increased by 11%."
+        ),
+    }
+
+    class Client:
+        def fetch_submissions(self, *_args: object, **_kwargs: object) -> EdgarResult:
+            return EdgarResult(
+                SourceState.OK,
+                (full_results, preliminary_results),
+                payload=b'{"filings":{"recent":{}}}',
+            )
+
+        def fetch_filing_document(self, filing: Filing) -> object:
+            return SimpleNamespace(data=bodies[filing.accession])
+
+    outcome = discover_material_filings(
+        entity_map,
+        Client(),  # type: ignore[arg-type]
+        briefing_date=date(2026, 8, 4),
+        cutoff=datetime(2026, 8, 4, 23, 0, tzinfo=timezone.utc),
+        state_store=EmailStateStore(tmp_path / "state.db"),
+    )["NVO"]
+
+    assert len(outcome.filings) == 1
+    assert outcome.filings[0].headline == (
+        "Novo Nordisk raised its 2026 sales and profit outlook after adjusted Q2 "
+        "sales rose 7% and adjusted profit rose 11%."
+    )
+    assert outcome.filings[0].event_key == "financial_results_outlook"
+    assert outcome.dispositions == (
+        (full_results.accession, "rendered_content"),
+        (preliminary_results.accession, "excluded_duplicate_event"),
+    )
+
+
+def test_share_repurchase_six_k_gets_a_reader_friendly_headline(tmp_path: Path) -> None:
+    full_map = load_entity_map()
+    entity = full_map.tickers["NVO"]
+    entity_map = EntityMap(full_map.schema_version, full_map.generated_at, {"NVO": entity})
+    filing = Filing(
+        entity.cik,
+        "0001171843-26-005172",
+        "6-K",
+        date(2026, 8, 4),
+        datetime(2026, 8, 4, 14, 39, tzinfo=timezone.utc),
+        "f6k_080426.htm",
+    )
+
+    class Client:
+        def fetch_submissions(self, *_args: object, **_kwargs: object) -> EdgarResult:
+            return EdgarResult(SourceState.OK, (filing,), payload=b'{"filings":{"recent":{}}}')
+
+        def fetch_filing_document(self, _filing: Filing) -> object:
+            return SimpleNamespace(
+                data=b"Novo Nordisk A/S - Share repurchase programme. The company repurchased B shares."
+            )
+
+    outcome = discover_material_filings(
+        entity_map,
+        Client(),  # type: ignore[arg-type]
+        briefing_date=date(2026, 8, 4),
+        cutoff=datetime(2026, 8, 4, 23, 0, tzinfo=timezone.utc),
+        state_store=EmailStateStore(tmp_path / "state.db"),
+    )["NVO"]
+
+    assert outcome.filings[0].headline == "Novo Nordisk updated its share buyback program."
+    assert outcome.filings[0].event_key == "share_buyback"
+
+
+def test_material_8k_items_get_a_reader_friendly_headline_without_fetching_document(
+    tmp_path: Path,
+) -> None:
+    full_map = load_entity_map()
+    entity = full_map.tickers["AAPL"]
+    entity_map = EntityMap(full_map.schema_version, full_map.generated_at, {"AAPL": entity})
+    filing = Filing(
+        entity.cik,
+        "0000320193-26-000099",
+        "8-K",
+        date(2026, 8, 4),
+        datetime(2026, 8, 4, 14, 0, tzinfo=timezone.utc),
+        "aapl-20260804.htm",
+        ("2.02", "9.01"),
+    )
+
+    class Client:
+        def fetch_submissions(self, *_args: object, **_kwargs: object) -> EdgarResult:
+            return EdgarResult(SourceState.OK, (filing,), payload=b'{"filings":{"recent":{}}}')
+
+    outcome = discover_material_filings(
+        entity_map,
+        Client(),  # type: ignore[arg-type]
+        briefing_date=date(2026, 8, 4),
+        cutoff=datetime(2026, 8, 4, 23, 0, tzinfo=timezone.utc),
+        state_store=EmailStateStore(tmp_path / "state.db"),
+    )["AAPL"]
+
+    assert outcome.filings[0].headline == "Apple reported financial results."
+    assert outcome.filings[0].event_key == "financial_results"
 
 
 def test_regulation_fd_acquisition_is_material_after_content_review(tmp_path: Path) -> None:
@@ -506,7 +638,7 @@ def test_regulation_fd_acquisition_is_material_after_content_review(tmp_path: Pa
     )["CURI"]
 
     assert outcome.state is SourceState.OK
-    assert outcome.filings == (filing,)
+    assert tuple(item.accession for item in outcome.filings) == (filing.accession,)
     assert outcome.dispositions == ((filing.accession, "rendered_content"),)
 
 

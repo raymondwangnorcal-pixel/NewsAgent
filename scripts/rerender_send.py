@@ -72,6 +72,7 @@ class _LegacyFiling:
     filing_date: str
     items: tuple[str, ...]
     url: str
+    headline: str = ""
     accepted_at: None = None
 
 
@@ -254,7 +255,15 @@ def _legacy_disclosures(body_html: str) -> tuple[_LegacyFiling, ...]:
                 if detail.startswith("Items ")
                 else ()
             )
-        filings.append(_LegacyFiling(form, filing_date, items, html_lib.unescape(url)))
+        filings.append(
+            _LegacyFiling(
+                form,
+                filing_date,
+                items,
+                html_lib.unescape(url),
+                headline=label,
+            )
+        )
     return tuple(filings)
 
 

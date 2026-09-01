@@ -23,6 +23,7 @@ from news_agent.mailer.watchlist import load_email_watchlist, validate_shared_wa
 from news_agent.mailer.schedule import scheduled_email_is_due
 from news_agent.models import Article, EnrichmentConfig, ExtractionPolicyConfig, OpenAICostConfig, StockQuote
 from news_agent.openai_budget import OpenAIBudget
+from news_agent.watchlist.models import Filing
 
 
 class FakeSMTP:
@@ -361,6 +362,31 @@ def test_watchlist_uses_compact_grid_news_rows_and_subdued_status() -> None:
     assert "Novo Nordisk reported a material company update." in html
     assert "Watchlist evaluation disabled." in html
     assert "font-style:italic" in html
+
+
+def test_watchlist_renders_filing_meaning_before_secondary_sec_metadata() -> None:
+    filing = Filing(
+        "0000353278",
+        "0000353278-26-000023",
+        "6-K",
+        date(2026, 8, 4),
+        datetime(2026, 8, 4, 21, 23, tzinfo=timezone.utc),
+        "caq22026.htm",
+        headline="Novo Nordisk raised its 2026 sales and profit outlook.",
+        event_key="financial_results_outlook",
+    )
+    story = watchlist_news.WatchlistStory("NVO", disclosures=(filing,))
+
+    plain, html = render_watchlist_section(
+        {"NVO": EndOfDayQuote("NVO", "2026-08-31", 45.16, 44.27, "Tiingo")},
+        [story],
+    )
+
+    for rendered in (plain, html):
+        assert "Novo Nordisk raised its 2026 sales and profit outlook." in rendered
+        assert "6-K · 17:23 ET" in rendered
+        assert "material filing" not in rendered
+        assert "6-K accepted" not in rendered
 
 
 def test_email_settings_deduplicate_recipients(monkeypatch: pytest.MonkeyPatch) -> None:

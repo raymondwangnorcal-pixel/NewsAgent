@@ -87,6 +87,8 @@ class Filing:
     items: tuple[str, ...] = ()
     is_amendment: bool = False
     description: str = ""
+    headline: str = ""
+    event_key: str = ""
 
     @property
     def url(self) -> str:

@@ -20,7 +20,7 @@ ETHEREUM_MATERIAL_TERMS = (
 )
 SIX_K_MATERIAL_TERMS = (
     "annual results", "interim results", "quarterly results", "financial results",
-    "earnings", "guidance", "acquisition", "merger", "disposition", "divestiture",
+    "earnings", "guidance", "outlook", "acquisition", "merger", "disposition", "divestiture",
     "regulatory approval", "investigation", "litigation", "chief executive", "ceo",
     "dividend", "share repurchase", "capital raise", "offering", "restructuring",
 )
