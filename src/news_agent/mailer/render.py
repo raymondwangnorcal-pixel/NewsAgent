@@ -35,7 +35,8 @@ _RESPONSIVE_CSS = (
     ".briefing-desktop-only{display:none!important;}"
     ".briefing-desktop-index{display:none!important;}"
     ".briefing-index{padding-left:0!important;padding-right:12px!important;}"
-    ".briefing-index-heading{margin-left:28px!important;}"
+    ".briefing-index-heading{margin-left:11px!important;font-size:10.5px!important;"
+    "font-weight:700!important;}"
     ".briefing-mobile-index{display:table!important;width:100%!important;}"
     ".story-headline{font-size:14px!important;}"
     "}"
@@ -218,7 +219,7 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
         f' background:{_PAGE_BG};">'
         f'<p class="briefing-index-heading" style="margin:0 0 12px; font-size:10px; font-weight:700;'
         f" text-transform:uppercase; letter-spacing:1.5px; color:{_QUIET};"
-        f' font-family:{SYSTEM_FONT_STACK};">In This Briefing '
+        f' font-family:{SYSTEM_FONT_STACK};"><b>In This Briefing</b> '
         f'<span style="text-transform:none; text-decoration:underline;"'
         f' class="briefing-desktop-only">'
         f"(click to jump to category)</span></p>"

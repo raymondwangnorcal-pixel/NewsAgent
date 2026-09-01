@@ -253,7 +253,7 @@ def test_headline_index_shows_same_size_underlined_jump_hint() -> None:
     rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
 
     heading = re.search(
-        r'<p class="briefing-index-heading" style="([^"]*font-size:10px;[^"]*)">In This Briefing '
+        r'<p class="briefing-index-heading" style="([^"]*font-size:10px;[^"]*)"><b>In This Briefing</b> '
         r'<span style="([^"]*)" class="briefing-desktop-only">'
         r'\(click to jump to category\)</span></p>',
         rendered.html,
@@ -363,9 +363,28 @@ def test_mobile_briefing_moves_rows_to_header_edge_without_changing_text_inset()
         ".briefing-index{padding-left:0!important;padding-right:12px!important;}"
         in rendered.html
     )
-    assert ".briefing-index-heading{margin-left:28px!important;}" in rendered.html
     assert '<p class="briefing-index-heading" style="margin:0 0 12px;' in rendered.html
     assert 'style="padding:8px 0 10px 8px; border-left:3px solid #1565C0;' in rendered.html
+
+
+def test_mobile_briefing_heading_matches_category_label_alignment_and_weight() -> None:
+    messages = [
+        FormattedMessage(
+            "Business + Tech",
+            "BUSINESS + TECH\n\nA sufficiently long business headline. Supporting context.",
+            category="business_tech",
+        )
+    ]
+
+    rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
+
+    assert (
+        ".briefing-index-heading{margin-left:11px!important;font-size:10.5px!important;"
+        "font-weight:700!important;}"
+        in rendered.html
+    )
+    assert ">In This Briefing " not in rendered.html
+    assert "><b>In This Briefing</b> " in rendered.html
 
 
 def test_mobile_newsletter_matches_story_headline_size_to_body_text() -> None:
