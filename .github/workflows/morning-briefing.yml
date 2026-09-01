@@ -2,11 +2,10 @@ name: Morning briefing
 
 on:
   workflow_dispatch:
-  schedule:
-    # 12:20 UTC = 8:20 AM Eastern (EDT, Mar–Nov).
-    # During EST (Nov–Mar) this fires at 7:20 AM Eastern.
-    # GitHub Actions cron can lag 5–15 minutes past the nominal time.
-    - cron: "20 12 * * *"
+  # Scheduling is handled by an external cron service (cron-job.org)
+  # that triggers workflow_dispatch via the GitHub API at 8:20 AM ET.
+  # GitHub Actions' built-in cron was removed because it routinely
+  # delayed runs by 1–7+ hours on free-tier repos.
 
 jobs:
   send-briefing:
