@@ -34,6 +34,8 @@ _RESPONSIVE_CSS = (
     "@media screen and (max-width:600px){"
     ".briefing-desktop-only{display:none!important;}"
     ".briefing-desktop-index{display:none!important;}"
+    ".briefing-index{padding-left:0!important;padding-right:12px!important;}"
+    ".briefing-index-heading{margin-left:28px!important;}"
     ".briefing-mobile-index{display:table!important;width:100%!important;}"
     ".story-headline{font-size:14px!important;}"
     "}"
@@ -201,7 +203,7 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
             f"</tr>"
         )
         mobile_rows.append(
-            f'<tr><td style="padding:8px 8px 10px; border-left:3px solid {accent};'
+            f'<tr><td style="padding:8px 0 10px 8px; border-left:3px solid {accent};'
             f' vertical-align:top; font-family:{SYSTEM_FONT_STACK};">'
             f'<p style="margin:0; font-size:10.5px; font-weight:700; line-height:1.35;'
             f' text-transform:uppercase; letter-spacing:0.8px; color:{_SECONDARY};">'
@@ -212,9 +214,9 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
         )
 
     return (
-        f'<div style="padding:20px 28px; border-bottom:1px solid {_DIVIDER};'
+        f'<div class="briefing-index" style="padding:20px 28px; border-bottom:1px solid {_DIVIDER};'
         f' background:{_PAGE_BG};">'
-        f'<p style="margin:0 0 12px; font-size:10px; font-weight:700;'
+        f'<p class="briefing-index-heading" style="margin:0 0 12px; font-size:10px; font-weight:700;'
         f" text-transform:uppercase; letter-spacing:1.5px; color:{_QUIET};"
         f' font-family:{SYSTEM_FONT_STACK};">In This Briefing '
         f'<span style="text-transform:none; text-decoration:underline;"'
@@ -224,7 +226,7 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
         f' style="border-collapse:separate; border-spacing:0; width:100%;'
         f' table-layout:fixed;">'
         + "".join(desktop_rows)
-        + '</table><table class="briefing-mobile-index" cellpadding="0" cellspacing="0"'
+        + '</table><table class="briefing-mobile-index" width="100%" cellpadding="0" cellspacing="0"'
         + ' border="0" style="display:none; border-collapse:separate; border-spacing:0; width:100%;">'
         + "".join(mobile_rows)
         + "</table></div>"
