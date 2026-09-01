@@ -91,6 +91,29 @@ def test_parity_email_plain_text_is_header_and_exact_messages() -> None:
     assert "font-family: Lato, Helvetica, Arial, sans-serif" in rendered.html
 
 
+def test_rendered_email_font_stack_is_valid_inside_html_style_attributes() -> None:
+    rendered = render_parity_email([], "Morning Briefing - 2026-09-01")
+
+    assert "font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" in rendered.html
+    assert 'BlinkMacSystemFont, "Segoe UI"' not in rendered.html
+
+
+def test_native_newsletter_declares_utf8_for_standalone_preview() -> None:
+    messages = [
+        FormattedMessage(
+            "Global News",
+            "GLOBAL NEWS\n\nVolker Türk issued a sufficiently long warning. It’s important context.",
+            category="global",
+        )
+    ]
+
+    rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
+
+    assert rendered.html.startswith('<html><head><meta charset="utf-8"></head><body')
+    assert "Volker Türk" in rendered.html
+    assert "It’s important context." in rendered.html
+
+
 def test_native_newsletter_links_source_label_and_keeps_plain_text_url() -> None:
     messages = [
         FormattedMessage(
@@ -124,6 +147,108 @@ def test_native_newsletter_links_each_source_in_merged_story() -> None:
     assert '<a href="https://example.com/reuters">Reuters</a>' in rendered.html
     assert ">https://example.com/bbc<" not in rendered.html
     assert ">https://example.com/reuters<" not in rendered.html
+
+
+def test_headline_index_uses_email_safe_aligned_label_cells() -> None:
+    messages = [
+        FormattedMessage(
+            "Business + Tech",
+            "BUSINESS + TECH\n\nA sufficiently long business headline. Supporting context.",
+            category="business_tech",
+        ),
+        FormattedMessage(
+            "U.S. News",
+            "U.S. NEWS\n\nA sufficiently long domestic headline. Supporting context.",
+            category="domestic",
+        ),
+    ]
+
+    rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
+    index_html = rendered.html.split("In This Briefing", maxsplit=1)[1].split("</table></div>", maxsplit=1)[0]
+
+    assert index_html.count("<table") == 1
+    assert index_html.count('width="140"') == 2
+    assert "table-layout:fixed" in index_html
+    assert "margin:0 0 12px" in rendered.html
+    assert "padding:20px 28px" in rendered.html
+    assert "padding:6px 12px 6px 8px" in index_html
+    assert "vertical-align:top" in index_html
+    assert "<b>Business + Tech</b>" in index_html
+    assert "<b>U.S. News</b>" in index_html
+
+
+def test_newsletter_uses_approved_distinct_category_accents() -> None:
+    categories = (
+        ("business_tech", "Business + Tech", "#1565C0"),
+        ("domestic", "U.S. News", "#C62828"),
+        ("global", "Global News", "#2E7D32"),
+        ("culture", "Culture + Media", "#EF6C00"),
+        ("finance", "Finance", "#7B1FA2"),
+    )
+    messages = [
+        FormattedMessage(
+            label,
+            f"{label.upper()}\n\nA sufficiently long category headline. Supporting context.",
+            category=category,
+        )
+        for category, label, _accent in categories
+    ]
+
+    rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
+
+    for _category, label, accent in categories:
+        assert f"border-left:3px solid {accent}" in rendered.html
+        assert f"border-bottom:1px solid {accent}" in rendered.html
+        assert rendered.html.count(f"<b>{label}</b>") == 2
+
+
+def test_watchlist_appears_immediately_after_headline_index() -> None:
+    messages = [
+        FormattedMessage(
+            "Business + Tech",
+            "BUSINESS + TECH\n\nA sufficiently long business headline. Supporting context.",
+            category="business_tech",
+        )
+    ]
+    watchlist_html = '<div id="watchlist-marker">Watchlist content</div>'
+
+    rendered = render_minimal_newsletter(
+        messages,
+        "Morning Briefing - 2026-09-01",
+        watchlist_html=watchlist_html,
+    )
+    index_start = rendered.html.index("In This Briefing")
+    index_end = rendered.html.index("</table></div>", index_start) + len("</table></div>")
+
+    assert rendered.html[index_end:].startswith(watchlist_html)
+    assert rendered.html.index('border-bottom:1px solid #1565C0', index_end) > index_end
+
+
+def test_watchlist_uses_compact_grid_news_rows_and_subdued_status() -> None:
+    quotes = {
+        "AAPL": EndOfDayQuote("AAPL", "2026-08-31", 205.00, 202.47, "Tiingo"),
+        "COST": EndOfDayQuote("COST", "2026-08-31", 935.89, 947.83, "Tiingo"),
+        "NVO": EndOfDayQuote("NVO", "2026-08-31", 45.16, 44.27, "Tiingo"),
+    }
+    stories = [
+        watchlist_news.WatchlistStory(
+            "NVO",
+            summary="Novo Nordisk reported a material company update.",
+        )
+    ]
+
+    _plain, html = render_watchlist_section(
+        quotes,
+        stories,
+        gate_state="DISABLED",
+    )
+
+    assert "<b>Watchlist</b>" in html
+    assert html.count('width="50%"') >= 2
+    assert "No verified news today." not in html
+    assert "Novo Nordisk reported a material company update." in html
+    assert "Watchlist evaluation disabled." in html
+    assert "font-style:italic" in html
 
 
 def test_email_settings_deduplicate_recipients(monkeypatch: pytest.MonkeyPatch) -> None:

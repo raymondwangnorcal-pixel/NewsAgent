@@ -412,7 +412,7 @@ def _main(argv: list[str] | None = None) -> None:
             if args.email_parity:
                 plain_text = service.render_parity(email_messages, f"Morning Briefing - {briefing_today().isoformat()}").plain_text
             else:
-                plain_text, watchlist_stories = service.render_newsletter(
+                rendered_email, watchlist_stories = service.render_newsletter(
                     email_messages,
                     f"Morning Briefing - {briefing_today().isoformat()}",
                     config.enrichment,
@@ -424,7 +424,10 @@ def _main(argv: list[str] | None = None) -> None:
                     persist_watchlist_state=not args.restart_after_gate_failure,
                     read_edgar_state=args.restart_after_gate_failure,
                 )
-                plain_text = plain_text.plain_text
+                preview_path = Path("preview.html")
+                preview_path.write_text(rendered_email.html, encoding="utf-8")
+                print(f"Saved formatted email preview to {preview_path}.")
+                plain_text = rendered_email.plain_text
                 if args.activate_watchlist_gate:
                     implementation_version = str(args.implementation_version)
                     preflight = ActivationPreflight(

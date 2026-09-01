@@ -12,7 +12,7 @@ from news_agent.mailer.quotes import EndOfDayQuote
 from news_agent.mailer.watchlist_news import WatchlistStory
 
 SYSTEM_FONT_STACK = (
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,'
+    "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,"
     " Helvetica, Arial, sans-serif"
 )
 
@@ -29,11 +29,11 @@ _RED = "#C5221F"
 _QUIET = "#9AA0A6"
 
 CATEGORY_ACCENT_COLORS: dict[str, str] = {
-    "business_tech": "#4F46E5",
-    "domestic": "#2563EB",
-    "global": "#0D9488",
-    "culture": "#D97706",
-    "finance": "#7C3AED",
+    "business_tech": "#1565C0",
+    "domestic": "#C62828",
+    "global": "#2E7D32",
+    "culture": "#EF6C00",
+    "finance": "#7B1FA2",
 }
 
 CATEGORY_LABELS: dict[str, str] = {
@@ -105,7 +105,8 @@ def render_minimal_newsletter(
     wl_block = watchlist_html if watchlist_html else ""
 
     rendered_html = (
-        f'<html><body style="margin:0; padding:24px 16px; background:{_PAGE_BG};'
+        f'<html><head><meta charset="utf-8"></head><body style="margin:0;'
+        f' padding:24px 16px; background:{_PAGE_BG};'
         f" font-family:{SYSTEM_FONT_STACK}; -webkit-font-smoothing:antialiased;\">"
         f'<div style="max-width:600px; margin:0 auto; background:{_SURFACE};'
         f' border-radius:6px; overflow:hidden;">'
@@ -118,10 +119,10 @@ def render_minimal_newsletter(
         f' font-weight:500;">{html.escape(date_line)}</p></div>'
         # Headline index (quick-scan summary)
         f"{index_html}"
-        # Sections
-        f"{sections_html}"
         # Watchlist
         f"{wl_block}"
+        # Sections
+        f"{sections_html}"
         # Footer
         f'<div style="padding:16px 28px 20px; border-top:1px solid {_DIVIDER};">'
         f'<p style="margin:0; font-size:11.5px; color:{_QUIET};">'
@@ -169,32 +170,28 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
     for label, accent, hl in items:
         rows.append(
             f'<tr>'
-            f'<td style="padding:4px 0; vertical-align:baseline; width:1px;'
-            f' white-space:nowrap; padding-right:10px;">'
-            f'<table cellpadding="0" cellspacing="0" border="0"'
-            f' style="border-collapse:collapse;"><tr>'
-            f'<td style="width:6px; height:6px; background:{accent};'
-            f' border-radius:50%; font-size:0; line-height:0;">&nbsp;</td>'
-            f'<td style="padding-left:10px; font-size:10.5px; font-weight:700;'
+            f'<td width="140" style="width:140px; padding:6px 12px 6px 8px;'
+            f' border-left:3px solid {accent}; vertical-align:top;">'
+            f'<span style="font-size:10.5px; font-weight:700; line-height:1.35;'
             f" text-transform:uppercase; letter-spacing:0.8px; color:{_SECONDARY};"
             f' font-family:{SYSTEM_FONT_STACK}; white-space:nowrap;">'
-            f"{html.escape(label)}</td>"
-            f"</tr></table></td>"
-            f'<td style="padding:4px 0; vertical-align:baseline;">'
-            f'<span style="font-size:13.5px; font-weight:600; line-height:1.3; color:{_INK};'
+            f"<b>{html.escape(label)}</b></span></td>"
+            f'<td style="padding:6px 0; vertical-align:top;">'
+            f'<span style="font-size:13.5px; font-weight:600; line-height:1.35; color:{_INK};'
             f' font-family:{SYSTEM_FONT_STACK};">'
             f"<b>{html.escape(hl)}</b></span></td>"
             f"</tr>"
         )
 
     return (
-        f'<div style="padding:18px 28px; border-bottom:1px solid {_DIVIDER};'
+        f'<div style="padding:20px 28px; border-bottom:1px solid {_DIVIDER};'
         f' background:{_PAGE_BG};">'
-        f'<p style="margin:0 0 10px; font-size:10px; font-weight:700;'
+        f'<p style="margin:0 0 12px; font-size:10px; font-weight:700;'
         f" text-transform:uppercase; letter-spacing:1.5px; color:{_QUIET};"
         f' font-family:{SYSTEM_FONT_STACK};">In This Briefing</p>'
         f'<table cellpadding="0" cellspacing="0" border="0"'
-        f' style="border-collapse:collapse; width:100%;">'
+        f' style="border-collapse:separate; border-spacing:0; width:100%;'
+        f' table-layout:fixed;">'
         + "".join(rows)
         + "</table></div>"
     )
@@ -229,7 +226,7 @@ def _render_section(message: FormattedMessage) -> str:
         f'<td style="padding-left:10px; font-size:12.5px; font-weight:700;'
         f" text-transform:uppercase; letter-spacing:1.2px; color:{_INK};"
         f' font-family:{SYSTEM_FONT_STACK};">'
-        f"{html.escape(label)}</td>"
+        f"<b>{html.escape(label)}</b></td>"
         f"</tr></table></td></tr></table>"
         # Stories
         f"{stories}</div>"
@@ -551,7 +548,7 @@ def _build_watchlist_html(
         f' border-radius:2px; font-size:0; line-height:0;">&nbsp;</td>'
         f'<td style="padding-left:10px; font-size:12.5px; font-weight:700;'
         f" text-transform:uppercase; letter-spacing:1.2px; color:{_INK};"
-        f' font-family:{SYSTEM_FONT_STACK};">Watchlist</td>'
+        f' font-family:{SYSTEM_FONT_STACK};"><b>Watchlist</b></td>'
         f"</tr></table></td></tr></table>"
     )
 
@@ -587,6 +584,8 @@ def _build_watchlist_html(
 
     # ---- Status notices ----
     notices: list[str] = []
+    if gate_state == "DISABLED":
+        notices.append("Watchlist evaluation disabled.")
     if pending_relationships:
         notices.append(f"Watchlist review needed: {pending_relationships} relationship(s).")
     if gate_progress_notice:

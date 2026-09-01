@@ -130,7 +130,7 @@ def test_cli_email_dry_run_prints_requested_diagnostics(
 
     class FakeEmailService:
         def render_newsletter(self, *_args, **_kwargs):
-            return SimpleNamespace(plain_text="EMAIL PREVIEW\n"), []
+            return SimpleNamespace(plain_text="EMAIL PREVIEW\n", html="<html><body>EMAIL PREVIEW</body></html>"), []
 
     monkeypatch.setattr(cli, "EmailService", FakeEmailService)
 
@@ -140,6 +140,43 @@ def test_cli_email_dry_run_prints_requested_diagnostics(
     assert "EMAIL PREVIEW" in output
     assert "duplicate_gate_deck_size: 10" in output
     assert "duplicate_gate_sets_merged: 1" in output
+
+
+def test_cli_email_dry_run_writes_formatted_html_preview_with_watchlist(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(
+        cli,
+        "build_briefing_result_sync",
+        lambda **_kwargs: SimpleNamespace(
+            briefings=sample_briefings(),
+            skipped_stories=[],
+            skipped_log_path=Path("skipped.json"),
+            source_debug_lines=(),
+            diagnostics=None,
+            openai_budget=None,
+        ),
+    )
+    formatted_html = (
+        "<html><body><div>In This Briefing</div>"
+        '<div id="watchlist">Watchlist</div><div>Business + Tech</div></body></html>'
+    )
+
+    class FakeEmailService:
+        def render_newsletter(self, *_args: object, **_kwargs: object):
+            return SimpleNamespace(plain_text="EMAIL PREVIEW\n", html=formatted_html), []
+
+    monkeypatch.setattr(cli, "EmailService", FakeEmailService)
+
+    cli.main(["--dry-run", "--to", "email", "--no-openai"])
+
+    preview = (tmp_path / "preview.html").read_text(encoding="utf-8")
+    assert preview == formatted_html
+    assert preview.index("In This Briefing") < preview.index("Watchlist") < preview.index("Business + Tech")
+    assert "Saved formatted email preview to preview.html." in capsys.readouterr().out
 
 
 def test_cli_send_no_openai_uses_configured_sender(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:

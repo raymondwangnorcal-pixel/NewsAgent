@@ -39,10 +39,13 @@ news-briefing --dry-run --openai-mode full
 news-briefing --test-telegram
 news-briefing --send
 news-briefing --send --no-openai
+news-briefing --dry-run --to email
 news-briefing --dry-run --to email --email-parity
 ```
 
 Use `--dry-run` until the content looks right. It prints the five messages instead of sending them.
+Native email dry runs also write the complete formatted newsletter, including the Watchlist,
+to `preview.html` for browser inspection.
 
 ## Environment
 

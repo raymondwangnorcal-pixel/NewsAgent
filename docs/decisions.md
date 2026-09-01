@@ -1519,3 +1519,31 @@
 - Supersedes: none
 - Evidence: Failed scheduled-run trace on 2026-08-30 and `src/news_agent/newsletter_review.py`.
 - Privacy waivers: none
+
+## DEC-0081 — Place the Watchlist immediately after the briefing index
+
+- Date: 2026-09-01
+- Owner: user
+- Status at record: active
+- Decision: Render the compact Watchlist immediately after `In This Briefing` and before all editorial news sections.
+- Rationale: Tracked prices and ticker-specific disclosures are a priority view and should be visible near the top without repeated quiet-day prose.
+- Scope: Morning Briefing HTML ordering and Watchlist presentation.
+- Implementation: pending
+- Recorded against HEAD: `eef14221078c9ee08cdf97cdd2edd9ba05bfe9be`
+- Supersedes: none
+- Evidence: User-approved Watchlist formatting and placement in the Codex task on 2026-09-01.
+- Privacy waivers: none
+
+## DEC-0082 — Write native email dry runs as formatted HTML previews
+
+- Date: 2026-09-01
+- Owner: user
+- Status at record: active
+- Decision: Native email dry runs will write the complete production-rendered newsletter HTML, including the Watchlist, to `preview.html` while retaining the plain-text console output and sending no email.
+- Rationale: The full newsletter layout must be inspectable during a dry run without requiring delivery to an email client.
+- Scope: Native email CLI dry-run output and local preview workflow.
+- Implementation: pending
+- Recorded against HEAD: `eef14221078c9ee08cdf97cdd2edd9ba05bfe9be`
+- Supersedes: none
+- Evidence: User-requested dry-run formatting behavior in the Codex task on 2026-09-01.
+- Privacy waivers: none
