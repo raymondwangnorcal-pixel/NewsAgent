@@ -24,6 +24,7 @@ from pathlib import Path
 # Ensure src/ is importable when run from the project root.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
+from news_agent.env import load_dotenv
 from news_agent.formatting import CATEGORY_HEADERS, FormattedMessage
 from news_agent.mailer.render import render_minimal_newsletter
 from news_agent.mailer.settings import email_settings_from_env
@@ -130,6 +131,7 @@ def _extract_watchlist_html(stored_html: str) -> str:
 # ------------------------------------------------------------------
 
 def main() -> None:
+    load_dotenv()
     parser = argparse.ArgumentParser(
         description="Re-render a stored newsletter edition with current formatting.",
     )
