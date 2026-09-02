@@ -1683,3 +1683,17 @@
 - Superseded by: DEC-0090
 - Note: The forced dark newsletter theme is replaced by a light base that leaves theme adaptation to the recipient's email client.
 - Privacy waivers: none
+
+## DEC-0091 — Refine the desktop briefing-index hierarchy
+
+- Date: 2026-09-01
+- Owner: user
+- Status at record: active
+- Decision: The desktop `In This Briefing` index will keep bold underlined category labels and the five existing colored borders while presenting lead headlines without underlines or extra bold markup, with ten-pixel row padding and increased line height; the mobile index remains unchanged.
+- Rationale: The lighter headline treatment and additional spacing create clearer alignment and hierarchy in light mode without altering category recognition or the recipient's email-client theme behavior.
+- Scope: Desktop Morning Briefing index typography, spacing, alignment, and link presentation.
+- Implementation: pending
+- Recorded against HEAD: `f6b56c4784cbf9495201bb4aab7552faeb3e9a33`
+- Supersedes: none
+- Evidence: User-approved desktop briefing-index refinements in the Codex task on 2026-09-01 and the renderer regression tests in `tests/test_mailer.py`.
+- Privacy waivers: none

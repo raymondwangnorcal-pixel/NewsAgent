@@ -189,7 +189,7 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
     for item_index, (label, accent, hl, anchor) in enumerate(items):
         desktop_rows.append(
             f'<tr>'
-            f'<td width="140" style="width:140px; padding:6px 12px 6px 8px;'
+            f'<td width="140" style="width:140px; padding:10px 12px 10px 8px;'
             f' border-left:3px solid {accent}; vertical-align:top;">'
             f'<span style="font-size:10.5px; font-weight:700; line-height:1.35;'
             f" text-transform:uppercase; letter-spacing:0.8px; color:{_SECONDARY};"
@@ -197,12 +197,12 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
             f'<a href="#{anchor}" class="briefing-desktop-only"'
             f' style="color:{_SECONDARY}; text-decoration:underline;">'
             f"<b>{html.escape(label)}</b></a></span></td>"
-            f'<td style="padding:6px 0; vertical-align:top;">'
-            f'<span style="font-size:13.5px; font-weight:600; line-height:1.35; color:{_INK};'
+            f'<td style="padding:10px 0; vertical-align:top;">'
+            f'<span style="font-size:13.5px; font-weight:600; line-height:1.45; color:{_INK};'
             f' font-family:{SYSTEM_FONT_STACK};">'
             f'<a href="#{anchor}" class="briefing-desktop-only"'
-            f' style="color:{_INK}; text-decoration:underline;">'
-            f"<b>{html.escape(hl)}</b></a></span></td>"
+            f' style="color:{_INK}; text-decoration:none;">'
+            f"{html.escape(hl)}</a></span></td>"
             f"</tr>"
         )
         mobile_bottom_padding = "13px" if item_index == len(items) - 1 else "10px"

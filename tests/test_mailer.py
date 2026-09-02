@@ -192,6 +192,9 @@ def test_headline_index_uses_email_safe_aligned_label_cells() -> None:
 
     rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
     index_html = rendered.html.split("In This Briefing", maxsplit=1)[1].split("</table></div>", maxsplit=1)[0]
+    desktop_html = index_html.split('<table class="briefing-desktop-index"', maxsplit=1)[1].split(
+        '</table><table class="briefing-mobile-index"', maxsplit=1
+    )[0]
 
     assert index_html.count("<table") == 2
     assert '<table class="briefing-desktop-index"' in index_html
@@ -200,10 +203,16 @@ def test_headline_index_uses_email_safe_aligned_label_cells() -> None:
     assert "table-layout:fixed" in index_html
     assert "margin:0 0 12px" in rendered.html
     assert "padding:20px 28px" in rendered.html
-    assert "padding:6px 12px 6px 8px" in index_html
-    assert "vertical-align:top" in index_html
-    assert "<b>Business + Tech</b>" in index_html
-    assert "<b>U.S. News</b>" in index_html
+    assert "padding:10px 12px 10px 8px" in desktop_html
+    assert "padding:10px 0" in desktop_html
+    assert "font-weight:600; line-height:1.45" in desktop_html
+    assert 'text-decoration:none' in desktop_html
+    assert "<b>A sufficiently long business headline.</b>" not in desktop_html
+    assert "vertical-align:top" in desktop_html
+    assert "<b>Business + Tech</b>" in desktop_html
+    assert "<b>U.S. News</b>" in desktop_html
+    assert 'border-left:3px solid #1565C0' in desktop_html
+    assert 'border-left:3px solid #C62828' in desktop_html
 
 
 def test_newsletter_uses_approved_distinct_category_accents() -> None:
@@ -257,7 +266,7 @@ def test_headline_index_links_labels_and_headlines_to_matching_sections() -> Non
             rendered.html,
         )
         assert re.search(
-            rf'<a href="#{anchor}"[^>]*><b>{re.escape(headline)}</b></a>',
+            rf'<a href="#{anchor}"[^>]*>{re.escape(headline)}</a>',
             rendered.html,
         )
         destination = f'<a id="{anchor}" name="{anchor}"></a>'
