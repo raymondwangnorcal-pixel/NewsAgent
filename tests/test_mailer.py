@@ -26,6 +26,12 @@ from news_agent.openai_budget import OpenAIBudget
 from news_agent.watchlist.models import Filing
 
 
+@pytest.fixture(autouse=True)
+def show_watchlist_by_default(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Keep renderer tests independent from a developer's local output setting."""
+    monkeypatch.setenv("NEWSLETTER_SHOW_WATCHLIST", "true")
+
+
 class FakeSMTP:
     def __init__(self) -> None:
         self.started_tls = False
@@ -519,6 +525,35 @@ def test_watchlist_appears_immediately_after_headline_index() -> None:
 
     assert rendered.html[index_end:].startswith(watchlist_html)
     assert rendered.html.index('border-bottom:1px solid #1565C0', index_end) > index_end
+
+
+def test_watchlist_visibility_switch_hides_only_watchlist_output(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("NEWSLETTER_SHOW_WATCHLIST", "false")
+    messages = [
+        FormattedMessage(
+            "Business + Tech",
+            "BUSINESS + TECH\n\nA visible business headline. Supporting context.",
+            category="business_tech",
+        )
+    ]
+
+    rendered = render_minimal_newsletter(
+        messages,
+        "Morning Briefing - 2026-09-01",
+        watchlist_html='<div id="watchlist-marker">Hidden watchlist HTML</div>',
+        watchlist_text="WATCHLIST\nHidden watchlist text",
+    )
+
+    assert "watchlist-marker" not in rendered.html
+    assert "Hidden watchlist HTML" not in rendered.html
+    assert "Hidden watchlist text" not in rendered.plain_text
+    assert "In This Briefing" in rendered.html
+    assert "A visible business headline." in rendered.html
+    assert "A visible business headline." in rendered.plain_text
+    assert "For informational purposes only; not investment advice." in rendered.html
+    assert "For informational purposes only; not investment advice." in rendered.plain_text
 
 
 def test_watchlist_uses_compact_grid_news_rows_and_subdued_status() -> None:

@@ -104,6 +104,7 @@ EMAIL_TO=first@example.com,second@example.com
 SEC_CONTACT_EMAIL=newsagent-contact@gmail.com
 TIINGO_API_KEY=...
 EODHD_API_KEY=...
+NEWSLETTER_SHOW_WATCHLIST=true
 ```
 
 Use `news-briefing --dry-run --to email --email-parity` to test the temporary
@@ -111,7 +112,10 @@ Gmail-only delivery baseline. It deliberately renders the Telegram digest
 unchanged and does not require market-data keys. It is a temporary bridge;
 native email delivery is `news-briefing --send --to email` after both quote
 provider keys and `SEC_CONTACT_EMAIL` are configured. Native email runs always
-retrieve and render the Watchlist. Gate A evaluation starts disabled, so normal
+retrieve and evaluate the Watchlist. Set `NEWSLETTER_SHOW_WATCHLIST=false` to
+omit the Watchlist from HTML and plain-text output without disabling that
+background processing; unset it or set it to `true` to restore the section.
+Gate A evaluation starts disabled, so normal
 editions initially include the exact notice `Watchlist evaluation disabled.`;
 that notice does not mean Watchlist retrieval is disabled.
 

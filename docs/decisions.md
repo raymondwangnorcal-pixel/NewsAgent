@@ -1697,3 +1697,17 @@
 - Supersedes: none
 - Evidence: User-approved desktop briefing-index refinements in the Codex task on 2026-09-01 and the renderer regression tests in `tests/test_mailer.py`.
 - Privacy waivers: none
+
+## DEC-0092 — Temporarily suppress Watchlist email output
+
+- Date: 2026-09-01
+- Owner: user
+- Status at record: active
+- Decision: Newsletter rendering will honor `NEWSLETTER_SHOW_WATCHLIST`, defaulting to visible outside the scheduled workflow while the scheduled workflow temporarily defaults the setting to false, and suppression will omit both HTML and plain-text Watchlist output without stopping Watchlist collection or quality measurement.
+- Rationale: Readers should temporarily receive the rest of the Morning Briefing without the Watchlist, while retaining its underlying data and evaluation pipeline for later restoration.
+- Scope: Normal email sends, dry-run previews, stored-edition rerenders, local environment configuration, and the scheduled GitHub Actions delivery.
+- Implementation: pending
+- Recorded against HEAD: `facd0f870a8325358311fe2ed7e039d857eb6fca`
+- Supersedes: none
+- Evidence: User-approved temporary Watchlist suppression in the Codex task on 2026-09-01 and the renderer regression test in `tests/test_mailer.py`.
+- Privacy waivers: none

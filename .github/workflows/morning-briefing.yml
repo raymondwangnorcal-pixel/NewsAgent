@@ -45,6 +45,7 @@ jobs:
           SEC_CONTACT_EMAIL: ${{ secrets.SEC_CONTACT_EMAIL }}
           TIINGO_API_KEY: ${{ secrets.TIINGO_API_KEY }}
           EODHD_API_KEY: ${{ secrets.EODHD_API_KEY }}
+          NEWSLETTER_SHOW_WATCHLIST: ${{ vars.NEWSLETTER_SHOW_WATCHLIST || 'false' }}
           BRIEFING_TIMEZONE: America/New_York
 
       # Save state after the run so the next run picks it up.

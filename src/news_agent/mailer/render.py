@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import html
+import os
 import re
 from urllib.parse import urlparse
 from dataclasses import dataclass
@@ -27,6 +28,7 @@ _SOURCE_CLR = "#7A8793"
 _GREEN = "#188038"
 _RED = "#C5221F"
 _QUIET = "#9AA0A6"
+_FALSE_ENV_VALUES = {"0", "false", "no", "off"}
 
 _RESPONSIVE_CSS = (
     "<style>"
@@ -105,9 +107,14 @@ def render_minimal_newsletter(
 ) -> RenderedEmail:
     """Build the email newsletter with card layout and typographic hierarchy."""
 
+    show_watchlist = (
+        os.getenv("NEWSLETTER_SHOW_WATCHLIST", "").strip().casefold()
+        not in _FALSE_ENV_VALUES
+    )
+
     # ---- Plain text (unchanged) ----
     plain_parts = [header, *(message.text for message in messages)]
-    if watchlist_text:
+    if show_watchlist and watchlist_text:
         plain_parts.append(watchlist_text)
     plain_parts.append("For informational purposes only; not investment advice.")
     plain_text = "\n\n".join(plain_parts).strip() + "\n"
@@ -119,7 +126,7 @@ def render_minimal_newsletter(
     )
     sections_html = "".join(_render_section(m) for m in messages)
     index_html = _build_headline_index(messages)
-    wl_block = watchlist_html if watchlist_html else ""
+    wl_block = watchlist_html if show_watchlist and watchlist_html else ""
 
     rendered_html = (
         f'<html><head><meta charset="utf-8">{_RESPONSIVE_CSS}</head>'
