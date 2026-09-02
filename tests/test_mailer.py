@@ -117,6 +117,33 @@ def test_native_newsletter_declares_utf8_for_standalone_preview() -> None:
     assert "It’s important context." in rendered.html
 
 
+def test_native_newsletter_forces_dark_theme_for_desktop_mobile_and_stored_watchlist() -> None:
+    messages = [
+        FormattedMessage(
+            "Business + Tech",
+            "BUSINESS + TECH\n\nA sufficiently long business headline. Supporting context.",
+            category="business_tech",
+        )
+    ]
+    stored_watchlist = '<div style="color:#0F1419; background:#FFFFFF;">Watchlist</div>'
+
+    rendered = render_minimal_newsletter(
+        messages,
+        "Morning Briefing - 2026-09-01",
+        watchlist_html=stored_watchlist,
+    )
+
+    assert '<meta name="color-scheme" content="dark">' in rendered.html
+    assert '<meta name="supported-color-schemes" content="dark">' in rendered.html
+    assert '<body bgcolor="#111315"' in rendered.html
+    assert 'background:#111315' in rendered.html
+    assert 'background:#202124' in rendered.html
+    assert '.briefing-mobile-index{display:table!important;width:100%!important;}' in rendered.html
+    assert 'color:#F8FAFC' in rendered.html
+    assert '#FFFFFF' not in rendered.html
+    assert '#0F1419' not in rendered.html
+
+
 def test_native_newsletter_links_source_label_and_keeps_plain_text_url() -> None:
     messages = [
         FormattedMessage(
@@ -382,8 +409,8 @@ def test_mobile_briefing_heading_matches_category_label_alignment_and_weight() -
 
     assert (
         ".briefing-index-heading{margin:0!important;padding:10px 0 10px 8px!important;"
-        "font-size:12.5px!important;font-weight:700!important;color:#0F1419!important;"
-        "border-left:3px solid #0F1419!important;}"
+        "font-size:12.5px!important;font-weight:700!important;color:#F8FAFC!important;"
+        "border-left:3px solid #F8FAFC!important;}"
         in rendered.html
     )
     assert ">In This Briefing " not in rendered.html
@@ -412,8 +439,8 @@ def test_mobile_briefing_heading_has_matching_border_and_reaches_watchlist() -> 
     )
     assert (
         ".briefing-index-heading{margin:0!important;padding:10px 0 10px 8px!important;"
-        "font-size:12.5px!important;font-weight:700!important;color:#0F1419!important;"
-        "border-left:3px solid #0F1419!important;}"
+        "font-size:12.5px!important;font-weight:700!important;color:#F8FAFC!important;"
+        "border-left:3px solid #F8FAFC!important;}"
         in rendered.html
     )
     assert rendered.html.index("</table></div>") < rendered.html.index("watchlist-marker")
@@ -442,8 +469,8 @@ def test_mobile_briefing_borders_continue_through_reduced_heading_and_bottom_spa
     )
     assert (
         ".briefing-index-heading{margin:0!important;padding:10px 0 10px 8px!important;"
-        "font-size:12.5px!important;font-weight:700!important;color:#0F1419!important;"
-        "border-left:3px solid #0F1419!important;}"
+        "font-size:12.5px!important;font-weight:700!important;color:#F8FAFC!important;"
+        "border-left:3px solid #F8FAFC!important;}"
         in rendered.html
     )
     assert 'style="padding:8px 0 10px 8px; border-left:3px solid #1565C0;' in rendered.html

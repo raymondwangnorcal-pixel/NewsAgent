@@ -1647,3 +1647,17 @@
 - Supersedes: none
 - Evidence: User-approved bounded design in the Codex task on 2026-09-01 and the scheduled-delivery regressions in `tests/test_cli.py` and `tests/test_mailer.py`.
 - Privacy waivers: none
+
+## DEC-0089 — Use an explicit dark newsletter theme
+
+- Date: 2026-09-01
+- Owner: user
+- Status at record: active
+- Decision: Normal newsletter rendering will use an explicit dark palette on desktop and mobile, declare a dark email color scheme, and convert stored light-theme watchlist fragments when they are re-rendered.
+- Rationale: The newsletter should have the same intentional dark appearance across desktop and mobile instead of depending on inconsistent Gmail color inversion.
+- Scope: Newsletter HTML colors, responsive presentation, Gmail color-scheme hints, stored-edition format previews, and renderer regression tests.
+- Implementation: pending
+- Recorded against HEAD: `3fb07b4cee8a9aebbe5858a709d3451782478ce0`
+- Supersedes: none
+- Evidence: User-approved bounded design in the Codex task on 2026-09-01 and the dark-theme regression in `tests/test_mailer.py`.
+- Privacy waivers: none

@@ -16,20 +16,35 @@ SYSTEM_FONT_STACK = (
     " Helvetica, Arial, sans-serif"
 )
 
-# ---- Inline colour tokens (light theme, email-safe) ----
-_INK = "#0F1419"
-_SECONDARY = "#536471"
-_DIVIDER = "#E1E5E8"
-_SURFACE = "#FFFFFF"
-_PAGE_BG = "#F5F6F8"
-_LINK = "#1966D2"
-_SOURCE_CLR = "#7A8793"
-_GREEN = "#188038"
-_RED = "#C5221F"
-_QUIET = "#9AA0A6"
+# ---- Inline colour tokens (explicit dark theme, email-safe) ----
+_INK = "#F8FAFC"
+_SECONDARY = "#B8C4D0"
+_DIVIDER = "#3A4148"
+_SURFACE = "#202124"
+_PAGE_BG = "#111315"
+_INDEX_BG = "#25282B"
+_LINK = "#8AB4F8"
+_SOURCE_CLR = "#AAB6C2"
+_GREEN = "#6DD58C"
+_RED = "#FF7B72"
+_QUIET = "#98A4B0"
+
+_LEGACY_THEME_REPLACEMENTS: tuple[tuple[str, str], ...] = (
+    ("#0F1419", _INK),
+    ("#536471", _SECONDARY),
+    ("#E1E5E8", _DIVIDER),
+    ("#FFFFFF", _SURFACE),
+    ("#F5F6F8", _PAGE_BG),
+    ("#1966D2", _LINK),
+    ("#7A8793", _SOURCE_CLR),
+    ("#188038", _GREEN),
+    ("#C5221F", _RED),
+    ("#9AA0A6", _QUIET),
+)
 
 _RESPONSIVE_CSS = (
     "<style>"
+    ":root{color-scheme:dark;supported-color-schemes:dark;}"
     ".briefing-mobile-index{display:none;}"
     "@media screen and (max-width:600px){"
     ".briefing-desktop-only{display:none!important;}"
@@ -119,14 +134,17 @@ def render_minimal_newsletter(
     )
     sections_html = "".join(_render_section(m) for m in messages)
     index_html = _build_headline_index(messages)
-    wl_block = watchlist_html if watchlist_html else ""
+    wl_block = _apply_dark_theme_to_fragment(watchlist_html) if watchlist_html else ""
 
     rendered_html = (
-        f'<html><head><meta charset="utf-8">{_RESPONSIVE_CSS}</head>'
-        f'<body style="margin:0;'
-        f' padding:24px 16px; background:{_PAGE_BG};'
+        f'<html><head><meta charset="utf-8">'
+        f'<meta name="color-scheme" content="dark">'
+        f'<meta name="supported-color-schemes" content="dark">'
+        f'{_RESPONSIVE_CSS}</head>'
+        f'<body bgcolor="{_PAGE_BG}" style="margin:0;'
+        f' padding:24px 16px; background:{_PAGE_BG}; color:{_INK};'
         f" font-family:{SYSTEM_FONT_STACK}; -webkit-font-smoothing:antialiased;\">"
-        f'<div style="max-width:600px; margin:0 auto; background:{_SURFACE};'
+        f'<div style="max-width:600px; margin:0 auto; background:{_SURFACE}; color:{_INK};'
         f' border-radius:6px; overflow:hidden;">'
         # Header
         f'<div style="padding:28px 28px 20px; border-bottom:1px solid {_DIVIDER};">'
@@ -220,7 +238,7 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
 
     return (
         f'<div class="briefing-index" style="padding:20px 28px; border-bottom:1px solid {_DIVIDER};'
-        f' background:{_PAGE_BG};">'
+        f' background:{_INDEX_BG};">'
         f'<p class="briefing-index-heading" style="margin:0 0 12px; font-size:10px; font-weight:700;'
         f" text-transform:uppercase; letter-spacing:1.5px; color:{_QUIET};"
         f' font-family:{SYSTEM_FONT_STACK};"><b>In This Briefing</b> '
@@ -413,6 +431,13 @@ def _extract_headline(text: str) -> tuple[str, str]:
 # ------------------------------------------------------------------
 # Helpers
 # ------------------------------------------------------------------
+
+
+def _apply_dark_theme_to_fragment(fragment: str) -> str:
+    themed = fragment
+    for light_color, dark_color in _LEGACY_THEME_REPLACEMENTS:
+        themed = themed.replace(light_color, dark_color)
+    return themed
 
 
 def _is_http_url(value: str) -> bool:
