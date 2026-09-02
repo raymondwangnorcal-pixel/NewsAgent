@@ -346,7 +346,7 @@ def test_mobile_briefing_uses_right_edge_instead_of_wrapping_early() -> None:
         in rendered.html
     )
     assert '<table class="briefing-mobile-index" width="100%"' in rendered.html
-    assert 'style="padding:8px 0 20px 8px; border-left:3px solid #1565C0;' in rendered.html
+    assert 'style="padding:8px 0 13px 8px; border-left:3px solid #1565C0;' in rendered.html
 
 
 def test_mobile_briefing_moves_rows_to_header_edge_without_changing_text_inset() -> None:
@@ -366,7 +366,7 @@ def test_mobile_briefing_moves_rows_to_header_edge_without_changing_text_inset()
         in rendered.html
     )
     assert '<p class="briefing-index-heading" style="margin:0 0 12px;' in rendered.html
-    assert 'style="padding:8px 0 20px 8px; border-left:3px solid #1565C0;' in rendered.html
+    assert 'style="padding:8px 0 13px 8px; border-left:3px solid #1565C0;' in rendered.html
 
 
 def test_mobile_briefing_heading_matches_category_label_alignment_and_weight() -> None:
@@ -381,8 +381,8 @@ def test_mobile_briefing_heading_matches_category_label_alignment_and_weight() -
     rendered = render_minimal_newsletter(messages, "Morning Briefing - 2026-09-01")
 
     assert (
-        ".briefing-index-heading{margin:0!important;padding:14px 0 8px 8px!important;"
-        "font-size:11.5px!important;font-weight:700!important;color:#0F1419!important;"
+        ".briefing-index-heading{margin:0!important;padding:10px 0 10px 8px!important;"
+        "font-size:12.5px!important;font-weight:700!important;color:#0F1419!important;"
         "border-left:3px solid #0F1419!important;}"
         in rendered.html
     )
@@ -411,8 +411,8 @@ def test_mobile_briefing_heading_has_matching_border_and_reaches_watchlist() -> 
         in rendered.html
     )
     assert (
-        ".briefing-index-heading{margin:0!important;padding:14px 0 8px 8px!important;"
-        "font-size:11.5px!important;font-weight:700!important;color:#0F1419!important;"
+        ".briefing-index-heading{margin:0!important;padding:10px 0 10px 8px!important;"
+        "font-size:12.5px!important;font-weight:700!important;color:#0F1419!important;"
         "border-left:3px solid #0F1419!important;}"
         in rendered.html
     )
@@ -441,13 +441,13 @@ def test_mobile_briefing_borders_continue_through_reduced_heading_and_bottom_spa
         in rendered.html
     )
     assert (
-        ".briefing-index-heading{margin:0!important;padding:14px 0 8px 8px!important;"
-        "font-size:11.5px!important;font-weight:700!important;color:#0F1419!important;"
+        ".briefing-index-heading{margin:0!important;padding:10px 0 10px 8px!important;"
+        "font-size:12.5px!important;font-weight:700!important;color:#0F1419!important;"
         "border-left:3px solid #0F1419!important;}"
         in rendered.html
     )
     assert 'style="padding:8px 0 10px 8px; border-left:3px solid #1565C0;' in rendered.html
-    assert 'style="padding:8px 0 20px 8px; border-left:3px solid #7B1FA2;' in rendered.html
+    assert 'style="padding:8px 0 13px 8px; border-left:3px solid #7B1FA2;' in rendered.html
 
 
 def test_mobile_newsletter_matches_story_headline_size_to_body_text() -> None:
@@ -683,6 +683,22 @@ def test_first_recipient_acceptance_remains_the_edition_watermark(tmp_path: Path
     store.record_delivery(edition.edition_id, RecipientOutcome("two@example.com", "failed", "550"))
 
     assert store.edition(edition.edition_id).state == "smtp_accepted"  # type: ignore[union-attr]
+
+
+def test_production_delivery_complete_requires_every_current_recipient(tmp_path: Path) -> None:
+    store = EmailStateStore(tmp_path / "state.db")
+    edition = store.prepare_edition("2026-09-01", "Subject", "Plain", "<p>HTML</p>", [])
+    recipients = ("one@example.com", "two@example.com")
+
+    store.record_delivery(edition.edition_id, RecipientOutcome("one@example.com", "smtp_accepted"))
+    store.record_delivery(edition.edition_id, RecipientOutcome("two@example.com", "failed", "550"))
+
+    assert not store.production_delivery_complete("2026-09-01", recipients)
+
+    store.record_delivery(edition.edition_id, RecipientOutcome("two@example.com", "smtp_accepted"))
+
+    assert store.production_delivery_complete("2026-09-01", recipients)
+    assert not store.production_delivery_complete("2026-09-02", recipients)
 
 
 def test_service_records_each_recipient_when_first_send_raises(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

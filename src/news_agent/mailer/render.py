@@ -36,8 +36,8 @@ _RESPONSIVE_CSS = (
     ".briefing-desktop-index{display:none!important;}"
     ".briefing-index{padding-top:0!important;padding-left:0!important;"
     "padding-right:12px!important;padding-bottom:0!important;}"
-    f".briefing-index-heading{{margin:0!important;padding:14px 0 8px 8px!important;"
-    f"font-size:11.5px!important;font-weight:700!important;color:{_INK}!important;"
+    f".briefing-index-heading{{margin:0!important;padding:10px 0 10px 8px!important;"
+    f"font-size:12.5px!important;font-weight:700!important;color:{_INK}!important;"
     f"border-left:3px solid {_INK}!important;}}"
     ".briefing-mobile-index{display:table!important;width:100%!important;}"
     ".story-headline{font-size:14px!important;}"
@@ -205,7 +205,7 @@ def _build_headline_index(messages: list[FormattedMessage]) -> str:
             f"<b>{html.escape(hl)}</b></a></span></td>"
             f"</tr>"
         )
-        mobile_bottom_padding = "20px" if item_index == len(items) - 1 else "10px"
+        mobile_bottom_padding = "13px" if item_index == len(items) - 1 else "10px"
         mobile_rows.append(
             f'<tr><td style="padding:8px 0 {mobile_bottom_padding} 8px;'
             f' border-left:3px solid {accent};'

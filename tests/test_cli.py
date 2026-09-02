@@ -9,6 +9,8 @@ import pytest
 
 from news_agent import cli
 from news_agent.config import DEFAULT_CONFIG_PATH
+from news_agent.mailer.models import RecipientOutcome
+from news_agent.mailer.state import EmailStateStore
 from news_agent.models import Article, BriefingParagraph, BriefingSection, PipelineDiagnostics
 
 
@@ -222,6 +224,31 @@ def test_scheduled_email_before_threshold_skips_pipeline(monkeypatch: pytest.Mon
     cli.main(["--send", "--to", "email", "--email-parity", "--scheduled", "--no-openai"])
 
     assert "8:20–8:35 AM" in capsys.readouterr().out
+
+
+def test_scheduled_email_already_accepted_skips_pipeline(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    store = EmailStateStore(tmp_path / "state.db")
+    edition = store.prepare_edition("2026-09-01", "Subject", "Plain", "<p>HTML</p>", [])
+    store.record_delivery(edition.edition_id, RecipientOutcome("to@example.com", "smtp_accepted"))
+    monkeypatch.setattr(cli, "scheduled_email_is_due", lambda: True)
+    monkeypatch.setattr(cli, "briefing_today", lambda: date(2026, 9, 1))
+    monkeypatch.setattr(cli, "EmailStateStore", lambda: store)
+    monkeypatch.setattr(
+        cli,
+        "email_settings_from_env",
+        lambda: SimpleNamespace(recipients=("to@example.com",)),
+    )
+    monkeypatch.setattr(
+        cli,
+        "build_briefing_result_sync",
+        lambda **_kwargs: (_ for _ in ()).throw(AssertionError("pipeline should not run")),
+    )
+
+    cli.main(["--send", "--to", "email", "--scheduled", "--no-openai"])
+
+    assert "already accepted for all recipients" in capsys.readouterr().out
 
 
 @pytest.mark.parametrize(

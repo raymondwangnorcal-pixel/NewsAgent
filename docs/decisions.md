@@ -1633,3 +1633,17 @@
 - Supersedes: none
 - Evidence: User-approved bounded design in the Codex task on 2026-09-01 and the mobile briefing-index regression test.
 - Privacy waivers: none
+
+## DEC-0088 — Skip completed scheduled editions before billable pipeline work
+
+- Date: 2026-09-01
+- Owner: user
+- Status at record: active
+- Decision: A scheduled email invocation must exit before news retrieval and OpenAI processing when a production edition for the current briefing date has SMTP acceptance for every configured recipient, while incomplete deliveries remain eligible for retry and pending Gate A failure alerts retain precedence.
+- Rationale: The four scheduled retry triggers should not repeat potentially billable pipeline work after the daily newsletter has already reached every recipient.
+- Scope: Scheduled email CLI orchestration, production-delivery state queries, recurring API cost, and regression tests.
+- Implementation: pending
+- Recorded against HEAD: `539c30e9353c28608ee1451a77586ce97a57d941`
+- Supersedes: none
+- Evidence: User-approved bounded design in the Codex task on 2026-09-01 and the scheduled-delivery regressions in `tests/test_cli.py` and `tests/test_mailer.py`.
+- Privacy waivers: none

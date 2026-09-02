@@ -859,6 +859,26 @@ class EmailStateStore:
             ).fetchall()
         return [RecipientOutcome(row["recipient"], row["state"], row["error_code"]) for row in rows]
 
+    def production_delivery_complete(self, local_date: str, recipients: tuple[str, ...]) -> bool:
+        required_recipients = set(recipients)
+        if not required_recipients:
+            return False
+        with self.connect() as connection:
+            rows = connection.execute(
+                """
+                SELECT e.id AS edition_id, d.recipient
+                FROM editions e
+                JOIN deliveries d ON d.edition_id = e.id
+                WHERE e.local_date = ? AND e.edition_kind = 'production'
+                  AND d.state = 'smtp_accepted'
+                """,
+                (local_date,),
+            ).fetchall()
+        accepted_by_edition: dict[int, set[str]] = {}
+        for row in rows:
+            accepted_by_edition.setdefault(int(row["edition_id"]), set()).add(str(row["recipient"]))
+        return any(required_recipients.issubset(accepted) for accepted in accepted_by_edition.values())
+
     def latest_editions(self, limit: int = 10) -> list[EmailEdition]:
         with self.connect() as connection:
             rows = connection.execute("SELECT * FROM editions ORDER BY id DESC LIMIT ?", (limit,)).fetchall()

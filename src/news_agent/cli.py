@@ -327,11 +327,14 @@ def _main(argv: list[str] | None = None) -> None:
     except ValueError as exc:
         parser.error(str(exc))
     delivery_target = args.to
+    email_recipients: tuple[str, ...] = ()
     if args.alerts and delivery_target in {"email", "both"}:
         parser.error("--alerts does not support email delivery")
     if args.send and delivery_target in {"email", "both"}:
         try:
-            email_settings_from_env()
+            email_settings = email_settings_from_env()
+            if args.scheduled:
+                email_recipients = email_settings.recipients
         except NotificationError as exc:
             raise SystemExit(f"Email preflight failed: {exc}") from exc
     if args.scheduled:
@@ -342,6 +345,9 @@ def _main(argv: list[str] | None = None) -> None:
             outcomes = service.send_edition(edition)
             accepted_count = accepted_email_count_or_raise(outcomes)
             print(f"Sent Gate A failure alert to {accepted_count} recipient(s); scheduled work is now halted.")
+            return
+        if gate_store.production_delivery_complete(briefing_today().isoformat(), email_recipients):
+            print("Scheduled email skipped: today's edition was already accepted for all recipients.")
             return
     format_mode = resolve_format_mode(args.format, args.dry_run, args.channel, delivery_target)
 
