@@ -1661,3 +1661,25 @@
 - Supersedes: none
 - Evidence: User-approved bounded design in the Codex task on 2026-09-01 and the dark-theme regression in `tests/test_mailer.py`.
 - Privacy waivers: none
+
+## DEC-0090 — Let email clients select presentation from a light base
+
+- Date: 2026-09-01
+- Owner: user
+- Status at record: active
+- Decision: Normal newsletter rendering will use the approved light palette without forced color-scheme metadata so Gmail and other email clients can apply their own user-selected theme behavior.
+- Rationale: Email HTML cannot reliably read a recipient's Gmail theme, and the user prefers client-controlled presentation over a newsletter that forces dark colors everywhere.
+- Scope: Newsletter HTML colors, Gmail theme behavior, responsive desktop and mobile presentation, preview rendering, and renderer regression tests.
+- Implementation: pending
+- Recorded against HEAD: `03a8f534d9c3a8e3ad9caadd614e1c22cc8bdeb7`
+- Supersedes: DEC-0089
+- Evidence: User-approved bounded reversal in the Codex task on 2026-09-01 and the light-base renderer regression in `tests/test_mailer.py`.
+- Privacy waivers: none
+
+## Update — 2026-09-01 — DEC-0089
+
+- Type: supersession
+- Implementation commit: not applicable
+- Superseded by: DEC-0090
+- Note: The forced dark newsletter theme is replaced by a light base that leaves theme adaptation to the recipient's email client.
+- Privacy waivers: none
