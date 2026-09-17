@@ -11,3 +11,7 @@ A scheduled AI briefing agent that gathers signals from reputable news sources e
 ## Website subscriber integration
 
 The optional Supabase subscriber connection, safe import, public-list activation, unsubscribe behavior, and no-send checks are documented in [docs/subscriber-integration.md](docs/subscriber-integration.md). It remains off until `NEWSAGENT_SUBSCRIBERS_ENABLED=true` is configured.
+
+## Website digest preview
+
+After a production send, the agent can publish that briefing for the live plate on `gaplesslabs.com/newsagent`. It is off until `NEWSAGENT_PUBLISH_DIGEST=true`, publishes only editions that actually reached recipients, and never fails a send when publishing fails. See [docs/digest-publish.md](docs/digest-publish.md).

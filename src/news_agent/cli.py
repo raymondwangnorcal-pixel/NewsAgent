@@ -16,7 +16,7 @@ from news_agent.mailer.service import EmailService
 from news_agent.mailer.state import EmailStateStore
 from news_agent.mailer.schedule import scheduled_email_is_due
 from news_agent.mailer.settings import email_settings_from_env
-from news_agent.mailer import subscribers
+from news_agent.mailer import digest_publish, subscribers
 from news_agent.notifications.base import NotificationError
 from news_agent.notifications.factory import selected_channel, send_briefing_messages, send_telegram_test_message
 from news_agent.pipeline import OpenAIMode, build_alert_result_sync, build_briefing_result_sync
@@ -568,6 +568,13 @@ def _main(argv: list[str] | None = None) -> None:
             outcomes = service.send_edition(edition)
             accepted_count = accepted_email_count_or_raise(outcomes)
             print(f"Sent email to {accepted_count} recipient(s).")
+            digest_publish.publish_quietly(
+                result.briefings,
+                briefing_date=briefing_date,
+                subject=edition.subject,
+                edition_kind=edition.edition_kind,
+                accepted=accepted_count,
+            )
         elif delivery_target == "both":
             sent_count = send_briefing_messages(messages, channel="telegram")
             service = EmailService()
@@ -602,6 +609,13 @@ def _main(argv: list[str] | None = None) -> None:
             print(
                 f"Sent {sent_count} Telegram message(s) and email to "
                 f"{accepted_count} recipient(s)."
+            )
+            digest_publish.publish_quietly(
+                result.briefings,
+                briefing_date=briefing_date,
+                subject=edition.subject,
+                edition_kind=edition.edition_kind,
+                accepted=accepted_count,
             )
         else:
             sent_count = send_briefing_messages(messages, channel=args.channel)
