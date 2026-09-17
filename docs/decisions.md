@@ -1725,3 +1725,11 @@
 - Supersedes: none
 - Evidence: `docs/subscriber-integration.md` and `docs/plans/2026-09-17-newsagent-signup-implementation.md`.
 - Privacy waivers: none
+
+## Update — 2026-09-17 — DEC-0093
+
+- Type: implementation
+- Implementation commit: `54bf36a654f8b4e86ec5974d82ebaaf73f3f317a` — feat(subscribers): deliver from Supabase list
+- Superseded by: none
+- Note: The committed sender supports active subscriber loading, individual unsubscribe links, administrative routing, and a no-email management workflow.
+- Privacy waivers: none
