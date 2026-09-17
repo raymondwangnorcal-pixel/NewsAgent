@@ -16,6 +16,7 @@ from news_agent.mailer.service import EmailService
 from news_agent.mailer.state import EmailStateStore
 from news_agent.mailer.schedule import scheduled_email_is_due
 from news_agent.mailer.settings import email_settings_from_env
+from news_agent.mailer import subscribers
 from news_agent.notifications.base import NotificationError
 from news_agent.notifications.factory import selected_channel, send_briefing_messages, send_telegram_test_message
 from news_agent.pipeline import OpenAIMode, build_alert_result_sync, build_briefing_result_sync
@@ -337,6 +338,22 @@ def _main(argv: list[str] | None = None) -> None:
                 email_recipients = email_settings.recipients
         except NotificationError as exc:
             raise SystemExit(f"Email preflight failed: {exc}") from exc
+    if args.send and delivery_target in {"email", "both"} and subscribers.enabled():
+        pending_alert = args.scheduled and EmailStateStore().gate_failure_alert_pending()
+        if not pending_alert:
+            try:
+                email_settings = subscribers.for_delivery(email_settings, "test" if args.email_rebuild_today else "production")
+                email_recipients = email_settings.recipients
+                if not email_recipients:
+                    subscribers.mark_ready()
+                    if delivery_target == "email":
+                        print("No active subscribers; no briefing generated or email sent.")
+                        return
+                    # With --to both, the separate Telegram audience still receives its briefing.
+                    delivery_target = "telegram"
+                    args.channel = "telegram"
+            except NotificationError as exc:
+                raise SystemExit(f"Subscriber preflight failed: {exc}") from exc
     if args.scheduled:
         gate_store = EmailStateStore()
         if gate_store.gate_failure_alert_pending():
@@ -346,7 +363,7 @@ def _main(argv: list[str] | None = None) -> None:
             accepted_count = accepted_email_count_or_raise(outcomes)
             print(f"Sent Gate A failure alert to {accepted_count} recipient(s); scheduled work is now halted.")
             return
-        if gate_store.production_delivery_complete(briefing_today().isoformat(), email_recipients):
+        if delivery_target in {"email", "both"} and gate_store.production_delivery_complete(briefing_today().isoformat(), email_recipients):
             print("Scheduled email skipped: today's edition was already accepted for all recipients.")
             return
     format_mode = resolve_format_mode(args.format, args.dry_run, args.channel, delivery_target)

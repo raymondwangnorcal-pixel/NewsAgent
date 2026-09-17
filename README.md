@@ -398,3 +398,8 @@ TWILIO_ACCOUNT_SID=...
 TWILIO_AUTH_TOKEN=...
 TWILIO_FROM_NUMBER=+15555550123
 ```
+
+
+## Website subscriber integration
+
+The optional Supabase subscriber connection, safe import, public-list activation, unsubscribe behavior, and no-send checks are documented in [docs/subscriber-integration.md](docs/subscriber-integration.md). It remains off until `NEWSAGENT_SUBSCRIBERS_ENABLED=true` is configured.

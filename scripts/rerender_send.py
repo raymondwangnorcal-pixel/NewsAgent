@@ -34,6 +34,7 @@ from news_agent.formatting import CATEGORY_HEADERS, FormattedMessage
 from news_agent.mailer.quotes import EndOfDayQuote
 from news_agent.mailer.render import render_minimal_newsletter, render_watchlist_section
 from news_agent.mailer.settings import email_settings_from_env
+from news_agent.mailer import subscribers
 from news_agent.mailer.smtp import send_email
 from news_agent.mailer.state import EmailStateStore
 from news_agent.mailer.watchlist_news import WatchlistStory
@@ -533,7 +534,7 @@ def main() -> None:
         print(f"Preview written to {out.resolve()}")
         return
 
-    settings = email_settings_from_env()
+    settings = subscribers.for_delivery(email_settings_from_env(), "test")
     for i in range(args.count):
         for recipient in settings.recipients:
             outcome = send_email(

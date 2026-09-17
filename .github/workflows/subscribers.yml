@@ -1,0 +1,41 @@
+name: Manage subscribers (no email)
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Subscriber operation; never sends email
+        type: choice
+        required: true
+        default: check
+        options:
+          - check
+          - import-existing
+          - mark-ready
+permissions:
+  contents: read
+concurrency:
+  group: subscriber-management
+  cancel-in-progress: false
+jobs:
+  subscribers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -e .
+      - name: Check or manage subscriber list
+        env:
+          OPERATION: ${{ inputs.operation }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          NEWSAGENT_SUBSCRIBERS_ENABLED: ${{ vars.NEWSAGENT_SUBSCRIBERS_ENABLED || 'false' }}
+        run: |
+          case "$OPERATION" in
+            check) python -m news_agent.mailer.subscribers ;;
+            import-existing) python -m news_agent.mailer.subscribers --import-existing ;;
+            mark-ready) python -m news_agent.mailer.subscribers --mark-ready ;;
+            *) exit 2 ;;
+          esac

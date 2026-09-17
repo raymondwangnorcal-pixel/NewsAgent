@@ -443,7 +443,9 @@ class EmailStateStore:
         )
 
     @contextmanager
-    def lock(self, path: Path = DEFAULT_LOCK_PATH) -> Iterator[None]:
+    def lock(self, path: Path | None = None) -> Iterator[None]:
+        # Isolated stores need an isolated lock; the default remains data/email_state.lock.
+        path = path or self.path.with_suffix(".lock")
         lock_key = (path.resolve(), threading.get_ident())
         if lock_key in _HELD_LOCKS:
             yield

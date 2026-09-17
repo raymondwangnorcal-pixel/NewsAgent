@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Literal
 
 
@@ -16,6 +16,7 @@ class EmailSettings:
     app_password: str
     from_address: str
     recipients: tuple[str, ...]
+    unsubscribe_tokens: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)

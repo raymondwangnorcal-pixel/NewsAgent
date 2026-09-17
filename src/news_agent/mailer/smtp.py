@@ -3,6 +3,8 @@ from __future__ import annotations
 import smtplib
 import socket
 import ssl
+from html import escape
+from uuid import UUID
 from collections.abc import Callable
 from email.message import EmailMessage
 
@@ -49,6 +51,14 @@ def build_message(
     message["To"] = recipient
     if message_id:
         message["Message-ID"] = message_id
+    token = settings.unsubscribe_tokens.get(recipient)
+    if token:
+        url = 'https://gaplesslabs.com/newsagent#unsubscribe=' + str(UUID(token))
+        plain_text += '\n\nUnsubscribe from NewsAgent: ' + url + '\n'
+        footer = '<p style="font:14px/1.5 sans-serif;margin:24px 0"><a href="' + escape(url, quote=True) + '">Unsubscribe from NewsAgent</a></p>'
+        # Preserve the stored edition; personalize only this outgoing message.
+        position = html.lower().rfind('</body>')
+        html = html[:position] + footer + html[position:] if position >= 0 else html + footer
     message.set_content(plain_text)
     message.add_alternative(html, subtype="html")
     return message

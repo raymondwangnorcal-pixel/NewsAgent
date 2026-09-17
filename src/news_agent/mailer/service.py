@@ -14,6 +14,7 @@ from news_agent.mailer.models import EmailEdition, RecipientOutcome
 from news_agent.mailer.render import RenderedEmail, render_parity_email
 from news_agent.mailer.render import render_minimal_newsletter, render_watchlist_section
 from news_agent.mailer.settings import email_settings_from_env
+from news_agent.mailer import subscribers
 from news_agent.mailer.smtp import SMTPFactory, send_email
 from news_agent.mailer.state import EmailStateStore
 from news_agent.history import HistoryUpdate, apply_history_update
@@ -362,10 +363,13 @@ class EmailService:
     ) -> list[RecipientOutcome]:
         if edition.edition_kind == "production" and not self.store.newsletter_send_allowed(edition.edition_id):
             raise ValueError("Email edition cannot send until its newsletter history update is applied.")
-        settings = email_settings_from_env()
+        settings = subscribers.for_delivery(email_settings_from_env(), edition.edition_kind)
         outcomes: list[RecipientOutcome] = []
         with self.store.lock():
             for recipient in settings.recipients:
+                token = settings.unsubscribe_tokens.get(recipient)
+                if token and not subscribers.is_active(recipient, token):
+                    continue
                 previous = {outcome.recipient: outcome for outcome in self.store.delivery_outcomes(edition.edition_id)}
                 previous_outcome = previous.get(recipient, RecipientOutcome(recipient, "prepared"))
                 if not force_resend and (previous_outcome.state == "smtp_accepted" or (
@@ -391,6 +395,8 @@ class EmailService:
                     outcome = RecipientOutcome(recipient, "failed", f"unhandled_{type(exc).__name__.lower()}")
                 self.store.record_delivery(edition.edition_id, outcome)
                 outcomes.append(outcome)
+        if subscribers.enabled() and edition.edition_kind == "production" and any(item.state == "smtp_accepted" for item in outcomes):
+            subscribers.mark_ready()
         for outcome in outcomes:
             if outcome.state != "smtp_accepted":
                 print(

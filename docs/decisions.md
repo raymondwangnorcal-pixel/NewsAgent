@@ -1711,3 +1711,17 @@
 - Supersedes: none
 - Evidence: User-approved temporary Watchlist suppression in the Codex task on 2026-09-01 and the renderer regression test in `tests/test_mailer.py`.
 - Privacy waivers: none
+
+## DEC-0093 — Use Supabase as the authoritative public subscriber list
+
+- Date: 2026-09-17
+- Owner: shared
+- Status at record: active
+- Decision: When explicitly enabled, NewsAgent production delivery will read active recipients from the shared Supabase subscriber table, preserve legacy EMAIL_TO delivery until rollout, and give each public recipient a personal unsubscribe link.
+- Rationale: The Gapless Labs signup form needs a private, durable subscriber store that the sender can consult without exposing the list, while operational and test messages retain a controlled administrative audience.
+- Scope: Gapless Labs signup API and database migrations, NewsAgent recipient selection, unsubscribe behavior, GitHub Actions configuration, and rollout procedure.
+- Implementation: pending
+- Recorded against HEAD: `378a8991ed175df2619d7ba111136116ece9b962`
+- Supersedes: none
+- Evidence: `docs/subscriber-integration.md` and `docs/plans/2026-09-17-newsagent-signup-implementation.md`.
+- Privacy waivers: none
