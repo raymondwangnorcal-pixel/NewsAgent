@@ -845,14 +845,27 @@ def test_shared_watchlist_aliases_are_consistent() -> None:
     validate_shared_watchlist_consistency()
 
 
-def test_scheduled_email_starts_at_815_am() -> None:
+def test_scheduled_send_window_is_8_to_1030() -> None:
+    """A run may send from 8:00 until the 10:30 cutoff; earlier catches a trigger
+    firing at the wrong hour, later would be a morning briefing at lunch."""
     from zoneinfo import ZoneInfo
 
     zone = ZoneInfo("America/New_York")
-    assert not scheduled_email_is_due(datetime(2026, 7, 25, 8, 19, tzinfo=zone))
+    assert not scheduled_email_is_due(datetime(2026, 7, 25, 7, 59, tzinfo=zone))
+    assert scheduled_email_is_due(datetime(2026, 7, 25, 8, 0, tzinfo=zone))
     assert scheduled_email_is_due(datetime(2026, 7, 25, 8, 20, tzinfo=zone))
-    assert scheduled_email_is_due(datetime(2026, 7, 25, 8, 35, tzinfo=zone))
-    assert not scheduled_email_is_due(datetime(2026, 7, 25, 8, 36, tzinfo=zone))
+    assert scheduled_email_is_due(datetime(2026, 7, 25, 10, 30, tzinfo=zone))
+    assert not scheduled_email_is_due(datetime(2026, 7, 25, 10, 31, tzinfo=zone))
+
+
+def test_scheduled_skip_message_says_when_the_run_started() -> None:
+    from zoneinfo import ZoneInfo
+
+    from news_agent.mailer.schedule import scheduled_skip_message
+
+    line = scheduled_skip_message(datetime(2026, 7, 25, 11, 42, tzinfo=ZoneInfo("America/New_York")))
+    assert line.startswith("Warning: scheduled send skipped")
+    assert "11:42 AM" in line and "8:00–10:30 AM" in line and "No briefing today." in line
 
 
 def test_quote_provider_fallback_uses_eodhd_after_tiingo_failure() -> None:

@@ -223,7 +223,7 @@ def test_scheduled_email_before_threshold_skips_pipeline(monkeypatch: pytest.Mon
 
     cli.main(["--send", "--to", "email", "--email-parity", "--scheduled", "--no-openai"])
 
-    assert "8:20–8:35 AM" in capsys.readouterr().out
+    assert "Warning: scheduled send skipped" in capsys.readouterr().out
 
 
 def test_scheduled_email_already_accepted_skips_pipeline(

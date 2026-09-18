@@ -14,7 +14,7 @@ from news_agent.formatting import FormatMode, FormatOptions, format_briefing_pre
 from news_agent.history import DEFAULT_HISTORY_PATH
 from news_agent.mailer.service import EmailService
 from news_agent.mailer.state import EmailStateStore
-from news_agent.mailer.schedule import scheduled_email_is_due
+from news_agent.mailer.schedule import scheduled_email_is_due, scheduled_skip_message
 from news_agent.mailer.settings import email_settings_from_env
 from news_agent.mailer import digest_publish, subscribers
 from news_agent.notifications.base import NotificationError
@@ -121,7 +121,7 @@ def _main(argv: list[str] | None = None) -> None:
     parser.add_argument(
         "--scheduled",
         action="store_true",
-        help="Apply the 8:15 AM local-time guard for a launchd-triggered email delivery.",
+        help="Send only if this run started inside the scheduled send window (8:00–10:30 AM BRIEFING_TIMEZONE); a late run skips the day and says so.",
     )
     parser.add_argument(
         "--format",
@@ -314,7 +314,7 @@ def _main(argv: list[str] | None = None) -> None:
     if args.channel:
         print("Warning: --channel is deprecated; use --to telegram for Telegram delivery.", file=sys.stderr)
     if args.scheduled and not scheduled_email_is_due():
-        print("Scheduled email skipped: it is outside the 8:20–8:35 AM BRIEFING_TIMEZONE retry window.")
+        print(scheduled_skip_message())
         return
     if args.scheduled and not EmailStateStore().scheduled_work_allowed():
         print("Scheduled NewsAgent work halted after Gate A failure; run --restart-after-gate-failure --confirm.")

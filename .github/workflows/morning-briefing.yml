@@ -6,6 +6,17 @@ on:
   # that triggers workflow_dispatch via the GitHub API at 8:20 AM ET.
   # GitHub Actions' built-in cron was removed because it routinely
   # delayed runs by 1–7+ hours on free-tier repos.
+  #
+  # The queue can still hold a run. --scheduled below makes a run that
+  # starts after the 10:30 AM ET cutoff skip the day and say so in the
+  # log ("Warning: scheduled send skipped ..."), rather than send a
+  # morning briefing at lunch.
+
+# A manual re-run must never overlap a scheduled run that the queue
+# released late: the two would build and send the same day's edition.
+concurrency:
+  group: morning-briefing
+  cancel-in-progress: false
 
 jobs:
   send-briefing:
@@ -32,7 +43,7 @@ jobs:
           restore-keys: |
             briefing-state-
 
-      - run: news-briefing --send --to email
+      - run: news-briefing --send --to email --scheduled
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
