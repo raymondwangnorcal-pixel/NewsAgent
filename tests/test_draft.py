@@ -242,6 +242,28 @@ def test_extractive_fallback_truncates_at_sentence_boundary_not_mid_sentence() -
     assert paragraph.rstrip().endswith((".", "!", "?"))
 
 
+def test_extractive_fallback_never_stops_on_an_abbreviation() -> None:
+    """A period after "Ms." is not a sentence boundary, so the trim must not
+    end the paragraph there and leave a dangling courtesy title."""
+    # Long enough that the 420-character cap falls inside the sentence that
+    # follows, between "Ms." and "Rachel".
+    opening = "Preschool music has become a real business. " + "Sales rose sharply again last year. " * 9
+    long_summary = (
+        opening
+        + "Children\u2019s entertainer Ms. Rachel is releasing an album aimed at her youngest listeners."
+        + " Real instruments are used."
+    )
+    article = make_article(title="Preschool music", summary=long_summary)
+    candidate = make_candidate(articles=[article])
+
+    results = draft_paragraphs([candidate], openai_mode="off")
+
+    paragraph = results[0].paragraph.rstrip()
+    assert len(paragraph) <= 420
+    assert not paragraph.endswith("Ms.")
+    assert paragraph.endswith((".", "!", "?"))
+
+
 def test_extractive_fallback_uses_title_when_no_article_has_a_summary() -> None:
     article = make_article(title="Breaking headline with no summary", summary="")
     candidate = make_candidate(title="Breaking headline with no summary", articles=[article])

@@ -15,7 +15,7 @@ from news_agent.formatting import FormattedMessage
 from news_agent.mailer import quotes, service as mailer_service, watchlist_news
 from news_agent.mailer.models import EmailSettings, EmailWatchlistEntry, RecipientOutcome
 from news_agent.mailer.quotes import EndOfDayQuote, EodhdQuoteProvider, TiingoQuoteProvider, expected_quote_close_date, fetch_quote_with_fallback, fetch_quotes_with_shared_deadline, is_regular_nyse_market_hours
-from news_agent.mailer.render import RenderedEmail, render_minimal_newsletter, render_parity_email, render_watchlist_section
+from news_agent.mailer.render import RenderedEmail, _extract_headline, render_minimal_newsletter, render_parity_email, render_watchlist_section
 from news_agent.mailer.settings import email_settings_from_env
 from news_agent.mailer.smtp import send_email
 from news_agent.mailer.state import EmailStateStore
@@ -1171,3 +1171,56 @@ def test_shared_watchlist_discovery_marks_unfinished_ticker_unavailable(monkeypa
 def test_cli_raises_on_total_email_delivery_failure() -> None:
     with pytest.raises(Exception, match="No Gmail recipient reached SMTP acceptance"):
         cli.accepted_email_count_or_raise([RecipientOutcome("to@example.com", "failed", "dns_failure")])
+
+
+def test_headline_split_keeps_a_courtesy_title_with_its_name() -> None:
+    """A period after "Ms." is an abbreviation, not the end of the headline."""
+    headline, body = _extract_headline(
+        "Children\u2019s entertainer Ms. Rachel is releasing an album aimed at her "
+        "youngest listeners. The project uses real instruments and live singing."
+    )
+    assert headline == (
+        "Children\u2019s entertainer Ms. Rachel is releasing an album aimed at her "
+        "youngest listeners."
+    )
+    assert body == "The project uses real instruments and live singing."
+
+
+@pytest.mark.parametrize(
+    ("text", "expected_headline"),
+    [
+        (
+            "The U.S. Senate voted to advance the bill on Thursday. Debate continues next week.",
+            "The U.S. Senate voted to advance the bill on Thursday.",
+        ),
+        (
+            "Robert F. Kennedy Jr. said the agency would revisit the guidance. Critics called it premature.",
+            "Robert F. Kennedy Jr. said the agency would revisit the guidance.",
+        ),
+        (
+            "Acme Corp. and Beta Inc. agreed to merge in an all-stock deal. They expect to close in June.",
+            "Acme Corp. and Beta Inc. agreed to merge in an all-stock deal.",
+        ),
+        (
+            "St. Louis officials approved the new transit line after debate. Construction starts in spring.",
+            "St. Louis officials approved the new transit line after debate.",
+        ),
+        (
+            "Trading opened at 9 a.m. Eastern and stayed volatile all session. Volume was heavy.",
+            "Trading opened at 9 a.m. Eastern and stayed volatile all session.",
+        ),
+    ],
+)
+def test_headline_split_ignores_abbreviations_acronyms_and_initials(text: str, expected_headline: str) -> None:
+    headline, body = _extract_headline(text)
+    assert headline == expected_headline
+    assert body and not body.startswith(expected_headline)
+
+
+def test_headline_split_still_breaks_at_an_ordinary_sentence_end() -> None:
+    headline, body = _extract_headline(
+        "Warren Buffett has stepped down as Berkshire Hathaway\u2019s chairman. "
+        "His son Howard Buffett will become chairman."
+    )
+    assert headline == "Warren Buffett has stepped down as Berkshire Hathaway\u2019s chairman."
+    assert body == "His son Howard Buffett will become chairman."

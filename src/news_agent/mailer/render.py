@@ -9,6 +9,7 @@ from zoneinfo import ZoneInfo
 
 from news_agent.formatting import FormattedMessage
 from news_agent.time import briefing_today
+from news_agent.sentences import ends_sentence
 from news_agent.mailer.quotes import EndOfDayQuote
 from news_agent.mailer.watchlist_news import WatchlistStory
 
@@ -68,7 +69,6 @@ CATEGORY_LABELS: dict[str, str] = {
 _SENTENCE_END_RE = re.compile(
     r"(?<=[a-zA-Z0-9,;\"\'\)\]’”%])\.\s+(?=[A-Z\"\'“‘(])"
 )
-
 
 @dataclass(frozen=True)
 class RenderedEmail:
@@ -405,10 +405,15 @@ def _render_story_card(block: str) -> str:
 def _extract_headline(text: str) -> tuple[str, str]:
     """Split *text* at the first robust sentence boundary into (headline, body).
 
+    Periods that close an abbreviation rather than a sentence are skipped, so
+    "Children's entertainer Ms. Rachel is ..." stays one headline.
+
     Returns the full text as headline with empty body when no clean split
     is found or the first sentence is unreasonably short (<20 chars).
     """
     for match in _SENTENCE_END_RE.finditer(text):
+        if not ends_sentence(text, match.start()):
+            continue
         dot_end = match.start() + 1  # include the period
         headline = text[:dot_end].strip()
         body = text[dot_end:].strip()

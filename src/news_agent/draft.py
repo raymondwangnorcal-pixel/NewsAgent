@@ -9,6 +9,7 @@ from typing import Any
 from news_agent.models import Article, BriefingParagraph, DraftingConfig, OpenAICostConfig
 from news_agent.openai_budget import OpenAIBudget, conservative_request_cost_usd
 from news_agent.openai_client import request_structured_response
+from news_agent.sentences import split_sentences
 
 
 DRAFT_BATCH_SIZE = 40
@@ -264,7 +265,6 @@ def _draft_paragraphs_llm(
 
 
 _WHITESPACE_RE = re.compile(r"\s+")
-_SENTENCE_END_RE = re.compile(r"(?<=[.!?])\s+")
 
 
 def _normalize_whitespace(text: str) -> str:
@@ -294,7 +294,7 @@ def _extractive_paragraph(candidate: DraftCandidate) -> str:
     if len(text) <= FALLBACK_PARAGRAPH_MAX_CHARS:
         return text
 
-    sentences = _SENTENCE_END_RE.split(text)
+    sentences = split_sentences(text)
     truncated = ""
     for sentence in sentences:
         candidate_text = f"{truncated} {sentence}".strip() if truncated else sentence
