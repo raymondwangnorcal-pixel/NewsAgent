@@ -223,3 +223,6 @@ __marimo__/
 
 # Project logs
 logs/
+
+# macOS
+.DS_Store
