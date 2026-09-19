@@ -1,0 +1,297 @@
+diff --git a/src/news_agent/draft.py b/src/news_agent/draft.py
+index 4737c5d..e6f8cc0 100644
+--- a/src/news_agent/draft.py
++++ b/src/news_agent/draft.py
+@@ -9,6 +9,7 @@ from typing import Any
+ from news_agent.models import Article, BriefingParagraph, DraftingConfig, OpenAICostConfig
+ from news_agent.openai_budget import OpenAIBudget, conservative_request_cost_usd
+ from news_agent.openai_client import request_structured_response
++from news_agent.sentences import split_sentences
+ 
+ 
+ DRAFT_BATCH_SIZE = 40
+@@ -264,7 +265,6 @@ def _draft_paragraphs_llm(
+ 
+ 
+ _WHITESPACE_RE = re.compile(r"\s+")
+-_SENTENCE_END_RE = re.compile(r"(?<=[.!?])\s+")
+ 
+ 
+ def _normalize_whitespace(text: str) -> str:
+@@ -294,7 +294,7 @@ def _extractive_paragraph(candidate: DraftCandidate) -> str:
+     if len(text) <= FALLBACK_PARAGRAPH_MAX_CHARS:
+         return text
+ 
+-    sentences = _SENTENCE_END_RE.split(text)
++    sentences = split_sentences(text)
+     truncated = ""
+     for sentence in sentences:
+         candidate_text = f"{truncated} {sentence}".strip() if truncated else sentence
+diff --git a/src/news_agent/mailer/render.py b/src/news_agent/mailer/render.py
+index f990f5b..512ed56 100644
+--- a/src/news_agent/mailer/render.py
++++ b/src/news_agent/mailer/render.py
+@@ -9,6 +9,7 @@ from zoneinfo import ZoneInfo
+ 
+ from news_agent.formatting import FormattedMessage
+ from news_agent.time import briefing_today
++from news_agent.sentences import ends_sentence
+ from news_agent.mailer.quotes import EndOfDayQuote
+ from news_agent.mailer.watchlist_news import WatchlistStory
+ 
+@@ -69,7 +70,6 @@ _SENTENCE_END_RE = re.compile(
+     r"(?<=[a-zA-Z0-9,;\"\'\)\]’”%])\.\s+(?=[A-Z\"\'“‘(])"
+ )
+ 
+-
+ @dataclass(frozen=True)
+ class RenderedEmail:
+     subject: str
+@@ -405,10 +405,15 @@ def _render_story_card(block: str) -> str:
+ def _extract_headline(text: str) -> tuple[str, str]:
+     """Split *text* at the first robust sentence boundary into (headline, body).
+ 
++    Periods that close an abbreviation rather than a sentence are skipped, so
++    "Children's entertainer Ms. Rachel is ..." stays one headline.
++
+     Returns the full text as headline with empty body when no clean split
+     is found or the first sentence is unreasonably short (<20 chars).
+     """
+     for match in _SENTENCE_END_RE.finditer(text):
++        if not ends_sentence(text, match.start()):
++            continue
+         dot_end = match.start() + 1  # include the period
+         headline = text[:dot_end].strip()
+         body = text[dot_end:].strip()
+diff --git a/src/news_agent/sentences.py b/src/news_agent/sentences.py
+new file mode 100644
+index 0000000..8fcdc29
+--- /dev/null
++++ b/src/news_agent/sentences.py
+@@ -0,0 +1,69 @@
++"""Sentence-boundary judgement shared by the drafter and the renderers.
++
++A period is not always the end of a sentence: courtesy titles ("Ms."), ranks,
++company suffixes ("Inc."), dotted acronyms ("U.S.", "a.m.") and middle initials
++all take one. The fallback paragraph trimmer and the headline splitter both
++need that judgement, and they need the *same* one, so it lives here rather than
++being spelled out twice with two abbreviation lists that drift apart.
++"""
++from __future__ import annotations
++
++import re
++
++# Tokens that take a trailing period without ending a sentence. Stored
++# lower-case and without the dot; compared against the word before the period.
++ABBREVIATIONS = frozenset(
++    {
++        "adm", "al", "approx", "assn", "atty", "ave", "blvd", "bros", "capt",
++        "cf", "cmdr", "co", "col", "corp", "dept", "det", "dist", "div", "dr",
++        "ed", "eds", "eg", "est", "etc", "fig", "ft", "gen", "gov", "hon",
++        "ie", "inc", "jr", "lt", "ltd", "maj", "messrs", "mr", "mrs", "ms",
++        "mt", "mx", "no", "pp", "pres", "prof", "rd", "rep", "rev", "sen",
++        "sgt", "sq", "sr", "st", "supt", "univ", "vol", "vs",
++    }
++)
++
++# The run of letters and dots immediately before a candidate sentence end.
++_TRAILING_TOKEN_RE = re.compile(r"[A-Za-z.]+$")
++
++# Whitespace following terminal punctuation: every *candidate* boundary.
++_BOUNDARY_RE = re.compile(r"(?<=[.!?])\s+")
++
++
++def ends_sentence(text: str, stop_index: int) -> bool:
++    """Whether the terminal punctuation at *stop_index* closes a sentence.
++
++    Only periods are ambiguous. A period is not a sentence end when it closes
++    an abbreviation ("Ms.", "Inc."), a dotted acronym ("U.S.", "a.m.") or a
++    middle initial ("Robert F. Kennedy").
++    """
++    if text[stop_index] != ".":
++        return True
++    token = _TRAILING_TOKEN_RE.search(text[:stop_index])
++    if token is None:
++        return True
++    word = token.group()
++    if "." in word:
++        return False
++    if len(word) == 1 and word.isupper():
++        return False
++    return word.lower() not in ABBREVIATIONS
++
++
++def split_sentences(text: str) -> list[str]:
++    """Split *text* into sentences, keeping abbreviations with their sentence.
++
++    The inverse of ``" ".join`` on the result is the original text up to the
++    whitespace runs that separated the sentences.
++    """
++    sentences: list[str] = []
++    start = 0
++    for match in _BOUNDARY_RE.finditer(text):
++        if not ends_sentence(text, match.start() - 1):
++            continue
++        sentences.append(text[start:match.start()])
++        start = match.end()
++    tail = text[start:]
++    if tail:
++        sentences.append(tail)
++    return sentences
+diff --git a/tests/test_draft.py b/tests/test_draft.py
+index f8f927d..872f01d 100644
+--- a/tests/test_draft.py
++++ b/tests/test_draft.py
+@@ -242,6 +242,28 @@ def test_extractive_fallback_truncates_at_sentence_boundary_not_mid_sentence() -
+     assert paragraph.rstrip().endswith((".", "!", "?"))
+ 
+ 
++def test_extractive_fallback_never_stops_on_an_abbreviation() -> None:
++    """A period after "Ms." is not a sentence boundary, so the trim must not
++    end the paragraph there and leave a dangling courtesy title."""
++    # Long enough that the 420-character cap falls inside the sentence that
++    # follows, between "Ms." and "Rachel".
++    opening = "Preschool music has become a real business. " + "Sales rose sharply again last year. " * 9
++    long_summary = (
++        opening
++        + "Children\u2019s entertainer Ms. Rachel is releasing an album aimed at her youngest listeners."
++        + " Real instruments are used."
++    )
++    article = make_article(title="Preschool music", summary=long_summary)
++    candidate = make_candidate(articles=[article])
++
++    results = draft_paragraphs([candidate], openai_mode="off")
++
++    paragraph = results[0].paragraph.rstrip()
++    assert len(paragraph) <= 420
++    assert not paragraph.endswith("Ms.")
++    assert paragraph.endswith((".", "!", "?"))
++
++
+ def test_extractive_fallback_uses_title_when_no_article_has_a_summary() -> None:
+     article = make_article(title="Breaking headline with no summary", summary="")
+     candidate = make_candidate(title="Breaking headline with no summary", articles=[article])
+diff --git a/tests/test_mailer.py b/tests/test_mailer.py
+index 07cfa08..34d739e 100644
+--- a/tests/test_mailer.py
++++ b/tests/test_mailer.py
+@@ -15,7 +15,7 @@ from news_agent.formatting import FormattedMessage
+ from news_agent.mailer import quotes, service as mailer_service, watchlist_news
+ from news_agent.mailer.models import EmailSettings, EmailWatchlistEntry, RecipientOutcome
+ from news_agent.mailer.quotes import EndOfDayQuote, EodhdQuoteProvider, TiingoQuoteProvider, expected_quote_close_date, fetch_quote_with_fallback, fetch_quotes_with_shared_deadline, is_regular_nyse_market_hours
+-from news_agent.mailer.render import RenderedEmail, render_minimal_newsletter, render_parity_email, render_watchlist_section
++from news_agent.mailer.render import RenderedEmail, _extract_headline, render_minimal_newsletter, render_parity_email, render_watchlist_section
+ from news_agent.mailer.settings import email_settings_from_env
+ from news_agent.mailer.smtp import send_email
+ from news_agent.mailer.state import EmailStateStore
+@@ -1171,3 +1171,56 @@ def test_shared_watchlist_discovery_marks_unfinished_ticker_unavailable(monkeypa
+ def test_cli_raises_on_total_email_delivery_failure() -> None:
+     with pytest.raises(Exception, match="No Gmail recipient reached SMTP acceptance"):
+         cli.accepted_email_count_or_raise([RecipientOutcome("to@example.com", "failed", "dns_failure")])
++
++
++def test_headline_split_keeps_a_courtesy_title_with_its_name() -> None:
++    """A period after "Ms." is an abbreviation, not the end of the headline."""
++    headline, body = _extract_headline(
++        "Children\u2019s entertainer Ms. Rachel is releasing an album aimed at her "
++        "youngest listeners. The project uses real instruments and live singing."
++    )
++    assert headline == (
++        "Children\u2019s entertainer Ms. Rachel is releasing an album aimed at her "
++        "youngest listeners."
++    )
++    assert body == "The project uses real instruments and live singing."
++
++
++@pytest.mark.parametrize(
++    ("text", "expected_headline"),
++    [
++        (
++            "The U.S. Senate voted to advance the bill on Thursday. Debate continues next week.",
++            "The U.S. Senate voted to advance the bill on Thursday.",
++        ),
++        (
++            "Robert F. Kennedy Jr. said the agency would revisit the guidance. Critics called it premature.",
++            "Robert F. Kennedy Jr. said the agency would revisit the guidance.",
++        ),
++        (
++            "Acme Corp. and Beta Inc. agreed to merge in an all-stock deal. They expect to close in June.",
++            "Acme Corp. and Beta Inc. agreed to merge in an all-stock deal.",
++        ),
++        (
++            "St. Louis officials approved the new transit line after debate. Construction starts in spring.",
++            "St. Louis officials approved the new transit line after debate.",
++        ),
++        (
++            "Trading opened at 9 a.m. Eastern and stayed volatile all session. Volume was heavy.",
++            "Trading opened at 9 a.m. Eastern and stayed volatile all session.",
++        ),
++    ],
++)
++def test_headline_split_ignores_abbreviations_acronyms_and_initials(text: str, expected_headline: str) -> None:
++    headline, body = _extract_headline(text)
++    assert headline == expected_headline
++    assert body and not body.startswith(expected_headline)
++
++
++def test_headline_split_still_breaks_at_an_ordinary_sentence_end() -> None:
++    headline, body = _extract_headline(
++        "Warren Buffett has stepped down as Berkshire Hathaway\u2019s chairman. "
++        "His son Howard Buffett will become chairman."
++    )
++    assert headline == "Warren Buffett has stepped down as Berkshire Hathaway\u2019s chairman."
++    assert body == "His son Howard Buffett will become chairman."
+diff --git a/tests/test_sentences.py b/tests/test_sentences.py
+new file mode 100644
+index 0000000..29335b1
+--- /dev/null
++++ b/tests/test_sentences.py
+@@ -0,0 +1,48 @@
++"""Sentence-boundary judgement shared by the drafter and the renderers."""
++from __future__ import annotations
++
++import pytest
++
++from news_agent.sentences import ends_sentence, split_sentences
++
++
++@pytest.mark.parametrize(
++    "text",
++    [
++        "Children’s entertainer Ms. Rachel is releasing an album.",
++        "The U.S. Senate voted to advance the bill.",
++        "Robert F. Kennedy Jr. said the agency would revisit the guidance.",
++        "Acme Corp. and Beta Inc. agreed to merge.",
++        "St. Louis officials approved the new transit line.",
++        "Trading opened at 9 a.m. Eastern and stayed volatile.",
++    ],
++)
++def test_abbreviations_acronyms_and_initials_stay_in_one_sentence(text: str) -> None:
++    assert split_sentences(text) == [text]
++
++
++def test_ordinary_sentences_still_split() -> None:
++    assert split_sentences("The board met. A vote followed. It passed.") == [
++        "The board met.",
++        "A vote followed.",
++        "It passed.",
++    ]
++
++
++def test_exclamation_and_question_marks_always_end_a_sentence() -> None:
++    assert split_sentences("Did the board meet? It did. What a day!") == [
++        "Did the board meet?",
++        "It did.",
++        "What a day!",
++    ]
++
++
++def test_split_preserves_every_word() -> None:
++    text = "Ms. Rachel sang. Mr. Aron played. The crowd left."
++    assert " ".join(split_sentences(text)) == text
++
++
++def test_ends_sentence_reads_the_punctuation_at_the_given_index() -> None:
++    text = "Ms. Rachel sang."
++    assert ends_sentence(text, text.index(".")) is False
++    assert ends_sentence(text, len(text) - 1) is True
